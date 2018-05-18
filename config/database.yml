@@ -25,9 +25,9 @@ test:
 production:
   adapter: mysql2
   encoding: utf8
-  username: wa088empfezh43he
-  password: dbv5zlr18fdpxzl3
+  username: ENV['DATABASE_USERNAME']
+  password: ENV['DATABASE_PASSWORD']
   port: 3306
-  database: beogb48sxmsxljf0
+  database: ENV['DATABASE_DATABASE_URL']
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000

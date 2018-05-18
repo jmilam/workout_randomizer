@@ -42,8 +42,11 @@
 			<div class="card-footer text-center">
 				<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id) %>
 			</div>
-			<% group.exercises.each do |exercise| %>
-				<li class="list-group-item"><%= link_to exercise.name, edit_exercise_path(exercise.id) %></li>
+			<% group.exercises.group_by(&:super_set_id).each_with_index do |exercise_group, ex_group_idx| %>
+				<% bg_color = Category.style_tags.to_a.sample[1]['border'] %>
+				<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
+					<li class="list-group-item <%= bg_color %>"><%= link_to exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
+				<% end %>
 			<% end %>
 		<% end %>
 	</ul>

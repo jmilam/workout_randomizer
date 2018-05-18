@@ -1,0 +1,21 @@
+<%= form_for @category, url: category_path(@category.id), method: :patch do |f| %>
+  <div class="row">
+	  <div class="col-md-12 col-sm-12 form-group">
+	    <%= f.label :name, class: 'col-md-12' %>
+	    <%= f.text_field :name, class: 'col-md-12 form-control' %>
+	  </div>
+  </div>
+
+  <div class="row">
+	  <div class="col-md-12 col-sm-12 form-group">
+	    <%= f.label :tag, class: 'col-md-12' %>
+	    <%= f.select :tag, Category.style_tags.collect { |category| [category[0], category[1]['background-color'], class: "#{category[1]['background-color']} #{category[1]['text-color']}"] }, { placeholder: "--- Please select a tag for your category ---"}, { class: 'col-md-12 form-control' } %>
+	  </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+  	 <%= f.submit "Update Category", class: 'btn btn-info pull-right' %>
+    </div>
+  </div>
+<% end %>

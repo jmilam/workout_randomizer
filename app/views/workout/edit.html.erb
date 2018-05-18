@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-header text-center bg-info">
+    <%= @workout.name %>
+  </div>
+  <div class="card-body">
+    <div class="row">
+	    <div class="col-md-12 col-sm-12">
+	      <b><i>Workout Frequency:</i></b> <%= @workout.frequency %>
+	    </div>
+	  </div>
+
+	  <div class="row">
+	    <div class="col-md-12 col-sm-12 form-group">
+	      <b><i>Workout Category:</i></b> <%= @workout.category.name %>
+	    </div>
+	  </div>
+
+	  <div class="row">
+	    <div class="col-md-12 col-sm-12 form-group">
+	      <b><i>Workout Cycle Weeks:</i></b> <%= @workout.duration %>
+	    </div>
+	  </div>
+  </div>
+
+  <div class="card-footer text-center">
+    <%= link_to "Edit Workout", workout_path(@workout.id) %>
+  </div>
+
+   
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item"></li>
+		<li class="list-group-item text-center bg-info">
+			<div class="col-md-12 col-sm-12">
+				Workout Groups - <%= link_to "Create New Group", new_workout_group_path(workout_id: @workout.id), class: "text-white" %>
+			</div>
+		</li>
+
+		<% @workout_groups.each do |group| %>
+			<li class="list-group-item text-center bg-dark text-white">Workout</li>
+			<li class="list-group-item text-center border-warning"><%= link_to group.name, edit_workout_group_path(group.id) %></li>
+			<div class="card-header text-center bg-dark text-white">Exercises</div>
+			<div class="card-footer text-center">
+				<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id) %>
+			</div>
+			<% group.exercises.each do |exercise| %>
+				<li class="list-group-item"><%= link_to exercise.name, edit_exercise_path(exercise.id) %></li>
+			<% end %>
+		<% end %>
+	</ul>
+</div>

@@ -1,0 +1,56 @@
+<%= form_for @exercise, url: exercise_path(@exercise.id), method: :patch do |f| %>
+	 <div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+      <%= f.label :name, class: 'col-md-12' %>
+      <%= f.text_field :name, class: 'col-md-12 form-control' %>
+    </div>
+   </div>
+
+   <div class="row">
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :description, class: 'col-md-12' %>
+      <%= f.text_area :description, height:30, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :instructions, class: 'col-md-12' %>
+      <%= f.text_area :instructions, height:30, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2 col-sm-12 form-group">
+      <%= f.label :warm_up, "Warm Up?", class: 'col-md-12' %>
+      <%= f.check_box :warm_up, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-10 col-sm-12 form-group">
+      <%= f.label :warm_up_details, class: 'col-md-12' %>
+      <%= f.text_field :warm_up_details, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+  	<div class="col-md-3 col-sm-12 form-group">
+      <%= f.label :example, "Upload Example video", class: 'col-md-12' %>
+      <%= f.file_field :example, class: 'col-md-12' %>
+    </div>
+    <div class="col-md-4 col-sm-12 form-group">
+      <%= f.label :set_count, "How Many Sets?", class: 'col-md-12' %>
+      <%= f.select :set_count, (1..10).to_a.collect {|set| [ set, set ] }, { prompt: "--- Select How Many Sets for this exercise ---" }, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-5 col-sm-12 form-group">
+      <%= f.label :rep_range, "How Many Reps per set?", class: 'col-md-12' %>
+      <%= f.text_field :rep_range, placeholder: "10-12", class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+      <%= f.label :super_set_id, "Superset exercise with?", class: 'col-md-12' %>
+      <%= f.select :super_set_id, options_for_select(@workout_group.exercises.collect { |exercise| [exercise.name, exercise.id] }, @superset_exercise), { prompt: "--- Select An exercise you want to superset with if you want ---" }, { class: 'col-md-12 form-control' }  %>
+    </div>
+  </div>
+
+  <div class="row">
+  	<%= f.submit "Edit Exercise", class: 'btn btn-info pull-right' %>
+  </div>
+<% end %>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Workout Randomizer</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div style="margin-top:100px;">
+      <div class="container">
+        <% unless notice.nil? %>
+      	  <p class="notice alert alert-primary alert-dismissible fade show">
+            <%= notice %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>    
+          </p>
+        <% end %>
+
+        <% unless alert.nil? %>
+          <p class="alert alert-danger alert-dismissible fade show" role="alert"">
+            <%= alert %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </p>
+        <% end %>
+      </div>
+
+      <div class="container">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

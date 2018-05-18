@@ -1,0 +1,21 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col" class="text-center">Tag</th>
+      <th scope="col" class="text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+		<% @categories.each do |category| %>
+			<tr>
+	      <th scope="row"><%= category.name %></th>
+	      <td class="<%= Category.style_tags[category.tag]['background-color'] %>"></td>
+	      <td class="text-center"><%= link_to "Edit", edit_category_path(category.id) %></td>
+	    </tr>
+		<% end %> 
+		<tr>
+			<td scope="col" colspan="3" class="text-right"><%= link_to "Add a new Category...", new_category_path %></td>
+		</tr>
+  </tbody>
+</table>

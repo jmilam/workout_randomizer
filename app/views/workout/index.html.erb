@@ -1,0 +1,121 @@
+<% if @workout.nil? %>
+	<div class="jumbotron">
+		<h1 class="display-4">There are no Workouts for you!</h1>
+		<p class="lead">Check with your gym and see if they have set the workouts up!</p>
+	</div>
+<% else %>
+	<% if @user.current_workout.nil? %>
+		<div class="row">
+			<div class="col-md-9 text-muted">Your next workout, if you choose to accept it. Below is an overview of each workout and it's exercises.</div>
+		  <div class="col-md-3 text-right">
+				<div class="btn-group" role="group">
+					<%= button_to "Yes", accept_deny_workout_path(accept: true, workout_id: @workout.id), remote: true, class: 'btn btn-secondary btn-sm btn-success' %><%= button_to "No", accept_deny_workout_path(deny: true, workout_id: @workout.id), class: 'btn btn-secondary btn-sm btn-danger' %>
+				</div>
+			</div>
+		</div>
+	<% elsif !@already_worked_out %>
+		<div class="row">
+			<div class="col-md-8">Keep pushing!</div>
+		</div>
+	<% end %>
+
+
+	<% if @already_worked_out %>
+		<div class="jumbotron">
+			<h1 class="display-4">Awesome Workout Today!</h1>
+			<p class="lead">Come back tomorrow and get some more. Keep it up and the results will come!</p>
+		</div>
+	<% else %>
+		<%= form_for :exercises, url: create_workout_detail_path, method: :post do |f| %>
+			<div class="card">
+			  <div class="card-body <%= Category.style_tags[@workout.category.tag]['background-color'] %>">
+			  	<div class="text-center">
+				  	<p>
+				  		<h2><%= @workout.name %></h2>
+				  		<i class="text-warning"><%= @workout.category.name %></i>
+				  	</p>
+						<p><h5><%= @workout.frequency %> days per week</h5></p>
+						<p><%= @workout.duration %> week workout cycle</p>
+					</div>
+					<% if @user.current_workout == @workout.id %>
+						<div class="text-right">
+							<p><%= f.submit "Log It", class: 'btn btn-sm btn-success' %></p>
+						</div>
+					<% end %>
+			  </div>
+			</div>
+
+			<div style="overflow:auto;">
+			<table class="table table-borderless">
+				<thead class="thead-light">
+			    <tr>
+			      <th scope="col">Name</th>
+			      <th scope="col">Rep #</th>
+			      <th scope="col">Set Count</th>
+			      <th scope="col">Warm Up</th>
+			      <th scope="col">Warm Up Details</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	<% if @user.current_workout.nil? %>
+			  		<% @workout.workout_groups.each do |group| %>
+			  			<tr>
+			  				<th scope="col" colspan="<%= 3 + @workout.frequency %>" class="text-center bg-success"><%= group.name %></th>
+			  			</tr>
+			  			<% @workout_group.exercises.each do |exercise| %>
+					    <tr>
+					      <th scope="row"><%= exercise.name %></th>
+					      <td><%= exercise.warm_up %></td>
+					      <td><%= exercise.warm_up_details %></td>
+					      <%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
+					      	<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
+					      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone.strftime("%m/%d/%y")}" %>
+						      <% 1.upto(@workout.frequency) do |num| %>
+						      	<td>
+						      		<% if @user.current_workout == @workout.id %>
+						      			<%= workout_detail.text_field "rep_#{num}_weight", size: 3 %>
+						      		<% end %>
+						      	</td>
+						      <% end %>
+						    <% end %>
+					    </tr>
+					  <% end %>
+			  		<% end %>
+			  	<% else %>
+				  	<% @workout_group.exercises.each do |exercise| %>
+					    <tr>
+					      <th scope="row"><%= exercise.name %></th>
+					      <td><%= exercise.rep_range %></td>
+					      <td><%= exercise.set_count %></td>
+					      <td><%= exercise.warm_up %></td>
+					      <td><%= exercise.warm_up_details %></td>
+					    </tr>
+					    	<tr>
+					    		<td />
+						    	<% 1.upto(@workout.exercises.pluck(:set_count).max) do |num| %>
+						      	<td><i>Rep <%= num %></i></td>
+						      <% end %>
+						    </tr>
+					      <tr>
+					      <%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
+					      	<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
+					      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone.strftime("%m/%d/%y")}" %>
+					      	<td />
+						      <% 1.upto(@workout.exercises.pluck(:set_count).max) do |num| %>
+						      	<td>
+						      		<% if @user.current_workout == @workout.id %>
+						      			<%= workout_detail.text_field "rep_#{num}_weight", size: 3 %>
+						      		<% end %>
+						      	</td>
+						      <% end %>
+						    <% end %>
+						  </tr>
+					    </tr>
+					  <% end %>
+					<% end %>
+				</tbody>
+			</table>
+		</tr>
+		<% end %>
+	<% end %>
+<% end %>

@@ -1,0 +1,32 @@
+<% @workouts.each do |prev_workout| %>
+	<% prev_workout.workout.workout_details.sort_by(&:workout_date).group_by(&:workout_date).each do |workout_group| %>
+	  <table class="table table-hover">
+		  <thead>
+		  	<tr>
+		  		<th scope="col" colspan="6" class="text-center table-warning"><%= prev_workout.workout.name %> - <i><%= workout_group[0] %></i></th>
+		  	</tr>  
+		    <tr>
+		      <th scope="col">Exercise</th>
+		      <th scope="col">Rep 1</th>
+		      <th scope="col">Rep 2</th>
+		      <th scope="col">Rep 3</th>
+		      <th scope="col">Rep 4</th>
+		      <th scope="col">Rep 5</th>
+		    </tr>
+		  </thead>
+	  
+		  <tbody>
+				<% workout_group[1].each do |details| %>
+					<tr>
+					  <td sope="row"><%= details.exercise.name %></th>
+						<td><%= details.rep_1_weight %></td>
+						<td><%= details.rep_2_weight %></td>
+						<td><%= details.rep_3_weight %></td>
+						<td><%= details.rep_4_weight %></td>
+						<td><%= details.rep_5_weight %></td>
+					</td>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
+<% end %>

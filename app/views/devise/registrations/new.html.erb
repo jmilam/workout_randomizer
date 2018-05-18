@@ -1,0 +1,70 @@
+<%= form_for @user, url: user_registration_path do |f| %>
+  <div class="row">
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :first_name, class: 'col-md-12' %>
+      <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :last_name, class: 'col-md-12' %>
+      <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :height, 'Height (inches)', class: 'col-md-12' %>
+      <%= f.text_field :height, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :weight, class: 'col-md-5' %>
+      <%= f.text_field :weight, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :username, class: 'col-md-12' %>
+      <%= f.text_field :username, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :password, class: 'col-md-12' %>
+      <%= f.password_field :password, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :email, class: 'col-md-12' %>
+      <%= f.text_field :email, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :phone_number, class: 'col-md-12' %>
+      <%= f.text_field :phone_number, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+      <%= f.label :regularity_id, class: 'col-md-12' %>
+      <%= f.select :regularity_id, options_for_select(@regularity), { prompt: "How often do you workout?" }, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+      <%= f.label :goal_id, class: 'col-md-12' %>
+      <%= f.select :goal_id, options_for_select(@goals), { prompt: "Select Goal" }, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+      <%= f.label :gym_id, class: 'col-md-12' %>
+      <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= f.submit "Create User", class: "btn btn-outline-primary btn-lg btn-block" %>
+  </div>
+<% end %>

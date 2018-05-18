@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-header">
+  	<div class="row">
+    	<div class="col-md-9 col-sm-12"><h4><%= @user.first_name %>'s Information</h4></div>
+    	<div class="col-md-3 col-sm-12"><%= link_to "Workout History", workout_history_path %></div>
+    </div>
+    <%= link_to "Suggested Workout", workout_index_path unless @already_worked_out %>
+    
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+      	<p><b>Weight:</b> <%= @user.weight %> lbs.</p>
+      	<p><b>Height:</b> <%= @height[0] %>' <%= @height[1] %>"</p>
+    	 <p><div style="color:<%= @bmi_status %>">BMI: <%= @bmi %></div></p>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <p><b>Workout Regularity:</b> <%= User.regularities["#{@user.regularity_id}week"] %></p>
+        <p><b>Workout Goal:</b> <%= User.goals["#{@user.goal_id}"] %></p>
+        <p><b>Current Gym:</b> <%= @user.gym.name %></p>
+        <p><b>Current Workout:</b> <% unless @user.current_workout.nil? %><%= @workout.name %> - <%= link_to "Change Workout", stop_workout_path, method: :patch, class: "btn btn btn-danger btn-sm" %><% end %></p>
+      </div>
+    </div>
+  </div>
+</div>

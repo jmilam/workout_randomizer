@@ -5,9 +5,10 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: mysql2
-  encoding: utf8
-  username: root
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV['PG_USERNAME'] %>
+  password: <%= ENV['PG_PASSWORD'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -23,11 +24,10 @@ test:
   database: workout_test
 
 production:
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
-  username: <%= ENV['JAWSDB_USERNAME'] %>
-  password: <%= ENV['JAWSDB_PASSWORD'] %>
-  port: 3306
-  database: <%= ENV['JAWSDB_URL'] %>
+  database: workout_production
+  username: <%= ENV['PG_USERNAME'] %>
+  password: <%= ENV['PG_PASSWORD'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000

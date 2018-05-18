@@ -23,5 +23,11 @@ test:
   database: workout_test
 
 production:
-  <<: *default
-  database: workout_production
+  adapter: mysql2
+  encoding: utf8
+  username: wa088empfezh43he
+  password: dbv5zlr18fdpxzl3
+  port: 3306
+  database: beogb48sxmsxljf0
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000

@@ -7,7 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     @user = User.new
-    @regularity = User.regularites
+    @regularity = User.regularities
     @goals = User.goals
     @gyms = Gym.all
 

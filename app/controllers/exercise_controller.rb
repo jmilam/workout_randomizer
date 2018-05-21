@@ -39,7 +39,7 @@ class ExerciseController < ApplicationController
 
 	def update
 		@exercise = Exercise.find(params[:id])
-		@superset_exercise = Exercise.find(params[:exercise][:super_set_id])
+		@superset_exercise = Exercise.find(params[:exercise][:super_set_id]) unless params[:exercise][:super_set_id].blank?
 
 		begin
 			unless params[:exercise][:super_set_id].nil?

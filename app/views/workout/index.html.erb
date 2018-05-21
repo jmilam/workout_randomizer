@@ -100,7 +100,7 @@
 						    </tr>
 					    	<tr>
 					    		<td />
-						    	<% 1.upto(@workout.exercises.pluck(:set_count).max) do |num| %>
+						    	<% 1.upto(exercise.set_count) do |num| %>
 						      	<td><i>Rep <%= num %></i></td>
 						      <% end %>
 						    </tr>

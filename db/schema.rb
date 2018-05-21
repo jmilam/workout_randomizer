@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180518151508) do
+ActiveRecord::Schema.define(version: 20180521141426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20180518151508) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "tag", default: 1
+    t.integer "goal_id"
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -56,11 +57,16 @@ ActiveRecord::Schema.define(version: 20180518151508) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "task_records", id: false, force: :cascade do |t|
+    t.string "version", null: false
+  end
+
   create_table "user_previous_workouts", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "workout_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "workout_group_id"
+    t.date "workout_date"
   end
 
   create_table "users", force: :cascade do |t|
@@ -100,8 +106,9 @@ ActiveRecord::Schema.define(version: 20180518151508) do
     t.float "rep_6_weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "workout_date", default: "05/18/18"
-    t.integer "workout_id"
+    t.integer "workout_group_id"
+    t.date "workout_date"
+    t.integer "user_id"
   end
 
   create_table "workout_groups", force: :cascade do |t|

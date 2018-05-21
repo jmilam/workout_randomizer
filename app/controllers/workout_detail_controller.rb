@@ -9,13 +9,17 @@ class WorkoutDetailController < ApplicationController
 		WorkoutDetail.transaction do
 			begin
 				workout = Workout.find(current_user.current_workout)
+				workout_date = Date.today.in_time_zone
 				params[:exercises][:workout_detail].each do |details|
-					workout.workout_details.create!(details.permit!)
-
-					if current_user.user_previous_workouts.where(workout_id: current_user.current_workout).empty?
-						current_user.user_previous_workouts.create!(workout_id: current_user.current_workout)
+					unless details['rep_1_weight'].blank?
+						workout_details = current_user.workout_details.create!(details.permit!)	
+						workout_details.update(user_id: current_user.id)						
 					end
 				end
+
+				current_user.user_previous_workouts.create!(workout_group_id: current_user.workout_details.last.exercise.workout_group_id,
+																										workout_date: workout_date)
+
 			rescue StandardError => error
 				flash[:alert] = "There was an error when saving Workout Details #{error}"
 			ensure
@@ -29,6 +33,6 @@ class WorkoutDetailController < ApplicationController
 
 	def detail_params
 		params.require(:exercises).permit(:exercise_id, :rep_1_weight, :rep_2_weight, :rep_3_weight, :rep_4_weight, :rep_5_weight,
-                                 :rep_6_weight)
+                                 :rep_6_weight, :workout_date)
 	end
 end

@@ -1,6 +1,8 @@
 class Category < ApplicationRecord
 	has_many :workouts
 
+	validates :name, presence: true
+
 	enum style_tags: { 1 => { "background-color" => "bg-light", "border" => "border-light", "text-color" => "text-light" },
 										 2 => { "background-color" => "bg-info", "border" => "border-info", "text-color" => "text-info"},
 										 3 => { "background-color" => "bg-success", "border" => "border-success", "text-color" => "text-success"},

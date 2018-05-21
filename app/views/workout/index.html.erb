@@ -3,6 +3,11 @@
 		<h1 class="display-4">There are no Workouts for you!</h1>
 		<p class="lead">Check with your gym and see if they have set the workouts up!</p>
 	</div>
+<% elsif  @workout_group.nil? %>
+	<div class="jumbotron">
+		<h1 class="display-4">There are no Workouts for you!</h1>
+		<p class="lead">Awesome job this week. You have completed all workouts for this program for the week. Rest and let your body do what it was made to do....evolve!</p>
+	</div>
 <% else %>
 	<% if @user.current_workout.nil? %>
 		<div class="row">
@@ -69,7 +74,8 @@
 					      <td><%= exercise.warm_up_details %></td>
 					      <%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
 					      	<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-					      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone.strftime("%m/%d/%y")}" %>
+					      	<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
+					      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
 						      <% 1.upto(@workout.frequency) do |num| %>
 						      	<td>
 						      		<% if @user.current_workout == @workout.id %>
@@ -99,7 +105,8 @@
 					      <tr>
 					      <%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
 					      	<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-					      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone.strftime("%m/%d/%y")}" %>
+					      	<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
+					      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
 					      	<td />
 						      <% 1.upto(@workout.exercises.pluck(:set_count).max) do |num| %>
 						      	<td>

@@ -19,7 +19,7 @@ class CategoryController < ApplicationController
 
 		rescue ActiveRecord::RecordInvalid => error
 			flash[:alert] = "There was an error when updating your category: #{error}"
-			render :edit, id: @category.id
+			render :new
 		end
 	end
 
@@ -45,6 +45,6 @@ class CategoryController < ApplicationController
 	protected
 
 	def category_params
-		params.require(:category).permit(:name, :tag)
+		params.require(:category).permit(:name, :tag, :goal_id)
 	end
 end

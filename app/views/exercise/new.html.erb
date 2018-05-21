@@ -52,7 +52,7 @@
   <div class="row">
     <div class="col-md-12 col-sm-12 form-group">
       <%= f.label :super_set_id, "Superset exercise with?", class: 'col-md-12' %>
-      <%= f.select :super_set_id, @workout_group.exercises.where('super_set_id = ?', nil).collect { |exercise| [exercise.name, exercise.id] }, { prompt: "--- Select An exercise you want to superset with if you want ---" }, { class: 'col-md-12 form-control'}  %>
+      <%=  f.select :super_set_id, options_for_select(@workout_group.exercises.collect { |exercise| [exercise.name, exercise.id] }, @superset_exercise), { prompt: "--- Select An exercise you want to superset with if you want ---" }, { class: 'col-md-12 form-control' }  %>
     </div>
   </div>
 

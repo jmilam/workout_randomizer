@@ -8,8 +8,8 @@ class ProfileController < ApplicationController
 
     unless current_user.current_workout.nil?
       @workout = Workout.find(current_user.current_workout)
-  		@already_worked_out = !@workout.workout_details
-  																	 .where(workout_date: Date.today.in_time_zone.strftime("%m/%d/%y"))
+  		@already_worked_out = !@user.user_previous_workouts
+  																	 .where(workout_date: Date.today.in_time_zone)
   																	 .empty?
     end
 

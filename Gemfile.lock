@@ -40,6 +40,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    after_party (1.10.0)
     arel (8.0.0)
     ast (2.4.0)
     autoprefixer-rails (8.4.1)
@@ -237,6 +238,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  after_party
   bootstrap (~> 4.1.1)
   byebug
   capybara (~> 2.13)

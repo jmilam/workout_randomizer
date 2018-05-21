@@ -1,7 +1,6 @@
 class Workout < ApplicationRecord
 	has_many :workout_groups
 	has_many :exercises, through: :workout_groups
-	has_many :workout_details
 
 	belongs_to :category
 	belongs_to :gym
@@ -10,7 +9,10 @@ class Workout < ApplicationRecord
 
 	def self.valid_workout_with_workout_groups(user)
 		begin
-			workout = user.gym.workouts.includes(:exercises).sample
+			workout = user.gym.workouts.includes(:exercises)
+																 .joins(:category)
+																 .where(categories: {goal_id: user.goal_id })
+																 .sample
 
 			if workout.workout_groups.empty?
 				raise "Not Workout Groups setup for this workout!"

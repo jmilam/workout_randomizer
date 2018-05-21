@@ -1,9 +1,13 @@
 <% @workouts.each do |prev_workout| %>
-	<% prev_workout.workout.workout_details.sort_by(&:workout_date).group_by(&:workout_date).each do |workout_group| %>
+	<% prev_workout.workout_group.workout_details.sort_by(&:workout_date).group_by(&:workout_date).each do |workout_group| %>
 	  <table class="table table-hover">
 		  <thead>
 		  	<tr>
-		  		<th scope="col" colspan="6" class="text-center table-warning"><%= prev_workout.workout.name %> - <i><%= workout_group[0] %></i></th>
+		  		<th scope="col" colspan="6" class="text-center table-warning">
+		  			<%= prev_workout.workout_group.workout.name %>
+		  			<div class="text-muted">(<%=prev_workout.workout_group.name %>)</div>
+		  			<i><%= workout_group[0].strftime('%m/%d/%y') %></i>
+		  		</th>
 		  	</tr>  
 		    <tr>
 		      <th scope="col">Exercise</th>

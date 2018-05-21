@@ -110,7 +110,7 @@
 						      	<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
 						      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
 						      	<td />
-							      <% 1.upto(@workout.exercises.pluck(:set_count).max) do |num| %>
+							      <% 1.upto(exercise.set_count) do |num| %>
 							      	<td>
 							      		<% if @user.current_workout == @workout.id %>
 							      			<%= workout_detail.text_field "rep_#{num}_weight", size: 3 %>

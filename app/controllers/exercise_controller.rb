@@ -42,7 +42,7 @@ class ExerciseController < ApplicationController
 		@superset_exercise = Exercise.find(params[:exercise][:super_set_id]) unless params[:exercise][:super_set_id].blank?
 
 		begin
-			unless params[:exercise][:super_set_id].nil?
+			unless params[:exercise][:super_set_id].blank?
 				super_set = SuperSet.create_or_update(@exercise, params[:exercise][:super_set_id])
 
 				Exercise.transaction do 

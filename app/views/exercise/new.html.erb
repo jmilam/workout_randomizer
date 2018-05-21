@@ -41,7 +41,7 @@
     </div>
     <div class="col-md-4 col-sm-12 form-group">
       <%= f.label :set_count, "How Many Sets?", class: 'col-md-12' %>
-      <%= f.select :set_count, (1..10).to_a.collect {|set| [ set, set ] }, { prompt: "--- Select How Many Sets for this exercise ---" }, class: 'col-md-12 form-control' %>
+      <%= f.select :set_count, (1..6).to_a.collect {|set| [ set, set ] }, { prompt: "--- Select How Many Sets for this exercise ---" }, class: 'col-md-12 form-control' %>
     </div>
   	<div class="col-md-5 col-sm-12 form-group">
       <%= f.label :rep_range, "How Many Reps per set?", class: 'col-md-12' %>

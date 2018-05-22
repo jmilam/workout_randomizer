@@ -22,13 +22,13 @@
 		  <tbody>
 				<% workout_group[1].each do |details| %>
 					<tr>
-					  <td sope="row"><%= details.exercise.name %></th>
+					  <th sope="row"><%= details.exercise.name %></th>
 						<td><%= details.rep_1_weight %></td>
 						<td><%= details.rep_2_weight %></td>
 						<td><%= details.rep_3_weight %></td>
 						<td><%= details.rep_4_weight %></td>
 						<td><%= details.rep_5_weight %></td>
-					</td>
+					</tr>
 				<% end %>
 			</tbody>
 		</table>

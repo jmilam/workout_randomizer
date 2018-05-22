@@ -51,30 +51,31 @@
   </body>
   <script>
     $('.rep_input').on('focusout', function(e){
-      let rep_total = $(this).first().parents('tr').children('td.rep').length
+      let rep_total = $(this).parents('.row').children().length
       let tally_count = 0
 
-      $(this).first().parents('tr').children('td.rep').each(function(index){
+      $(this).parents('.row').children().each(function(index){
        if ($(this).children().val() !== '') {
          tally_count++;
        }
       });
 
-      if ($(this).first().parents('tr').prop('complete')) {
+      if ($(this).parents('.row').children().prop('complete')) {
       } else {
         if (rep_total === tally_count) {
-          if ($(this).first().parents('tr').prop('complete') === true) {
+          console.log
+          if ($(this).parents('.row').attr('complete') === 'true') {
 
           } else {
             let regex = RegExp(/\d+/i);
-            let header = $(this).first().parents('.card').children('.card-header').children().children('.exercise-counter').text();
+            let header = $(this).parents('.card').children('.card-header').children().children('.exercise-counter').text();
 
             let count = regex.exec(header);
             count++;
 
-            $(this).first().parents('.card').children('.card-header').children().children('.exercise-counter').text(header.replace(regex, count.toString()));
+            $(this).parents('.card').children('.card-header').children().children('.exercise-counter').text(header.replace(regex, count.toString()));
 
-            $(this).first().parents('tr').prop('complete', true);
+            $(this).parents('.row').attr('complete', 'true');
           }
 
         }

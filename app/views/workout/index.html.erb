@@ -80,72 +80,58 @@
 				<div id="accordion">
 					<% @workout_group.exercises.group_by(&:super_set_id).each_with_index do |exercise_group, ex_group_idx| %>
 			  		<% bg_color = Category.style_tags.to_a.sample[1] %>
-
 			  		<div class="card">
-					    <div class="card-header <%= bg_color['border'] %>" id="headingOne">
+					    <div class="card-header <%= bg_color['border'] %>" id="heading<%= ex_group_idx %>">
 					      <h5 class="mb-0 row">
 					      	<div style="overflow:auto;" class="col-md-9">
 						        <a class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= ex_group_idx %>" aria-expanded="true" aria-controls="collapse<%= ex_group_idx %>">
 						          <%= exercise_group[1].collect { |ex| ex.name }.join('/') %>
 						        </a>
 						      </div>
-						      <div class="col-md-3 exercise-counter">0 of <%= exercise_group.count %> complete</div>
+						      <div class="col-md-3 exercise-counter text-right">0 of <%= exercise_group.count %> complete</div>
 					      </h5>
 					    </div>
-					    <div id="collapse<%= ex_group_idx %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-					      <div class="card-body">
-					      	<div style="overflow:auto;">
-						      	<table class="table table-borderless">
-											<thead class="<%= bg_color['thead-color'] %>">
-										    <tr>
-										      <th scope="col">Name</th>
-										      <th scope="col">Rep #</th>
-										      <th scope="col">Set Count</th>
-										      <th scope="col">Warm Up</th>
-										      <th scope="col">Warm Up Details</th>
-										      <th />
-										      <th />
-										    </tr>
-										  </thead>
-										  <tbody>
-									  		<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
-									  			<tr>
-										  			<th scope="row"><%= exercise.name %></th>
-										        <td><%= exercise.rep_range %></td>
-											      <td><%= exercise.set_count %></td>
-											      <td><%= exercise.warm_up %></td>
-											      <td><%= exercise.warm_up_details %></td>
-											    </tr>
-													<tr>
-										    		<td />
-											    	<% 1.upto(exercise.set_count) do |num| %>
-											      	<td><i>Rep <%= num %></i></td>
-											      <% end %>
-											    </tr>
-										      <tr style="border-bottom: 1px solid black">
-											      <%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
-											      	<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-											      	<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
-											      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
-											      	<td />
-												      <% 1.upto(exercise.set_count) do |num| %>
-												      	<td class="rep">
-												      		<% if @user.current_workout == @workout.id %>
-												      			<%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input" %>
-												      		<% end %>
-												      	</td>
-												      <% end %>
-												    <% end %>
-												    <td/>
-												  </tr>
-												<% end %>
-											</tbody>
-										</table>	
-									</div>
+					    <div id="collapse<%= ex_group_idx %>" class="collapse" aria-labelledby="heading<%= ex_group_idx %>" data-parent="#accordion">
+					      <div class="card-body <%= bg_color['background-color'] %>">
+						  		<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
+						  			<div class="row" style="height:5%;border-bottom:1px solid black;">
+						      		<div class="col-md-6 col-sm-6 col-6" style="margin-top:10px;">
+						      			<%= exercise.name %>
+						      		</div>
+						      		<div class="col-md-3 col-sm-3 col-3" style="margin-top:10px;">
+						      			<%= exercise.set_count %> Sets
+						      		</div>
+						      		<div class="col-md-3 col-sm-3 col-3" style="margin-top:10px;">
+						      			<%= exercise.rep_range %> Reps
+						      		</div>
+						      	</div>
+
+						      	<div class="row" style="padding-top:30px;">
+											<% 1.upto(exercise.set_count) do |num| %>
+												<% col_space = 12 / exercise.set_count %>
+								      	<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %>">Rep <%= num %></i></div>
+								      <% end %>
+								    </div>
+
+								    <%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
+							      	<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
+							      	<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
+							      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
+							      	<div class="row" style="padding-bottom:30px;border-bottom:1px solid black;">
+									      <% 1.upto(exercise.set_count) do |num| %>
+									      	<% col_space = 12 / exercise.set_count %>
+								      		<% if @user.current_workout == @workout.id %>
+								      			<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input" %></div>
+								      		<% end %>
+									      <% end %>
+							      	</div>
+								    <% end %>
+									<% end %>
 								</div>
 							</div>
 						</div>
 					<% end %>
+				</div>
 			<% end %>
 		<% end %>
 	<% end %>

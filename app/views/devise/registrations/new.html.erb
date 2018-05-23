@@ -1,6 +1,6 @@
 <%= form_for @user, url: user_registration_path do |f| %>
 <div class="card">
-  <div class="card-header text-center bg-info">
+  <div class="card-header text-center workout-header">
     <div id="step-header">Step 1 of 3</div>
   </div>
   <div class="card-body">
@@ -71,8 +71,6 @@
       <%= link_to "Back", '#', class: "btn btn-outline-danger btn-lg btn-block step-back" %>
     </div>
   </div>
-
-  <!-- <div class="card-footer text-center">
-  </div> -->
+</div>
   
 <% end %>

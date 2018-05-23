@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180521181646) do
+ActiveRecord::Schema.define(version: 20180523153932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,12 +97,12 @@ ActiveRecord::Schema.define(version: 20180521181646) do
 
   create_table "workout_details", force: :cascade do |t|
     t.integer "exercise_id"
-    t.float "rep_1_weight"
-    t.float "rep_2_weight"
-    t.float "rep_3_weight"
-    t.float "rep_4_weight"
-    t.float "rep_5_weight"
-    t.float "rep_6_weight"
+    t.integer "rep_1_weight"
+    t.integer "rep_2_weight"
+    t.integer "rep_3_weight"
+    t.integer "rep_4_weight"
+    t.integer "rep_5_weight"
+    t.integer "rep_6_weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "workout_group_id"

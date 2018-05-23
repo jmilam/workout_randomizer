@@ -18,10 +18,6 @@
 				</div>
 			</div>
 		</div>
-	<% elsif !@already_worked_out %>
-		<div class="row">
-			<div class="col-md-8">Keep pushing!</div>
-		</div>
 	<% end %>
 
 
@@ -34,7 +30,7 @@
 
 		<%= form_for :exercises, url: create_workout_detail_path do |f| %>
 			<div class="card">
-			  <div class="card-body <%= Category.style_tags[@workout.category.tag]['background-color'] %>">
+			  <div class="card-body workout-header">
 			  	<div class="text-center">
 				  	<p>
 				  		<h2><%= @workout.name %></h2>
@@ -44,9 +40,7 @@
 						<p><%= @workout.duration %> week workout cycle</p>
 					</div>
 					<% if @user.current_workout == @workout.id %>
-						<div class="text-right">
-							<p><%= f.submit "Log It", class: 'btn btn-sm btn-success' %></p>
-						</div>
+						<p><%= f.submit "Log It", class: 'btn btn-block btn-lg log-it-btn' %></p>
 					<% end %>
 			  </div>
 			</div>
@@ -92,9 +86,9 @@
 					      </h5>
 					    </div>
 					    <div id="collapse<%= ex_group_idx %>" class="collapse" aria-labelledby="heading<%= ex_group_idx %>" data-parent="#accordion">
-					      <div class="card-body <%= bg_color['background-color'] %>">
+					      <div class="card-body">
 						  		<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
-						  			<div class="row" style="height:5%;border-bottom:1px solid black;">
+						  			<div class="row" style="height:5%;border-bottom:1px solid black;<%= bg_color['style'] %>">
 						      		<div class="col-md-6 col-sm-6 col-6" style="margin-top:10px;">
 						      			<%= exercise.name %>
 						      		</div>

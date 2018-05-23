@@ -1,15 +1,15 @@
 <% @workouts.each do |prev_workout| %>
 	<% prev_workout.workout_group.workout_details.sort_by(&:workout_date).group_by(&:workout_date).each do |workout_group| %>
-	  <table class="table table-hover">
+	  <table class="table table-bordered" style="background:#262626;color:white;border-top-right-radius: 25px;border-top-left-radius: 25px;">
 		  <thead>
 		  	<tr>
-		  		<th scope="col" colspan="6" class="text-center table-warning">
+		  		<th scope="col" colspan="6" class="text-center workout-header">
 		  			<%= prev_workout.workout_group.workout.name %>
 		  			<div class="text-muted">(<%=prev_workout.workout_group.name %>)</div>
 		  			<i><%= workout_group[0].strftime('%m/%d/%y') %></i>
 		  		</th>
 		  	</tr>  
-		    <tr>
+		    <tr style="background-color:#8C8C8C;">
 		      <th scope="col">Exercise</th>
 		      <th scope="col">Rep 1</th>
 		      <th scope="col">Rep 2</th>

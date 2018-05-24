@@ -39,7 +39,6 @@ RSpec.describe 'Categories', js: true do
   		click_on 'Edit'
 
   		fill_in 'Name', with: 'hardCORE'
-  		save_screenshot('/Users/jmilam/Desktop/test.png')
   		click_button 'Update Category'
   	end
 

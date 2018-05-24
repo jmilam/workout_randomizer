@@ -2,7 +2,11 @@ class ExerciseController < ApplicationController
 	layout 'nav'
 	def new
 		@workout_group = WorkoutGroup.find(params[:workout_group_id])
-		@exercise = @workout_group.exercises.new
+		@exercise = if params[:exercise_params]
+									@workout_group.exercises.new(exercise_params)
+								else
+									@workout_group.exercises.new
+								end
 	end
 
 	def edit
@@ -33,7 +37,8 @@ class ExerciseController < ApplicationController
 
 		rescue ActiveRecord::RecordInvalid => error
 			flash[:alert] = "There was an error when updating exercise: #{error}"
-			render :edit
+			redirect_to new_exercise_path(workout_group_id: params[:exercise][:workout_group_id],
+																		exercise: params[:exercise].permit!)
 		end
 	end
 

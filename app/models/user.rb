@@ -7,8 +7,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :height, :weight, :regularity_id, :goal_id, :gym_id, presence: true
+  validates :height, :weight, :regularity_id, :goal_id, :gym_id, :email, :password, presence: true
 
+  validates :email, uniqueness: true
+  
   enum regularity: { '1week' => '1 day week',
                      '2week' => '2 day week',
                      '3week' => '3 day week',

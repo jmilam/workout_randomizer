@@ -68,6 +68,23 @@ class ExerciseController < ApplicationController
 		end
 	end
 
+	def destroy
+		@exercise = Exercise.find(params[:id])
+
+		@workout_ids_with_exercise = WorkoutDetail.all.map(&:exercise_id).delete_if { |num| num != params[:id].to_i }
+
+		if !@workout_ids_with_exercise.empty?
+			flash[:alert] = "Exercise cannot be deleted because someone has used it with their workout. It will mess up their history. You can hide this workout."
+			redirect_to edit_workout_path(@exercise.workout_group.workout_id)
+		elsif @exercise.delete
+			flash[:notice] = "Exercise was successfully delete."
+			redirect_to edit_workout_path(@exercise.workout_group.workout_id)
+		else
+			flash[:alert] = "There was an error when deleting exercise: #{@exercise.error}"
+			render :edit
+		end
+	end
+
 	protected
 
 	def exercise_params

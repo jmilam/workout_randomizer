@@ -15,6 +15,7 @@
   <div class="row">
     <div class="col-md-12 col-sm-12">
   	 <%= f.submit "Update Workout Group", class: 'btn btn-info pull-right' %>
+     <%= link_to "Delete Workout Group", workout_group_path(@workout_group.id), method: :delete %>
     </div>
   </div>
 <% end %>

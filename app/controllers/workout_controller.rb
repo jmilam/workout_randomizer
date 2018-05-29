@@ -9,6 +9,7 @@ class WorkoutController < ApplicationController
 			@workout = Workout.find(current_user.current_workout)
 			@this_weeks_workouts = @user.this_weeks_workouts
 			@workout_group = @workout.workout_groups.to_a.delete_if { |group| @this_weeks_workouts.include?(group.id) }.sample
+			@last_workout = @workout_group.workout_details.where(user_id: @user.id)
 			@already_worked_out = !@user.user_previous_workouts
 																				.where(workout_date: Date.today.strftime("%m/%d/%y"))
 																				.empty?

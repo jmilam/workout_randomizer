@@ -43,6 +43,17 @@ class WorkoutGroupController < ApplicationController
 		end
 	end
 
+	def destroy
+		@workout = WorkoutGroup.find(params[:id])
+
+		if @workout.delete
+			flash[:notice] = "Workout Group was successfully deleted."
+			redirect_to edit_workout_path(@workout.workout_id)
+		else
+			flash[:alert] = "There was an error when deleting workout group. #{@workout.errors}"
+		end
+	end
+
 	protected
 
 	def workout_group_params

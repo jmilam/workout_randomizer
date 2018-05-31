@@ -19,15 +19,17 @@
 	  </thead>
 
 	  <tbody>
-			<% prev_workout.workout_group.workout_details.each do |workout_group| %>
-				<tr>
-				  <th sope="row"><%= workout_group.exercise.name unless workout_group.exercise.nil? %></th>
-					<td><%= workout_group.rep_1_weight %></td>
-					<td><%= workout_group.rep_2_weight %></td>
-					<td><%= workout_group.rep_3_weight %></td>
-					<td><%= workout_group.rep_4_weight %></td>
-					<td><%= workout_group.rep_5_weight %></td>
-				</tr>
+			<% prev_workout.workout_group.workout_details.sort_by(&:workout_date).group_by(&:workout_date).each do |workout_group| %>
+				<% workout_group[1].each do |workout_detail| %>
+					<tr>
+					  <th sope="row"><%= workout_detail.exercise.name unless workout_detail.exercise.nil? %></th>
+						<td><%= workout_detail.rep_1_weight %></td>
+						<td><%= workout_detail.rep_2_weight %></td>
+						<td><%= workout_detail.rep_3_weight %></td>
+						<td><%= workout_detail.rep_4_weight %></td>
+						<td><%= workout_detail.rep_5_weight %></td>
+					</tr>
+				<% end %>
 			<% end %>
 		</tbody>
 	</table>

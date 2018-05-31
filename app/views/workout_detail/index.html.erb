@@ -19,8 +19,7 @@
 	  </thead>
 
 	  <tbody>
-			<% prev_workout.workout_group.workout_details.sort_by(&:workout_date).group_by(&:workout_date).each do |workout_group| %>
-				<% workout_group[1].each do |workout_detail| %>
+			<% prev_workout.workout_details.each do |workout_detail| %>
 					<tr>
 					  <th sope="row"><%= workout_detail.exercise.name unless workout_detail.exercise.nil? %></th>
 						<td><%= workout_detail.rep_1_weight %></td>
@@ -29,7 +28,6 @@
 						<td><%= workout_detail.rep_4_weight %></td>
 						<td><%= workout_detail.rep_5_weight %></td>
 					</tr>
-				<% end %>
 			<% end %>
 		</tbody>
 	</table>

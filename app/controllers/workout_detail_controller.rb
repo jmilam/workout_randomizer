@@ -2,7 +2,6 @@ class WorkoutDetailController < ApplicationController
 	layout 'nav'
 	def index
 		@workouts = current_user.user_previous_workouts.includes(:exercises)
-		@date_range = Date.today.beginning_of_week..Date.today.end_of_week
 	end
 
 	def create

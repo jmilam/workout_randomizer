@@ -17,5 +17,7 @@ class ProfileController < ApplicationController
 
     @bmi = @user.calculate_bmi
     @bmi_status = @user.bmi_status(@bmi)
+    
+    @workout_stats = UserPreviousWorkout.for_google_charts(@user.user_previous_workouts.group_by(&:workout_group_id)).to_json.html_safe
   end
 end

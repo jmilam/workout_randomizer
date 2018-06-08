@@ -11,44 +11,51 @@
   function drawChart(reloadId) {
     counter = 0;
 
-    $.each(<%= raw @workout_stats %>, function( key, value) {
-      var data = google.visualization.arrayToDataTable(value);
-      if (reloadId && $('#' + reloadId + '-tab').text() === key) {
-        element = document.getElementById(reloadId);
-        chart = new google.visualization.LineChart(element);
-        $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
-          chart.draw(data, options);  
-        });
-      } else if (reloadId) {
-
+    $.each(<%= raw @workout_stats %>, function( key, values) {
+      if (reloadId) {
       } else {
-        $('#historyTab').append(
-          "<li class='nav-item'><a class='nav-link' id='child-div-" + counter + "-tab' data-toggle='tab' href='#child-div-" + counter + "' role='tab' aria-controls='child-div-" + counter + "'>" + key + "</a></li>"
+        $('#workoutTab').append(
+          "<li class='nav-item'><a class='nav-link' id='child-div-workout" + counter + "-tab' data-toggle='tab' href='#child-div-workout" + counter + "' role='tab' aria-controls='child-div-workout" + counter + "'>" + key + "</a></li>"
         );
-        $('#historyTabContent').append("<div class='tab-pane fade col-12' id='child-div-" + counter + "' role='tabpanel' aria-labelledby='child-div-" + counter + "' style='height:300px;'></div>");
-
-        element = document.getElementById('child-div-' + counter);
-        tab = document.getElementById('child-div-' + counter + "-tab");
-        chart = new google.visualization.LineChart(element);
-        chart.draw(data, options);
-
-        $(tab).click(function(){
-          str = $(this).attr('id')
-          str = str.substring(0, str.length-4);
-          drawChart(str)
-        });
+        $('#workoutTabContent').append("<div class='tab-pane fade col-12' id='child-div-workout" + counter + "' role='tabpanel' aria-labelledby='child-div-workout" + counter + "' style='height:300px;'><ul class='nav nav-pills' id='historyTab' role='tablist' style='margin-bottom:30px;'><li></li></ul><div class='tab-content' id='childTabContent-" + counter + "'></div></div>");
       }
 
-      counter++;
+      let headerCounter = counter;
+      $.each(values, function( key, value) {
+        let data = google.visualization.arrayToDataTable(value);
+        if (reloadId && $('#' + reloadId + '-tab').text() === key) {
+          element = document.getElementById(reloadId);
+          chart = new google.visualization.LineChart(element);
+          $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+            chart.draw(data, options);  
+          });
+        } else if (reloadId) {
+        } else {
+          $('#child-div-workout' + headerCounter + " ul").append("<li class='nav-item'><a class='nav-link' id='child-div-" + counter + "-tab' data-toggle='tab' href='#child-div-" + counter + "' role='tab' aria-controls='child-div-" + counter + "'>" + key + "</a></li>");
+          $('#childTabContent-' + headerCounter).append("<div class='tab-pane fade col-12' id='child-div-" + counter + "' role='tabpanel' aria-labelledby='child-div-" + counter + "' style='height:300px;'></div>")
+
+          element = document.getElementById('child-div-' + counter);
+          tab = document.getElementById('child-div-' + counter + "-tab");
+          chart = new google.visualization.LineChart(element);
+          chart.draw(data, options);
+
+          $(tab).click(function(){
+            str = $(this).attr('id')
+            str = str.substring(0, str.length-4);
+            drawChart(str)
+          });
+        }
+        counter++;
+      });
     });
   }
 </script>
 
 <div id="chart-div">
-  <ul class="nav nav-pills" id="historyTab" role="tablist" style="margin-bottom:30px;">
+  <ul class="nav nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;">
     <li class='nav-item'><a class='nav-link active' id='profile-tab' data-toggle='tab' href='#profile' role='tab' aria-controls='profile' aira-selected='true'>Profile</a></li>
   </ul>
-  <div class="tab-content" id="historyTabContent">
+  <div class="tab-content" id="workoutTabContent">
     <div class="tab-pane fade show active" id='profile' role='tabpanel' aria-labelledby='profile'>
       <div class="card">
         <div class="card-header workout-header">

@@ -1,5 +1,6 @@
 class Workout < ApplicationRecord
 	has_many :workout_groups, dependent: :destroy
+	has_many :user_previous_workouts, through: :workout_groups, source: 'workout'
 	has_many :exercises, through: :workout_groups
 
 	belongs_to :category

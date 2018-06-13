@@ -1,6 +1,7 @@
 class UserPreviousWorkout < ApplicationRecord
 	belongs_to :user
 	belongs_to :workout_group
+  belongs_to :workout
 
 	has_many :exercises, through: :workout_group
 	has_many :workout_details

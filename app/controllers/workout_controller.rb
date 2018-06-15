@@ -71,13 +71,13 @@ class WorkoutController < ApplicationController
 		workout = Workout.find(params[:workout_id])
 
 		if params[:accept]
-			User.transaction do 
-				begin
-					user.update(current_workout: workout.id)
-				rescue StandardException => error
-					flash[:alert] = error 
-					redirect_to workout_id
-				end
+			begin
+				user.current_workout = workout.id
+				user.save!(validate: false)
+				redirect_to workout_index_path
+			rescue StandardException => error
+				flash[:alert] = error 
+				redirect_to workout_id
 			end
 		elsif params[:deny]
 			redirect_to workout_index_path
@@ -86,10 +86,11 @@ class WorkoutController < ApplicationController
 
 	def stop_workout
 		begin
-			if current_user.update!(current_workout: nil)
+			current_user.current_workout = nil
+			if current_user.save!(validate: false)
 				flash[:notice] = "Awesome job on the workout. Your next workout is waiting for you."
 			end
-		rescue StandardException => error
+		rescue StandardError => error
 			flash[:alert] = error 
 		ensure
 			redirect_to profile_index_path

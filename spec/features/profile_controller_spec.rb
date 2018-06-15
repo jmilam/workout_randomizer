@@ -35,4 +35,13 @@ RSpec.describe 'Profile', js: true do
 			expect(page).to have_content("#{workout.duration} weeks remaining")
 		end
 	end
+
+	context 'User wants to change workout' do
+		before do
+			let(:user) { create(:user) }
+		end
+
+		it 'removes user from current workout' do
+		end
+	end
 end

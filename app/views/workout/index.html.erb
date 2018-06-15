@@ -46,30 +46,33 @@
 			</div>
 
 			<% if @user.current_workout.nil? %>
-	  		<% @workout.workout_groups.each do |group| %>
-	  			<tr>
-	  				<th scope="col" colspan="<%= 3 + @workout.frequency %>" class="text-center bg-success"><%= group.name %></th>
-	  			</tr>
-	  			<% group.exercises.each do |exercise| %>
-			    <tr>
-			      <th scope="row"><%= exercise.name %></th>
-			      <td><%= exercise.warm_up %></td>
-			      <td><%= exercise.warm_up_details %></td>
-			      <%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
-			      	<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-			      	<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
-			      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
-				      <% 1.upto(@workout.frequency) do |num| %>
-				      	<td>
-				      		<% if @user.current_workout == @workout.id %>
-				      			<%= workout_detail.text_field "rep_#{num}_weight", size: 3 %>
-				      		<% end %>
-				      	</td>
-				      <% end %>
-				    <% end %>
-			    </tr>
-			  <% end %>
-	  		<% end %>
+				<table class="table table">
+					<tbody>
+			  		<% @workout.workout_groups.each do |group| %>
+			  			<tr>
+			  				<th scope="col" colspan="3" class="text-center bg-success"><%= group.name %></th>
+			  			</tr>
+			  			<tr class="table-success">
+			  				<th>Exercise</th>
+			  				<th>Sets</th>
+			  				<th>Rep Range</th>
+			  			</tr>
+			  			<% group.exercises.each do |exercise| %>
+						    <tr>
+						      <th scope="row"><%= exercise.name %></th>
+						      <td><%= exercise.set_count %></td>
+						      <td><%= exercise.rep_range %></td>
+<!-- 						      <%#= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
+						      	<%#= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
+						      	<%#= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
+						      	<%#= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
+							      
+							    <%# end %> -->
+						    </tr>
+						  <% end %>
+			  		<% end %>
+			  	</tbody>
+			  </table>
 	  	<% else %>
 				<div id="accordion">
 					<% @workout_group.exercises.group_by(&:super_set_id).each_with_index do |exercise_group, ex_group_idx| %>

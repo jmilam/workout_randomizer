@@ -14,6 +14,12 @@ class WorkoutController < ApplicationController
 																				.where(workout_date: Date.today.strftime("%m/%d/%y"))
 																				.empty?
 		end
+		@exercise_groups = @workout_group.exercises.group_by(&:super_set_id)
+		@exercise_groups[nil].each do |nil_group|
+			@exercise_groups["#{nil_group.id}a"] = [nil_group]
+		end unless @exercise_groups[nil].nil?
+
+		@exercise_groups.delete(nil)
 	end
 
 	def new

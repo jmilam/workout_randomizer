@@ -75,7 +75,7 @@
 			  </table>
 	  	<% else %>
 				<div id="accordion">
-					<% @workout_group.exercises.group_by(&:super_set_id).each_with_index do |exercise_group, ex_group_idx| %>
+					<% @exercise_groups.each_with_index do |exercise_group, ex_group_idx| %>
 			  		<% bg_color = Category.style_tags.to_a.sample[1] %>
 			  		<div class="card">
 					    <div class="card-header <%= bg_color['border'] %>" id="heading<%= ex_group_idx %>">

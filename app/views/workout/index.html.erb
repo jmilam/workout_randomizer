@@ -80,12 +80,12 @@
 			  		<div class="card">
 					    <div class="card-header <%= bg_color['border'] %>" id="heading<%= ex_group_idx %>">
 					      <h5 class="mb-0 row">
-					      	<div style="overflow:auto;" class="col-md-9">
+					      	<div style="overflow:auto;" class="col-md-6">
 						        <a class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= ex_group_idx %>" aria-expanded="true" aria-controls="collapse<%= ex_group_idx %>">
 						          <%= exercise_group[1].collect { |ex| ex.name }.join('/') %>
 						        </a>
 						      </div>
-						      <div class="col-md-3 exercise-counter text-right">0 of <%= exercise_group.count %> complete</div>
+						      <div class="col-md-3 exercise-counter text-right">0 of <%= exercise_group[1].count %> complete</div>
 					      </h5>
 					    </div>
 					    <div id="collapse<%= ex_group_idx %>" class="collapse" aria-labelledby="heading<%= ex_group_idx %>" data-parent="#accordion">
@@ -93,9 +93,10 @@
 						  		<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
 	  								<% @prev_exercise = @last_workout.find_by(exercise_id: exercise.id) %>
 						  			<div class="row" style="height:5%;border-bottom:1px solid black;<%= bg_color['style'] %>">
-						      		<div class="col-md-6 col-sm-6 col-6" style="margin-top:10px;">
+						      		<div class="col-md-3 col-sm-3 col-3" style="margin-top:10px;">
 						      			<%= exercise.name %>
 						      		</div>
+						      		<div class="col-md-3 col-sm-3 col-3" style="margin-top:10px;"><i><%= exercise.description %></i></div>
 						      		<div class="col-md-3 col-sm-3 col-3" style="margin-top:10px;">
 						      			<%= exercise.set_count %> Sets
 						      		</div>

@@ -47,17 +47,15 @@ class ExerciseController < ApplicationController
 		@superset_exercise = Exercise.find(params[:exercise][:super_set_id]) unless params[:exercise][:super_set_id].blank?
 
 		begin
-			unless params[:exercise][:super_set_id].blank?
-				super_set = SuperSet.create_or_update(@exercise, params[:exercise][:super_set_id])
-
-				Exercise.transaction do 
-					@exercise.update!(exercise_params)
-					@exercise.update!(super_set_id: super_set.id)
+			Exercise.transaction do 
+				unless params[:exercise][:super_set_id].blank?
+					super_set = SuperSet.create_or_update(@exercise, params[:exercise][:super_set_id])
 					@superset_exercise.update!(super_set_id: super_set.id)
+					@exercise.update!(super_set_id: super_set.id)
 				end
-			end
 
-			
+				@exercise.update!(exercise_params)
+			end
 
 			flash[:notice] = "Exercise #{@exercise.name} was successfully updated."
 			redirect_to edit_workout_path(@exercise.workout_group.workout.id)

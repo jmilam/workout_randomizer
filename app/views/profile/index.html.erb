@@ -133,10 +133,10 @@
       <div class="card">
         <div class="card-header workout-header">
           <div class="row">
-            <div class="col-md-9 col-sm-12"><h4><%= @user.first_name %>'s Information</h4></div>
-            <div class="col-md-3 col-sm-12"><%= link_to "Workout History", workout_history_path %></div>
+            <div class="col-md-9 col-sm-12"><h4><%= link_to "#{@user.first_name}'s Information", edit_profile_path(@user.id) %></h4></div>
+            <div class="col-md-3 col-sm-12"><%= link_to "Workout History", workout_history_path %><br/> <%= link_to "Suggested Workout", workout_index_path unless @already_worked_out %></div>
           </div>
-          <%= link_to "Suggested Workout", workout_index_path unless @already_worked_out %>
+          
           
         </div>
         <div class="card-body">

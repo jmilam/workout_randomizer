@@ -7,7 +7,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :height, :weight, :regularity_id, :goal_id, :gym_id, :email, :password, presence: true
+  validates :height, :weight, :regularity_id, :goal_id, :gym_id, :email, presence: true
+  validates :password, presence: true, on: :create
 
   validates :email, uniqueness: true
   

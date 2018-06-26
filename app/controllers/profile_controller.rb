@@ -51,4 +51,29 @@ class ProfileController < ApplicationController
 
     @workout_stats = UserPreviousWorkout.for_google_charts(@user.user_previous_workouts.group_by(&:workout_group_id)).to_json.html_safe
   end
+
+  def edit
+    p @user = User.find(params[:id])
+    @regularity = User.regularities
+    @goals = User.goals
+    @gyms = Gym.all
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update!(workout_params)
+      flash[:notice] = "User successfully updated"
+      redirect_to root_path
+    else
+      flash[:alert] = "Errors on update #{@user.errors}"
+      redirect_to edit_profile_path(@user.id)
+    end
+  end
+
+  protected
+
+  def workout_params
+    params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :gym_id)
+  end
 end

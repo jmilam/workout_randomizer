@@ -28,7 +28,8 @@ class ProfileController < ApplicationController
     @bmi_status = @user.bmi_status(@bmi)
     
     @differences = {}
-    WorkoutDetail.all.group_by(&:exercise_id).each do |detail|
+    current_workout = Workout.find(@user.current_workout)
+    WorkoutDetail.all.where(workout_group_id: current_workout.workout_groups.map(&:id)).group_by(&:exercise_id).each do |detail|
       exercise = Exercise.find(detail[0])
       @differences[exercise.name] = { avg: [], max: [] }
 

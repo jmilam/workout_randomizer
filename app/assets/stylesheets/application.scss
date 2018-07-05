@@ -19,8 +19,19 @@ nav {
 	color: white;
 }
 
-body {
-	background: #D7B983;
+#footer {
+	height:50px;
+	margin-top: 75px;
+	background: #003259;
+	color: white;
+}
+
+#image-background {
+	background-image: url('barbell-bodybuilding-effort-703016');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
 }
 
 .workout-header {

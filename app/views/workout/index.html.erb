@@ -74,7 +74,7 @@
 			  	</tbody>
 			  </table>
 	  	<% else %>
-				<div id="accordion">
+				<div id="accordion" style="margin-bottom:50px;">
 					<% @exercise_groups.each_with_index do |exercise_group, ex_group_idx| %>
 			  		<% bg_color = Category.style_tags.to_a.sample[1] %>
 			  		<div class="card">

@@ -62,12 +62,6 @@
 						      <th scope="row"><%= exercise.name %></th>
 						      <td><%= exercise.set_count %></td>
 						      <td><%= exercise.rep_range %></td>
-<!-- 						      <%#= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
-						      	<%#= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-						      	<%#= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
-						      	<%#= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
-							      
-							    <%# end %> -->
 						    </tr>
 						  <% end %>
 			  		<% end %>
@@ -116,7 +110,7 @@
 							      	<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
 							      	<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
 							      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
-							      	<div class="row" style="padding-bottom:30px;border-bottom:1px solid black;">
+							      	<div class="row" style="padding-bottom:30px;">
 									      <% 1.upto(exercise.set_count) do |num| %>
 									      	<% col_space = 12 / exercise.set_count %>
 								      		<% if @user.current_workout == @workout.id %>
@@ -127,6 +121,10 @@
 								      			<% end %>
 								      		<% end %>
 									      <% end %>
+							      	</div>
+
+							      	<div class="row" style="padding-bottom:30px;border-bottom:1px solid black;">
+							      		<%= workout_detail.text_area :comment, class: "col-md-12", placeholder: "Enter exercise comment here" %>
 							      	</div>
 								    <% end %>
 									<% end %>

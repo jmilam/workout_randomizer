@@ -37,6 +37,6 @@ class WorkoutDetailController < ApplicationController
 
 	def detail_params
 		params.require(:exercises).permit(:exercise_id, :rep_1_weight, :rep_2_weight, :rep_3_weight, :rep_4_weight, :rep_5_weight,
-                                 :rep_6_weight, :workout_date)
+                                 :rep_6_weight, :workout_date, :comment)
 	end
 end

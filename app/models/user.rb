@@ -2,6 +2,7 @@ class User < ApplicationRecord
   belongs_to :gym
   has_many :user_previous_workouts
   has_many :workout_details
+  has_many :inboxes
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

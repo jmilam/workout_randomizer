@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531124624) do
+ActiveRecord::Schema.define(version: 20180705182708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,20 @@ ActiveRecord::Schema.define(version: 20180531124624) do
     t.string "zipcode"
     t.string "phone_number"
     t.string "admin_ids"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "inboxes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "subject"
+    t.text "detail"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -109,6 +123,7 @@ ActiveRecord::Schema.define(version: 20180531124624) do
     t.date "workout_date"
     t.integer "user_id"
     t.integer "user_previous_workout_id"
+    t.text "comment", default: ""
   end
 
   create_table "workout_groups", force: :cascade do |t|

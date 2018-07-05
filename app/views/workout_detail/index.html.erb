@@ -2,7 +2,7 @@
 	<table class="table table-bordered" style="background:#262626;color:white;border-top-right-radius: 25px;border-top-left-radius: 25px;">
 	  <thead>
 	  	<tr>
-	  		<th scope="col" colspan="6" class="text-center workout-header">
+	  		<th scope="col" colspan="7" class="text-center workout-header">
 	  			<%= prev_workout.workout_group.workout.name %>
 	  			<div class="text-muted">(<%=prev_workout.workout_group.name %>)</div>
 	  			<i><%= prev_workout.workout_date.strftime('%m/%d/%y') %></i>
@@ -15,6 +15,7 @@
 	      <th scope="col">Rep 3</th>
 	      <th scope="col">Rep 4</th>
 	      <th scope="col">Rep 5</th>
+	      <th scope="col">Exercise Comment</th>
 	    </tr>
 	  </thead>
 
@@ -27,6 +28,7 @@
 						<td><%= workout_detail.rep_3_weight %></td>
 						<td><%= workout_detail.rep_4_weight %></td>
 						<td><%= workout_detail.rep_5_weight %></td>
+						<td><%= workout_detail.comment %></td>
 					</tr>
 			<% end %>
 		</tbody>

@@ -10,6 +10,5 @@ class CreateMessageGroups < ActiveRecord::Migration[5.1]
 
     add_column :messages, :message_group_id, :integer
     add_index :messages, :message_group_id
-    add_index :messages, [:message_group_id, :receipient_id]
    end
 end

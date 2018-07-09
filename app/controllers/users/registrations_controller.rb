@@ -21,6 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(user_sign_up_params)
 
     if @user.save
+      Inbox.create(user_id: @user.id)
       sign_in @user
       redirect_to profile_index_path
     else

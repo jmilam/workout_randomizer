@@ -1,0 +1,22 @@
+<%= form_for @message, url: message_index_path, method: :post do |f| %>
+  <%= f.hidden_field :message_group_id, {value: @message_group.id} %>
+  <%= f.hidden_field :user_id, { value: @message.user_id } %>
+
+  <% if @message_group.id.nil? %>
+    <div class="row">
+      <div class="col-md-6 col-sm-12 form-group">
+        <%= label_tag :subjet, "Message Subject", class: 'col-md-12' %>
+        <%= text_field_tag :subject, nil, class: 'col-md-12 form-control' %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :detail, "Message Details", class: 'col-md-12' %>
+      <%= f.text_area :detail, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+	<%= f.submit "Send Message", class: 'btn btn-info' %>
+<% end %>

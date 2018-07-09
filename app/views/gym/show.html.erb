@@ -1,0 +1,74 @@
+<%= form_for @gym, url: gym_path, method: :put do |f| %>
+	<div style="color:white;">
+	  <div class="row">
+	    <div class="col-md-6 col-sm-12 form-group">
+				<%= f.label :name %>
+				<%= f.text_field :name, class: 'form-control' %>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<%= f.label :phone_number %>
+				<%= f.text_field :phone_number, class: 'form-control' %>
+			</div>
+		</div>
+
+		<div class="row">
+	    <div class="col-md-12 col-sm-12 form-group">
+				<%= f.label :address %>
+				<%= f.text_field :address, class: 'form-control' %>
+			</div>
+		</div>
+
+		<div class="row">
+	    <div class="col-md-4 col-sm-12 form-group">
+	    	<%= f.label :city %>
+				<%= f.text_field :city, class: 'form-control' %>
+	    </div>
+	    <div class="col-md-4 col-sm-12 form-group">
+	    	<%= f.label :state %>
+				<%= f.text_field :state, class: 'form-control' %>
+	    </div>
+	    <div class="col-md-4 col-sm-12 form-group">
+	    	<%= f.label :zipcode %>
+				<%= f.text_field :zipcode, class: 'form-control' %>
+	    </div>
+	  </div>
+
+	  <div class="row">
+	    <div class="col-md-5 col-sm-5 col-5 form-group">
+	    	<%= f.label 'Users' %>
+	    	<%= select_tag 'users', options_for_select(@non_admins), multiple: true, class: 'form-control' %>
+	    </div>
+
+	    <div class="col-md-2 col-sm-2 col-2">
+	    	<button class="btn btn-warning" id="add-admin">-></button>
+	    	<button class="btn btn-danger" id="remove-admin"><-</button>
+
+	    </div>
+
+	    <div class="col-md-5 col-sm-5 col-5 form-group">
+				<%= f.label :admin_ids %>
+				<%= f.select :admin_ids, options_for_select(@admins), {}, multiple: true, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+
+	<%= f.submit "Update Gym Info", class: "btn btn-info", id: 'gym-update' %>
+<% end %>
+
+<script>
+	$('#gym-update').on('click', function(e) {
+		e.preventDefault();
+		$('#gym_admin_ids option').prop('selected', true);
+		$('.edit_gym').submit();
+	});
+
+	$('#add-admin, #remove-admin').on('click', function(e){
+		e.preventDefault();
+
+		if ($(this).attr('id') === 'add-admin'){
+			$('#gym_admin_ids').append($('#users option:selected'))
+		} else {
+			$('#users').append($('#gym_admin_ids option:selected'))
+		}
+	});
+</script>

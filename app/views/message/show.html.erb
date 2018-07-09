@@ -1,0 +1,24 @@
+<%= form_for @message, url: message_index_path, method: :put do |f| %>
+   <div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+      <%= f.label :receipient, 'Receipient Email', class: 'col-md-12' %>
+      <%= f.text_field :receipient_id, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+   <div class="row">
+    <div class="col-md-12 col-sm-12 form-group">
+      <%= f.label :subject, class: 'col-md-12' %>
+      <%= f.text_field :subject, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+   <div class="row">
+    <div class="col-md-6 col-sm-12 form-group">
+      <%= f.label :detail, "Message Details", class: 'col-md-12' %>
+      <%= f.text_area :detail, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to 'Reply', new_message_path, class: 'btn btn-info' %>

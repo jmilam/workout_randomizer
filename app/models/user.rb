@@ -2,7 +2,8 @@ class User < ApplicationRecord
   belongs_to :gym
   has_many :user_previous_workouts
   has_many :workout_details
-  has_many :inboxes
+  has_one :inbox
+  has_many :messages
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -44,5 +45,9 @@ class User < ApplicationRecord
   def this_weeks_workouts
     user_previous_workouts.where(workout_date: (Date.today.in_time_zone.beginning_of_week..Date.today.in_time_zone.end_of_week))
                           .pluck(:workout_group_id)
+  end
+
+  def username
+    "#{first_name} #{last_name}"
   end
 end

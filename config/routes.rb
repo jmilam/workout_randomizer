@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :exercise
   resources :workout_group
   resources :category
+  resources :inbox
+  resources :message
+  resources :message_group
+  resources :gym
 
   root to: 'profile#index'
 end

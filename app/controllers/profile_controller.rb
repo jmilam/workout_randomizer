@@ -50,11 +50,11 @@ class ProfileController < ApplicationController
 
     @counter = 0
 
-    @workout_stats = UserPreviousWorkout.for_google_charts(@user.user_previous_workouts.group_by(&:workout_group_id)).to_json.html_safe
+    # @workout_stats = UserPreviousWorkout.for_google_charts(@user.user_previous_workouts.group_by(&:workout_group_id)).to_json.html_safe
   end
 
   def edit
-    p @user = User.find(params[:id])
+    @user = User.find(params[:id])
     @regularity = User.regularities
     @goals = User.goals
     @gyms = Gym.all

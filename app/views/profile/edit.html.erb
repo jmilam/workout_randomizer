@@ -1,48 +1,50 @@
 <%= form_for @user, url: profile_path(@user.id), method: :patch do |f| %>
-	<div class="row">
-    <div class="col-md-6 col-sm-6 form-group">
-      <%= f.label :first_name, class: 'col-md-12' %>
-      <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
+  <div style="color:white;">
+  	<div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <%= f.label :first_name, class: 'col-md-12' %>
+        <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <%= f.label :last_name, class: 'col-md-12' %>
+        <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
+      </div>
     </div>
-    <div class="col-md-6 col-sm-6 form-group">
-      <%= f.label :last_name, class: 'col-md-12' %>
-      <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 form-group">
+        <%= f.label :height, class: 'col-md-12' %>
+        <%= f.text_field :height, class: 'col-md-12 form-control' %>
+      </div>
+      <div class="col-md-6 col-sm-6 form-group">
+        <%= f.label :weight, class: 'col-md-12' %>
+        <%= f.text_field :weight, class: 'col-md-12 form-control' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.label :regularity_id, class: 'col-md-12' %>
+        <%= f.select :regularity_id, @regularity.collect { |key, regularity| [regularity,key] }, { prompt: "How often do you workout?", selected: "#{@user.regularity_id}week" }, class: 'col-md-12 form-control' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.label :goal_id, class: 'col-md-12' %>
+        <%= f.select :goal_id, @goals.collect { |key, goal| [goal,key] }, { prompt: "Select Goal" }, class: 'col-md-12 form-control' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.label :gym_id, class: 'col-md-12' %>
+        <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
+      </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-6 col-sm-6 form-group">
-      <%= f.label :height, class: 'col-md-12' %>
-      <%= f.text_field :height, class: 'col-md-12 form-control' %>
-    </div>
-    <div class="col-md-6 col-sm-6 form-group">
-      <%= f.label :weight, class: 'col-md-12' %>
-      <%= f.text_field :weight, class: 'col-md-12 form-control' %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 col-sm-12 form-group">
-      <%= f.label :regularity_id, class: 'col-md-12' %>
-      <%= f.select :regularity_id, @regularity.collect { |key, regularity| [regularity,key] }, { prompt: "How often do you workout?", selected: "#{@user.regularity_id}week" }, class: 'col-md-12 form-control' %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 col-sm-12 form-group">
-      <%= f.label :goal_id, class: 'col-md-12' %>
-      <%= f.select :goal_id, @goals.collect { |key, goal| [goal,key] }, { prompt: "Select Goal" }, class: 'col-md-12 form-control' %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 col-sm-12 form-group">
-      <%= f.label :gym_id, class: 'col-md-12' %>
-      <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
-    </div>
-  </div>
-
-  <div class="row">
-    <%= f.submit "Edit Exercise", class: 'btn btn-info pull-right' %>
+    <%= f.submit "Edit User Profile", class: 'btn btn-info pull-right' %>
   </div>
 <% end %>

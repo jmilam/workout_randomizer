@@ -73,8 +73,7 @@
       if ($(this).parents('.row').children().prop('complete')) {
       } else {
         if (rep_total === tally_count) {
-          console.log
-          if ($(this).parents('.row').attr('complete') === 'true') {
+          if ($(this).parents('.exercise-card').attr('complete') === 'true') {
 
           } else {
             let regex = RegExp(/\d+/i);
@@ -85,7 +84,12 @@
 
             $(this).parents('.card').children('.card-header').children().children('.exercise-counter').text(header.replace(regex, count.toString()));
 
-            $(this).parents('.row').attr('complete', 'true');
+            $(this).parents('.row').prevAll('.exercise-row').attr('complete', 'true');
+
+            let percent = ($('.exercise-row[complete]').length / $('.exercise-row').length) * 100;
+
+            $('.progress-bar').text(percent + '%')
+            $('.progress-bar').css('width', percent + '%')
           }
 
         }

@@ -29,19 +29,26 @@
 	<% else %>
 
 		<%= form_for :exercises, url: create_workout_detail_path do |f| %>
-			<div class="card">
+			<div class="card" style="margin-bottom:20px;">
 			  <div class="card-body workout-header">
-			  	<div class="text-center">
-				  	<p>
+			  	<div class="row text-center">
+				  	<div class="col-md-12">
 				  		<h2><%= @workout.name %></h2>
+				  	</div>
+				  	<div class="col-md-12">
 				  		<i class="text-warning"><%= @workout.category.name %></i>
-				  	</p>
-						<p><h5><%= @workout.frequency %> days per week</h5></p>
-						<p><%= @workout.duration %> week workout cycle</p>
+				  	</div>
+				  	<div class="col-md-12">
+							<p><h5><%= @workout.frequency %> days per week</h5></p>
+							<p><%= @workout.duration %> week workout cycle</p>
+						</div>
+						
+						<% if @user.current_workout == @workout.id %>
+							<div class="col-md-12" style="margin-bottom:20px;">
+								<%= f.submit "Log It", class: 'btn btn-block btn-lg log-it-btn' %>
+							</div>
+						<% end %>
 					</div>
-					<% if @user.current_workout == @workout.id %>
-						<p><%= f.submit "Log It", class: 'btn btn-block btn-lg log-it-btn' %></p>
-					<% end %>
 			  </div>
 			</div>
 
@@ -68,11 +75,24 @@
 			  	</tbody>
 			  </table>
 	  	<% else %>
-				<div id="accordion" style="margin-bottom:50px;">
-					<% @exercise_groups.each_with_index do |exercise_group, ex_group_idx| %>
-			  		<% bg_color = Category.style_tags.to_a.sample[1] %>
-			  		<div class="card">
-					    <div class="card-header <%= bg_color['border'] %>" id="heading<%= ex_group_idx %>">
+	  		<div class="progress">
+				  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+				</div>
+
+	  		<div class="row" style="margin-top:20px;margin-bottom:20px;">
+						<div class="col-md-6 col-sm-6 col-6 text-left">
+							<%= link_to "<-", nil, id: 'prev-exercise', class: 'btn btn-block btn-danger' %>
+						</div>
+						<div class="col-md-6 col-sm-6 col-6 text-right">
+							<%= link_to "->", nil, id: 'next-exercise', class: 'btn btn-block btn-warning' %>
+						</div>
+					</div>
+
+	  		<% @exercise_groups.each_with_index do |exercise_group, ex_group_idx| %>
+	  			<% bg_color = Category.style_tags.to_a.sample[1] %>
+	  			<% card_display = 'none' if ex_group_idx != 0 %>
+	  			<div class="card <%= bg_color['background-color'] %> exercise-card" style="display:<%= card_display %>">
+	  				 <div class="card-header <%= bg_color['border'] %>" id="heading<%= ex_group_idx %>">
 					      <h5 class="mb-0 row">
 					      	<div style="overflow:auto;" class="col-md-6">
 						        <a class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= ex_group_idx %>" aria-expanded="true" aria-controls="collapse<%= ex_group_idx %>">
@@ -82,11 +102,11 @@
 						      <div class="col-md-3 exercise-counter text-right">0 of <%= exercise_group[1].count %> complete</div>
 					      </h5>
 					    </div>
-					    <div id="collapse<%= ex_group_idx %>" class="collapse" aria-labelledby="heading<%= ex_group_idx %>" data-parent="#accordion">
-					      <div class="card-body">
+
+					    <div class="card-body">
 						  		<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
 	  								<% @prev_exercise = @last_workout.find_by(exercise_id: exercise.id) %>
-						  			<div class="row" style="height:5%;border-bottom:1px solid black;<%= bg_color['style'] %>">
+						  			<div class="row exercise-row" style="height:5%;border-bottom:1px solid black;<%= bg_color['style'] %>">
 						      		<div class="col-md-3 col-sm-3 col-3" style="margin-top:10px;">
 						      			<%= exercise.name %>
 						      		</div>
@@ -99,41 +119,63 @@
 						      		</div>
 						      	</div>
 
-						      	<div class="row" style="padding-top:30px;">
-											<% 1.upto(exercise.set_count) do |num| %>
-												<% col_space = 12 / exercise.set_count %>
-								      	<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %>">Rep <%= num %></i></div>
-								      <% end %>
-								    </div>
-
 								    <%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
 							      	<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
 							      	<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
 							      	<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
+
 							      	<div class="row" style="padding-bottom:30px;">
+								      	<% col_space = 4 %>
 									      <% 1.upto(exercise.set_count) do |num| %>
-									      	<% col_space = 12 / exercise.set_count %>
 								      		<% if @user.current_workout == @workout.id %>
 								      			<% if @prev_exercise.nil? %>
-								      				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input" %></div>
+								      				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:30px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control" %></div>
 								      			<% else %>
-								      				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input", placeholder: @prev_exercise["rep_#{num}_weight"] %></div>
+								      				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:30px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control", placeholder: @prev_exercise["rep_#{num}_weight"] %></div>
 								      			<% end %>
 								      		<% end %>
 									      <% end %>
 							      	</div>
 
 							      	<div class="row" style="padding-bottom:30px;border-bottom:1px solid black;">
-							      		<%= workout_detail.text_area :comment, class: "col-md-12", placeholder: "Enter exercise comment here" %>
+							      		<%= workout_detail.text_area :comment, class: "col-md-12 form-control", placeholder: "Enter exercise comment here" %>
 							      	</div>
 								    <% end %>
 									<% end %>
 								</div>
-							</div>
-						</div>
-					<% end %>
-				</div>
+	  			</div>
+	  		<% end %>
 			<% end %>
 		<% end %>
 	<% end %>
 <% end %>
+
+<script>
+	$('#next-exercise').on('click', function(e){
+		e.preventDefault();
+
+		let visibleCard;
+		if ($('.exercise-card:visible').length === 0) {
+			visibleCard = $('.exercise-card').first();
+			visibleCard.css('display', '');
+		} else {
+			visibleCard = $('.exercise-card:visible');
+			visibleCard.css('display', 'none');
+			visibleCard.next().css('display', '');
+		}
+	});
+
+	$('#prev-exercise').on('click', function(e){
+		e.preventDefault();
+
+		let visibleCard;
+		if ($('.exercise-card:visible').length === 0) {
+			visibleCard = $('.exercise-card').last();
+			visibleCard.css('display', '');
+		} else {
+			visibleCard = $('.exercise-card:visible');
+			visibleCard.css('display', 'none');
+			visibleCard.prev().css('display', '');
+		};
+	});
+</script>

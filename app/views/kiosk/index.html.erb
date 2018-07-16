@@ -1,0 +1,67 @@
+<%= form_tag 'create', method: 'post' do %>
+	<div class="row" style="margin-bottom:20px;">
+		<div class="container">
+			<div class="input-group">
+				<%= text_field_tag :pin, nil, id: 'pin', class: 'form-control', placeholder: 'Enter Pin #', style: "height: 80px;font-size:3em;text-align:center;"%>
+	  	</div>
+		</div>
+	</div>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-4">
+				<%= image_tag "one", size: '90x90', class: 'num-btn', value: 1 %>
+			</div>
+			<div class="col-4">
+				<%= image_tag "two", size: '90x90', class: 'num-btn', value: 2 %>
+			</div>
+			<div class="col-4">
+				<%= image_tag "three", size: '90x90', class: 'num-btn', value: 3 %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4">
+				<%= image_tag "four", size: '90x90', class: 'num-btn', value: 4 %>
+			</div>
+			<div class="col-4">
+				<%= image_tag "five", size: '90x90', class: 'num-btn', value: 5 %>
+			</div>
+			<div class="col-4">
+				<%= image_tag "six", size: '90x90', class: 'num-btn', value: 6 %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4">
+				<%= image_tag "seven", size: '90x90', class: 'num-btn', value: 7 %>
+			</div>
+			<div class="col-4">
+				<%= image_tag "eight", size: '90x90', class: 'num-btn', value: 8 %>
+			</div>
+			<div class="col-4">
+				<%= image_tag "nine", size: '90x90', class: 'num-btn', value: 9 %>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-4">
+			</div>
+			<div class="col-4">
+				<%= image_tag "zero", size: '90x90', class: 'num-btn', value: 0 %>
+			</div>
+			<div class="col-4">
+			</div>
+		</div>
+	</div>
+
+	<%= submit_tag "Login", class: 'btn btn-success btn-lg btn-block', style:"margin-top:10px;height: 80px;"%>
+<% end %>
+
+<%#= audio_tag "/btn-click.mp3", id: "mysoundclip", crossOrigin: "anonymous" %>
+<script type="text/javascript">
+	$('.num-btn').on('click', function() {
+		$('#pin').val($('#pin').val() + $(this).attr('value'));
+	});
+</script>

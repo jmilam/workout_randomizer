@@ -3,4 +3,8 @@ class Exercise < ApplicationRecord
 	has_many :workout_details
 
 	validates :name, presence: true
+
+	def self.to_word(boolean)
+		boolean ? 'Yes' : 'No'
+	end
 end

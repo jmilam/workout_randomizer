@@ -21,35 +21,28 @@ class KioskController < ApplicationController
   	#find current workout
   	@user = current_user
   	@workout = Workout.find(current_user.current_workout)
-		@user.update(current_workout_group: @workout.workout_groups.sample.id) if @user.current_workout_group.nil? 
+  	workouts_complete = WorkoutDetail.where(workout_date:Date.today.beginning_of_week.strftime("%Y-%m-%d")..Date.today.end_of_week.strftime("%Y-%m-%d"), user_id: @user.id).map(&:workout_group_id).uniq
+
+  	if @user.current_workout_group.nil? && WorkoutDetail.where(workout_date: Date.today.strftime("%Y-%m-%d"), user_id: @user.id).empty?
+  		current_workout_group = @workout.workout_groups.to_a.delete_if { |workout_group| workouts_complete.include?(workout_group.id) }.sample.id
+			@user.update(current_workout_group: current_workout_group)
+  	elsif @user.current_workout_group.nil?
+  		return
+  	end
+
 		@workout_group = WorkoutGroup.find(@user.current_workout_group)
 		@last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
-		@exercise_groups = @workout_group.exercises.group_by(&:super_set_id)
-		@exercise_groups[nil].each do |nil_group|
-			@exercise_groups["#{nil_group.id}a"] = [nil_group]
-		end unless @exercise_groups[nil].nil?
 
-		@exercise_groups.delete(nil)
+		@exercise_groups = Exercise.group_super_sets(@workout_group)
 
-		exercises_completed = WorkoutDetail.where(workout_date: Date.today.strftime("%Y-%m-%d"), user_id: current_user.id).map(&:exercise_id)
-
-		exercise_ids = @exercise_groups.values.flatten.map(&:id).delete_if { |exercise_id| exercises_completed.include?(exercise_id)}
-		
-		@exercise_groups.each do |group, group_exercises|
-			group_exercise = group_exercises.delete_if { |group_exercise| !exercise_ids.include?(group_exercise.id)}
-		end
-
-		@exercise_groups.delete_if { |key, value| value.empty? }
-
-		unless @exercise_groups.empty?		
-			@exercise_group = @exercise_groups.to_a.sample[1]
-		end
+		@exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
   end
 
   def log_exercise
   	WorkoutDetail.transaction do
   		begin
 				workout = Workout.find(current_user.current_workout)
+				workout_group = WorkoutGroup.find(current_user.current_workout_group)
 				workout_date = Date.today.in_time_zone
 				reference_exercise = Exercise.find(params[:exercises][:workout_detail].first[:exercise_id])
 
@@ -66,7 +59,10 @@ class KioskController < ApplicationController
 					end
 				end
 
-				flash[:notice] = "Exercise Complete"
+				exercise_groups = Exercise.group_super_sets(workout_group)
+
+				current_user.update(current_workout_group: nil) if Exercise.get_exercise(current_user, exercise_groups).nil?
+				flash[:notice] = current_user.current_workout_group.nil? ? "Great Workout! You completed todays workout!" : "Exercise Complete"
 				redirect_to kiosk_exercise_path
 			rescue StandardError => error
 

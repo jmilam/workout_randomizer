@@ -8,13 +8,8 @@ class KioskController < ApplicationController
 
   	sign_in user
 
-  	if user.current_workout.nil?
-  		flash[:error] = "Please login to your profile and select a workout first."
-  		render :index
-  	else
-  		flash[:notice] = "Welcome, lets get after it."
-  		redirect_to kiosk_exercise_path
-  	end
+		flash[:notice] = "Welcome, lets get after it."
+		redirect_to kiosk_exercise_path
   end
 
   def configure_exercise

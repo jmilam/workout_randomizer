@@ -22,9 +22,13 @@
       <%= f.label :warm_up, "Warm Up?", class: 'col-md-12' %>
       <%= f.check_box :warm_up, class: 'col-md-12 form-control' %>
     </div>
-    <div class="col-md-10 col-sm-12 form-group">
+    <div class="col-md-8 col-sm-12 form-group">
       <%= f.label :warm_up_details, class: 'col-md-12' %>
       <%= f.text_field :warm_up_details, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-2 col-sm-12 form-group">
+      <%= f.label :kiosk_number, class: 'col-md-12' %>
+      <%= text_field_tag :kiosk_number, nil, value: @kiosk_number,  class: 'col-md-12 form-control' %>
     </div>
   </div>
 

@@ -17,82 +17,92 @@
 		<h1 class="display-4">There are no Workouts for you!</h1>
 		<p class="lead">Awesome job today. You have completed all the exercises for todays workout. Rest and let your body do what it was made to do....evolve!</p>
 <% else %>
-	<% @exercise_group.each do |exercise| %>
-		<% bg_color = Category.style_tags.to_a.sample[1] %>
+	<div class="progress" style="height:35px">
+	  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <%= @complete_percent%>%;" aria-valuenow="<%= @complete_percent %>" aria-valuemin="0" aria-valuemax="100"><%= @complete_percent %>% complete</div>
+	</div>
 
-		<div style="<%= bg_color['style'] %>;">
-			<div class="row">
-				<div class="col-md-12 text-center exercise-header">
-					<%= exercise.name %>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 text-center exercise-sub-header">
-					<i><%= exercise.description %></i>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 text-center exercise-sub-header">
-					<%= exercise.example %>
-				</div>
-			</div>
+	<%= form_for :exercises, url: log_exercise_path do |f| %>
+		<% @exercise_group.each do |exercise| %>
+			<% bg_color = Category.style_tags.to_a.sample[1] %>
 
-			<div class="row">
-				<div class="col-md-6 col-6 text-center exercise-details">
-					<%= exercise.set_count %> Sets
-				</div>
-				<div class="col-md-6 col-6 text-center exercise-details">
-					<%= exercise.rep_range %> Reps
-				</div>
-			</div>
-
-			<% if exercise.warm_up %>
+			<div style="<%= bg_color['style'] %>;margin-top:10px;padding-bottom:10px;border-bottom:1px solid white;margin-left:1px;margin-right:1px;">
 				<div class="row">
-					<div class="col-md-6 col-6 text-center exercise-details">
-						Warm Up
+					<div class="col-md-12 text-center exercise-header">
+						<%= exercise.name %>
 					</div>
-					<div class="col-md-6 col-6 text-center exercise-details">
-						Warm Up Details
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center exercise-header">
+						Kiosk # <%= Kiosk.find_by(exercise_id: exercise.id).kiosk_number unless Kiosk.find_by(exercise_id: exercise.id).nil? %>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center exercise-sub-header">
+						<i><%= exercise.description %></i>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center exercise-sub-header">
+						<%= exercise.example %>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-md-6 text-center exercise-details">
-						<%= Exercise.to_word(exercise.warm_up) %>
+					<div class="col-md-6 col-6 text-center exercise-details">
+						<%= exercise.set_count %> Sets
 					</div>
-					<div class="col-md-6 text-center exercise-details">
-						<%= exercise.warm_up_details %>
+					<div class="col-md-6 col-6 text-center exercise-details">
+						<%= exercise.rep_range %> Reps
 					</div>
 				</div>
-			<% end %>
-		</div>
 
-		<%= form_for :exercises, url: log_exercise_path do |f| %>
-			<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
-				<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-				<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
-				<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
+				<% if exercise.warm_up %>
+					<div class="row">
+						<div class="col-md-6 col-6 text-center exercise-details">
+							Warm Up
+						</div>
+						<div class="col-md-6 col-6 text-center exercise-details">
+							Warm Up Details
+						</div>
+					</div>
 
-				<div class="row" style="padding-bottom:30px;">
-					<% @prev_exercise = @last_workout.find_by(exercise_id: exercise.id) %>
+					<div class="row">
+						<div class="col-md-6 text-center exercise-details">
+							<%= Exercise.to_word(exercise.warm_up) %>
+						</div>
+						<div class="col-md-6 text-center exercise-details">
+							<%= exercise.warm_up_details %>
+						</div>
+					</div>
+				<% end %>
+			</div>
 
-			  	<% col_space = 4 %>
-			    <% 1.upto(exercise.set_count) do |num| %>
-			  		<% if @user.current_workout == @workout.id %>
-			  			<% if @prev_exercise.nil? %>
-			  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:30px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control" %></div>
-			  			<% else %>
-			  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:30px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control", placeholder: @prev_exercise["rep_#{num}_weight"] %></div>
-			  			<% end %>
-			  		<% end %>
-			    <% end %>
-				</div>
+				<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
+					<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
+					<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
+					<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
 
-				<div class="row" style="padding-bottom:30px;border-bottom:1px solid black;margin-bottom:20px;">
-					<%= workout_detail.text_area :comment, class: "col-md-12 form-control", placeholder: "Enter exercise comment here" %>
-				</div>
-			<% end %>
-			<%= f.submit "Next Exercise" %>
+					<div class="row" style="padding-bottom:30px;">
+						<% @prev_exercise = @last_workout.find_by(exercise_id: exercise.id) %>
+
+				  	<% col_space = 4 %>
+				    <% 1.upto(exercise.set_count) do |num| %>
+				  		<% if @user.current_workout == @workout.id %>
+				  			<% if @prev_exercise.nil? %>
+				  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:30px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input" %></div>
+				  			<% else %>
+				  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:30px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", placeholder: @prev_exercise["rep_#{num}_weight"] %></div>
+				  			<% end %>
+				  		<% end %>
+				    <% end %>
+					</div>
+
+					<div class="row" style="padding-bottom:30px;border-bottom:1px solid white;margin-bottom:20px;margin-left:1px;margin-right:1px;">
+						<%= workout_detail.text_area :comment, class: "col-md-11 form-control custom-input", placeholder: "Enter exercise comment here" %>
+					</div>
+				<% end %>
 		<% end %>
+
+		<%= f.submit "Next Exercise", class: "btn btn-lg btn-block", style: "background-color:#BFF075;" %>
 	<% end %>
 <% end %>

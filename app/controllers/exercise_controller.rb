@@ -11,6 +11,8 @@ class ExerciseController < ApplicationController
 
 	def edit
 		@exercise = Exercise.find(params[:id])
+		@kiosk = current_user.gym.kiosks.find_by(exercise_id: @exercise.id)
+		@kiosk_number = @kiosk.nil? ? "" : @kiosk.kiosk_number
 		@superset_exercise = SuperSet.get_shared_exercise(@exercise)
 		@workout_group = @exercise.workout_group
 	end
@@ -22,6 +24,9 @@ class ExerciseController < ApplicationController
 		begin
 			@exercise.save!
 
+			unless params[:kiosk_number].nil?
+				current_user.gym.kiosks.create!(gym_id: current_user.gym_id, exercise_id: @exercise.id, kiosk_number: params[:kiosk_number])
+			end
 			unless params[:exercise][:super_set_id].blank?
 				super_set = SuperSet.create_or_update(@exercise, params[:exercise][:super_set_id])
 
@@ -55,6 +60,9 @@ class ExerciseController < ApplicationController
 				end
 
 				@exercise.update!(exercise_params)
+
+				@kiosk = current_user.gym.kiosks.find_by(exercise_id: @exercise.id)
+				@kiosk.update(kiosk_number: params[:kiosk_number].to_i) unless @kiosk.nil?
 			end
 
 			flash[:notice] = "Exercise #{@exercise.name} was successfully updated."

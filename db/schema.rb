@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180712173109) do
+ActiveRecord::Schema.define(version: 20180718175016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,15 @@ ActiveRecord::Schema.define(version: 20180712173109) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_inboxes_on_user_id"
+  end
+
+  create_table "kiosks", force: :cascade do |t|
+    t.integer "kiosk_number", null: false
+    t.integer "gym_id", null: false
+    t.integer "exercise_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kiosk_number", "gym_id", "exercise_id"], name: "by_kiosk_gym_exercise_id"
   end
 
   create_table "message_groups", force: :cascade do |t|

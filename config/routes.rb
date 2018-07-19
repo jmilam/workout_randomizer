@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   get 'kiosk/index', to: 'kiosk#index', as: 'kiosk'
   get 'kiosk/configure_exercise', to: 'kiosk#configure_exercise', as: 'kiosk_exercise'
-  post 'kiosk/create', to: 'kiosk#create', as: 'kiosk_login'
+  post 'kiosk/login', to: 'kiosk#login', as: 'kiosk_login'
+  post 'kiosk/create', to: 'kiosk#create', as: 'create_kiosk'
   post 'kiosk/log_exercise', to: 'kiosk#log_exercise', as: 'log_exercise'
 
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }

@@ -1,4 +1,4 @@
-<%= form_tag 'create', method: 'post' do %>
+<%= form_tag 'login', method: 'post' do %>
 	<div class="row" style="margin-bottom:20px;">
 		<div class="container">
 			<div class="input-group">
@@ -58,6 +58,7 @@
 
 	<%= submit_tag "Login", class: 'btn btn-success btn-lg btn-block', style:"margin-top:10px;height: 80px;"%>
 <% end %>
+<%= link_to "Sign In To Portal", new_user_session_path, class: 'btn btn-lg btn-block' %>
 
 <%#= audio_tag "/btn-click.mp3", id: "mysoundclip", crossOrigin: "anonymous" %>
 <script type="text/javascript">

@@ -13,6 +13,11 @@ class GymController < ApplicationController
 			user = User.find(user_id)
 			@non_admins << [user.username, user.id]
 		end
+
+		kiosk_exercise_ids = @gym.kiosks.map(&:exercise_id)
+		
+		@exercises = @gym.exercises.map { |exercise| [exercise.name, exercise.id] unless kiosk_exercise_ids.include?(exercise.id) }.
+			delete_if { |exercise_group| exercise_group.nil? }
 	end
 
 	def update

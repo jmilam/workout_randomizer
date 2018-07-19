@@ -4,6 +4,17 @@ class KioskController < ApplicationController
   end
 
   def create
+  	@kiosk = Kiosk.new(kiosk_params)
+
+  	if @kiosk.save
+  		flash[:notice] = "Kiosk successfully created"
+  	else
+  		flash[:error] = "Error when creating kiosk: #{@kiosk.errors}"
+  	end
+  	redirect_to gym_path(@kiosk.gym_id)
+  end
+
+  def login
   	user = User.find_by(pin: params[:pin])
 
   	sign_in user
@@ -27,8 +38,12 @@ class KioskController < ApplicationController
 
 		@workout_group = WorkoutGroup.find(@user.current_workout_group)
 		@last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
-
 		@exercise_groups = Exercise.group_super_sets(@workout_group)
+
+		exercise_complete_count = @workout_group.workout_details.where(workout_group_id: @workout_group.id, workout_date: Date.today.strftime("%Y-%m-%d")).count.to_f
+		exercise_count = @workout_group.exercises.count.to_f
+
+		@complete_percent = ((exercise_complete_count / exercise_count) * 100).to_i
 
 		@exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
   end
@@ -64,5 +79,11 @@ class KioskController < ApplicationController
 				flash[:alert] = "There was an error when saving Workout Details #{error}"
 			end
 		end
+  end
+
+  private
+
+  def kiosk_params
+  	params.require(:kiosk).permit(:gym_id, :kiosk_number, :exercise_id)
   end
 end

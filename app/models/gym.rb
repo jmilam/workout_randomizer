@@ -1,6 +1,8 @@
 class Gym < ApplicationRecord
   has_many :users
   has_many :workouts
+  has_many :exercises, through: :workouts
+  has_many :kiosks
 
   validates :name, :phone_number, presence: true
 

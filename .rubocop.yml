@@ -1,2 +1,6 @@
+AllCops:
+  Excludes:
+    - db/**
+
 Documentation:
   Enabled: false

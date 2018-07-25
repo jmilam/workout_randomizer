@@ -9,7 +9,6 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.integer    :regularity_id, null: false
       t.integer    :goal_id, null: false
       t.string :username, null: false
-
       t.timestamps
     end
   end

@@ -92,7 +92,7 @@ RSpec.describe 'Users', js: true do
       end
 
       context 'user already exists' do
-        let!(:user) { create(:user, gym: gym)}
+        let!(:user) { create(:user, gym: gym) }
 
         before do
           fill_in 'Height', with: '68'
@@ -124,7 +124,7 @@ RSpec.describe 'Users', js: true do
         fill_in 'Last name', with: 'La Fleur'
         fill_in 'Height (inches)', with: '68'
         fill_in 'Weight', with: '175'
-        
+
         click_on 'Next'
 
         select '1 day week', from: 'Regularity'

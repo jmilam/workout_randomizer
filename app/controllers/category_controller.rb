@@ -1,50 +1,48 @@
 class CategoryController < ApplicationController
-	layout 'nav'
-	def index
-		@categories = Category.all
-	end
+  layout 'nav'
+  def index
+    @categories = Category.all
+  end
 
-	def new
-		@category = Category.new
-	end
+  def new
+    @category = Category.new
+  end
 
-	def create
-		@category = Category.new(category_params)
+  def create
+    @category = Category.new(category_params)
 
-		begin
-			@category.save!
+    begin
+      @category.save!
 
-			flash[:notice] = "Category #{@category.name} was successfully created."
-			redirect_to category_index_path
+      flash[:notice] = "Category #{@category.name} was successfully created."
+      redirect_to category_index_path
+    rescue ActiveRecord::RecordInvalid => error
+      flash[:alert] = "There was an error when updating your category: #{error}"
+      render :new
+    end
+  end
 
-		rescue ActiveRecord::RecordInvalid => error
-			flash[:alert] = "There was an error when updating your category: #{error}"
-			render :new
-		end
-	end
+  def edit
+    @category = Category.find(params[:id])
+  end
 
-	def edit
-		@category = Category.find(params[:id])
-	end
+  def update
+    @category = Category.find(params[:id])
 
-	def update
-		@category = Category.find(params[:id])
+    begin
+      @category.update(category_params)
 
-		begin
-			@category.update(category_params)
+      flash[:notice] = "Category #{@category.name} was successfully updated."
+      redirect_to category_index_path
+    rescue ActiveRecord::RecordInvalid => error
+      flash[:alert] = "There was an error when updating your category: #{error}"
+      render :edit, id: @category.id
+    end
+  end
 
-			flash[:notice] = "Category #{@category.name} was successfully updated."
-			redirect_to category_index_path
+  protected
 
-		rescue ActiveRecord::RecordInvalid => error
-			flash[:alert] = "There was an error when updating your category: #{error}"
-			render :edit, id: @category.id
-		end
-	end
-
-	protected
-
-	def category_params
-		params.require(:category).permit(:name, :tag, :goal_id)
-	end
+  def category_params
+    params.require(:category).permit(:name, :tag, :goal_id)
+  end
 end

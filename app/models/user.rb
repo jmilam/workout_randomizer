@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :password, presence: true, on: :create
 
   validates :email, uniqueness: true
-  
+
   enum regularity: { '1week' => '1 day week',
                      '2week' => '2 day week',
                      '3week' => '3 day week',
@@ -25,21 +25,21 @@ class User < ApplicationRecord
                '2' => 'Maintain' }
 
   def calculate_bmi
-  	converted_weight = weight * 0.45
+    converted_weight = weight * 0.45
     converted_height = height * 0.025
-    converted_height = converted_height * converted_height
+    converted_height *= converted_height
 
     (converted_weight / converted_height).to_i
   end
 
   def bmi_status(bmi)
-  	if bmi < 18.5
-  		"yellow"
-  	elsif bmi > 25
-  		"red"
-  	else
-  		"green"
-  	end
+    if bmi < 18.5
+      'yellow'
+    elsif bmi > 25
+      'red'
+    else
+      'green'
+    end
   end
 
   def this_weeks_workouts

@@ -1,36 +1,36 @@
 class Exercise < ApplicationRecord
-	belongs_to :workout_group
-	has_many :workout_details
+  belongs_to :workout_group
+  has_many :workout_details
 
-	validates :name, presence: true
+  validates :name, presence: true
 
-	def self.to_word(boolean)
-		boolean ? 'Yes' : 'No'
-	end
+  def self.to_word(boolean)
+    boolean ? 'Yes' : 'No'
+  end
 
-	def self.group_super_sets(workout_group)
-		exercise_groups = workout_group.exercises.group_by(&:super_set_id)
-		exercise_groups[nil].each do |nil_group|
-			exercise_groups["#{nil_group.id}a"] = [nil_group]
-		end unless exercise_groups[nil].nil?
+  def self.group_super_sets(workout_group)
+    exercise_groups = workout_group.exercises.group_by(&:super_set_id)
+    unless exercise_groups[nil].nil?
+      exercise_groups[nil].each do |nil_group|
+        exercise_groups["#{nil_group.id}a"] = [nil_group]
+      end
+     end
 
-		exercise_groups.delete(nil)
-		exercise_groups
-	end
+    exercise_groups.delete(nil)
+    exercise_groups
+  end
 
-	def self.get_exercise(user, exercise_groups)
-		exercises_completed = WorkoutDetail.where(workout_date: Date.today.strftime("%Y-%m-%d"), user_id: user.id).map(&:exercise_id)
+  def self.get_exercise(user, exercise_groups)
+    exercises_completed = WorkoutDetail.where(workout_date: Date.today.strftime('%Y-%m-%d'), user_id: user.id).map(&:exercise_id)
 
-		exercise_ids = exercise_groups.values.flatten.map(&:id).delete_if { |exercise_id| exercises_completed.include?(exercise_id)}
-		
-		exercise_groups.each do |group, group_exercises|
-			group_exercise = group_exercises.delete_if { |group_exercise| !exercise_ids.include?(group_exercise.id)}
-		end
+    exercise_ids = exercise_groups.values.flatten.map(&:id).delete_if { |exercise_id| exercises_completed.include?(exercise_id) }
 
-		exercise_groups.delete_if { |key, value| value.empty? }
+    exercise_groups.each do |_group, group_exercises|
+      group_exercise = group_exercises.delete_if { |group_exercise| !exercise_ids.include?(group_exercise.id) }
+    end
 
-		unless exercise_groups.empty?		
-			exercise_groups.to_a.sample[1]
-		end
-	end
+    exercise_groups.delete_if { |_key, value| value.empty? }
+
+    exercise_groups.to_a.sample[1] unless exercise_groups.empty?
+  end
 end

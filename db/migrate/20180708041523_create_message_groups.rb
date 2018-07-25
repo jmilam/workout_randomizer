@@ -1,8 +1,8 @@
 class CreateMessageGroups < ActiveRecord::Migration[5.1]
   def change
     create_table :message_groups do |t|
-    	t.integer	:inbox_id
-    	t.string	:subject, null: false
+      t.integer  :inbox_id
+      t.string :subject, null: false
       t.timestamps
     end
 

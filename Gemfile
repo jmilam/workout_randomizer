@@ -32,7 +32,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'after_party'
 gem 'paperclip'
-
+gem 'rubocop'
+gem 'simplecov'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

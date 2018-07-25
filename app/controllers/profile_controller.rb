@@ -1,17 +1,17 @@
 class ProfileController < ApplicationController
-	layout 'nav'
+  layout 'nav'
   before_action :authenticate_user!
 
   def index
-  	@title = "#{current_user.first_name} Profile"
+    @title = "#{current_user.first_name} Profile"
     @user = current_user
     @weeks_doing_workout = 0
 
     unless current_user.current_workout.nil?
       @workout = Workout.find(current_user.current_workout)
-  		@already_worked_out = !@user.user_previous_workouts
-  																	 .where(workout_date: Date.today.in_time_zone)
-  																	 .empty?
+      @already_worked_out = !@user.user_previous_workouts
+                                  .where(workout_date: Date.today.in_time_zone)
+                                  .empty?
       # @weeks_doing_workout = @workout.user_previous_workouts.count
 
       workout_weeks = []
@@ -22,11 +22,11 @@ class ProfileController < ApplicationController
       @weeks_doing_workout = workout_weeks.count
     end
 
-    @height = (@user.height/12.0).round(1).to_s.split('.')
+    @height = (@user.height / 12.0).round(1).to_s.split('.')
 
     @bmi = @user.calculate_bmi
     @bmi_status = @user.bmi_status(@bmi)
-    
+
     @differences = {}
     current_workout = Workout.find(@user.current_workout)
     WorkoutDetail.all.where(workout_group_id: current_workout.workout_groups.map(&:id)).group_by(&:exercise_id).each do |detail|
@@ -36,15 +36,15 @@ class ProfileController < ApplicationController
       detail[1].each do |workout_detail|
         @differences[exercise.name][:avg] << workout_detail.avg_rep_weight
         @differences[exercise.name][:max] << workout_detail.max_rep_weight
-      end 
+      end
 
       @differences[exercise.name].each do |key, value|
         value = value.sort!
-        if value.count > 1
-          @differences[exercise.name][key] = (value[1] - value[0]).round(2)
-        else
-          @differences[exercise.name][key] = 0.0
-        end
+        @differences[exercise.name][key] = if value.count > 1
+                                             (value[1] - value[0]).round(2)
+                                           else
+                                             0.0
+                                           end
       end
     end
 
@@ -64,7 +64,7 @@ class ProfileController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update!(workout_params)
-      flash[:notice] = "User successfully updated"
+      flash[:notice] = 'User successfully updated'
       redirect_to root_path
     else
       flash[:alert] = "Errors on update #{@user.errors}"

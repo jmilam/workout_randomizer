@@ -43,7 +43,7 @@
 
 		<% @workout_groups.each do |group| %>
 			<li class="list-group-item text-center bg-dark text-white">Workout</li>
-			<li class="list-group-item text-center border-warning"><%= link_to group.name, edit_workout_group_path(group.id) %></li>
+			<li class="list-group-item text-center border-warning"><%= link_to group.name, edit_workout_group_path(group.id) %><br/> <span class="badge badge-primary">Current # of users doing workout: <%= User.where(current_workout_group: group.id).count %></span></li>
 			<div class="card-header text-center bg-dark text-white">Exercises</div>
 			<div class="card-footer text-center">
 				<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id) %>

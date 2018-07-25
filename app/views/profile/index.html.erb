@@ -58,31 +58,40 @@
   </ul>
   <div class="tab-content" id="workoutTabContent">
     <div class="tab-pane fade show active" id='profile' role='tabpanel' aria-labelledby='profile'>
-      <div class="card">
-        <div class="card-header workout-header">
-          <div class="row">
-            <div class="col-md-9 col-sm-12"><h4><%= link_to "#{@user.first_name}'s Information", edit_profile_path(@user.id) %></h4></div>
-            <div class="col-md-3 col-sm-12"><%= link_to "Workout History", workout_history_path %><br/> <%= link_to "Suggested Workout", workout_index_path unless @already_worked_out %></div>
-          </div>
-          
-          
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-6 col-sm-12">
-              <p><b>Weight:</b> <%= @user.weight %> lbs.</p>
-              <p><b>Height:</b> <%= @height[0] %>' <%= @height[1] %>"</p>
-             <p><div style="color:<%= @bmi_status %>">BMI: <%= @bmi %></div></p>
+          <div id="image-background">
+            <div class="row">
+              <div class="col-md-9 col-sm-12"><h3 class="text-center"><%= link_to "#{@user.first_name}'s Information", edit_profile_path(@user.id) %></h4></div>
+              <!-- <div class="col-md-3 col-sm-12"><%= link_to "Workout History", workout_history_path %><br/> <%= link_to "Suggested Workout", workout_index_path unless @already_worked_out %></div> -->
             </div>
-            <div class="col-md-6 col-sm-12">
-              <p><b>Workout Regularity:</b> <%= User.regularities["#{@user.regularity_id}week"] %></p>
-              <p><b>Workout Goal:</b> <%= User.goals["#{@user.goal_id}"] %></p>
-              <p><b>Current Gym:</b> <%= @user.gym.name %></p>
-              <p><b>Current Workout:</b> <% unless @user.current_workout.nil? %><%= @workout.name %> - <%= link_to "Change Workout", stop_workout_path, method: :patch, class: "btn btn btn-danger btn-sm" %><% end %></p>
+            
+            <div class="row">
+              <div class="col-md-6 col-sm-4 col-4 detail-font-size">
+                <b>Weight:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @user.weight %> lbs.</div>
+              </div>
+              <div class="col-md-6 col-sm-4 col-4 detail-font-size" style="">
+                <b>Height:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @height[0] %>' <%= @height[1] %>"</div>
+              </div>
+              <div class="col-md-6 col-sm-4 col-4 detail-font-size">
+                BMI: <div style="color:<%= @bmi_status %>;text-align:center;"><%= @bmi %></div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-12 text-center">
+              <b>Workout Regularity:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= User.regularities["#{@user.regularity_id}week"] %></div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-12 text-center">
+              <b>Workout Goal:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= User.goals["#{@user.goal_id}"] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-12 text-center">
+              <b>Current Gym:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @user.gym.name %></div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-12 text-center">
+              <b>Current Workout:</b> <% unless @user.current_workout.nil? %><div style="color:rgba(255, 255, 255, 0.5);"><%= @workout.name %></div> <%= link_to "Change Workout", stop_workout_path, method: :patch, class: "btn btn btn-danger btn-sm" %><% end %>
+            </div>
+          </div>
     </div>
     <div class="tab-pane fade show" id='workout-trending' role='tabpanel' aria-labelledby='workout-trending'>
       <% unless @workout.nil? %>

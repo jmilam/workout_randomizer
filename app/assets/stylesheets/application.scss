@@ -19,8 +19,39 @@ nav {
 	color: white;
 }
 
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+	background: #003259;
+}
+
+a {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+body {
+	background-color: #262626;
+	color: white;
+}
+
+.row {
+	margin-bottom: 15px;
+}
+
+.detail-font-size {
+	font-size: 0.8em;
+	text-align:center;
+}
+
+.card-body {
+  background-color: #262626;
+  color: white;
+}
+
 .custom-input {
 	background-color: #D6E5C5;
+}
+
+.workout-btn {
+	background-color: #BFF075;
 }
 
 #footer {
@@ -37,7 +68,9 @@ nav {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-attachment: fixed;
-
+	padding-top:10px;
+	padding-bottom:10px;
+	margin-bottom:10px;
 }
 
 .workout-header {

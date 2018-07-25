@@ -22,7 +22,7 @@
           <li><%= link_to "Inbox", inbox_index_path, class: 'nav-link' %></li>
           <% if current_user.gym.admin_ids.include?(current_user.id.to_s) %>
             <li><%= link_to "Gym", gym_path(current_user.gym.id), class: 'nav-link' %></li>
-          <% end %>
+          <% end unless current_user.gym.admin_ids.nil? %>
 		  		<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
 		  	</ul>
 		  </div>

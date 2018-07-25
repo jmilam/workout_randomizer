@@ -6,6 +6,7 @@ class CreateKiosks < ActiveRecord::Migration[5.1]
       t.integer :exercise_id, null: false
       t.timestamps
     end
-    add_index :kiosks, %i[kiosk_number gym_id exercise_id], name: 'by_kiosk_gym_exercise_id'
+    add_index :kiosks, %i[kiosk_number gym_id exercise_id],
+      name: 'by_kiosk_gym_exercise_id'
   end
 end

@@ -28,23 +28,26 @@ class ProfileController < ApplicationController
     @bmi_status = @user.bmi_status(@bmi)
 
     @differences = {}
-    current_workout = Workout.find(@user.current_workout)
-    WorkoutDetail.all.where(workout_group_id: current_workout.workout_groups.map(&:id)).group_by(&:exercise_id).each do |detail|
-      exercise = Exercise.find(detail[0])
-      @differences[exercise.name] = { avg: [], max: [] }
 
-      detail[1].each do |workout_detail|
-        @differences[exercise.name][:avg] << workout_detail.avg_rep_weight
-        @differences[exercise.name][:max] << workout_detail.max_rep_weight
-      end
+    unless @user.current_workout.nil?
+      current_workout = Workout.find(@user.current_workout)
+      WorkoutDetail.all.where(workout_group_id: current_workout.workout_groups.map(&:id)).group_by(&:exercise_id).each do |detail|
+        exercise = Exercise.find(detail[0])
+        @differences[exercise.name] = { avg: [], max: [] }
 
-      @differences[exercise.name].each do |key, value|
-        value = value.sort!
-        @differences[exercise.name][key] = if value.count > 1
-                                             (value[1] - value[0]).round(2)
-                                           else
-                                             0.0
-                                           end
+        detail[1].each do |workout_detail|
+          @differences[exercise.name][:avg] << workout_detail.avg_rep_weight
+          @differences[exercise.name][:max] << workout_detail.max_rep_weight
+        end
+
+        @differences[exercise.name].each do |key, value|
+          value = value.sort!
+          @differences[exercise.name][key] = if value.count > 1
+                                               (value[1] - value[0]).round(2)
+                                             else
+                                               0.0
+                                             end
+        end
       end
     end
 

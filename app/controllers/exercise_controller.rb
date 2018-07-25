@@ -24,7 +24,7 @@ class ExerciseController < ApplicationController
 		begin
 			@exercise.save!
 
-			unless params[:kiosk_number].nil?
+			unless params[:kiosk_number].blank?
 				current_user.gym.kiosks.create!(gym_id: current_user.gym_id, exercise_id: @exercise.id, kiosk_number: params[:kiosk_number])
 			end
 			unless params[:exercise][:super_set_id].blank?
@@ -62,7 +62,11 @@ class ExerciseController < ApplicationController
 				@exercise.update!(exercise_params)
 
 				@kiosk = current_user.gym.kiosks.find_by(exercise_id: @exercise.id)
-				@kiosk.update(kiosk_number: params[:kiosk_number].to_i) unless @kiosk.nil?
+				if @kiosk.nil? && !params[:kiosk_number].blank?
+					current_user.gym.kiosks.create!(gym_id: current_user.gym_id, exercise_id: @exercise.id, kiosk_number: params[:kiosk_number].to_i)
+				elsif !@kiosk.nil?
+					@kiosk.update(kiosk_number: params[:kiosk_number].to_i)
+				end
 			end
 
 			flash[:notice] = "Exercise #{@exercise.name} was successfully updated."

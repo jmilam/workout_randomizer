@@ -11,6 +11,7 @@ class WorkoutGroupController < ApplicationController
 
 	def edit
 		@workout_group = WorkoutGroup.find(params[:id])
+		@workout_users = User.where(current_workout_group: @workout_group.id)
 	end
 
 	def create

@@ -44,7 +44,7 @@ class WorkoutController < ApplicationController
 
 	def edit
 		@workout = Workout.find(params[:id])
-
+		@workout_users = User.where(current_workout: @workout.id)
 		@workout_groups = @workout.workout_groups.includes(:exercises)
 	end
 

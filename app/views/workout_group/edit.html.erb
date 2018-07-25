@@ -19,3 +19,18 @@
     </div>
   </div>
 <% end %>
+
+<table class="table" style="margin-top:20px;">
+  <thead>
+    <tr>
+      <th>User name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @workout_users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %> <%= user.last_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

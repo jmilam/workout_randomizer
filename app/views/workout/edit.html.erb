@@ -10,14 +10,20 @@
 	  </div>
 
 	  <div class="row">
-	    <div class="col-md-12 col-sm-12 form-group">
+	    <div class="col-md-12 col-sm-12">
 	      <b><i>Workout Category:</i></b> <%= @workout.category.name %>
 	    </div>
 	  </div>
 
 	  <div class="row">
-	    <div class="col-md-12 col-sm-12 form-group">
+	    <div class="col-md-12 col-sm-12">
 	      <b><i>Workout Cycle Weeks:</i></b> <%= @workout.duration %>
+	    </div>
+	  </div>
+
+	  <div class="row">
+	    <div class="col-md-12 col-sm-12">
+	      <b><i>Users currently using this workout:</i></b> <%= @workout_users.count %>
 	    </div>
 	  </div>
   </div>

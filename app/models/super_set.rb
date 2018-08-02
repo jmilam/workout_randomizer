@@ -1,7 +1,11 @@
 class SuperSet < ApplicationRecord
   def update_superset(exercise_id, super_set_exercise_id)
     [exercise_one_id, exercise_two_id].each do |exercise_id|
-      Exercise.find(exercise_id).update(super_set_id: nil)
+      exercise = Exercise.find_by(id: exercise_id)
+
+      next if exercise.nil?
+
+      exercise.update(super_set_id: nil)
     end
 
     delete

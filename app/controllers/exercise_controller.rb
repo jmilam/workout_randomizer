@@ -14,7 +14,7 @@ class ExerciseController < ApplicationController
     @kiosk = current_user.gym.kiosks.find_by(exercise_id: @exercise.id)
     @kiosk_number = @kiosk.nil? ? '' : @kiosk.kiosk_number
     @superset_exercise = SuperSet.get_shared_exercise(@exercise)
-    @workout_group = @exercise.workout_group
+    @total_exercises = @exercise.workout_group.exercises.count
   end
 
   def create
@@ -97,6 +97,6 @@ class ExerciseController < ApplicationController
 
   def exercise_params
     params.require(:exercise).permit(:name, :description, :instructions, :warm_up, :warm_up_details, :set_count,
-                                     :workout_group_id, :rep_range)
+                                     :workout_group_id, :rep_range, :priority)
   end
 end

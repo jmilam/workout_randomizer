@@ -9,7 +9,10 @@ class Exercise < ApplicationRecord
   end
 
   def self.group_super_sets(workout_group)
-    exercise_groups = workout_group.exercises.group_by(&:super_set_id)
+    exercise_groups = workout_group.exercises
+      .sort_by { |exercise| exercise.priority.nil? ? 9999 : exercise.priority }
+      .group_by(&:super_set_id)
+
     unless exercise_groups[nil].nil?
       exercise_groups[nil].each do |nil_group|
         exercise_groups["#{nil_group.id}a"] = [nil_group]
@@ -31,6 +34,6 @@ class Exercise < ApplicationRecord
 
     exercise_groups.delete_if { |_key, value| value.empty? }
 
-    exercise_groups.to_a.sample[1] unless exercise_groups.empty?
+    exercise_groups.first[1] unless exercise_groups.empty?
   end
 end

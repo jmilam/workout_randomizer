@@ -52,10 +52,12 @@
 </script>
 
 <div id="chart-div">
-  <ul class="nav nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;">
-    <li class='nav-item'><a class='nav-link active' id='profile-tab' data-toggle='tab' href='#profile' role='tab' aria-controls='profile' aira-selected='true'>Profile</a></li>
-    <li class='nav-item'><a class='nav-link' id='workout-trending-tab' data-toggle='tab' href='#workout-trending' role='tab' aria-controls='workout-trending' aria-selected='true'>Current Workout Stats</a></li>
-  </ul>
+  <div class="container">
+    <ul class="nav nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;">
+      <li class='nav-item'><a class='nav-link active' id='profile-tab' data-toggle='tab' href='#profile' role='tab' aria-controls='profile' aira-selected='true'>Profile</a></li>
+      <li class='nav-item'><a class='nav-link' id='workout-trending-tab' data-toggle='tab' href='#workout-trending' role='tab' aria-controls='workout-trending' aria-selected='true'>Current Workout Stats</a></li>
+    </ul>
+  </div>
   <div class="tab-content" id="workoutTabContent">
     <div class="tab-pane fade show active" id='profile' role='tabpanel' aria-labelledby='profile'>
           <div id="image-background">
@@ -96,75 +98,77 @@
     </div>
     <div class="tab-pane fade show" id='workout-trending' role='tabpanel' aria-labelledby='workout-trending'>
       <% unless @workout.nil? %>
-        <div id="stats" class="row" style="margin-bottom:20px;">
-          <div class="col-md-4">
-            <div class="card">
-              <div class="card-header text-center">
-                Exercise Weight Changes
-              </div>
-              <div class="card-body">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                    <% @differences.each do |exercise, weight| %>
-                      <% if !weight.values.delete_if { |weight_value| weight_value.to_f == 0.0 }.empty? %>
-                        <% if @counter == 0 %>
-                          <div class="carousel-item active">
-                        <% else %>
-                          <div class="carousel-item">
-                        <% end %>
-                          <div style="height:200px;">
-                            <div class="row">
-                              <div class="col-md-12 text-center"><%= exercise %></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-6 col-6 text-center">Average</div><div class="col-md-6 col-6 text-center">Max</div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-6 col-6 text-center"><%= weight[:avg] %></div><div class="col-md-6 col-6 text-center"><%= weight[:max] %></div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-5 col-6 text-center"><%= trending_img(weight[:avg]) %></div><div class="col-md-5 col-6 text-center"><%= trending_img(weight[:max]) %></div>
+        <div class="container">
+          <div id="stats" class="row" style="margin-bottom:20px;">
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-header text-center header-background">
+                  Exercise Weight Changes
+                </div>
+                <div class="card-body">
+                  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <% @differences.each do |exercise, weight| %>
+                        <% if !weight.values.delete_if { |weight_value| weight_value.to_f == 0.0 }.empty? %>
+                          <% if @counter == 0 %>
+                            <div class="carousel-item active">
+                          <% else %>
+                            <div class="carousel-item">
+                          <% end %>
+                            <div style="height:200px;">
+                              <div class="row">
+                                <div class="col-md-12 text-center"><%= exercise %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 col-6 text-center">Average</div><div class="col-md-6 col-6 text-center">Max</div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 col-6 text-center"><%= weight[:avg] %></div><div class="col-md-6 col-6 text-center"><%= weight[:max] %></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 col-6 text-center"><%= trending_img(weight[:avg]) %></div><div class="col-md-6 col-6 text-center"><%= trending_img(weight[:max]) %></div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <% @counter += 1 %>
+                          <% @counter += 1 %>
+                        <% end %>
                       <% end %>
-                    <% end %>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
                   </div>
-                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card">
-              <div class="card-header text-center">
-                Current Workout: <b><i><%= @workout.name %></i></b>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-12 text-center"><%=  @workout.duration - @weeks_doing_workout %> weeks remaining</div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-header text-center header-background">
+                  Current Workout: <b><i><%= @workout.name %></i></b>
                 </div>
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= progress_percent(@workout.duration, @weeks_doing_workout) %>" aria-valuenow="<%=  @workout.duration - @weeks_doing_workout %>" aria-valuemin="0" aria-valuemax="<%= @workout.duration %>"></div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12 text-center"><%=  @workout.duration - @weeks_doing_workout %> weeks remaining</div>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= progress_percent(@workout.duration, @weeks_doing_workout) %>" aria-valuenow="<%=  @workout.duration - @weeks_doing_workout %>" aria-valuemin="0" aria-valuemax="<%= @workout.duration %>"></div>
+                  </div>
                 </div>
               </div>
             </div>
+          <!--   STATS (All in current workokut, not history)
+            - User increases in weight or speed, show up or down trend<br/>
+            - Progress on current workout path<br/>
+            - Possible suggested next workout based off goals laid out<br/>
+            - Suggested exercise to focus on increase weight<br/>
+            - Suggested time to increase run speed<br/>
+            - Fastest exercise weight/rep increase ratio<br/> -->
           </div>
-        <!--   STATS (All in current workokut, not history)
-          - User increases in weight or speed, show up or down trend<br/>
-          - Progress on current workout path<br/>
-          - Possible suggested next workout based off goals laid out<br/>
-          - Suggested exercise to focus on increase weight<br/>
-          - Suggested time to increase run speed<br/>
-          - Fastest exercise weight/rep increase ratio<br/> -->
         </div>
       <% end %>
     </div>

@@ -15,7 +15,7 @@
  @import "bootstrap";
 
 nav {
-	background: #003259;
+	background: #101216;
 	color: white;
 }
 
@@ -24,7 +24,7 @@ nav {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-	background: #003259;
+	background: #101216;
 }
 
 a {
@@ -32,7 +32,7 @@ a {
 }
 
 body {
-	background-color: #262626;
+	background-color: #98AF22;
 	color: white;
 }
 
@@ -48,6 +48,7 @@ body {
 .card-body {
   background-color: #262626;
   color: white;
+  margin-bottom: 15px;
 }
 
 .custom-input {
@@ -65,16 +66,22 @@ body {
 	color: white;
 }
 
-#image-background {
+.card {
+	background-color: transparent;
+}
 
-	background-image: url('abstract-background');
+#image-background {
+	background-image: url('road-background');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	background-position: center;
-	background-attachment: fixed;
 	padding-top:10px;
 	padding-bottom:10px;
 	margin-bottom:10px;
+}
+
+.btn-standard {
+	background-color:#D9D278;
 }
 
 .workout-header {

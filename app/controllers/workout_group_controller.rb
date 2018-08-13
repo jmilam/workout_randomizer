@@ -55,6 +55,6 @@ class WorkoutGroupController < ApplicationController
   protected
 
   def workout_group_params
-    params.require(:workout_group).permit(:name, :workout_id)
+    params.require(:workout_group).permit(:name, :workout_id, :ab_workout, :day)
   end
 end

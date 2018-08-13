@@ -51,56 +51,31 @@
 		<% if idx == 0 %>
 	  	<div class="tab-pane fade active show" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>
 	  		<div class="card-footer text-center header-background" style="border-top-left-radius: 15px;border-top-right-radius: 15px;">
-					<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id), style: "color:white;" %>
+					<%= link_to "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
 				</div>
 	  		<% group.exercises.group_by(&:super_set_id).each_with_index do |exercise_group, ex_group_idx| %>
 					<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
 						<li class="list-group-item <%= bg_color %> text-center bg-dark text-white"><%= link_to exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
 					<% end %>
 				<% end %>
+				<div class="card-footer text-center header-background" style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;">
+					<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id), style: "color:white;" %>
+				</div>
 			</div>
 		<% else %>
 			<div class="tab-pane fade" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>
 				<div class="card-footer text-center header-background" style="border-top-left-radius: 15px;border-top-right-radius: 15px;">
-					<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id), style:"color:white;" %>
+					<%= link_to "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
 				</div>
 	  		<% group.exercises.group_by(&:super_set_id).each_with_index do |exercise_group, ex_group_idx| %>
 					<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
 						<li class="list-group-item <%= bg_color %> text-center bg-dark text-white"><%= link_to exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
 					<% end %>
 				<% end %>
+				<div class="card-footer text-center header-background" style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;">
+					<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id), style:"color:white;" %>
+				</div>
 			</div>
 		<% end %>
   <% end %>
 </div>
-
-
-
-
-<!-- <div class="card"> -->
-
-
-<!--    
-	<ul class="list-group list-group-flush">
-		<li class="list-group-item text-center bg-info">
-			<div class="col-md-12 col-sm-12">
-				Workout Groups - <%= link_to "Create New Group", new_workout_group_path(workout_id: @workout.id), class: "text-white" %>
-			</div>
-		</li>
-
-		<% @workout_groups.each do |group| %>
-			<% bg_color = Category.style_tags.to_a.sample[1]['border'] %>
-			<li class="list-group-item text-center bg-dark text-white">Workout</li>
-			<li class="list-group-item text-center header-background"><%= link_to group.name, edit_workout_group_path(group.id) %><br/> <span class="badge badge-primary">Current # of users doing workout: <%= User.where(current_workout_group: group.id).count %></span></li>
-			<div class="card-header text-center bg-dark text-white">Exercises</div>
-			<div class="card-footer text-center header-background">
-				<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id) %>
-			</div>
-			<% group.exercises.group_by(&:super_set_id).each_with_index do |exercise_group, ex_group_idx| %>
-				<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
-					<li class="list-group-item <%= bg_color %> text-center bg-dark text-white"><%= link_to exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
-				<% end %>
-			<% end %>
-		<% end %>
-	</ul> -->
-<!-- </div> -->

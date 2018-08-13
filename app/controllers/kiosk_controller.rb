@@ -29,8 +29,15 @@ class KioskController < ApplicationController
     workouts_complete = WorkoutDetail.where(workout_date: Date.today.beginning_of_week.strftime('%Y-%m-%d')..Date.today.end_of_week.strftime('%Y-%m-%d'), user_id: @user.id).map(&:workout_group_id).uniq
 
     if @user.current_workout_group.nil? && WorkoutDetail.where(workout_date: Date.today.strftime('%Y-%m-%d'), user_id: @user.id).empty?
-      current_workout_group = @workout.workout_groups.to_a.delete_if { |workout_group| workouts_complete.include?(workout_group.id) }.sample.id
-      @user.update(current_workout_group: current_workout_group)
+      current_workout_groups = @workout.workout_groups.to_a.delete_if { |workout_group| workouts_complete.include?(workout_group.id) }
+      
+      idx = current_workout_groups.index { |workout_group| WorkoutGroup.day_of_the_weeks[workout_group.day] == Date.today.strftime('%A')}
+      group_id = if idx.nil?
+                   current_workout_groups.sample.id
+                 else
+                   current_workout_groups[idx].id
+                 end
+      @user.update(current_workout_group: group_id)
     elsif @user.current_workout_group.nil?
       return
     end

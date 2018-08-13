@@ -9,6 +9,7 @@ class Exercise < ApplicationRecord
   end
 
   def self.group_super_sets(workout_group)
+    p workout_group
     exercise_groups = workout_group.exercises
       .sort_by { |exercise| exercise.priority.nil? ? 9999 : exercise.priority }
       .group_by(&:super_set_id)

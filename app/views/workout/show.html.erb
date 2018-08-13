@@ -1,30 +1,30 @@
-<%= form_for @workout, url: workout_path(@workout.id), method: :patch do |f| %>
-   <div class="row">
-    <div class="col-md-12 col-sm-12 form-group">
-      <%= f.label :name, class: 'col-md-12' %>
-      <%= f.text_field :name, class: 'col-md-12 form-control' %>
-    </div>
-   </div>
+<div class="container">
+  <%= form_for @workout, url: workout_path(@workout.id), method: :patch do |f| %>
+     <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.label :name, class: 'col-md-12' %>
+        <%= f.text_field :name, class: 'col-md-12 form-control' %>
+      </div>
+     </div>
 
-   <div class="row">
-    <div class="col-md-6 col-sm-12 form-group">
-      <%= f.label :frequency, "How often to workout?", class: 'col-md-12' %>
-      <%= f.text_field :frequency, class: 'col-md-12 form-control' %>
+     <div class="row">
+      <div class="col-md-6 col-sm-12 form-group">
+        <%= f.label :frequency, "How often to workout?", class: 'col-md-12' %>
+        <%= f.text_field :frequency, class: 'col-md-12 form-control' %>
+      </div>
+      <div class="col-md-6 col-sm-12 form-group">
+        <%= f.label :duration, "How many weeks is this workout cycle?", class: 'col-md-12' %>
+        <%= f.text_field :duration, class: 'col-md-12 form-control' %>
+      </div>
     </div>
-    <div class="col-md-6 col-sm-12 form-group">
-      <%= f.label :duration, "How many weeks is this workout cycle?", class: 'col-md-12' %>
-      <%= f.text_field :duration, class: 'col-md-12 form-control' %>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12 col-sm-12 form-group">
-      <%= f.label :category_id, "Category", class: 'col-md-12' %>
-      <%= f.select :category_id, Category.all.collect {|category| [ category.name, category.id ] }, { prompt: "--- Please select Category ---" }, class: 'col-md-12 form-control' %>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.label :category_id, "Category", class: 'col-md-12' %>
+        <%= f.select :category_id, Category.all.collect {|category| [ category.name, category.id ] }, { prompt: "--- Please select Category ---" }, class: 'col-md-12 form-control' %>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-  	<%= f.submit "Update Workout", class: 'btn btn-info pull-right' %>
-  </div>
-<% end %>
+    	<%= f.submit "Update Workout", class: 'btn btn-lg btn-block workout-btn' %>
+  <% end %>
+</div>

@@ -7,6 +7,7 @@ class ExerciseController < ApplicationController
                 else
                   @workout_group.exercises.new
                 end
+    @total_exercises = 1
   end
 
   def edit

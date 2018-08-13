@@ -1,25 +1,27 @@
-<% @workouts.each_with_index do |workout_group, idx| %>
-  <div class="row">
-    <% workout_group.each do |workout| %>
-      <div class="col-md-6 col-sm-12">
-        <div class="card <%= Category.style_tags[workout.category.tag]['background-color'] %>">
-          <div class="card-body">
-            <h5 class="card-title text-center"><%= workout.name %> <%= link_to "Edit", edit_workout_path(workout.id), class: 'btn btn-sm' %></h5>
-            <div class="row">
-              <div class="col-md-5"><p class="card-text"><%= workout.frequency %> times a week.</p></div>
-              <div class="col-md-7"><p class="card-text text-muted text-right">Category: <%= workout.category.name %></p></div>
-            </div>
-            <div class="row">
-              <div class="col-md-12"><p class="card-text text-muted text-right"><%= workout.duration %> week workout cycle</p></div>
+<div class="container">
+  <% @workouts.each_with_index do |workout_group, idx| %>
+    <div class="row">
+      <% workout_group.each do |workout| %>
+        <div class="col-md-6 col-sm-12">
+          <div class="card <%= Category.style_tags[workout.category.tag]['background-color'] %>">
+            <div class="card-body">
+              <h5 class="card-title text-center"><%= workout.name %> <%= link_to "Edit", edit_workout_path(workout.id), class: 'btn btn-sm' %></h5>
+              <div class="row">
+                <div class="col-md-5"><p class="card-text"><%= workout.frequency %> times a week.</p></div>
+                <div class="col-md-7"><p class="card-text text-muted text-right">Category: <%= workout.category.name %></p></div>
+              </div>
+              <div class="row">
+                <div class="col-md-12"><p class="card-text text-muted text-right"><%= workout.duration %> week workout cycle</p></div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-  <br/>
-<% end %>
+      <% end %>
+    </div>
+    <br/>
+  <% end %>
 
-<div class="row" style="padding-top:10px;padding-left:15px;padding-right: 15px;">
-  <%= link_to "New Workout", new_workout_path, class: 'btn btn-info' %>
+  <div class="row" style="padding-top:10px;padding-left:15px;padding-right: 15px;">
+    <%= link_to "New Workout", new_workout_path, class: 'btn workout-btn' %>
+  </div>
 </div>

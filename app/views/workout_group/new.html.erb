@@ -1,33 +1,35 @@
-<%= form_for @workout_group, url: workout_group_index_path, method: :post do |f| %>
-  <div class="row">
-    <div class="col-md-12 col-sm-12 form-group">
-      <%= f.hidden_field :workout_id, value: @workout.id, class: 'col-md-12 form-control' %>
+<div class="container">
+  <%= form_for @workout_group, url: workout_group_index_path, method: :post do |f| %>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.hidden_field :workout_id, value: @workout.id, class: 'col-md-12 form-control' %>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12 col-sm-12 form-group">
-      <%= f.label :name, class: 'col-md-12' %>
-      <%= f.text_field :name, class: 'col-md-12 form-control' %>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.label :name, class: 'col-md-12' %>
+        <%= f.text_field :name, class: 'col-md-12 form-control' %>
+      </div>
     </div>
-  </div>
-  
-  <div class="row">
-    <div class="col-md-12 col-sm-12 form-group">
-      <%= f.label :day, "Do you want this on a specific day?", class: 'col-md-12' %>
-      <%= f.select :day, WorkoutGroup.day_of_the_weeks.collect { |id, day| [ day, id ] }, { prompt: "--- Please select a day ---" }, class: 'col-md-12 form-control' %>
+    
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.label :day, "Do you want this on a specific day?", class: 'col-md-12' %>
+        <%= f.select :day, WorkoutGroup.day_of_the_weeks.collect { |id, day| [ day, id ] }, { prompt: "--- Please select a day ---" }, class: 'col-md-12 form-control' %>
+      </div>
     </div>
-  </div>
-  
-  <div class="row">
-    <div class="col-md-12 col-sm-12 form-group">
-      <%= f.label :ab_workout, "Ab Workout Pairing?", class: 'col-md-12' %>
-      <%= f.select :ab_workout, Workout.where("name ~* ?", '(ab)').collect { |workout| [ workout.name, workout.id ] }, { prompt: "--- Please select an ab workout pairing ---" }, class: 'col-md-12 form-control' %>
+    
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.label :ab_workout, "Ab Workout Pairing?", class: 'col-md-12' %>
+        <%= f.select :ab_workout, Workout.where("name ~* ?", '(ab)').collect { |workout| [ workout.name, workout.id ] }, { prompt: "--- Please select an ab workout pairing ---" }, class: 'col-md-12 form-control' %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12 col-sm-12">
-  	 <%= f.submit "Create Workout Group", class: 'btn btn-info pull-right' %>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+    	 <%= f.submit "Create Workout Group", class: 'btn btn-lg btn-block workout-btn' %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

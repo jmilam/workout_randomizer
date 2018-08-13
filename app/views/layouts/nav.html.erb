@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= @title.nil? ? 'Workout Randomizer' : @title %></title>
+    <title><%= @title.nil? ? 'Boomslang Fitness' : @title %></title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -14,7 +14,7 @@
   	<nav class="navbar navbar-expand-lg navbar-dark">
       <div class="navbar-header">
         <%= link_to root_path, class: 'navbar-brand' do %>
-          <%= image_tag 'logo.png', size: '50x50' %>
+          <%= image_tag 'logo-snake.png', size: '55x55' %>
         <% end %>
       </div>
   		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">

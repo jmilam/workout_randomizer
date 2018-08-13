@@ -9,7 +9,6 @@ class Exercise < ApplicationRecord
   end
 
   def self.group_super_sets(workout_group)
-    p workout_group
     exercise_groups = workout_group.exercises
       .sort_by { |exercise| exercise.priority.nil? ? 9999 : exercise.priority }
       .group_by(&:super_set_id)
@@ -35,6 +34,18 @@ class Exercise < ApplicationRecord
 
     exercise_groups.delete_if { |_key, value| value.empty? }
 
-    exercise_groups.first[1] unless exercise_groups.empty?
+    if exercise_groups.empty?
+      workout_group = WorkoutGroup.find(user.current_workout_group)
+
+      return if workout_group.ab_workout.nil?
+
+      exercises = Workout.find(workout_group.ab_workout)
+        .workout_groups
+        .sample.exercises.map(&:id)
+        .delete_if { |exercise_id| p exercises_completed.include?(exercise_id) }
+
+    else
+      exercise_groups.first[1]
+    end
   end
 end

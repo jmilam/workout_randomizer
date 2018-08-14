@@ -23,35 +23,51 @@ class KioskController < ApplicationController
   end
 
   def configure_exercise
-    # find current workout
-    @user = current_user
-    @workout = Workout.find(current_user.current_workout)
-    workouts_complete = WorkoutDetail.where(workout_date: Date.today.beginning_of_week.strftime('%Y-%m-%d')..Date.today.end_of_week.strftime('%Y-%m-%d'), user_id: @user.id).map(&:workout_group_id).uniq
+    begin
+      # find current workout
+      @user = current_user
+      if @user.current_workout.nil?
+        @workout = @user.gym.workouts.sample
+        @user.update(current_workout: @workout.id,
+                     current_workout_group: @workout.workout_groups.sample.id)
+        #Find completed workouts
+        #Designate new workout not complete yet, unless all have been completed.
+      else
+        @workout = Workout.find(current_user.current_workout)
+        workouts_complete = WorkoutDetail
+          .where(workout_date: Date.today.beginning_of_week.strftime('%Y-%m-%d')..Date.today.end_of_week.strftime('%Y-%m-%d'),
+                 user_id: @user.id)
+          .map(&:workout_group_id)
+          .uniq
 
-    if @user.current_workout_group.nil? && WorkoutDetail.where(workout_date: Date.today.strftime('%Y-%m-%d'), user_id: @user.id).empty?
-      current_workout_groups = @workout.workout_groups.to_a.delete_if { |workout_group| workouts_complete.include?(workout_group.id) }
-      
-      idx = current_workout_groups.index { |workout_group| WorkoutGroup.day_of_the_weeks[workout_group.day] == Date.today.strftime('%A')}
-      group_id = if idx.nil?
-                   current_workout_groups.sample.id
-                 else
-                   current_workout_groups[idx].id
-                 end
-      @user.update(current_workout_group: group_id)
-    elsif @user.current_workout_group.nil?
-      return
+        if @user.current_workout_group.nil? && WorkoutDetail.where(workout_date: Date.today.strftime('%Y-%m-%d'), user_id: @user.id).empty?
+          current_workout_groups = @workout.workout_groups.to_a.delete_if { |workout_group| workouts_complete.include?(workout_group.id) }
+          
+          idx = current_workout_groups.index { |workout_group| WorkoutGroup.day_of_the_weeks[workout_group.day] == Date.today.strftime('%A')}
+          group_id = if idx.nil?
+                       current_workout_groups.sample.id
+                     else
+                       current_workout_groups[idx].id
+                     end
+          @user.update(current_workout_group: group_id)
+        elsif @user.current_workout_group.nil?
+          return
+        end
+      end
+
+      @workout_group = WorkoutGroup.find(@user.current_workout_group)
+      @last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
+      @exercise_groups = Exercise.group_super_sets(@workout_group)
+
+      exercise_complete_count = @workout_group.workout_details.where(workout_group_id: @workout_group.id, workout_date: Date.today.strftime('%Y-%m-%d')).count.to_f
+      exercise_count = @workout_group.exercises.count.to_f
+
+      @complete_percent = ((exercise_complete_count / exercise_count) * 100).to_i
+
+      @exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
+    rescue StandardError => error
+      flash[:alert] = "THERE WAS AN ERROR: #{error}"
     end
-
-    @workout_group = WorkoutGroup.find(@user.current_workout_group)
-    @last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
-    @exercise_groups = Exercise.group_super_sets(@workout_group)
-
-    exercise_complete_count = @workout_group.workout_details.where(workout_group_id: @workout_group.id, workout_date: Date.today.strftime('%Y-%m-%d')).count.to_f
-    exercise_count = @workout_group.exercises.count.to_f
-
-    @complete_percent = ((exercise_complete_count / exercise_count) * 100).to_i
-
-    @exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
   end
 
   def log_exercise

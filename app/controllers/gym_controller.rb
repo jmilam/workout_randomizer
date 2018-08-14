@@ -5,6 +5,8 @@ class GymController < ApplicationController
     @admins = []
     @gym = Gym.find(params[:id])
 
+    @gym_users = @gym.users
+
     @gym.admin_ids.split(',').each do |admin_id|
       user = User.find(admin_id)
       @admins << [user.username, user.id]

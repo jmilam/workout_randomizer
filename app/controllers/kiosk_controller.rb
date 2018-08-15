@@ -1,6 +1,10 @@
 class KioskController < ApplicationController
   skip_before_action :authenticate_user!
-  def index; end
+  def index
+    if params[:manual_exit]
+      current_user.update(current_workout_group: nil)
+    end
+  end
 
   def create
     @kiosk = Kiosk.new(kiosk_params)
@@ -26,6 +30,7 @@ class KioskController < ApplicationController
     begin
       # find current workout
       @user = current_user
+
       if @user.current_workout.nil?
         @workout = @user.gym.workouts.sample
         @user.update(current_workout: @workout.id,

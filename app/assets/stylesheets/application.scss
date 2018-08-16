@@ -60,11 +60,20 @@ body {
 	color: black;
 }
 
+.login-header {
+  margin-top: -20px;
+  height: 100px;
+}
+
 #footer {
 	height:50px;
 	margin-top: 75px;
 	background: #003259;
 	color: white;
+}
+
+#step-header {
+	padding-top: 20px;
 }
 
 .card {

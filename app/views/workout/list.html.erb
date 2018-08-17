@@ -1,11 +1,25 @@
 <div class="container">
+  <div style="padding-top:10px">
+    <%= select_tag "filter", options_for_select(User.goals.map { |key, value| [value, key] }.prepend("All")), class: 'form-control' %>
+  </div>
+  <div style="padding-top:10px;padding-bottom:10px;">
+    <%= link_to "New Workout", new_workout_path, class: 'btn btn-block workout-btn' %>
+  </div>
+
   <% @workouts.each_with_index do |workout_group, idx| %>
     <div class="row">
       <% workout_group.each do |workout| %>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12 workout" category="<%= workout.category.id %>">
           <div class="card <%= Category.style_tags[workout.category.tag]['background-color'] %>">
             <div class="card-body">
-              <h5 class="card-title text-center"><%= workout.name %> <%= link_to "Edit", edit_workout_path(workout.id), class: 'btn btn-sm' %></h5>
+              <h5 class="card-title text-center">
+                <% if workout.editable_by_user?(current_user) %>
+                  <%= workout.name %> <%= link_to "Edit", edit_workout_path(workout.id), class: 'btn btn-sm' %>
+                <% else %>
+                  <%= workout.name %> <%= link_to "View", edit_workout_path(workout.id), class: 'btn btn-sm' %>
+                <% end %>
+              </h5>
+              <div class="card-text text-muted text-center"><%= workout.created_by %></div>
               <div class="row">
                 <div class="col-md-5"><p class="card-text"><%= workout.frequency %> times a week.</p></div>
                 <div class="col-md-7"><p class="card-text text-muted text-right">Category: <%= workout.category.name %></p></div>
@@ -20,8 +34,20 @@
     </div>
     <br/>
   <% end %>
-
-  <div class="row" style="padding-top:10px;padding-left:15px;padding-right: 15px;">
-    <%= link_to "New Workout", new_workout_path, class: 'btn workout-btn' %>
-  </div>
 </div>
+
+<script>
+  $('#filter').on('change', function(){
+    let selected_category = $(this).val();
+    $.each($('.workout'), function(idx, value) {
+
+      if (selected_category === "All") {
+        $(this).css('display', '');
+      } else if ($(this).attr('category') === selected_category){
+        $(this).css('display', '');
+      } else {
+        $(this).css('display', 'none');
+      };
+    });
+  });
+</script>

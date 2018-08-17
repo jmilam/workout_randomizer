@@ -26,4 +26,15 @@ class Workout < ApplicationRecord
   def self.remove_nils(workouts)
     workouts.each { |e| e.delete_if(&:nil?) }
   end
+
+  def editable_by_user?(user)
+    created_by_user_id == user.id
+  end
+
+  def created_by
+    unless created_by_user_id.nil?
+      user = User.find_by(id: created_by_user_id)
+      "Created By: #{user.first_name} #{user.last_name}"
+    end
+  end
 end

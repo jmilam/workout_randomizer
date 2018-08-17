@@ -39,7 +39,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       flash[:alert] = error_message
       @regularity = ['1 day week', '2 day week', '3 day week', '4 day week', '5 day week']
-      @goals = ['Fat Loss', 'Lean Mass Gain', 'Maintain']
+      @goals = ['Fat Loss', 'Lean Mass Gain', 'Maintain', 'Other']
       @gyms = Gym.all
 
       render :new

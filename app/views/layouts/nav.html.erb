@@ -4,10 +4,10 @@
     <title><%= @title.nil? ? 'Boomslang Fitness' : @title %></title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag 'favicon.ico' %>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
 
   <body>
@@ -35,26 +35,6 @@
 		</nav>
 
     <div style="margin-top:15px;">
-      <div class="container">
-        <% unless notice.nil? %>
-      	 	<p class="notice alert alert-primary alert-dismissible fade show" role="alert">
-      	 		<%= notice %>
-      	 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					    <span aria-hidden="true">&times;</span>
-					  </button>		
-      	 	</p>
-        <% end %>
-
-        <% unless alert.nil? %>
-          <p class="alert alert-danger alert-dismissible fade show" role="alert"">
-          	<%= alert %>
-          	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					    <span aria-hidden="true">&times;</span>
-					  </button>
-          </p>
-        <% end %>
-      </div>
-
       <div>
         <%= yield %>
       </div>

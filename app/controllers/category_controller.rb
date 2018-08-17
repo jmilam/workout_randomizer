@@ -24,6 +24,7 @@ class CategoryController < ApplicationController
 
   def edit
     @category = Category.find(params[:id])
+    @category_backgrounds = Category.style_tags.values.map { |val| val["background-color"] }
   end
 
   def update

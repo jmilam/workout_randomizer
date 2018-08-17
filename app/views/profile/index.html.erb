@@ -70,6 +70,8 @@
   </div>
 </div>
 
+<%= render "partials/alert" %>
+
 <div id="chart-div">
   <div class="container">
     <ul class="nav nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;">
@@ -87,7 +89,7 @@
                   <div class="card-header text-center header-background">
                     Exercise Weight Changes
                   </div>
-                  <div class="card-body">
+                  <div class="card-body" style="min-height:95px;">
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
                         <% @differences.each do |exercise, weight| %>

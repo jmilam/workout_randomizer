@@ -22,7 +22,8 @@ class User < ApplicationRecord
 
   enum goal: { '0' => 'Fat Loss',
                '1' => 'Lean Mass Gain',
-               '2' => 'Maintain' }
+               '2' => 'Maintain',
+               '3' => 'Other' }
 
   def calculate_bmi
     converted_weight = weight * 0.45
@@ -50,4 +51,5 @@ class User < ApplicationRecord
   def username
     "#{first_name} #{last_name}"
   end
+
 end

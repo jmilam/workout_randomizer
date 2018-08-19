@@ -8,7 +8,7 @@
 		<% unless @user_already_liked %>
 			<div class="col-1">
 				<%= link_to like_workout_path(workout_id: @workout), method: :post do %>
-			  	<%= image_tag "star", size: '30x30' %>
+			  	<%= image_tag "star", size: '30x30', title: 'Click to like this workout' %>
 			  <% end %>
 			</div>
 		<% end %>

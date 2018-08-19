@@ -1,6 +1,9 @@
 <div id="image-background" class="login-header">
   <h2 class="text-center" id="step-header">Log in</h2>
 </div>
+
+<%= render "partials/alert" %>
+
 <div class="container">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="form-row">

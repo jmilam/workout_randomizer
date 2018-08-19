@@ -1,10 +1,26 @@
-<div class="card-header text-center bg-info">
-  <%= @workout.name %> - <%= link_to "Edit Workout", workout_path(@workout.id) %>
+<%= render "partials/alert" %>
+
+<div class="card-header bg-info" style="margin-top:-15px;">
+	<div class="row">
+		<div class="col-10 text-center">
+		  <%= @workout.name %> - <%= link_to "Edit Workout", workout_path(@workout.id) %>
+		</div>
+		<% unless @user_already_liked %>
+			<div class="col-1">
+				<%= link_to like_workout_path(workout_id: @workout), method: :post do %>
+			  	<%= image_tag "star", size: '30x30' %>
+			  <% end %>
+			</div>
+		<% end %>
+	</div>
 </div>
 <div class="card-body">
   <div class="row">
-    <div class="col-md-12 col-sm-12">
+    <div class="col-md-9 col-sm-10 col-7">
       <b><i>Workout Frequency:</i></b> <%= @workout.frequency %>
+    </div>
+    <div class="col-md-2 col-sm-2 col-5">
+      <%= link_to "Select Workout", accept_workout_path(workout_id: @workout.id), method: :patch, class: 'btn btn-sm workout-btn' %>
     </div>
   </div>
 

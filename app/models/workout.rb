@@ -2,6 +2,7 @@ class Workout < ApplicationRecord
   has_many :workout_groups, dependent: :destroy
   has_many :user_previous_workouts, through: :workout_groups, source: 'workout_details'
   has_many :exercises, through: :workout_groups
+  has_many :likes
 
   belongs_to :category
   belongs_to :gym
@@ -36,5 +37,9 @@ class Workout < ApplicationRecord
       user = User.find_by(id: created_by_user_id)
       "Created By: #{user.first_name} #{user.last_name}"
     end
+  end
+
+  def sort_by_likes
+    p "SORTING BY LIKES"
   end
 end

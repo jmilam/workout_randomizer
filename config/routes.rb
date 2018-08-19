@@ -9,10 +9,13 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'workout/list', to: 'workout#list', as: 'list_workouts'
   post 'workout/accept_deny_workout', to: 'workout#accept_deny_workout', as: 'accept_deny_workout'
+  patch 'workout/accept_workout', to: 'workout#accept_workout', as: 'accept_workout'
   patch 'workout/stop_workout', to: 'workout#stop_workout', as: 'stop_workout'
 
   get 'workout_detail/index', to: 'workout_detail#index', as: 'workout_history'
   post 'workout_detail/create', to: 'workout_detail#create', as: 'create_workout_detail'
+
+  post 'workout/like_workout', to: 'workout#like_workout', as: 'like_workout'
 
   resources :profile
   resources :workout

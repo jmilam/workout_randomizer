@@ -45,6 +45,7 @@ class WorkoutController < ApplicationController
 
   def edit
     @workout = Workout.find(params[:id])
+    @user_already_liked = !@workout.likes.user_liked_workout(current_user.id, @workout.id).empty?
     @workout_users = User.where(current_workout: @workout.id)
     @workout_groups = @workout.workout_groups.includes(:exercises)
   end
@@ -68,8 +69,21 @@ class WorkoutController < ApplicationController
   end
 
   def list
-    @workouts = current_user.gym.workouts.includes(:exercises).in_groups_of(2)
+    @current_user = current_user
+    @workouts = current_user
+                  .gym
+                  .workouts
+                  .includes(:exercises)
+                  .sort_by { |workout| p workout.likes.count }
+                  .reverse
+                  .in_groups_of(2)
     @workouts = Workout.remove_nils(@workouts)
+  end
+
+  def accept_workout
+    current_user.update!(current_workout: params[:workout_id])
+
+    redirect_to edit_workout_path(params[:workout_id])
   end
 
   def accept_deny_workout
@@ -101,6 +115,22 @@ class WorkoutController < ApplicationController
     flash[:alert] = error
   ensure
     redirect_to profile_index_path
+  end
+
+  def like_workout
+    begin
+      workout = Workout.find(params[:workout_id])
+      like = workout.likes.new(workout_id: workout.id, user_id: current_user.id)
+      if like.save
+        flash[:notice] = "You liked this workout."
+      else
+        flash[:alert] = "Cannot like a workout more then once"
+      end
+    rescue StandardError => error
+      flash[:alert] = error
+    ensure
+      redirect_to edit_workout_path(workout.id)
+    end
   end
 
   protected

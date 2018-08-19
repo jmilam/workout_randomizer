@@ -25,7 +25,14 @@
                 <div class="col-md-7"><p class="card-text text-muted text-right">Category: <%= workout.category.name %></p></div>
               </div>
               <div class="row">
-                <div class="col-md-12"><p class="card-text text-muted text-right"><%= workout.duration %> week workout cycle</p></div>
+                <% if @current_user.current_workout == workout.id %>
+                  <div class="col-md-5 col-sm-5, col-5">
+                    <div class="workout-text">Current Workout</div>
+                  </div>
+                  <div class="col-md-7 col-sm-7 col-7"><p class="card-text text-muted text-right"><%= workout.duration %> week workout cycle</p></div>
+                <% else %>
+                  <div class="col-md-12"><p class="card-text text-muted text-right"><%= workout.duration %> week workout cycle</p></div>
+                  <% end %>
               </div>
             </div>
           </div>

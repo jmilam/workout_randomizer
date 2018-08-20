@@ -137,7 +137,7 @@
                   </div>
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-md-12 text-center"><%=  @workout.duration - @weeks_doing_workout %> weeks remaining</div>
+                      <div class="col-md-12 text-center"><%=  @weeks_remaining %> weeks remaining</div>
                     </div>
                     <div class="progress">
                       <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= progress_percent(@workout.duration, @weeks_doing_workout) %>" aria-valuenow="<%=  @workout.duration - @weeks_doing_workout %>" aria-valuemin="0" aria-valuemax="<%= @workout.duration %>"></div>

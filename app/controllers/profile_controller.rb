@@ -12,7 +12,6 @@ class ProfileController < ApplicationController
       @already_worked_out = !@user.user_previous_workouts
                                   .where(workout_date: Date.today.in_time_zone)
                                   .empty?
-      # @weeks_doing_workout = @workout.user_previous_workouts.count
 
       workout_weeks = []
       @workout.user_previous_workouts.where(user_id: @user.id).sort.group_by(&:workout_date).keys.each do |workout_date|
@@ -20,6 +19,12 @@ class ProfileController < ApplicationController
       end
 
       @weeks_doing_workout = workout_weeks.count
+
+      @weeks_remaining = @workout.duration - @weeks_doing_workout
+
+      if @weeks_remaining <= 0
+        @user.workout_complete
+      end
     end
 
     @height = (@user.height / 12.0).round(1).to_s.split('.')

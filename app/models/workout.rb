@@ -28,6 +28,15 @@ class Workout < ApplicationRecord
     workouts.each { |e| e.delete_if(&:nil?) }
   end
 
+  def self.sort_by_likes(user, workouts=nil)
+    # Returns workouts by gym sorted by most likes
+    if workouts.nil?
+      workouts = user.gym.workouts.includes(:exercises)
+    end
+    workouts.sort_by { |workout| workout.likes.count }
+            .reverse
+  end
+
   def editable_by_user?(user)
     created_by_user_id == user.id
   end
@@ -37,9 +46,5 @@ class Workout < ApplicationRecord
       user = User.find_by(id: created_by_user_id)
       "Created By: #{user.first_name} #{user.last_name}"
     end
-  end
-
-  def sort_by_likes
-    p "SORTING BY LIKES"
   end
 end

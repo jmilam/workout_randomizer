@@ -27,16 +27,26 @@ class KioskController < ApplicationController
   end
 
   def configure_exercise
-    begin
+    # begin
       # find current workout
       @user = current_user
 
       if @user.current_workout.nil?
-        @workout = @user.gym.workouts.sample
+        # Find Workouts matching user designated goals
+        workouts_by_matching_goal = @user.gym.workouts.includes(:category).where(categories: {goal_id:  @user.goal_id})
+        # Sort workouts by most liked, for best results
+        sorted_workouts = Workout.sort_by_likes(current_user, workouts_by_matching_goal)
+        # Get Workout Group IDS
+        workout_group_ids = @user.user_previous_workouts.map(&:workout_group_id).uniq
+        # Validate previous workout ids by the Workout Group IDs
+        previous_workout_ids = workout_group_ids.map { |group_id| WorkoutGroup.find(group_id).workout.id }.uniq
+        # Delete workout from results if user has already done the workout
+        sorted_workouts.delete_if { |workout| previous_workout_ids.include?(workout.id)}
+        # Select best workout for user
+        @workout = sorted_workouts.empty? ? @user.gym.workouts.sample : sorted_workouts[0]
+        # Assign workout to user
         @user.update(current_workout: @workout.id,
                      current_workout_group: @workout.workout_groups.sample.id)
-        #Find completed workouts
-        #Designate new workout not complete yet, unless all have been completed.
       else
         @workout = Workout.find(current_user.current_workout)
         workouts_complete = WorkoutDetail
@@ -70,9 +80,9 @@ class KioskController < ApplicationController
       @complete_percent = ((exercise_complete_count / exercise_count) * 100).to_i
       @step_string = "#{exercise_complete_count.to_i} of #{exercise_count.to_i} complete"
       @exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
-    rescue StandardError => error
-      flash[:alert] = "THERE WAS AN ERROR: #{error}"
-    end
+    # rescue StandardError => error
+    #   flash[:alert] = "THERE WAS AN ERROR: #{error}"
+    # end
   end
 
   def log_exercise

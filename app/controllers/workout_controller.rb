@@ -70,13 +70,7 @@ class WorkoutController < ApplicationController
 
   def list
     @current_user = current_user
-    @workouts = current_user
-                  .gym
-                  .workouts
-                  .includes(:exercises)
-                  .sort_by { |workout| p workout.likes.count }
-                  .reverse
-                  .in_groups_of(2)
+    @workouts = Workout.sort_by_likes(current_user).in_groups_of(2)
     @workouts = Workout.remove_nils(@workouts)
   end
 

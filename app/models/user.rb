@@ -52,4 +52,8 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+
+  def workout_complete
+    update(current_workout: nil, current_workout_group: nil)
+  end
 end

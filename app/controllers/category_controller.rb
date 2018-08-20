@@ -13,7 +13,7 @@ class CategoryController < ApplicationController
 
     begin
       @category.save!
-
+      @category.update!(created_by_user_id: current_user.id)
       flash[:notice] = "Category #{@category.name} was successfully created."
       redirect_to category_index_path
     rescue ActiveRecord::RecordInvalid => error
@@ -38,6 +38,28 @@ class CategoryController < ApplicationController
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when updating your category: #{error}"
       render :edit, id: @category.id
+    end
+  end
+
+  def disable_category
+    begin
+      category = Category.find(params[:id])
+      category.update!(disabled: true)
+    rescue ActiveRecord::RecordInvalid => error
+      flash[:alert] = "There was an error when disabling your category: #{error}"
+    ensure
+      redirect_to category_index_path
+    end
+  end
+
+  def enable_category
+    begin
+      category = Category.find(params[:id])
+      category.update!(disabled: false)
+    rescue ActiveRecord::RecordInvalid => error
+      flash[:alert] = "There was an error when enabling your category: #{error}"
+    ensure
+      redirect_to category_index_path
     end
   end
 

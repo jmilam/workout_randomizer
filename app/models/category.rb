@@ -1,4 +1,5 @@
 class Category < ApplicationRecord
+  include SharedFunctions
   has_many :workouts
 
   validates :name, presence: true
@@ -13,4 +14,5 @@ class Category < ApplicationRecord
                             'thead-color' => 'bg-warning', 'style' => 'color:#D5FFFB;' },
                      5 => { 'background-color' => 'bg-primary', 'border' => 'border-primary', 'text-color' => 'text-primary',
                             'thead-color' => 'bg-primary', 'style' => 'color: #D5FFFB;' } }
+  scope :enabled, -> { where(disabled: false) }
 end

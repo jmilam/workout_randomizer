@@ -17,6 +17,9 @@ Rails.application.routes.draw do
 
   post 'workout/like_workout', to: 'workout#like_workout', as: 'like_workout'
 
+  put 'category/disable_category', to: 'category#disable_category', as: 'disable_category'
+  put 'category/enable_category', to: 'category#enable_category', as: 'enable_category'
+
   resources :profile
   resources :workout
   resources :exercise

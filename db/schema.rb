@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180819194320) do
+ActiveRecord::Schema.define(version: 20180820144728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180819194320) do
     t.integer "tag", default: 1
     t.integer "goal_id"
     t.integer "created_by_user_id"
+    t.boolean "disabled", default: false
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 20180819194320) do
     t.integer "set_count", default: 3
     t.integer "super_set_id"
     t.integer "priority"
+    t.boolean "disabled", default: false
   end
 
   create_table "gyms", force: :cascade do |t|
@@ -182,6 +184,7 @@ ActiveRecord::Schema.define(version: 20180819194320) do
     t.integer "gym_id"
     t.integer "duration", default: 4
     t.integer "created_by_user_id"
+    t.boolean "disabled", default: false
   end
 
 end

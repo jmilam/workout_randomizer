@@ -1,4 +1,6 @@
 class Workout < ApplicationRecord
+  include SharedFunctions
+
   has_many :workout_groups, dependent: :destroy
   has_many :user_previous_workouts, through: :workout_groups, source: 'workout_details'
   has_many :exercises, through: :workout_groups
@@ -35,10 +37,6 @@ class Workout < ApplicationRecord
     end
     workouts.sort_by { |workout| workout.likes.count }
             .reverse
-  end
-
-  def editable_by_user?(user)
-    created_by_user_id == user.id
   end
 
   def created_by

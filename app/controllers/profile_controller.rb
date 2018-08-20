@@ -22,7 +22,7 @@ class ProfileController < ApplicationController
 
       @weeks_remaining = @workout.duration - @weeks_doing_workout
 
-      if @weeks_remaining <= 0
+      if @weeks_remaining < 0
         @user.workout_complete
       end
     end

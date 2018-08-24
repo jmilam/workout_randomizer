@@ -27,7 +27,7 @@ class KioskController < ApplicationController
   end
 
   def configure_exercise
-    # begin
+    begin
       # find current workout
       @user = current_user
 
@@ -80,9 +80,9 @@ class KioskController < ApplicationController
       @complete_percent = ((exercise_complete_count / exercise_count) * 100).to_i
       @step_string = "#{exercise_complete_count.to_i} of #{exercise_count.to_i} complete"
       @exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
-    # rescue StandardError => error
-    #   flash[:alert] = "THERE WAS AN ERROR: #{error}"
-    # end
+    rescue StandardError => error
+      flash[:alert] = "THERE WAS AN ERROR: #{error}"
+    end
   end
 
   def log_exercise

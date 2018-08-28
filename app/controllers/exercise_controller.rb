@@ -83,7 +83,7 @@ class ExerciseController < ApplicationController
     @workout_ids_with_exercise = WorkoutDetail.all.map(&:exercise_id).delete_if { |num| num != params[:id].to_i }
 
     if !@workout_ids_with_exercise.empty?
-      flash[:alert] = 'Exercise cannot be deleted because someone has used it with their workout. It will mess up their history. You can hide this workout.'
+      flash[:alert] = 'Exercise cannot be deleted because someone has used it with their workout. It will mess up their history. We have disabled it instead.'
       redirect_to edit_workout_path(@exercise.workout_group.workout_id)
     elsif @exercise.delete
       flash[:notice] = 'Exercise was successfully delete.'

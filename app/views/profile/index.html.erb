@@ -98,16 +98,11 @@
                   </div>
                 </div>
               </div>
-            <!--   STATS (All in current workokut, not history)
-              - User increases in weight or speed, show up or down trend<br/>
-              - Progress on current workout path<br/>
-              - Possible suggested next workout based off goals laid out<br/>
-              - Suggested exercise to focus on increase weight<br/>
-              - Suggested time to increase run speed<br/>
-              - Fastest exercise weight/rep increase ratio<br/> -->
             </div>
           </div>
         <% end %>
+      </div>
+      <div class="row">
         <div class="col-md-6 col-sm-6 col-12 text-center">
           <b>Workout Regularity:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= User.regularities["#{@user.regularity_id}week"] %></div>
         </div>

@@ -74,7 +74,7 @@
 					<% @gym.kiosks.each do |kiosk| %>
 						<tr>
 							<td><%= kiosk.kiosk_number %></td>
-							<td><%= Exercise.find(kiosk.exercise_id).name %></td>
+							<td style="color: #101216"><i><%= Exercise.find(kiosk.exercise_id).name %></i></td>
 						</tr>
 					<% end %>
 				</tbody>
@@ -96,12 +96,14 @@
 				<thead>
 					<tr>
 						<th>User Name</th>
+						<th>Current WOrkout</th>
 					</tr>
 				</thead>
 				<tbody>
 					<% @gym_users.each do |user| %>
 						<tr>
 							<td><%= user.first_name %> <%= user.last_name %></td>
+							<td style="color: #101216"><i><%= user.current_workout_name %></i></td>
 						</tr>
 					<% end %>
 				</tbody>

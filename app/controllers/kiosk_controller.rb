@@ -73,7 +73,7 @@ class KioskController < ApplicationController
       @workout_group = WorkoutGroup.find(@user.current_workout_group)
       @last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
       @exercise_groups = Exercise.group_super_sets(@workout_group)
-
+      p "----#{@exercise_groups}----"
       exercise_complete_count = @workout_group.workout_details.where(workout_group_id: @workout_group.id, workout_date: Date.today.strftime('%Y-%m-%d')).count.to_f
       exercise_count = @workout_group.exercises.count.to_f
 

@@ -56,4 +56,9 @@ class User < ApplicationRecord
   def workout_complete
     update(current_workout: nil, current_workout_group: nil)
   end
+
+  def current_workout_name
+    workout = Workout.find_by(id: current_workout)
+    workout.nil? ? 'No Current Workout' : workout.name
+  end
 end

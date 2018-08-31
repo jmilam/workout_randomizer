@@ -35,6 +35,7 @@ class Exercise < ApplicationRecord
     exercise_groups.delete_if { |_key, value| value.empty? }
 
     if exercise_groups.empty?
+      user.update(current_workout_group: nil)
       exercise_groups
     else
       exercise_groups.first[1]

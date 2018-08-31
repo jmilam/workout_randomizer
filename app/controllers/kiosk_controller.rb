@@ -73,13 +73,14 @@ class KioskController < ApplicationController
       @workout_group = WorkoutGroup.find(@user.current_workout_group)
       @last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
       @exercise_groups = Exercise.group_super_sets(@workout_group)
-      p "----#{@exercise_groups}----"
       exercise_complete_count = @workout_group.workout_details.where(workout_group_id: @workout_group.id, workout_date: Date.today.strftime('%Y-%m-%d')).count.to_f
       exercise_count = @workout_group.exercises.count.to_f
 
       @complete_percent = ((exercise_complete_count / exercise_count) * 100).to_i
       @step_string = "#{exercise_complete_count.to_i} of #{exercise_count.to_i} complete"
       @exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
+      p "----#{@exercise_group}----"
+
     rescue StandardError => error
       flash[:alert] = "THERE WAS AN ERROR: #{error}"
     end

@@ -35,15 +35,7 @@ class Exercise < ApplicationRecord
     exercise_groups.delete_if { |_key, value| value.empty? }
 
     if exercise_groups.empty?
-      workout_group = WorkoutGroup.find(user.current_workout_group)
-
-      return if workout_group.ab_workout.nil?
-
-      exercises = Workout.find(workout_group.ab_workout)
-        .workout_groups
-        .sample.exercises.map(&:id)
-        .delete_if { |exercise_id| p exercises_completed.include?(exercise_id) }
-
+      exercise_groups
     else
       exercise_groups.first[1]
     end

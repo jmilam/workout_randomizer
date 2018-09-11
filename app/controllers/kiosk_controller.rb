@@ -1,9 +1,6 @@
 class KioskController < ApplicationController
   skip_before_action :authenticate_user!
   def index
-    if params[:manual_exit]
-      current_user.update(current_workout_group: nil)
-    end
   end
 
   def create

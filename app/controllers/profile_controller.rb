@@ -7,6 +7,10 @@ class ProfileController < ApplicationController
     @user = current_user
     @weeks_doing_workout = 0
 
+    if params[:manual_exit]
+      current_user.update(current_workout_group: nil)
+    end
+
     unless current_user.current_workout.nil?
       @workout = Workout.find(current_user.current_workout)
       @already_worked_out = !@user.user_previous_workouts

@@ -115,6 +115,6 @@
 		<div class="container">
 			<%= f.submit "Next Exercise", class: "btn btn-lg btn-block", style: "background-color:#D9D278;" %>
 		</div>
-		<div class="col-12 text-center"><%= link_to "Exit Workout", kiosk_path(manual_exit: true), data: { confirm: 'Are you sure you are complete? This will complete your workout for the day.' } %></div>
+		<div class="col-12 text-center"><%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Are you sure you are complete? This will complete your workout for the day.' } %></div>
 	<% end %>
 <% end %>

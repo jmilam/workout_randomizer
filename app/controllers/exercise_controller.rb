@@ -14,28 +14,18 @@ class ExerciseController < ApplicationController
     @exercise = Exercise.find(params[:id])
     @kiosk = current_user.gym.kiosks.find_by(exercise_id: @exercise.id)
     @kiosk_number = @kiosk.nil? ? '' : @kiosk.kiosk_number
-    @superset_exercise = SuperSet.get_shared_exercise(@exercise)
+    # @superset_exercise = SuperSet.get_shared_exercise(@exercise)
     @total_exercises = @exercise.workout_group.exercises.count
   end
 
   def create
     @exercise = Exercise.new(exercise_params)
-    @superset_exercise = Exercise.find(params[:exercise][:super_set_id]) unless params[:exercise][:super_set_id].blank?
 
     begin
-      @exercise.save!
+      @exercise.save!(validate: false)
 
       unless params[:kiosk_number].blank?
         current_user.gym.kiosks.create!(gym_id: current_user.gym_id, exercise_id: @exercise.id, kiosk_number: params[:kiosk_number])
-      end
-      unless params[:exercise][:super_set_id].blank?
-        super_set = SuperSet.create_or_update(@exercise, params[:exercise][:super_set_id])
-
-        Exercise.transaction do
-          @exercise.update!(exercise_params)
-          @exercise.update!(super_set_id: super_set.id)
-          @superset_exercise.update!(super_set_id: super_set.id)
-        end
       end
 
       flash[:notice] = "Exercise #{@exercise.name} was successfully added to your workout."
@@ -51,12 +41,18 @@ class ExerciseController < ApplicationController
     @exercise = Exercise.find(params[:id])
     @superset_exercise = Exercise.find(params[:exercise][:super_set_id]) unless params[:exercise][:super_set_id].blank?
 
+    exercise_circuit = ExerciseCircuit.joins(:exercises).where(exercises: {id: @exercise.id})
+
     begin
       Exercise.transaction do
-        unless params[:exercise][:super_set_id].blank?
-          super_set = SuperSet.create_or_update(@exercise, params[:exercise][:super_set_id])
-          @superset_exercise.update!(super_set_id: super_set.id)
-          @exercise.update!(super_set_id: super_set.id)
+        unless params[:super_set_id].blank?
+          exercise_circuit = exercise_circuit.empty? ? ExerciseCircuit.create : exercise_circuit.first
+
+          params[:super_set_id].each do |super_set_exercise|
+            Exercise.find(super_set_exercise).update!(exercise_circuit_id: exercise_circuit.id)
+          end
+
+          @exercise.update!(exercise_circuit_id: exercise_circuit.id)
         end
 
         @exercise.update!(exercise_params)

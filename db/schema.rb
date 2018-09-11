@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180820144728) do
+ActiveRecord::Schema.define(version: 20180831164916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,11 @@ ActiveRecord::Schema.define(version: 20180820144728) do
     t.boolean "disabled", default: false
   end
 
+  create_table "exercise_circuits", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "exercises", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -44,7 +49,7 @@ ActiveRecord::Schema.define(version: 20180820144728) do
     t.string "warm_up_details", default: ""
     t.string "rep_range", default: ""
     t.integer "set_count", default: 3
-    t.integer "super_set_id"
+    t.integer "exercise_circuit_id"
     t.integer "priority"
     t.boolean "disabled", default: false
   end

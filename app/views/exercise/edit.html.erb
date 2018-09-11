@@ -45,21 +45,28 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12 col-sm-12 form-group">
+      <div class="col-md-12 col-sm-12">
         <%= f.label :priority, class: 'col-md-12' %>
         <%= f.select :priority, (1..@total_exercises).to_a.collect { |exercise| [exercise, exercise] }, { prompt: "--- Select the priority in the workout you want them to do this exercise ---"}, class: 'col-md-12 form-control' %>
       </div>
     </div>
 
+    <div class="row">
+      <%= f.label :super_set_id, 'Select all exercises you\'d like to pair with this exercise to make a circuit', class: 'col-md-12' %>
+    </div>
 
     <div class="row">
-      <div class="col-md-12 col-sm-12 form-group">
-        <%= f.label :super_set_id, "Superset exercise with?", class: 'col-md-12' %>
-        <%= f.select :super_set_id, options_for_select(@exercise.workout_group.exercises.collect { |exercise| [exercise.name, exercise.id] }, @superset_exercise), { prompt: "--- Select An exercise you want to superset with if you want ---" }, { class: 'col-md-12 form-control' }  %>
-      </div>
+      <% @exercise.workout_group.exercises.each do |exercise| %>
+        <% unless exercise.id == @exercise.id %>
+          <div class="col-md-4 col-sm-4 col-12">
+              <% checked = @exercise.exercise_circuit_id.nil? ? false : exercise.exercise_circuit_id == @exercise.exercise_circuit_id %>
+              <%= check_box_tag 'super_set_id[]', exercise.id, checked %> <%= f.label :super_set_id, exercise.name %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
 
   	<%= f.submit "Edit Exercise", class: 'btn btn-lg btn-block workout-btn' %>
-    <div class= 'text-center' style="margin-bottom:15px;"><%= link_to "Delete Exercise", exercise_path(@exercise.id), method: :delete %></div>
+      <div class= 'text-center' style="margin-bottom:15px;"><%= link_to "Disable Exercise", exercise_path(@exercise.id), method: :delete %></div>
   <% end %>
 </div>

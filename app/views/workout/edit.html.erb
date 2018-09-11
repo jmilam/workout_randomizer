@@ -73,7 +73,7 @@
 	  		<div class="card-footer text-center header-background">
 					<%= link_to_if @editable, "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
 				</div>
-	  		<% group.exercises.group_by(&:super_set_id).each_with_index do |exercise_group, ex_group_idx| %>
+	  		<% group.exercises.group_by(&:exercise_circuit_id).each_with_index do |exercise_group, ex_group_idx| %>
 					<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
 						<li class="list-group-item <%= bg_color %> text-center bg-dark text-white"><%= link_to_if @editable, exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
 					<% end %>
@@ -89,7 +89,7 @@
 				<div class="card-footer text-center header-background">
 					<%= link_to_if @editable, "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
 				</div>
-	  		<% group.exercises.group_by(&:super_set_id).each_with_index do |exercise_group, ex_group_idx| %>
+	  		<% group.exercises.group_by(&:exercise_circuit_id).each_with_index do |exercise_group, ex_group_idx| %>
 					<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
 						<li class="list-group-item <%= bg_color %> text-center bg-dark text-white"><%= link_to exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
 					<% end %>

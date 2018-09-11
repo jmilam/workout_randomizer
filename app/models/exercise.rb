@@ -1,5 +1,6 @@
 class Exercise < ApplicationRecord
   belongs_to :workout_group
+  belongs_to :exercise_circuit
   has_many :workout_details
 
   validates :name, presence: true
@@ -8,10 +9,10 @@ class Exercise < ApplicationRecord
     boolean ? 'Yes' : 'No'
   end
 
-  def self.group_super_sets(workout_group)
+  def self.group_by_circuit(workout_group)
     exercise_groups = workout_group.exercises
       .sort_by { |exercise| exercise.priority.nil? ? 9999 : exercise.priority }
-      .group_by(&:super_set_id)
+      .group_by(&:exercise_circuit_id)
 
     unless exercise_groups[nil].nil?
       exercise_groups[nil].each do |nil_group|

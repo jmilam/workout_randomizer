@@ -46,7 +46,7 @@ class WorkoutController < ApplicationController
 
   def edit
     @workout = Workout.find(params[:id])
-    p @editable = @workout.editable_by_user?(current_user)
+    @editable = @workout.editable_by_user?(current_user)
     @user_already_liked = !@workout.likes.user_liked_workout(current_user.id, @workout.id).empty?
     @workout_users = User.where(current_workout: @workout.id)
     @workout_groups = @workout.workout_groups.includes(:exercises)

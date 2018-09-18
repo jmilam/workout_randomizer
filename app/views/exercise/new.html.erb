@@ -1,4 +1,7 @@
+<%= render "partials/alert" %>
+
 <div class="container">
+  <%= link_to "<< Back to Workout", edit_workout_path(@workout), style: 'color: #101216' %>
   <%= form_for @exercise, url: exercise_index_path, method: :post do |f| %>
     <div class="row">
       <div class="col-md-12 col-sm-12 form-group">

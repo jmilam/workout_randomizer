@@ -79,7 +79,7 @@ class WorkoutController < ApplicationController
   def accept_workout
     current_user.update!(current_workout: params[:workout_id])
 
-    redirect_to edit_workout_path(params[:workout_id])
+    redirect_to profile_index_path
   end
 
   def accept_deny_workout

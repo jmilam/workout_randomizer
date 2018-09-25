@@ -77,7 +77,7 @@ class ProfileController < ApplicationController
 
     if @user.update!(workout_params)
       flash[:notice] = 'User successfully updated'
-      redirect_to root_path
+      redirect_to profile_index_path
     else
       flash[:alert] = "Errors on update #{@user.errors}"
       redirect_to edit_profile_path(@user.id)

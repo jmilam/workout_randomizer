@@ -65,6 +65,7 @@
           <div class="col-md-12 col-sm-12 form-group">
             <%= f.label :gym_id, class: 'col-md-12' %>
             <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
+            <%= f.label 'Select Boomslang Fitness if your gym isn\'t on here', class: 'text-muted text-center' %>
           </div>
         </div>
 

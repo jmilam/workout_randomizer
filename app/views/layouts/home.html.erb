@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title.nil? ? 'Boomslang Fitness' : @title %></title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'favicon.ico' %>
+  </head>
+
+  <body>
+  	<nav class="navbar fixed-top navbar-expand-lg navbar-dark mr-auto">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <%= link_to root_path, class: 'navbar-brand' do %>
+            <%= image_tag 'logo-snake.png', size: '55x55' %>
+          <% end %>
+        </div>
+    		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+  		    <span class="navbar-toggler-icon"></span>
+  		  </button>
+    		<div class="collapse navbar-collapse" id="navbarToggler">
+    			<ul class="navbar-nav">
+            <li class="nav-item"><%= link_to "Teach", '#teach', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to "Train", '#train', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to "Evolve", '#evolve', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to "Contact Us", '#contact', class: 'nav-link' %></li>
+          </ul>
+<!--           <ul class="navbar-nav">
+            <li class="nav-item"><%= link_to "Sign In", 'users/sign_in', class: 'nav-link' %></li>
+  		  	</ul> -->
+  		  </div>
+      </div>
+		</nav>
+
+    <div style="margin-top:15px;">
+      <div style="padding-top:80px;">
+        <%= yield %>
+      </div>
+    </div>
+
+    <% if @footer %>
+      <div id='footer'>
+      </div>
+    <% end %>
+  </body>
+</html>

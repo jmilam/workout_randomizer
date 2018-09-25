@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'home/index', to: 'home#index'
   get 'kiosk/index', to: 'kiosk#index', as: 'kiosk'
   get 'kiosk/configure_exercise', to: 'kiosk#configure_exercise', as: 'kiosk_exercise'
   post 'kiosk/login', to: 'kiosk#login', as: 'kiosk_login'
@@ -30,5 +31,5 @@ Rails.application.routes.draw do
   resources :message_group
   resources :gym
 
-  root to: 'profile#index'
+  root to: 'home#index'
 end

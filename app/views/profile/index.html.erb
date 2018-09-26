@@ -83,19 +83,16 @@
       <div class="row">
         <% unless @workout.nil? %>
           <div class="container">
-              <div>
-                <div class="card">
-                  <div class="card-header text-center header-background">
-                    Current Workout: <b><i><%= @workout.name %></i></b>
-                  </div>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-12 text-center"><%=  @weeks_remaining %> weeks remaining</div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= progress_percent(@workout.duration, @weeks_doing_workout) %>" aria-valuenow="<%=  @workout.duration - @weeks_doing_workout %>" aria-valuemin="0" aria-valuemax="<%= @workout.duration %>"></div>
-                    </div>
-                  </div>
+            <div class="card">
+              <div class="card-header text-center header-background">
+                Current Workout: <b><i><%= @workout.name %></i></b>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 text-center"><%=  @weeks_remaining %> weeks remaining</div>
+                </div>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= progress_percent(@workout.duration, @weeks_doing_workout) %>" aria-valuenow="<%=  @workout.duration - @weeks_doing_workout %>" aria-valuemin="0" aria-valuemax="<%= @workout.duration %>"></div>
                 </div>
               </div>
             </div>
@@ -117,7 +114,6 @@
         <div class="col-md-6 col-sm-6 col-12 text-center">
           <b>Current Workout:</b> <% unless @user.current_workout.nil? %><div style="color:rgba(255, 255, 255, 0.5);"><%= @workout.name %></div> <%= link_to "Change Workout", stop_workout_path, method: :patch, class: "btn btn btn-danger btn-sm" %><% end %>
         </div>
-      </div>
       </div>
     </div>
   </div>

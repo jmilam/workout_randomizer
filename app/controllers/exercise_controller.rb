@@ -23,7 +23,7 @@ class ExerciseController < ApplicationController
     @exercise = Exercise.new(exercise_params)
 
     begin
-      @exercise.save!(validate: false)
+      @exercise.save!
 
       unless params[:kiosk_number].blank?
         current_user.gym.kiosks.create!(gym_id: current_user.gym_id, exercise_id: @exercise.id, kiosk_number: params[:kiosk_number])

@@ -50,6 +50,10 @@
 </div>
 
 <div class="container">
+	<%= render "partials/alert" %>
+</div>
+
+<div class="container">
 	<ul class="nav flex-column nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;" aria-orientation="vertical">
 	  <% @workout_groups.each_with_index do |group, idx| %>
 	  	<% regex_group_name = group.name.match(/\w+/)[0] %>

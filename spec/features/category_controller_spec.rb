@@ -7,7 +7,7 @@ RSpec.describe 'Categories', js: true do
     before do
       sign_in user
 
-      visit root_path
+      visit profile_index_path
       find('.navbar-toggler').click
       click_on 'Categories'
 
@@ -31,7 +31,7 @@ RSpec.describe 'Categories', js: true do
   end
 
   context 'Edit existing Category' do
-    let!(:category) { create(:category) }
+    let!(:category) { create(:category, created_by_user_id: user.id) }
 
     before do
       sign_in user

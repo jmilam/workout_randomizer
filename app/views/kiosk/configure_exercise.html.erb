@@ -88,7 +88,7 @@
 						<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}" %>
 
 						<div class="row" style="padding-right:10px;">
-							<% @prev_exercise = @last_workout.find_by(exercise_id: exercise.id) %>
+							<% @prev_exercise = @last_workout.where(exercise_id: exercise.id).last %>
 
 					  	<% col_space = 6 %>
 					    <% 1.upto(exercise.set_count) do |num| %>
@@ -103,7 +103,7 @@
 						</div>
 
 						<div class="row" style="margin-left:1px;padding-right: 25px;">
-							<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: "Enter exercise comment here" %>
+							<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: "Enter exercise comment here...\n#{@prev_exercise.comment}" %>
 						</div>
 					<% end %>
 				</div>

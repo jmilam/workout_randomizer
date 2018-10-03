@@ -1,7 +1,7 @@
 class WorkoutDetailController < ApplicationController
   layout 'nav'
   def index
-    @workouts = current_user.user_previous_workouts.includes(:exercises)
+    @workouts = current_user.user_previous_workouts.includes(:exercises).order(workout_date: :desc)
   end
 
   def create

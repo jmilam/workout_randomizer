@@ -31,5 +31,6 @@ Rails.application.routes.draw do
   resources :message_group
   resources :gym
 
-  root to: 'home#index'
+  root to: 'profile#index'
+  # root to: 'home#index'
 end

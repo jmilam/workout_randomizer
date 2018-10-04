@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Workout Randomizer</title>
+    <title>Boomslang Fitness</title>
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -21,6 +21,7 @@
       let parent = $(this).parent();
       parent.toggle();
       $('#step-header').text(parent.next().attr('title'))
+      $('#login-profile-background').css({"height":"550px"})
       parent.next().toggle();
     });
 
@@ -29,7 +30,10 @@
       let parent = $(this).parent();
       parent.toggle();
       $('#step-header').text(parent.prev().attr('title'))
-      parent.prev().toggle();
+      if (parent.prev().attr('id') === 'step1') {
+        $('#login-profile-background').css({"height":"370px"})
+      }
+      parent.prev().toggle()
     })
 
 </script>

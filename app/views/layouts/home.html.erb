@@ -28,11 +28,7 @@
             <li class="nav-item"><%= link_to "Contact Us", '#contact', class: 'nav-link' %></li>
           </ul>
           <ul class="navbar-nav">
-            <% if current_user.nil? %>
-              <li class="nav-item"><%= link_to "Sign In", 'users/sign_in', class: 'nav-link' %></li>
-            <% else %>
-              <li class="nav-item"><%= link_to "View Profile", profile_index_path , class: 'nav-link' %></li>
-            <% end %>
+              <li class="nav-item"><%= link_to "Profile", profile_index_path , class: 'nav-link' %></li>
   		  	</ul>
   		  </div>
       </div>

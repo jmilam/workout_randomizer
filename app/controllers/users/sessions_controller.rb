@@ -5,7 +5,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    @image = '/assets/images/adult-back-view-black-and-white-759817'
     super
   end
 

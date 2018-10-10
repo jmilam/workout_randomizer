@@ -1,6 +1,5 @@
 class ProfileController < ApplicationController
   layout 'nav'
-  before_action :authenticate_user!
 
   def index
     @title = "#{current_user.first_name} Profile"

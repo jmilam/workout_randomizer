@@ -1,6 +1,7 @@
 class WorkoutGroupController < ApplicationController
   layout 'nav'
-  def index; end
+  def index
+  end
 
   def new
     @workout = Workout.find(params[:workout_id])

@@ -103,7 +103,7 @@
 						</div>
 
 						<div class="row" style="margin-left:1px;padding-right: 25px;">
-							<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: "Enter exercise comment here...\n#{@prev_exercise.comment}" %>
+							<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: "Enter exercise comment here...\n#{@prev_exercise&.comment}" %>
 						</div>
 					<% end %>
 				</div>

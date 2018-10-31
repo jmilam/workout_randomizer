@@ -31,7 +31,9 @@ class WorkoutController < ApplicationController
   end
 
   def create
+    @categories = Category.enabled
     @workout = current_user.gym.workouts.new(workout_params)
+    @workout.created_by_user_id = current_user.id
 
     begin
       @workout.save!
@@ -39,7 +41,11 @@ class WorkoutController < ApplicationController
       flash[:notice] = "Workout #{@workout.name} was successfully created. Let's add some exercises now."
       redirect_to new_workout_group_path(workout_id: @workout.id)
     rescue ActiveRecord::RecordInvalid => error
-      flash[:alert] = "There was an error when updating exercise: #{error}"
+      p "There was an error when creating exercise: #{error}"
+      flash[:alert] = "There was an error when creating exercise: #{error}"
+      render :new
+    rescue ActiveRecord::StandardError => error
+      flash[:alert] = "There was an error when creating exercise: #{error}"
       render :new
     end
   end

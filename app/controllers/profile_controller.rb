@@ -16,8 +16,8 @@ class ProfileController < ApplicationController
         0 : WorkoutGroup.find(@user.current_workout_group).exercises.count 
 
       @completed_workout = !@user.user_previous_workouts
-                                 .where(workout_date: Date.today.in_time_zone).count ==
-                                  current_workout_group_exercises_count || @user.current_workout_group.nil?
+                                  .where(workout_date: Date.today.in_time_zone)
+                                  .empty?
 
       workout_weeks = []
       @workout.user_previous_workouts.where(user_id: @user.id).sort.group_by(&:workout_date).keys.each do |workout_date|

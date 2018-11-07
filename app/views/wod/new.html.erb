@@ -1,0 +1,16 @@
+<%= render "partials/alert" %>
+
+<div class="container">
+	<%= form_for @wod, url: create_wod_path, method: :post do |f| %>
+		<%= f.hidden_field :gym_id, value: @gym.id %>
+	  <div class="row">
+	    <div class="col-md-12 col-sm-12 form-group">
+	      <%= f.select :workout_group_id, options_for_select(@workout_groups), {prompt: "Select Popup Workout"}, class: 'form-control' %>
+	    </div>
+	    <div class="col-md-12 col-sm-12 form-group">
+	      <%= f.date_field :workout_date, class: "form-control" %>
+	    </div>
+	  </div>
+  	<%= f.submit class: 'btn btn-lg workout-btn float-right' %>
+	<% end %>
+</div>

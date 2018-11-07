@@ -620,6 +620,7 @@
         1,
         1,
         null,
+        null,
         1,
         null
       ],
@@ -734,7 +735,7 @@
         null,
         null,
         1,
-        4,
+        8,
         null,
         null
       ],
@@ -955,7 +956,6 @@
         1,
         1,
         1,
-        0,
         null,
         null
       ],
@@ -1152,13 +1152,19 @@
         null,
         1,
         0,
-        null,
         0,
         0,
         null,
         0,
         0,
+        null,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
         0,
         0,
         null,
@@ -2211,7 +2217,6 @@
       "/Users/jmilam/Desktop/rails/workout_randomizer/app/controllers/profile_controller.rb": [
         1,
         1,
-        1,
         null,
         1,
         10,
@@ -2303,6 +2308,6 @@
         null
       ]
     },
-    "timestamp": 1537973121
+    "timestamp": 1541437193
   }
 }

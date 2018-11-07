@@ -132,7 +132,7 @@ RSpec.describe 'Users', js: true do
         select gym.name, from: 'Gym'
         click_on 'Create User'
 
-        expect(page).to have_content('Peter\'s Information')
+        expect(page).to have_content('Suggested Workout')
       end
     end
   end

@@ -11,7 +11,10 @@
 
     <div class="row">
       <div class="col-md-6 col-sm-6 col-6 text-center"><%= link_to "Workout History", workout_history_path %></div>
-      <div class="col-md-6 col-sm-6 col-6 text-center"><%= link_to "Suggested Workout", kiosk_exercise_path unless @already_worked_out %></div>
+      <div class="col-md-6 col-sm-6 col-6 text-center"><%= link_to "My Daily Workout", kiosk_exercise_path unless @completed_workout %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 offset-6 col-sm-6 col-6 text-center"><%= link_to "Workout of the Day", kiosk_exercise_path(workout_group_id: @wod.workout_group_id) unless @wod.nil? %></div>
     </div>
 
     <div class="row">

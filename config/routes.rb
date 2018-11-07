@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   put 'category/disable_category', to: 'category#disable_category', as: 'disable_category'
   put 'category/enable_category', to: 'category#enable_category', as: 'enable_category'
 
+  get 'wod/new', to: 'wod#new', as: 'new_wod'
+  post 'wod/create', to: 'wod#create', as: 'create_wod'
+
   resources :profile
   resources :workout
   resources :exercise

@@ -89,16 +89,15 @@
 
 						<div class="row" style="padding-right:10px;">
 							<% @prev_exercise = @last_workout.where(exercise_id: exercise.id).last %>
-
 					  	<% col_space = 6 %>
 					    <% 1.upto(exercise.set_count) do |num| %>
-					  		<% if @user.current_workout == @workout.id %>
+					  		<%# if @user.current_workout == @workout.id %>
 					  			<% if @prev_exercise.nil? %>
 					  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", type: 'number' %></div>
 					  			<% else %>
 					  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", placeholder: @prev_exercise["rep_#{num}_weight"], type: 'number' %></div>
 					  			<% end %>
-					  		<% end %>
+					  		<%# end %>
 					    <% end %>
 						</div>
 

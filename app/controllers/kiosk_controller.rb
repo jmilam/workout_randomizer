@@ -28,7 +28,9 @@ class KioskController < ApplicationController
       # find current workout
       @user = current_user
 
-      if @user.current_workout.nil?
+      if params[:workout_group_id]
+        @workout = Workout.find(WorkoutGroup.find(params[:workout_group_id]).workout.id)
+      elsif @user.current_workout.nil?
         # Find Workouts matching user designated goals
         workouts_by_matching_goal = @user.gym.workouts.includes(:category).where(categories: {goal_id:  @user.goal_id})
         # Sort workouts by most liked, for best results
@@ -67,7 +69,8 @@ class KioskController < ApplicationController
         end
       end
 
-      @workout_group = WorkoutGroup.find(@user.current_workout_group)
+      @workout_group = params[:workout_group_id] ?
+        WorkoutGroup.find(params[:workout_group_id]) : WorkoutGroup.find(@user.current_workout_group)
       @last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
       @exercise_groups = Exercise.group_by_circuit(@workout_group)
       exercise_complete_count = @workout_group.workout_details.where(workout_group_id: @workout_group.id, workout_date: Date.today.strftime('%Y-%m-%d')).count.to_f
@@ -84,8 +87,10 @@ class KioskController < ApplicationController
   def log_exercise
     WorkoutDetail.transaction do
       begin
+        workout_group_id = params[:exercises][:workout_detail].first[:workout_group_id].blank? ?
+          current_user.current_workout_group : params[:exercises][:workout_detail].first[:workout_group_id].to_i
          workout = Workout.find(current_user.current_workout)
-         workout_group = WorkoutGroup.find(current_user.current_workout_group)
+         workout_group = WorkoutGroup.find(workout_group_id)
          workout_date = Date.today.in_time_zone
          reference_exercise = Exercise.find(params[:exercises][:workout_detail].first[:exercise_id])
 
@@ -105,7 +110,11 @@ class KioskController < ApplicationController
 
          current_user.update(current_workout_group: nil) if Exercise.get_exercise(current_user, exercise_groups).nil?
          flash[:notice] = current_user.current_workout_group.nil? ? 'Great Workout! You completed todays workout!' : 'Exercise Complete'
-         redirect_to kiosk_exercise_path
+        if params[:exercises][:workout_detail].first[:workout_group_id].blank?
+          redirect_to kiosk_exercise_path
+        else
+          redirect_to kiosk_exercise_path workout_group_id: workout_group_id
+        end
        rescue StandardError => error
          flash[:alert] = "There was an error when saving Workout Details #{error}"
        end

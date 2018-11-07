@@ -2,6 +2,7 @@ class WorkoutGroup < ApplicationRecord
   belongs_to :workout
   has_many :exercises, dependent: :destroy
   has_many :workout_details
+  has_many :wods
 
   enum day_of_the_week: {
     1 => 'Sunday',

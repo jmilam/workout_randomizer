@@ -2,19 +2,22 @@ class ProfileController < ApplicationController
   layout 'nav'
 
   def index
-    @title = "#{current_user.first_name} Profile"
     @user = current_user
+    @title = "#{@user.first_name} Profile"
     @weeks_doing_workout = 0
 
     if params[:manual_exit]
-      current_user.update(current_workout_group: nil)
+      @user.update(current_workout_group: nil)
     end
 
-    unless current_user.current_workout.nil?
-      @workout = Workout.find(current_user.current_workout)
-      @already_worked_out = !@user.user_previous_workouts
-                                  .where(workout_date: Date.today.in_time_zone)
-                                  .empty?
+    unless @user.current_workout.nil?
+      @workout = Workout.find(@user.current_workout)
+      current_workout_group_exercises_count = @user.current_workout_group.nil? ?
+        0 : WorkoutGroup.find(@user.current_workout_group).exercises.count 
+
+      @completed_workout = !@user.user_previous_workouts
+                                 .where(workout_date: Date.today.in_time_zone).count ==
+                                  current_workout_group_exercises_count || @user.current_workout_group.nil?
 
       workout_weeks = []
       @workout.user_previous_workouts.where(user_id: @user.id).sort.group_by(&:workout_date).keys.each do |workout_date|
@@ -62,6 +65,7 @@ class ProfileController < ApplicationController
     @counter = 0
 
     @workout_stats = UserPreviousWorkout.for_google_charts(@user.user_previous_workouts.group_by(&:workout_group_id)).to_json.html_safe
+    @wod = Wod.where(gym_id: @user.gym.id, workout_date: Date.today).last
   end
 
   def edit

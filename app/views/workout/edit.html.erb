@@ -56,7 +56,7 @@
 <div class="container">
 	<ul class="nav flex-column nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;" aria-orientation="vertical">
 	  <% @workout_groups.each_with_index do |group, idx| %>
-	  	<% regex_group_name = group.name.match(/\w+/)[0] %>
+	  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
 	  	<% if idx == 0 %>
 	  		 <li class='nav-item'><a class='nav-link active show' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>	
 	  	<% else %>
@@ -68,7 +68,7 @@
 
 <div class="tab-content" id="workoutTabContent">
   <% @workout_groups.each_with_index do |group, idx| %>
-  	<% regex_group_name = group.name.match(/\w+/)[0] %>
+  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
 		<% bg_color = Category.style_tags.to_a.sample[1]['border'] %>
 		<% if idx == 0 %>
 	  	<div class="tab-pane fade active show" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>

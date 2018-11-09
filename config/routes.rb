@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'admin_portal/index', to: 'admin_portal#index', as: 'admin_portal' 
+  get 'admin_portal/report_data', to: 'admin_portal#report_data' 
 
   get 'home/index', to: 'home#index'
   get 'kiosk/index', to: 'kiosk#index', as: 'kiosk'

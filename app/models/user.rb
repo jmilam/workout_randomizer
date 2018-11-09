@@ -25,7 +25,7 @@ class User < ApplicationRecord
                '2' => 'Maintain',
                '3' => 'Other' }
 
-  scope :new_users, -> { where(created_at: Date.today.beginning_of_week..Date.today.end_of_week)}
+  scope :new_users, -> (date_range=Date.today.beginning_of_week..Date.today.end_of_week) { where(created_at: date_range)}
 
   def calculate_bmi
     converted_weight = weight * 0.45

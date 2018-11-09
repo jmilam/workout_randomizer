@@ -1,41 +1,100 @@
 <div class="container">
-	<div class="jumbotron text-center" style="color:black">
-	  <h3>Metrics for this week:</h3>
+	<div class="jumbotron text-center" style="background-color:#003259">
+	  <h3 id="metric_time_frame">Metrics for this Week:</h3>
 	</div>
 
-	<table class="table table-stripped">
-		<thead>
-			<tr>
-				<th class="text-center">New Gyms signs up: <%= @new_gyms.count %></th>
-			</tr>
-			<tr>
-				<th>Gym Name</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @new_gyms.each do |gym| %>
-				<tr>
-					<td><%= gym.name %></td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
+	<%= select_tag :report_time_frame, options_for_select(['Week', 'Month', 'Year'], 'Week'), class: 'form-control', style: 'margin-bottom:10px;' %>
 
-	<table class="table table-stripped">
-		<thead>
-			<tr>
-				<th class="text-center">New Users signed up: <%= @new_users.count %></th>
-			</tr>
-			<tr>
-				<th>User Name</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @new_users.each do |user| %>
+	<div class="bg-secondary">
+		<table class="table table-stripped" style="color:#003259">
+			<thead>
 				<tr>
-					<td><%= user.first_name %> <%= user.last_name %></td>
+					<th class="text-center">New Gyms signs up: <i id="gym_count"><%= @new_gyms.count %></i></th>
 				</tr>
-			<% end %>
-		</tbody>
-	</table>
+				<tr>
+					<th>Gym Name</th>
+				</tr>
+			</thead>
+			<tbody id="gym_body">
+				<% @new_gyms.each do |gym| %>
+					<tr>
+						<td><%= gym.name %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="bg-secondary">
+		<table class="table table-stripped" style="color:#003259">
+			<thead>
+				<tr>
+					<th class="text-center" colspan=3>New Users signed up: <i id="user_count"><%= @new_users.count %></i></th>
+				</tr>
+				<tr>
+					<th>User Name</th>
+					<th>User Goal</th>
+					<th>User Email</th>
+				</tr>
+			</thead>
+			<tbody id="user_body">
+				<% @new_users.each do |user| %>
+					<tr>
+						<td><%= user.first_name %> <%= user.last_name %></td>
+						<td><%= User.goals[user.goal_id.to_s] %></td>
+						<td><%= user.email %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
 </div>
+
+<script>
+
+	function update_title(time_frame){
+		$('#metric_time_frame').text('Metrics for this ' + time_frame + ':');
+	}
+	function clear_table_body(){
+		$('#gym_body').empty();
+		$('#user_body').empty();
+	}
+
+	function update_total_count(data){
+		$('#gym_count').text(data['gyms'].length);
+		$('#user_count').text(data['users'].length);
+	}
+
+	function update_users(user_data, goals){
+		$.each(user_data, function(key, user){
+			$('#user_body').append(
+				"<tr><td>" + user.first_name + " " + user.last_name + "</td><td>" + goals[user['goal_id']] + "</td><td>" + user['email'] + "</td></tr>"
+			);
+		});
+	}
+
+	function update_gyms(gym_data){
+		$.each(gym_data, function(key, gym){
+			$('#gym_body').append(
+				"<tr><td>" + gym.name + "</td></tr>"
+			);
+		});
+	}
+
+	$('#report_time_frame').on('change', function(){
+		let time_frame = $(this).val();
+		$.ajax({
+		  url: "report_data",
+		  method: "GET",
+		  data: { date_range : time_frame },
+		  dataType: "json"
+		}).done(function(return_data){
+			clear_table_body();
+			update_total_count(return_data);
+			update_title(time_frame);
+			update_users(return_data['users'], return_data['goals']);
+			update_gyms(return_data['gyms']);
+		});
+ 
+	});
+</script>

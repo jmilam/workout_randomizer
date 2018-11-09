@@ -7,6 +7,8 @@ class Gym < ApplicationRecord
 
   validates :name, :phone_number, presence: true
 
+  scope :new_gyms, -> { where(created_at: Date.today.beginning_of_week..Date.today.end_of_week)}
+
   def non_selected_users
     users.map(&:id).delete_if { |user_id| admin_ids.include?(user_id.to_s) }
   end

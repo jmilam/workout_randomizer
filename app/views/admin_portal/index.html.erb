@@ -1,0 +1,41 @@
+<div class="container">
+	<div class="jumbotron text-center" style="color:black">
+	  <h3>Metrics for this week:</h3>
+	</div>
+
+	<table class="table table-stripped">
+		<thead>
+			<tr>
+				<th class="text-center">New Gyms signs up: <%= @new_gyms.count %></th>
+			</tr>
+			<tr>
+				<th>Gym Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @new_gyms.each do |gym| %>
+				<tr>
+					<td><%= gym.name %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+	<table class="table table-stripped">
+		<thead>
+			<tr>
+				<th class="text-center">New Users signed up: <%= @new_users.count %></th>
+			</tr>
+			<tr>
+				<th>User Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @new_users.each do |user| %>
+				<tr>
+					<td><%= user.first_name %> <%= user.last_name %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

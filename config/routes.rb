@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'admin_portal/index', to: 'admin_portal#index', as: 'admin_portal' 
+
   get 'home/index', to: 'home#index'
   get 'kiosk/index', to: 'kiosk#index', as: 'kiosk'
   get 'kiosk/configure_exercise', to: 'kiosk#configure_exercise', as: 'kiosk_exercise'

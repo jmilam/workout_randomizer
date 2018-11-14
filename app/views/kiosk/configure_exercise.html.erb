@@ -1,17 +1,17 @@
 <style>
 	.exercise-header {
-		color: #003259;
+		color: white;
 		font-size: 1.5em;
 	}
 
 	.exercise-sub-header {
 		font-size: 0.75em;
-		color: #D6E5C5;
+		color: white;
 	}
 
 	.exercise-details {
 		font-size: 1em;
-		color: #003259;
+		color: white;
 	}
 </style>
 
@@ -22,10 +22,18 @@
 		<p><%= link_to "Sign Into Profile", profile_index_path %>
 <% else %>
 	<%= form_for :exercises, url: log_exercise_path do |f| %>
+		<div style="margin-top:10px;margin-left: auto;margin-right: auto;width: 95%;">
+			<div class="row">
+			<div class="col-9">
+				<%= f.submit "Next Exercise (#{@step_string})", class: "btn btn-lg btn-block", style: "background-color:#D9D278;" %>
+			</div>
+			<div class="col-3 text-center"><%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Are you sure you are complete? This will complete your workout for the day.' } %></div>
+			</div>
+		</div>
 		<% @exercise_group.each_with_index do |exercise, idx| %>
 			<% bg_color = Category.style_tags.to_a.sample[1] %>
 
-			<div class="row" id="image-background">
+			<div class="row workout-background">
 				<div class="col-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 					<div class="row">
 						<div class="col-md-12 text-center exercise-header">
@@ -110,13 +118,6 @@
 					<% end %>
 				</div>
 			</div>
-			<% unless idx == @exercise_group.count - 1 %>
-				<div style="border-bottom:1px solid;border-color:#D6E5C5;margin-bottom:15px;"></div>
-			<% end %>
 		<% end %>
-		<div class="container">
-			<%= f.submit "Next Exercise (#{@step_string})", class: "btn btn-lg btn-block", style: "background-color:#D9D278;" %>
-		</div>
-		<div class="col-12 text-center"><%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Are you sure you are complete? This will complete your workout for the day.' } %></div>
 	<% end %>
 <% end %>

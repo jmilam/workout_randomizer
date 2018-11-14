@@ -23,6 +23,14 @@ nav {
 	background: #003259;
 }
 
+.workout-background {
+	background-color: #003259;
+	box-shadow: 3px 3px 3px black;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
 	background: #101216;
 }
@@ -84,7 +92,7 @@ body {
 	background-color: transparent;
 }
 
-#image-background {
+.image-background {
 	background-image: url('road-background');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;

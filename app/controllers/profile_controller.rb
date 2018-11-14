@@ -63,8 +63,6 @@ class ProfileController < ApplicationController
     end
 
     @counter = 0
-
-    @workout_stats = UserPreviousWorkout.for_google_charts(@user.user_previous_workouts.group_by(&:workout_group_id)).to_json.html_safe
     @wod = Wod.where(gym_id: @user.gym.id, workout_date: Date.today).last
   end
 

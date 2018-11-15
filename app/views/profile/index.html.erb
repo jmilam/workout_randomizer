@@ -1,7 +1,7 @@
 <%= render "partials/alert" %>
 
-<div class="row">
-  <div class="col-md-10 col-10 offset-1" id="profile-background">
+<div id="profile-background">
+  <div class="col-md-10 col-10 offset-1">
     <%= link_to edit_profile_path(@user.id) do %>
       <div class="row">
         <%= image_tag 'avatar-placeholder', class: "rounded-image" %>
@@ -18,13 +18,13 @@
 
     <div class="row">
       <div class="col-md-4 col-sm-4 col-4 detail-font-size">
-        <b>Weight:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @user.weight %> lbs.</div>
+        <b style="color:#fafafa;">Weight:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @user.weight %> lbs.</div>
       </div>
       <div class="col-md-4 col-sm-4 col-4 detail-font-size" style="">
-        <b>Height:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @height[0] %>' <%= @height[1] %>"</div>
+        <b style="color:#fafafa;">Height:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @height[0] %>' <%= @height[1] %>"</div>
       </div>
       <div class="col-md-4 col-sm-4 col-4 detail-font-size">
-        BMI: <div style="color:<%= @bmi_status %>;text-align:center;"><%= @bmi %></div>
+        <div style="color:#fafafa">BMI: </div><div style="color:<%= @bmi_status %>;text-align:center;"><%= @bmi %></div>
       </div>
     </div>
 
@@ -47,26 +47,28 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-10 col-10 offset-1">
-    <div class="row">
-      <div class="col-md-6 col-sm-6 col-6 text-center">
-        <b>Workout Regularity:</b> <div style="color:#003259;"><%= User.regularities["#{@user.regularity_id}week"] %></div>
-      </div>
-      <div class="col-md-6 col-sm-6 col-6 text-center">
-        <b>Current Workout:</b> <% unless @user.current_workout.nil? %><div style="color:#003259;"><%= @workout.name %></div> <%= link_to "Change Workout", stop_workout_path, method: :patch, class: "btn btn btn-danger btn-sm" %><% end %>
+<div style="margin-top:30px;">
+  <div class="row">
+    <div class="col-md-10 col-10 offset-1">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-6 text-center">
+          <b>Workout Regularity:</b> <div style="color:#003259;"><%= User.regularities["#{@user.regularity_id}week"] %></div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6 text-center">
+          <b>Current Workout:</b> <% unless @user.current_workout.nil? %><div style="color:#003259;"><%= @workout.name %></div> <%= link_to "Change Workout", stop_workout_path, method: :patch, class: "btn btn btn-danger btn-sm" %><% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-10 col-10 offset-1">
-    <div class="row">
-      <div class="col-md-6 col-sm-6 col-6 text-center">
-        <b>Current Gym:</b> <div style="color:#003259;"><%= @user.gym.name %></div>
-      </div>
-      <div class="col-md-6 col-sm-6 col-6 text-center">
-        <b>Workout Goal:</b> <div style="color:#003259;"><%= User.goals["#{@user.goal_id}"] %></div>
+  <div class="row">
+    <div class="col-md-10 col-10 offset-1">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-6 text-center">
+          <b>Current Gym:</b> <div style="color:#003259;"><%= @user.gym.name %></div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-6 text-center">
+          <b>Workout Goal:</b> <div style="color:#003259;"><%= User.goals["#{@user.goal_id}"] %></div>
+        </div>
       </div>
     </div>
   </div>

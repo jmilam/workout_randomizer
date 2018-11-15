@@ -36,12 +36,11 @@ nav {
 }
 
 a {
-	color: rgba(255, 255, 255, 0.5);
+	color: #82B937;
 }
 
 body {
-	background-color: #98AF22;
-	color: white;
+	background: #fafafa;
 }
 
 .row {
@@ -118,8 +117,10 @@ body {
 
 #profile-background {
 	background-color: #003259;
-	height:280px;
+	height:350px;
+	/*
 	margin-top:40px;
+	*/
 }
 
 .default-background {
@@ -128,15 +129,20 @@ body {
 
 #login-profile-background {
 	background-color: #003259;
-	height:370px;
-	margin-top:90px;
+  height: 420px;
+  margin-top: 60px;
+  color: white;
 }
 
 .rounded-image {
-	margin-top: -50px;
+	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
 	border-radius: 50%;
 	height:100px;
 	width:100px;
+}
+
+#metric_time_frame {
+	padding-top: 50px;
 }

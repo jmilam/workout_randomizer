@@ -47,7 +47,7 @@ class UserPreviousWorkout < ApplicationRecord
 
     details.each do |detail|
       idx = exercise_ids.index(detail.exercise_id)
-      max_reps[idx] = detail.max_rep_weight
+      max_reps[idx] = detail.avg_rep_weight
     end
     max_reps
   end

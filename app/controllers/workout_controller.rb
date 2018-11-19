@@ -80,6 +80,7 @@ class WorkoutController < ApplicationController
     @current_user = current_user
     @workouts = Workout.sort_by_likes(current_user).in_groups_of(2)
     @workouts = Workout.remove_nils(@workouts)
+    p @top_workouts = Workout.top_workouts_by_category(@workouts).first
   end
 
   def accept_workout

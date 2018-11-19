@@ -1,0 +1,26 @@
+<div class="card <%= Category.style_tags[workout.category.tag]['background-color'] %>">
+  <div class="card-body">
+    <h5 class="card-title text-center">
+      <% if workout.editable_by_user?(current_user) %>
+        <%= workout.name %> <%= link_to "Edit", edit_workout_path(workout.id), class: 'btn btn-sm' %>
+      <% else %>
+        <%= workout.name %> <%= link_to "View", edit_workout_path(workout.id), class: 'btn btn-sm' %>
+      <% end %>
+    </h5>
+    <div class="card-text text-muted text-center"><%= workout.created_by %></div>
+    <div class="row">
+      <div class="col-md-5"><p class="card-text"><%= workout.frequency %> times a week.</p></div>
+      <div class="col-md-7"><p class="card-text text-muted text-right">Category: <%= workout.category.name %></p></div>
+    </div>
+    <div class="row">
+      <% if @current_user.current_workout == workout.id %>
+        <div class="col-md-5 col-sm-5, col-5">
+          <div class="workout-text">Current Workout</div>
+        </div>
+        <div class="col-md-7 col-sm-7 col-7"><p class="card-text text-muted text-right"><%= workout.duration %> week workout cycle</p></div>
+      <% else %>
+        <div class="col-md-12"><p class="card-text text-muted text-right"><%= workout.duration %> week workout cycle</p></div>
+        <% end %>
+    </div>
+  </div>
+</div>

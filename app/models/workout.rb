@@ -39,6 +39,12 @@ class Workout < ApplicationRecord
             .reverse
   end
 
+  def self.top_workouts_by_category(workouts)
+    workouts.map do |workout|
+      workout.group_by(&:category_id).map { |_key, value| value.first }
+    end
+  end
+
   def created_by
     unless created_by_user_id.nil?
       user = User.find_by(id: created_by_user_id)

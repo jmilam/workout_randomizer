@@ -5,6 +5,5 @@ class HomeController < ApplicationController
 	end
 
 	def blog
-		render layout: false
 	end
 end

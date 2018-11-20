@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   get 'wod/new', to: 'wod#new', as: 'new_wod'
   post 'wod/create', to: 'wod#create', as: 'create_wod'
 
+  get 'blog/index', to: 'blog#index'
+
+  get 'home/blog', to: 'home#blog', as: 'blog'
+
   resources :profile
   resources :workout
   resources :exercise

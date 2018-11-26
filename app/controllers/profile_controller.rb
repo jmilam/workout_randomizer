@@ -19,12 +19,12 @@ class ProfileController < ApplicationController
                                   .where(workout_date: Date.today.in_time_zone)
                                   .empty?
 
-      workout_weeks = []
-      @workout.user_previous_workouts.where(user_id: @user.id).sort.group_by(&:workout_date).keys.each do |workout_date|
-        workout_weeks << workout_date unless workout_weeks.include?(workout_date.beginning_of_week)
-      end
-
-      @weeks_doing_workout = workout_weeks.count
+      @weeks_doing_workout = @workout.user_previous_workouts.where(user_id: @user.id)
+        .sort
+        .group_by(&:workout_date)
+        .keys
+        .uniq { |i| i.beginning_of_week }
+        .count
 
       @weeks_remaining = @workout.duration - @weeks_doing_workout
 

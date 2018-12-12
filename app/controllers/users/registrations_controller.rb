@@ -18,31 +18,36 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    @user = User.new(user_sign_up_params)
+    begin
+      @user = User.new(user_sign_up_params)
 
-    if @user.save
-      Inbox.create(user_id: @user.id)
-      sign_in @user
-      redirect_to profile_index_path
-    else
-      error_message = ''
-      error_message = error_message.dup
+      if @user.save
+        Inbox.create(user_id: @user.id)
+        sign_in @user
 
-      @user.errors.messages.each do |key, value|
-        next if key.to_s.include?('gym_id')
-        error_message << "* #{key.capitalize} "
+        UserMailer.with(user: @user).welcome_email.deliver_now
 
-        value.each do |val|
-          error_message << "#{val}\n"
+        redirect_to profile_index_path
+      else
+        error_message = ''
+        error_message = error_message.dup
+
+        @user.errors.messages.each do |key, value|
+          next if key.to_s.include?('gym_id')
+          error_message << "* #{key.capitalize} "
+
+          value.each do |val|
+            error_message << "#{val}\n"
+          end
         end
+
+        flash[:alert] = error_message
+        @regularity = ['1 day week', '2 day week', '3 day week', '4 day week', '5 day week']
+        @goals = ['Fat Loss', 'Lean Mass Gain', 'Maintain', 'Other']
+        @gyms = Gym.all
+
+        render :new
       end
-
-      flash[:alert] = error_message
-      @regularity = ['1 day week', '2 day week', '3 day week', '4 day week', '5 day week']
-      @goals = ['Fat Loss', 'Lean Mass Gain', 'Maintain', 'Other']
-      @gyms = Gym.all
-
-      render :new
     end
   end
 

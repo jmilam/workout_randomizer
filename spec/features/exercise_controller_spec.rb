@@ -31,7 +31,6 @@ RSpec.describe 'Exercises', js: true do
         page.execute_script 'window.scrollBy(0,10000)'
 
         click_on 'New Exercise'
-        save_screenshot('/Users/jmilam/Desktop/test.png')
         expect(page).to have_content('Exercise Dumbell Curl was successfully added to your workout.')
       end
     end

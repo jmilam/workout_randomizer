@@ -21,12 +21,6 @@
     </div>
     
     <div class="row">
-      <div class="col-md-12 col-sm-12 form-group">
-        <%= f.label :ab_workout, "Ab Workout Pairing?", class: 'col-md-12' %>
-        <%= f.select :ab_workout, Workout.where("name ~* ?", '(ab)').collect { |workout| [ workout.name, workout.id ] }, { prompt: "--- Please select an ab workout pairing ---" }, class: 'col-md-12 form-control' %>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-md-12 col-sm-12">
     	 <%= f.submit "Create Workout Group", class: 'btn btn-lg btn-block workout-btn' %>
       </div>

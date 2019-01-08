@@ -39,7 +39,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-4 col-sm-4 col-4 form-group">
+      <div class="col-md-3 col-sm-3 col-3 form-group">
         <%= f.label :kiosk_number, class: 'col-md-12' %>
         <%= text_field_tag :kiosk_number, nil, class: 'col-md-12 form-control' %>
       </div>
@@ -50,6 +50,10 @@
     	<div class="col-md-4 col-sm-4 col-4 form-group">
         <%= f.label :rep_range, "Rep Count? *", class: 'col-md-12' %>
         <%= f.text_field :rep_range, placeholder: "10-12", class: 'col-md-12 form-control' %>
+      </div>
+      <div class="col-md-1 col-sm-1 col-4 form-group text-center">
+        <%= f.label :band, "Band?", class: 'col-md-12' %>
+        <%= f.check_box :band %>
       </div>
     </div>
 

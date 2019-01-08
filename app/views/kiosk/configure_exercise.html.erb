@@ -107,6 +107,7 @@
 								<div class="row" style="padding-right:10px;">
 									<% @prev_exercise = @last_workout.where(exercise_id: exercise.id).last %>
 									<% comment_placeholder = @prev_exercise&.comment.blank? ? "Enter exercise comment here..." : @prev_exercise&.comment %>
+							  	<% band_color_placeholder = @prev_exercise&.band_color.blank? ? "Enter Badn Color" : @prev_exercise&.band_color %>
 							  	<% col_space = 6 %>
 							    <% 1.upto(exercise.set_count) do |num| %>
 							  		<%# if @user.current_workout == @workout.id %>
@@ -118,6 +119,13 @@
 							  		<%# end %>
 							    <% end %>
 								</div>
+
+								<% if exercise.band %>
+									<div class="row" style="margin-left:1px;padding-right: 25px;">
+										<%= workout_detail.label "Band Color:" %>
+										<%= workout_detail.text_field :band_color, class: "col-md-12 form-control custom-input", placeholder: "#{band_color_placeholder}" %>
+									</div>
+								<% end %>
 
 								<div class="row" style="margin-left:1px;padding-right: 25px;">
 									<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: "#{comment_placeholder}" %>
@@ -132,3 +140,19 @@
 		<% end %>
 	<% end %>
 <% end %>
+<!-- 
+<audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autoplay="false" ></audio>
+<a id="timer" onclick="metrodome();" style="color:white;">Start Exercise</a>
+<script>
+	function metrodome() {
+		const sound = document.getElementById("audio");
+  const tempo = setInterval(()=> sound.play(), 1000)
+		if ($('#timer').text() === "Start Exercise") {
+			$('#timer').text('End Exercise');
+			tempo
+		} else {
+			clearInterval(tempo)
+			$('#timer').text('Start Exercise');
+		}
+	}
+</script> -->

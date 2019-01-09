@@ -48,7 +48,7 @@ class KioskController < ApplicationController
         @user.update(current_workout: @workout.id,
                      current_workout_group: @workout.workout_groups.sample.id)
       else
-        @workout = Workout.find(current_user.current_workout)
+        @workout = Workout.find(@user.current_workout)
         workouts_complete = WorkoutDetail
           .where(workout_date: Date.today.beginning_of_week.strftime('%Y-%m-%d')..Date.today.end_of_week.strftime('%Y-%m-%d'),
                  user_id: @user.id)

@@ -85,7 +85,7 @@ class KioskController < ApplicationController
         end
       end
 
-      p @workout_group = params[:workout_group_id] ?
+      @workout_group = params[:workout_group_id] ?
         WorkoutGroup.find(params[:workout_group_id]) : WorkoutGroup.find(@user.current_workout_group)
       @last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
       @exercise_groups = Exercise.group_by_circuit(@workout_group)

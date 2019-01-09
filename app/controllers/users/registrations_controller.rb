@@ -25,7 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         Inbox.create(user_id: @user.id)
         sign_in @user
 
-        UserMailer.with(user: @user).welcome_email.deliver_now
+        # UserMailer.with(user: @user).welcome_email.deliver_now
 
         redirect_to profile_index_path
       else

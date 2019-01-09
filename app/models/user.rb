@@ -18,7 +18,8 @@ class User < ApplicationRecord
                      '2week' => '2 day week',
                      '3week' => '3 day week',
                      '4week' => '4 day week',
-                     '5week' => '5 day week' }
+                     '5week' => '5 day week',
+                     '6week' => '6 day week' }
 
   enum goal: { '0' => 'Fat Loss',
                '1' => 'Lean Mass Gain',

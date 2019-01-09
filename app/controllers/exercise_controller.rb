@@ -95,6 +95,6 @@ class ExerciseController < ApplicationController
 
   def exercise_params
     params.require(:exercise).permit(:name, :description, :instructions, :warm_up, :warm_up_details, :set_count,
-                                     :workout_group_id, :rep_range, :priority)
+                                     :workout_group_id, :rep_range, :priority, :band)
   end
 end

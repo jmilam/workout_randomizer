@@ -56,21 +56,36 @@ class KioskController < ApplicationController
           .uniq
 
         if @user.current_workout_group.nil? && WorkoutDetail.where(workout_date: Date.today.strftime('%Y-%m-%d'), user_id: @user.id).empty?
-          current_workout_groups = @workout.workout_groups.to_a.delete_if { |workout_group| workouts_complete.include?(workout_group.id) }
-          
-          idx = current_workout_groups.index { |workout_group| WorkoutGroup.day_of_the_weeks[workout_group.day] == Date.today.strftime('%A')}
-          group_id = if idx.nil?
-                       current_workout_groups.sample.id
-                     else
-                       current_workout_groups[idx].id
-                     end
-          @user.update(current_workout_group: group_id)
+          # Workout Group specified for today?
+          todays_workout = WorkoutGroupSpecifiedDay
+            .where(workout_group_id: Workout.find(User.first.current_workout)&.workout_groups.map(&:id),
+                   workout_day_num: Date.today.wday).last
+
+
+          if todays_workout.nil?
+            # Assign random workout not associated to day
+            available_workout_groups = Workout.find(current_user.current_workout).workout_groups.to_a.delete_if { |workout_group| workouts_complete.include?(workout_group.id) }
+  
+            workouts_on_specific_day = WorkoutGroupSpecifiedDay
+              .where(workout_group_id: Workout.find(User.first.current_workout)&.workout_groups.map(&:id))
+
+            available_workout_groups.delete_if do |workout_group|
+              (available_workout_groups.map(&:id) & workouts_on_specific_day.map(&:workout_group_id)).include?(workout_group.id)
+            end
+            
+            @user.update!(current_workout_group: available_workout_groups.sample.id)
+          else
+            # Validate if workout has been completed?
+            unless workouts_complete.include?(todays_workout.id)
+              @user.update!(current_workout_group: todays_workout.workout_group_id)
+            end
+          end
         elsif @user.current_workout_group.nil?
           return
         end
       end
 
-      @workout_group = params[:workout_group_id] ?
+      p @workout_group = params[:workout_group_id] ?
         WorkoutGroup.find(params[:workout_group_id]) : WorkoutGroup.find(@user.current_workout_group)
       @last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
       @exercise_groups = Exercise.group_by_circuit(@workout_group)

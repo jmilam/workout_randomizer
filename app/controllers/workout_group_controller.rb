@@ -5,7 +5,6 @@ class WorkoutGroupController < ApplicationController
 
   def new
     @workout = Workout.find(params[:workout_id])
-
     @workout_group = @workout.workout_groups.new
   end
 
@@ -15,30 +14,39 @@ class WorkoutGroupController < ApplicationController
   end
 
   def create
-    @workout_group = WorkoutGroup.new(workout_group_params)
+    WorkoutGroup.transaction do
+      begin
+        @workout_group = WorkoutGroup.new(workout_group_params)
+        @workout_group.save!
 
-    begin
-      @workout_group.save!
+        unless params[:days_of_the_week].blank?
+          params[:days_of_the_week].each do |day_num|
+            @workout_group.workout_group_specified_days.create!(workout_day_num: day_num)
+          end
+        end
 
-      flash[:notice] = "Workout Group #{@workout_group.name} was successfully created. Let's add some exercises now."
-      redirect_to new_exercise_path(workout_group_id: @workout_group.id)
-    rescue ActiveRecord::RecordInvalid => error
-      flash[:alert] = "There was an error when updating exercise: #{error}"
-      render :new
+        flash[:notice] = "Workout Group #{@workout_group.name} was successfully created. Let's add some exercises now."
+        redirect_to new_exercise_path(workout_group_id: @workout_group.id)
+      rescue ActiveRecord::RecordInvalid => error
+        flash[:alert] = "There was an error when updating exercise: #{error}"
+        render :new
+      end
     end
   end
 
   def update
-    @workout_group = WorkoutGroup.find(params[:id])
+    WorkoutGroup.transaction do
+      begin
+        @workout_group = WorkoutGroup.find(params[:id])
+        @workout_group.update!(workout_group_params)
 
-    begin
-      @workout_group.update!(workout_group_params)
+        flash[:notice] = "Workout Group #{@workout_group.name} was successfully updated."
+        redirect_to edit_workout_path(@workout_group.workout.id)
 
-      flash[:notice] = "Workout Group #{@workout_group.name} was successfully updated."
-      redirect_to edit_workout_path(@workout_group.workout.id)
-    rescue ActiveRecord::RecordInvalid => error
-      flash[:alert] = "There was an error when updating exercise: #{error}"
-      render :edit
+      rescue ActiveRecord::RecordInvalid => error
+        flash[:alert] = "There was an error when updating exercise: #{error}"
+        render :edit
+      end
     end
   end
 
@@ -56,6 +64,6 @@ class WorkoutGroupController < ApplicationController
   protected
 
   def workout_group_params
-    params.require(:workout_group).permit(:name, :workout_id, :ab_workout, :day)
+    params.require(:workout_group).permit(:name, :workout_id, :ab_workout)
   end
 end

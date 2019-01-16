@@ -139,6 +139,7 @@ class WorkoutController < ApplicationController
   def manual_workout
     @workouts = Workout.all.includes(:workout_groups, :exercises)
     @workout_groups = []
+    @manual_entry = true
   end
 
   protected

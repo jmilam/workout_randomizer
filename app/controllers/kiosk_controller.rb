@@ -132,7 +132,7 @@ class KioskController < ApplicationController
          flash[:notice] = current_user.current_workout_group.nil? ? 'Great Workout! You completed todays workout!' : 'Exercise Complete'
         if params[:exercises][:workout_detail].first[:workout_group_id].blank?
           redirect_to kiosk_exercise_path
-        elsif params[:exercises][:manual_entry]
+        elsif params[:exercises][:manual_entry] == "true"
           redirect_to manual_workout_path
         else
           redirect_to kiosk_exercise_path workout_group_id: workout_group_id

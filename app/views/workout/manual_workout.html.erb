@@ -1,0 +1,54 @@
+<style>
+	body {
+		background-color: #003259;
+	}
+</style>
+
+<%= render "partials/alert" %>
+
+<div style="margin-top:10px;margin-left: auto;margin-right: auto;width: 95%;">
+	<div class="row">
+		<%= select_tag :workout, options_from_collection_for_select(@workouts, :id, :name), prompt: "Select Workout", class: "form-control" %>
+	</div>
+	<div class="row">
+		<%= select_tag :workout_group, options_from_collection_for_select(@workout_groups, :id, :name), prompt: "Select Workout Group", class: "form-control" %>
+	</div>
+	<div class="row">
+		<%= date_field_tag :workout_date, {}, {value: Date.today, class: "col-4 form-control"} %>
+	</div>
+</div>
+
+<div id="exercise_form" %>
+</div>
+
+<script type="text/javascript">
+	$('#workout_date').on('change', function(){
+		$('.workout_detail_date').val($(this).val());
+		$('#exercises_workout_date').val($(this).val());
+	});
+
+	$('#workout').on('change', function(){
+		$.ajax({
+		  dataType: 'json',
+		  url: "/workout_group/workout_groups_by_workout/" + $(this).val(),
+		  success: function(data) {
+		  	let workoutGroupSelect = $('#workout_group')
+		  	workoutGroupSelect.children('option:gt(0)').remove()
+		  	$.each(data.workout_groups, function( index, value ) {
+		  		workoutGroupSelect.append(
+		  			'<option value=' + value.id + '>' + value.name + '</option>'
+		  		)
+				});
+			}
+		});
+	});
+
+	$('#workout_group').on('change', function(){
+		$.ajax({
+		  dataType: 'script',
+		  url: "/exercise/get_all_for_workout_group/" + $(this).val(),
+		  success: function(data) {
+			}
+		});
+	});
+</script>

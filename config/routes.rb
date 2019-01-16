@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'workout/list', to: 'workout#list', as: 'list_workouts'
+  get 'workout/manual_workout', to: 'workout#manual_workout', as: 'manual_workout'
   post 'workout/accept_deny_workout', to: 'workout#accept_deny_workout', as: 'accept_deny_workout'
   patch 'workout/accept_workout', to: 'workout#accept_workout', as: 'accept_workout'
   patch 'workout/stop_workout', to: 'workout#stop_workout', as: 'stop_workout'
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
 
   get 'home/blog', to: 'home#blog', as: 'blog'
 
+
   resources :profile
   resources :workout
   resources :exercise
@@ -41,6 +43,9 @@ Rails.application.routes.draw do
   resources :message_group
   resources :gym
 
+  get 'workout_group/workout_groups_by_workout/:id', to: 'workout_group#workout_groups_by_workout', as: 'workout_groups_by_workout'
+
+  get 'exercise/get_all_for_workout_group/:id', to: 'exercise#get_all_for_workout_group', as: 'exercises_by_workout_group'
   # root to: 'profile#index'
   root to: 'home#index'
 end

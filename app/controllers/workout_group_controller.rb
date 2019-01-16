@@ -61,6 +61,16 @@ class WorkoutGroupController < ApplicationController
     end
   end
 
+  def workout_groups_by_workout
+    @workout = Workout.find(params[:id])
+
+    @workout_groups = @workout.workout_groups
+
+    respond_to do |format|
+      format.js { render :json => {workout_groups: @workout_groups} }
+    end
+  end
+
   protected
 
   def workout_group_params

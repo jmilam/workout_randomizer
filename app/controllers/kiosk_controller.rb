@@ -95,6 +95,7 @@ class KioskController < ApplicationController
       @complete_percent = ((exercise_complete_count / exercise_count) * 100).to_i
       @step_string = "#{exercise_complete_count.to_i} of #{exercise_count.to_i}"
       @exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
+      @button_title = "Next Exercise (#{@step_string})"
     rescue StandardError => error
       flash[:alert] = "THERE WAS AN ERROR: #{error}"
     end
@@ -103,16 +104,18 @@ class KioskController < ApplicationController
   def log_exercise
     WorkoutDetail.transaction do
       begin
+        p workout_date = params[:exercises][:workout_date].blank? ? Date.today.in_time_zone :
+          params[:exercises][:workout_date]
         workout_group_id = params[:exercises][:workout_detail].first[:workout_group_id].blank? ?
           current_user.current_workout_group : params[:exercises][:workout_detail].first[:workout_group_id].to_i
          workout = Workout.find(current_user.current_workout)
          workout_group = WorkoutGroup.find(workout_group_id)
-         workout_date = Date.today.in_time_zone
+
          reference_exercise = Exercise.find(params[:exercises][:workout_detail].first[:exercise_id])
 
          prev_workout = current_user.user_previous_workouts.find_or_create_by!(
            workout_group_id: reference_exercise.workout_group_id,
-           workout_date: Date.today.in_time_zone
+           workout_date: workout_date
          )
 
          params[:exercises][:workout_detail].each do |details|
@@ -128,6 +131,8 @@ class KioskController < ApplicationController
          flash[:notice] = current_user.current_workout_group.nil? ? 'Great Workout! You completed todays workout!' : 'Exercise Complete'
         if params[:exercises][:workout_detail].first[:workout_group_id].blank?
           redirect_to kiosk_exercise_path
+        elsif params[:exercises][:manual_entry]
+          redirect_to manual_workout_path
         else
           redirect_to kiosk_exercise_path workout_group_id: workout_group_id
         end

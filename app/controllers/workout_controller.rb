@@ -80,7 +80,7 @@ class WorkoutController < ApplicationController
     @current_user = current_user
     @workouts = Workout.sort_by_likes(current_user).in_groups_of(2)
     @workouts = Workout.remove_nils(@workouts)
-    p @top_workouts = Workout.top_workouts_by_category(@workouts).first
+    @top_workouts = Workout.top_workouts_by_category(@workouts).first
   end
 
   def accept_workout
@@ -134,6 +134,11 @@ class WorkoutController < ApplicationController
     ensure
       redirect_to edit_workout_path(workout.id)
     end
+  end
+
+  def manual_workout
+    @workouts = Workout.all.includes(:workout_groups, :exercises)
+    @workout_groups = []
   end
 
   protected

@@ -76,7 +76,8 @@ class KioskController < ApplicationController
             @user.update!(current_workout_group: available_workout_groups.sample.id)
           else
             # Validate if workout has been completed?
-            unless workouts_complete.include?(todays_workout.id)
+            if UserPreviousWorkout.where(workout_group_id: todays_workout.id,
+                                         workout_date: Date.today.in_time_zone(Gym.first.time_zone).strftime('%Y-%m-%d')).empty?
               @user.update!(current_workout_group: todays_workout.workout_group_id)
             end
           end
@@ -104,7 +105,7 @@ class KioskController < ApplicationController
   def log_exercise
     WorkoutDetail.transaction do
       begin
-        p workout_date = params[:exercises][:workout_date].blank? ? Date.today.in_time_zone :
+        workout_date = params[:exercises][:workout_date].blank? ? Date.today.in_time_zone :
           params[:exercises][:workout_date]
         workout_group_id = params[:exercises][:workout_detail].first[:workout_group_id].blank? ?
           current_user.current_workout_group : params[:exercises][:workout_detail].first[:workout_group_id].to_i

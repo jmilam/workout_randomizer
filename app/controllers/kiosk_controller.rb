@@ -39,13 +39,13 @@ class KioskController < ApplicationController
         # Get Workout Group IDS
         workout_group_ids = @user.user_previous_workouts.map(&:workout_group_id).uniq
         # Validate previous workout ids by the Workout Group IDs
-        previous_workout_ids = workout_group_ids.map { |group_id| WorkoutGroup.find(group_id).workout.id }.uniq
+        previous_workout_ids = workout_group_ids.map { |group_id| WorkoutGroup.find(group_id).workout&.id }.uniq
         # Delete workout from results if user has already done the workout
-        sorted_workouts.delete_if { |workout| previous_workout_ids.include?(workout.id)}
+        sorted_workouts.delete_if { |workout| previous_workout_ids.include?(workout&.id)}
         # Select best workout for user
         @workout = sorted_workouts.empty? ? @user.gym.workouts.sample : sorted_workouts[0]
         # Assign workout to user
-        @user.update(current_workout: @workout.id,
+        @user.update(current_workout: @workout&.id,
                      current_workout_group: @workout.workout_groups.sample.id)
       else
         @workout = Workout.find(@user.current_workout)

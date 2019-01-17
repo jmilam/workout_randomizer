@@ -19,18 +19,22 @@
 	}
 </style>
 <%= form_for :exercises, url: log_exercise_path do |f| %>
-		<div style="margin-top:10px;margin-left: auto;margin-right: auto;width: 95%;">
-			<%= f.hidden_field :workout_date, value: Date.today %>
-			<%= f.hidden_field :manual_entry, value: @manual_entry %>
+		<%= f.hidden_field :workout_date, value: Date.today %>
+		<%= f.hidden_field :manual_entry, value: @manual_entry %>
+		<% if @manual_entry %>
+			<div class="row">
+				<div class="col-10 offset-1">
+					<%= f.submit @button_title, class: "btn btn-lg btn-block", style: "background-color:#D9D278;" %>
+				</div>
+			</div>
+		<% else %>
 			<div class="row">
 				<div class="col-9">
 					<%= f.submit @button_title, class: "btn btn-lg btn-block", style: "background-color:#D9D278;" %>
 				</div>
-				<% unless @manual_entry %>
 					<div class="col-3 text-center"><%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' } %></div>
-				<% end %>
 			</div>
-		</div>
+		<% end %>
 
 		<% if @manual_entry %>
 			<% @exercise_groups.each do |key, exercise_group| %>

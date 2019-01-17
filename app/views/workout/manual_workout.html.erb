@@ -8,13 +8,13 @@
 
 <div style="margin-top:10px;margin-left: auto;margin-right: auto;width: 95%;">
 	<div class="row">
-		<%= select_tag :workout, options_from_collection_for_select(@workouts, :id, :name), prompt: "Select Workout", class: "form-control" %>
+		<%= select_tag :workout, options_from_collection_for_select(@workouts, :id, :name), prompt: "Select Workout", class: "form-control col-10 offset-1" %>
 	</div>
 	<div class="row">
-		<%= select_tag :workout_group, options_from_collection_for_select(@workout_groups, :id, :name), prompt: "Select Workout Group", class: "form-control" %>
+		<%= select_tag :workout_group, options_from_collection_for_select(@workout_groups, :id, :name), prompt: "Select Workout Group", class: "form-control col-10 offset-1" %>
 	</div>
 	<div class="row">
-		<%= date_field_tag :workout_date, {}, {value: Date.today, class: "col-4 form-control"} %>
+		<%= date_field_tag :workout_date, {}, {value: Date.today, class: "form-control col-10 offset-1"} %>
 	</div>
 </div>
 

@@ -9,7 +9,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :height, :weight, :regularity_id, :goal_id, :gym_id, :email, presence: true
+  validates :gym_id, :email, presence: true
   validates :password, presence: true, on: :create
 
   validates :email, uniqueness: true
@@ -33,7 +33,7 @@ class User < ApplicationRecord
     converted_height = height * 0.025
     converted_height *= converted_height
 
-    (converted_weight / converted_height).to_i
+    converted_height.zero? ? 0 : (converted_weight / converted_height).to_i
   end
 
   def bmi_status(bmi)

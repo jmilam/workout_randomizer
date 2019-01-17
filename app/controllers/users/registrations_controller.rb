@@ -26,8 +26,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         sign_in @user
 
         # UserMailer.with(user: @user).welcome_email.deliver_now
-
-        redirect_to profile_index_path
+        flash[:notice] = "Please fill out remainder of information and get started working out."
+        redirect_to edit_profile_path(@user.id)
       else
         error_message = ''
         error_message = error_message.dup
@@ -48,6 +48,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         render :new
       end
+    end
+
+    def update
     end
   end
 

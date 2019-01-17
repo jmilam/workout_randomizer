@@ -1,6 +1,8 @@
-<div class="container">
+<%= render "partials/alert" %>
+
+<div id="profile-layout">
   <%= form_for @user, url: profile_path(@user.id), method: :patch do |f| %>
-    <div style="color:white;">
+    <div class="container" style="color:white;">
     	<div class="row">
         <div class="col-md-6 col-sm-6 form-group">
           <%= f.label :first_name, class: 'col-md-12' %>
@@ -45,6 +47,6 @@
       </div>
     </div>
 
-    <%= f.submit "Edit User Profile", class: 'btn btn-lg btn-block workout-btn' %>
+    <%= f.submit "Edit User Profile", class: 'btn btn-lg btn-block workout-btn container' %>
   <% end %>
 </div>

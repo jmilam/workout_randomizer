@@ -1,9 +1,7 @@
-<div style="margin-top:15px;margin-bottom:-30px;">
-  <%= render "partials/alert" %>
-</div>
+<%= render "partials/alert" %>
 
-<div class="row">
-  <div class="col-md-10 col-10 offset-1" id="login-profile-background">
+<div class="row" id="signup-background">
+  <div class="col-md-10 col-10 offset-1">
     <div class="row">
       <%= image_tag 'logo', class: "rounded-image" %>
     </div>
@@ -13,73 +11,21 @@
           <div id="step1" title="Step 1 of 3">
             <div class="row">
               <div class="col-md-12 col-sm-12 form-group">
-                <%= f.label :email, class: 'col-md-12' %>
+                <%= f.label :email, "Email *", class: 'col-md-12' %>
                 <%= f.text_field :email, class: 'col-md-12 form-control' %>
               </div>
               <div class="col-md-6 col-sm-12 form-group">
-                <%= f.label :password, class: 'col-md-12' %>
+                <%= f.label :password, "Password *", class: 'col-md-12' %>
                 <%= f.password_field :password, class: 'col-md-12 form-control' %>
               </div>
               <div class="col-md-6 col-sm-12 form-group">
-                <%= f.label :pin, class: 'col-md-12' %>
-                <%= f.password_field :pin, class: 'col-md-12 form-control' %>
-              </div>
-            </div>
-
-            <%= link_to "Next (Step 1 of 3)", '#', class: "btn btn-lg btn-block workout-btn step-change" %>
-          </div>
-
-          <div id="step2" title="Step 2 of 3" style="display:none;">
-            <div class="row">
-              <div class="col-md-6 col-sm-12 form-group">
-                <%= f.label :first_name, class: 'col-md-12' %>
-                <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
-              </div>
-              <div class="col-md-6 col-sm-12 form-group">
-                <%= f.label :last_name, class: 'col-md-12' %>
-                <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 col-sm-12 form-group">
-                <%= f.label :height, 'Height (inches)', class: 'col-md-12' %>
-                <%= f.text_field :height, class: 'col-md-12 form-control' %>
-              </div>
-              <div class="col-md-6 col-sm-12 form-group">
-                <%= f.label :weight, class: 'col-md-5' %>
-                <%= f.text_field :weight, class: 'col-md-12 form-control' %>
-              </div>
-            </div>
-
-            <%= link_to "Next (Step 2 of 3)", '#', class: "btn workout-btn btn-lg btn-block step-change" %>
-            <%= link_to "Back", '#', class: "btn btn-danger btn-lg btn-block step-back" %>
-          </div>
-
-          <div id="step3" title="(Step 3 of 3)" style="display:none;">
-            <div class="row">
-              <div class="col-md-12 col-sm-12 form-group">
-                <%= f.label :regularity_id, class: 'col-md-12' %>
-                <%= f.select :regularity_id, @regularity.collect { |key, regularity| [regularity,key] }, { prompt: "How often do you workout?" }, class: 'col-md-12 form-control' %>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12 col-sm-12 form-group">
-                <%= f.label :goal_id, class: 'col-md-12' %>
-                <%= f.select :goal_id, @goals.collect { |key, goal| [goal,key] }, { prompt: "Select Goal" }, class: 'col-md-12 form-control' %>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12 col-sm-12 form-group">
-                <%= f.label :gym_id, class: 'col-md-12' %>
+                <%= f.label :gym_id, "Gym *", class: 'col-md-12' %>
                 <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
                 <%= f.label 'Select Boomslang Fitness if your gym isn\'t on here', class: 'text-muted text-center' %>
               </div>
             </div>
 
             <%= f.submit "Create User", class: "btn btn-lg btn-block workout-btn" %>
-            <%= link_to "Back", '#', class: "btn btn-danger btn-lg btn-block step-back" %>
           </div>
         </div>
       </div>

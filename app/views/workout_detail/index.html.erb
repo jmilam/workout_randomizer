@@ -88,6 +88,7 @@
 								  	</tr>  
 								    <tr style="background-color:#8C8C8C;">
 								      <th scope="col">Exercise</th>
+								      <th scope="col">Band Detail</th>
 								      <th scope="col">Rep 1</th>
 								      <th scope="col">Rep 2</th>
 								      <th scope="col">Rep 3</th>
@@ -101,6 +102,7 @@
 										<% prev_workout.workout_details.each do |workout_detail| %>
 												<tr style="background:#262626;">
 												  <th sope="row"><%= workout_detail.exercise.name unless workout_detail.exercise.nil? %></th>
+													<td><%= workout_detail.band_color %></td>
 													<td><%= workout_detail.rep_1_weight %></td>
 													<td><%= workout_detail.rep_2_weight %></td>
 													<td><%= workout_detail.rep_3_weight %></td>

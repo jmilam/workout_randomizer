@@ -42,7 +42,6 @@ class KioskController < ApplicationController
         previous_workout_ids = workout_group_ids.map { |group_id| WorkoutGroup.find(group_id).workout&.id }.uniq
         # Delete workout from results if user has already done the workout
         sorted_workouts.delete_if { |workout| previous_workout_ids.include?(workout&.id)}
-        p sorted_workouts
         # Select best workout for user
         @workout = sorted_workouts.empty? ? @user.gym.workouts.sample : sorted_workouts[0]
         # Assign workout to user

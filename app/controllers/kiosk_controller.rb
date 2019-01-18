@@ -109,8 +109,8 @@ class KioskController < ApplicationController
           params[:exercises][:workout_date]
         workout_group_id = params[:exercises][:workout_detail].first[:workout_group_id].blank? ?
           current_user.current_workout_group : params[:exercises][:workout_detail].first[:workout_group_id].to_i
-         workout = Workout.find(current_user.current_workout)
          workout_group = WorkoutGroup.find(workout_group_id)
+         workout = current_user.current_workout.nil? ? workout_group.workout : Workout.find(current_user.current_workout)
 
          reference_exercise = Exercise.find(params[:exercises][:workout_detail].first[:exercise_id])
 

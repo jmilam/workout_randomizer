@@ -89,6 +89,7 @@ body {
 
 .card {
 	background-color: transparent;
+	border: 0;
 }
 
 .image-background {
@@ -159,3 +160,26 @@ body {
   padding-bottom: 15px;
   padding-top: 15px;
 }
+
+.arrow-down {
+  width: 14px;
+  height: 80px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: -1px;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-top: 60px solid #262626;
+}
+
+.top-arrow {
+  width: 14px;
+  height: 80px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: -1px;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-top: 60px solid white;
+}
+

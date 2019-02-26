@@ -127,9 +127,16 @@ class KioskController < ApplicationController
          end
 
          exercise_groups = Exercise.group_by_circuit(workout_group)
-
-         current_user.update(current_workout_group: nil) if Exercise.get_exercise(current_user, exercise_groups).nil?
+         no_more_exercises = Exercise.get_exercise(current_user, exercise_groups).nil?
+         current_user.update(current_workout_group: nil) if no_more_exercises
          flash[:notice] = current_user.current_workout_group.nil? ? 'Great Workout! You completed todays workout!' : 'Exercise Complete'
+        
+         unless current_user.trainer_id.nil? && no_more_exercises
+            trainer = User.find(current_user.trainer_id)
+            message_group = current_user.inbox.message_groups.find_or_create_by(subject: "How was the workout today?")
+            message_group.messages.create!(detail: "Saw you got your workout in today, any problem areas I can help with?",
+                                       user_id: trainer.id)
+          end
         if params[:exercises][:workout_detail].first[:workout_group_id].blank?
           redirect_to kiosk_exercise_path
         elsif params[:exercises][:manual_entry] == "true"

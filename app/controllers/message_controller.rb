@@ -1,4 +1,5 @@
 class MessageController < ApplicationController
+  layout 'nav'
   def new
     @message_group = if params[:message_group_id].nil?
                        MessageGroup.new

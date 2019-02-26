@@ -45,6 +45,13 @@
           <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 form-group">
+          <%= f.label :trainer_id, class: 'col-md-12' %>
+          <%= f.select :trainer_id, @trainers.collect { |trainer| ["#{trainer.first_name} #{trainer.last_name}", trainer.id] }, { prompt: "Select Your Trainer" }, class: 'col-md-12 form-control' %>
+        </div>
+      </div>
     </div>
 
     <%= f.submit "Edit User Profile", class: 'btn btn-lg btn-block workout-btn container' %>

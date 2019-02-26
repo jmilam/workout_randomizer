@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   belongs_to :gym
+  # belongs_to :trainer
   has_many :user_previous_workouts
   has_many :workout_details
   has_one :inbox
@@ -27,7 +28,7 @@ class User < ApplicationRecord
                '3' => 'Other' }
 
   scope :new_users, -> (date_range=Date.today.beginning_of_week..Date.today.end_of_week) { where(created_at: date_range)}
-
+  scope :trainers, -> { where(trainer: true) }
   def calculate_bmi
     converted_weight = weight * 0.45
     converted_height = height * 0.025

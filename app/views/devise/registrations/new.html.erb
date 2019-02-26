@@ -10,10 +10,16 @@
         <div>
           <div id="step1" title="Step 1 of 3">
             <div class="row">
-              <div class="col-md-12 col-sm-12 form-group">
-                <%= f.label :email, "Email *", class: 'col-md-12' %>
-                <%= f.text_field :email, class: 'col-md-12 form-control' %>
+              <div class="col-md-10 col-sm-10 col-10 form-group">
+                <%= f.label :email, "Email *", class: 'col-md-10' %>
+                <%= f.text_field :email, class: 'col-md-10 form-control' %>
               </div>
+              <div class="col-md-2 col-sm-2 col-2 form-group text-center">
+                <%= f.label :trainer, "Trainer", class: 'col-md-12 col-sm-12 col-12 text-center' %>
+                <%= f.check_box :trainer %>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-md-6 col-sm-12 form-group">
                 <%= f.label :password, "Password *", class: 'col-md-12' %>
                 <%= f.password_field :password, class: 'col-md-12 form-control' %>

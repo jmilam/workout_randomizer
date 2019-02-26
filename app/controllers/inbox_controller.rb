@@ -2,9 +2,12 @@ class InboxController < ApplicationController
   layout 'nav'
 
   def index
-    @user = current_user
+    inboxes = current_user.trainer ? User.all.where(trainer_id: current_user.id).map(&:inbox) : [current_user.inbox]
 
-    @inbox = current_user.inbox
-    @message_groups = @inbox.message_groups.includes(:messages)
+    @message_groups = []
+
+    inboxes.each do |inbox|
+    	@message_groups << inbox.message_groups.includes(:messages)
+    end
   end
 end

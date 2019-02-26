@@ -70,7 +70,8 @@ class ProfileController < ApplicationController
     @user = User.find(params[:id])
     @regularity = User.regularities
     @goals = User.goals
-    @gyms = Gym.all
+    @gyms = Gym.all.includes(:users)
+    @trainers = @user.gym.users.trainers
   end
 
   def update
@@ -88,6 +89,6 @@ class ProfileController < ApplicationController
   protected
 
   def workout_params
-    params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :gym_id)
+    params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :gym_id, :trainer_id)
   end
 end

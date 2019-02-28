@@ -25,7 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         Inbox.create(user_id: @user.id)
         sign_in @user
 
-        UserMailer.with(user: @user).welcome_email.deliver_now
+        # UserMailer.with(user: @user).welcome_email.deliver_now
         flash[:notice] = "Please fill out remainder of information and get started working out."
         redirect_to edit_profile_path(@user.id)
       else

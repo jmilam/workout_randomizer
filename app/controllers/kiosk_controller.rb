@@ -131,7 +131,9 @@ class KioskController < ApplicationController
          current_user.update(current_workout_group: nil) if no_more_exercises
          flash[:notice] = current_user.current_workout_group.nil? ? 'Great Workout! You completed todays workout!' : 'Exercise Complete'
         
-         unless current_user.trainer_id.nil? && no_more_exercises
+         p current_user.trainer_id
+         p no_more_exercises
+         if !current_user.trainer_id.nil? && no_more_exercises
             trainer = User.find(current_user.trainer_id)
             message_group = current_user.inbox.message_groups.find_or_create_by(subject: "How was the workout today?")
             message_group.messages.create!(detail: "Saw you got your workout in today, any problem areas I can help with?",

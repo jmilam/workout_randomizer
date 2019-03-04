@@ -4,7 +4,7 @@
   <div class="col-md-10 col-10 offset-1">
     <%= link_to edit_profile_path(@user.id) do %>
       <div class="row">
-        <%= image_tag 'avatar-placeholder', class: "rounded-image" %>
+        <%= image_tag @user.avatar.url, class: "rounded-image" %>
       </div>
     <% end %>
 
@@ -30,7 +30,7 @@
           <div class="card">
             <div class="card-body" style="margin-bottom:0px;">
               <div class="row">
-                <div class="col-md-12 text-center"><%=  @weeks_remaining %> weeks remaining</div>
+                <div class="col-md-12 text-center" style="color:white;"><%=  @weeks_remaining %> weeks remaining</div>
               </div>
               <div class="progress">
                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= progress_percent(@workout.duration, @weeks_doing_workout) %>" aria-valuenow="<%=  @workout.duration - @weeks_doing_workout %>" aria-valuemin="0" aria-valuemax="<%= @workout.duration %>"></div>

@@ -89,6 +89,6 @@ class ProfileController < ApplicationController
   protected
 
   def workout_params
-    params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :gym_id, :trainer_id)
+    params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :gym_id, :trainer_id, :avatar)
   end
 end

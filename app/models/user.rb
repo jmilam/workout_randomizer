@@ -15,6 +15,9 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true
 
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "avatar-placeholder.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+
   enum regularity: { '1week' => '1 day week',
                      '2week' => '2 day week',
                      '3week' => '3 day week',

@@ -1,10 +1,20 @@
 <div class="container" style="margin-top:15px">
 	<% @messages.each do |message| %>
-		<div class="<%= message.user_id == @user.id ? 'col-6 text-left speech-bubble-right' : 'col-6 offset-6 text-right speech-bubble-left' %> " style="margin-bottom: 15px;min-height: 50px;font-size:0.9em;">
-				<p><%= message.detail %></p>
-				<% if message.user_id != @user.id %>
-					<p>--<%= message.user_name %></p>
-				<% end %>
+		<div class="row">
+			<% if message.user_id != @user.id %>
+				<%= image_tag message.user.avatar.url, class: "message-rounded-image" %>
+			<% end %>
+
+			<div class="<%= message.user_id == @user.id ? 'col-6 text-left speech-bubble-right' : 'col-6 text-right speech-bubble-left' %> " style="margin-bottom: 15px;min-height: 50px;font-size:0.9em;">
+					<p><%= message.detail %></p>
+					<% if message.user_id != @user.id %>
+						<p>--<%= message.user_name %></p>
+					<% end %>
+			</div>
+
+			<% if message.user_id == @user.id %>
+				<%= image_tag message.user.avatar.url, class: "message-rounded-image" %>
+			<% end %>
 		</div>
 	<% end %>
   <%= link_to "New Message", new_message_path(message_group_id: @message_group.id), class: 'btn btn-info col-6' %>

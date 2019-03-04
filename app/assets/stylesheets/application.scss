@@ -149,6 +149,15 @@ body {
 	width:100px;
 }
 
+.message-rounded-image { 
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 50%;
+	height:50px;
+	width:50px;
+}
+
 #metric_time_frame {
 	padding-top: 50px;
 }
@@ -183,7 +192,7 @@ body {
 
 .speech-bubble-left {
 	position: relative;
-	background: #BFF075;
+	background: #71B11D;
 	border-radius: .4em;
 }
 
@@ -195,7 +204,7 @@ body {
 	width: 0;
 	height: 0;
 	border: 28px solid transparent;
-	border-right-color: #BFF075;
+	border-right-color: #71B11D;
 	border-left: 0;
 	border-bottom: 0;
 	margin-top: -14px;
@@ -204,7 +213,7 @@ body {
 
 .speech-bubble-right {
 	position: relative;
-	background: #BFF075;
+	background: #D9D278;
 	border-radius: .4em;
 }
 
@@ -216,7 +225,7 @@ body {
 	width: 0;
 	height: 0;
 	border: 28px solid transparent;
-	border-left-color: #BFF075;
+	border-left-color: #D9D278;
 	border-right: 0;
 	border-bottom: 0;
 	margin-top: -14px;

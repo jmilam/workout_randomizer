@@ -24,7 +24,7 @@ nav {
 }
 
 .workout-background {
-	background: #D6E5C5;
+	background: #71B11D;
 	border-radius: 25px;
   margin-left: auto;
   margin-right: auto;
@@ -53,8 +53,6 @@ body {
 }
 
 .card-body {
-  background-color: #003259;
-  color: white;
   margin-bottom: 15px;
 }
 
@@ -63,8 +61,8 @@ body {
 }
 
 .workout-btn {
-	background-color: #BFF075;
-	color: black;
+	background-color: #71B11D;
+	color: #003259;
 }
 
 .workout-text {
@@ -225,3 +223,27 @@ body {
 	margin-right: -28px;
 }
 
+.home-page-header {
+  height: 75px;
+  font-size: 2em;
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: middle;
+  text-align: center;
+  border-bottom: 1px solid black;
+  margin-bottom: 20px;
+}
+
+.carousel-details {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.half-screen {
+	padding-top:81px;
+	width: 50%;
+	position: absolute;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}

@@ -29,10 +29,7 @@
 			</div>
 		<% else %>
 			<div class="row">
-				<div class="col-9">
-					<%= f.submit @button_title, class: "btn btn-lg btn-block", style: "background-color:#D9D278;" %>
-				</div>
-					<div class="col-3 text-center"><%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' } %></div>
+					<%= f.submit @button_title, class: "btn btn-lg btn-block", style: "background-color:#D9D278;margin-bottom:-10px;" %>
 			</div>
 		<% end %>
 
@@ -142,7 +139,7 @@
 					<div class="row">
 				<% end %>
 					<div class="col-md-6 col-12">
-						<div class="row workout-background">
+						<div class="row workout-background" style="border-bottom:1px solid black;margin-bottom:1px;padding-bottom:5px">
 							<div class="col-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 								<div class="row">
 									<div class="col-md-12 text-center exercise-header">
@@ -240,5 +237,9 @@
 					</div>
 				<% end %>
 			<% end %>
+			<div class="col-12"  style="background-color:#D9D278;margin-top:-10px;">
+				<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block", style: "color:black;" %>
+			</div>
+
 		<% end %>
 	<% end %>

@@ -11,9 +11,18 @@ RSpec.describe 'Profile', js: true do
 
   context 'Users Profile' do
     it 'shows stats' do
-      expect(page).to have_content('Suggested Workout')
+      expect(page).to have_content("Weight:")
+      expect(page).to have_content("Height:")
+      expect(page).to have_content("BMI")
       expect(page).to have_content("Current Workout: #{workout.name}")
+      expect(page).to have_content("Current Gym: #{user.gym.name}")
       expect(page).to have_content("#{workout.duration} weeks remaining")
+    end
+
+    it 'shows links' do
+      expect(page).to have_content('Workout History')
+      expect(page).to have_content('Manually Enter Workout')
+      expect(page).to have_content('Start Workout')
     end
   end
 

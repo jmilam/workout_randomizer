@@ -10,7 +10,7 @@
        <!--    <img class="d-block w-100" src="..." alt="<%= idx %> slide">
         </div> -->
       <% end %>
-        <%= render 'workout_card', workout: workout %>
+        <%= render 'workout_card', workout: workout, editable: false %>
       </div>
     <% end %>
   </div>
@@ -36,7 +36,7 @@
     <div class="row">
       <% workout_group.each do |workout| %>
         <div class="col-md-6 col-sm-12 workout" category="<%= workout.category.id %>">
-          <%= render 'workout_card', workout: workout %>
+          <%= render 'workout_card', workout: workout, editable: true %>
         </div>
       <% end %>
     </div>

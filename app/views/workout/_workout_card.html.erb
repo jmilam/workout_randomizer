@@ -1,7 +1,7 @@
 <div class="card <%= Category.style_tags[workout.category.tag]['background-color'] %>">
   <div class="card-body">
     <h5 class="card-title text-center">
-      <% if workout.editable_by_user?(current_user) %>
+      <% if workout.editable_by_user?(current_user)  && editable%>
         <%= workout.name %> <%= link_to "Edit", edit_workout_path(workout.id), class: 'btn btn-sm' %>
       <% else %>
         <%= workout.name %> <%= link_to "View", edit_workout_path(workout.id), class: 'btn btn-sm' %>

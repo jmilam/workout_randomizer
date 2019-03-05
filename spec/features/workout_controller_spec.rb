@@ -11,7 +11,7 @@ RSpec.describe 'Workout', js: true do
   before do
     sign_in user
     visit profile_index_path
-  	click_on 'Suggested Workout'
+  	click_on 'Start Workout'
 		sleep(5)
   end
 
@@ -26,7 +26,7 @@ RSpec.describe 'Workout', js: true do
 			all('.rep_input').each do |input|
 				input.set 25
 			end
-			click_button "Next Exercise (0 of #{workout.exercises.count} complete)"
+			click_button "Next Exercise (0 of #{workout.exercises.count})"
 
 			expect(page).to have_content("There are no Workouts for you!")
 		end

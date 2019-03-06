@@ -32,6 +32,13 @@ nav {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
 	background: #101216;
+	border-radius: 0px;
+}
+
+.nav-link {
+	border-radius: 0px;
+	height: 60px;
+	text-align: center;
 }
 
 a {
@@ -248,9 +255,7 @@ body {
 }
 
 .half-screen {
-	padding-top:81px;
 	width: 50%;
-	position: absolute;
   height: 100%;
   top: 0;
   bottom: 0;
@@ -263,4 +268,23 @@ body {
 	padding-top:18px;
 	padding-bottom:18px;
 	border-radius:0px;
+}
+
+.nav-sections {
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 3px solid lightgrey;
+}
+
+.nav-section-text {
+	position: sticky;
+    top: 25%;
+    left: 25%;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.nav-section-img {
+	height:100%;
 }

@@ -1,4 +1,4 @@
-<div class="card-header bg-info">
+<div class="card-header" style="background:#003259;color:white;">
 	<div class="row">
 		<div class="col-10 text-center">
 		  <%= @workout.name %> <% if @editable %>- <%= link_to "Edit Workout", workout_path(@workout.id) %><% end %>
@@ -12,7 +12,7 @@
 		<% end %>
 	</div>
 </div>
-<div class="card-body">
+<div class="card-body bg-light" style="border-bottom: 1px solid lightgrey;    margin-bottom: 0px;">
   <div class="row">
     <div class="col-md-9 col-sm-10 col-7">
       <b><i>Workout Frequency:</i></b> <%= @workout.frequency %>
@@ -49,22 +49,18 @@
 	<% end %>
 </div>
 
-<div class="container">
-	<%= render "partials/alert" %>
-</div>
+<%= render "partials/alert" %>
 
-<div class="container">
-	<ul class="nav flex-column nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;" aria-orientation="vertical">
-	  <% @workout_groups.each_with_index do |group, idx| %>
-	  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
-	  	<% if idx == 0 %>
-	  		 <li class='nav-item'><a class='nav-link active show' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>	
-	  	<% else %>
-	  		<li class='nav-item'><a class='nav-link' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>
-	  	<% end %>
-	  <% end %>
-	</ul>
-</div>
+<ul class="nav flex-column nav-pills" id="workoutTab" role="tablist" aria-orientation="vertical">
+  <% @workout_groups.each_with_index do |group, idx| %>
+  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
+  	<% if idx == 0 %>
+  		 <li class='nav-item'><a class='nav-link active show' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>	
+  	<% else %>
+  		<li class='nav-item'><a class='nav-link' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>
+  	<% end %>
+  <% end %>
+</ul>
 
 <div class="tab-content" id="workoutTabContent">
   <% @workout_groups.each_with_index do |group, idx| %>

@@ -1,5 +1,9 @@
 class GymController < ApplicationController
   layout 'nav'
+  def new
+    @gym = Gym.new
+  end
+
   def show
     @non_admins = []
     @admins = []
@@ -7,7 +11,7 @@ class GymController < ApplicationController
 
     @gym_users = @gym.users
 
-    @gym.admin_ids.split(',').each do |admin_id|
+    @gym.admin_ids.to_s.split(',').each do |admin_id|
       user = User.find(admin_id)
       @admins << [user.username, user.id]
     end
@@ -23,6 +27,15 @@ class GymController < ApplicationController
                      .delete_if(&:nil?)
 
     @popup_workouts = Wod.where(gym_id: @gym.id).order(:workout_date)
+  end
+
+  def create
+    @gym = Gym.new(params.require(:gym).permit(:name, :phone_number, :address, :city, :state, :zipcode, :time_zone, :logo))
+    
+    @gym.save
+
+    flash[:notice] = 'Gym created'
+    redirect_to gym_path(@gym.id)
   end
 
   def update

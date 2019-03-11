@@ -61,6 +61,16 @@
 					</div>
 				</div>
 
+				<div class="row">
+				  <div class="col-12">
+						<%= f.label :logo, "Upload Gym Logo: " %>
+					</div>
+
+					<div class="col-12">
+						<%= f.file_field :logo %>
+					</div>
+				</div>
+
 				<%= f.submit "Update Gym Info", class: "btn btn-lg btn-block workout-btn", style: 'margin-bottom: 15px;', id: 'gym-update' %>
 			<% end %>
 		</div>

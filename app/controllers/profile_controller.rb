@@ -3,6 +3,7 @@ class ProfileController < ApplicationController
 
   def index
     @user = current_user
+    @gym = @user.gym
     @title = "#{@user.first_name} Profile"
     @weeks_doing_workout = 0
 

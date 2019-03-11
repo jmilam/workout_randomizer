@@ -6,6 +6,8 @@ class Gym < ApplicationRecord
   has_many :kiosks
 
   validates :name, :phone_number, presence: true
+  has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "logo.jpg"
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\z/
 
   scope :new_gyms, -> (date_range=Date.today.beginning_of_week..Date.today.end_of_week) { where(created_at: date_range)}
 

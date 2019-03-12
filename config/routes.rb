@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'gaol/index'
+
   get 'admin_portal/index', to: 'admin_portal#index', as: 'admin_portal' 
   get 'admin_portal/report_data', to: 'admin_portal#report_data' 
 
@@ -31,7 +33,9 @@ Rails.application.routes.draw do
   get 'blog/index', to: 'blog#index'
 
   get 'home/blog', to: 'home#blog', as: 'blog'
-
+  get 'goal/index', to: 'goal#index', as: 'goal'
+  post 'goal/create', to: 'goal#create', as: 'create_goal'
+  delete 'goal/:id', to: 'goal#destroy', as: 'delete_goal'
 
   resources :profile
   resources :workout

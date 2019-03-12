@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :workout_details
   has_one :inbox
   has_many :messages
+  has_many :goals
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

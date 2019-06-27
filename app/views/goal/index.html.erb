@@ -17,7 +17,10 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th style="text-align:center;" colspan=2>Goals</th>
+				<th>Goals</th>
+				<% if @show_goals_for_other_users %>
+					<th>User Name</th>
+				<% end %>
 				<th />
 			</tr>
 		</thead>
@@ -25,6 +28,9 @@
 			<% @goals.each do |goal| %>
 				<tr>
 					<td><%= goal.comment %></td>
+					<% if @show_goals_for_other_users %>
+						<td><%= goal.user.first_name %> <%=goal.user.last_name %></td>
+					<% end %>
 					<td><%= link_to "Delete", delete_goal_path(goal.id), method: :delete, data: { confirm: 'Are you suer you want to delete this goal?' } %></td>
 				</tr>
 			<% end %>

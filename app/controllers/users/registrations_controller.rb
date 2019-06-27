@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    @user = User.new
+    @user = User.new(email: params.dig(:user, :email))
     @regularity = User.regularities
     @goals = User.goals
     @gyms = Gym.all

@@ -13,6 +13,8 @@
  */
 
  @import "bootstrap";
+ @import "font-awesome";
+ @import "home";
 
 nav {
 	background: #101216;
@@ -43,10 +45,6 @@ nav {
 
 a {
 	color: #82B937;
-}
-
-body {
-	background: #fafafa;
 }
 
 .row {
@@ -291,4 +289,10 @@ body {
 
 .nav-section-img {
 	height:100%;
+}
+
+.home-page-icon {
+	color: #82B937;
+	margin-left: auto;
+	margin-right: auto;
 }

@@ -33,6 +33,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'after_party'
 gem 'paperclip'
 gem 'simplecov'
+gem "font-awesome-rails"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

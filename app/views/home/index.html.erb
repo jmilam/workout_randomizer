@@ -1,53 +1,177 @@
-<div id="train" class="nav-sections row">
-	<%= image_tag 'train_header', class: 'col-md-6 col-12 nav-section-img', style: "margin-top:25px;" %>
-  <div class="col-md-6 col-12 container nav-section-text">
-			<h3 class="card-title text-center">Train</h3>
-	    <p class="card-text">
-	    	We believe, that through proven training regiments by industry leading trainers, we can help you live your best life.
-	    </p>
-	    <p class="card-text">
-		  	Our software helps come beside trainer and trainee a like to give you access to result driven exercise workouts that have proven results by the people who created them. Through crowdsourcing the workouts with the best results and cutting edge tracking technology, we give you the tools to always persue greatness.
-		  </p>
-	</div>
-</div>
+<!-- Masthead -->
+<header class="masthead text-white text-center">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h1 class="mb-5">Get started today with a healthier you!</h1>
+      </div>
+      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+				<%= form_for :user, url: new_user_registration_path, method: :get do |f| %>
+          <div class="form-row">
+            <div class="col-12 col-md-9 mb-2 mb-md-0">
+            	<%= f.email_field :email, class: "form-control form-control-lg", placeholder: "Enter your email..." %>
+            </div>
+            <div class="col-12 col-md-3">
+            	<%= f.submit "Sign up!", class: "btn btn-block btn-lg btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>
 
-<div id="teach" class="nav-sections row">
-	<%= image_tag 'teach_header', class: 'col-md-6 col-12 nav-section-img' %>
-	<div class="col-md-6 col-12 container nav-section-text">
-		<h3 class="card-title text-center">Teach</h3>
-    <p class="card-text">
-    	Knowledge is <i>POWER</i>. We believe that giving access and personal connection with trainers, that you can learn the science behind why your body does what it does
-    </p>
-    <p class="card-text">
-			Our focus is to give you the tools and knowledge for a healthy lifestyle, a commitment to a fit physique, and a desire to share sciense based information to help you make the best decisions to your best life. With a built in community, no question goes unanswered, no goal unattainable, and every opportunity for positive motiviation every step of the way to help you meet your next fitness goal.
-		</p>
-	</div>
-</div>
+<!-- Icons Grid -->
+<section class="features-icons bg-light text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+          <div class="features-icons-icon d-flex">
+	          <%= fa_icon "bicycle 2x", class: "home-page-icon" %>
+          </div>
+          <h3>Fitness</h3>
+          <p class="lead mb-0">Proven exercise programs that get results!</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+          <div class="features-icons-icon d-flex">
+            <%= fa_icon "heartbeat 2x", class: "home-page-icon" %>
+          </div>
+          <h3>Nutrition</h3>
+          <p class="lead mb-0">Nutrition tips and guidance.</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+          <div class="features-icons-icon d-flex">
+            <%= fa_icon "user 2x", class: "home-page-icon" %>
+          </div>
+          <h3>Support</h3>
+          <p class="lead mb-0">Ready to use with your own content, or customize the source files!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div id="evolve" class="nav-sections row">
-	<%= image_tag 'evolve_header', class: 'col-md-6 col-12 nav-section-img' %>
-	<div class="col-md-6 col-12 container nav-section-text">
-		<h3 class="card-title text-center">Evolve</h3>
-    <p class="card-text">
-    	Live your best life. The goal of any health/fitness coach is to make you better than you were, and to come beside you to meet your goals. We believe that through the first two statements, this will be achieved through hard work and determination. To evolve, is to be better, always growing in mind and body. We want to help you meet your goals, keep you motivated, and always looking to better your life through fitness and helthy living.
-		</p>
-    <p class="card-text">
-	  	Through peer-driven workouts created by industry leading exercise enthusiasts, personal trainers, and health professionals we help evolve your mind, body, and mindset to make you feel better in every day life!
-	 	</p>
-	</div>
-</div>
+<!-- Image Showcases -->
+<section class="showcase">
+  <div class="container-fluid p-0">
+    <div class="row no-gutters">
+      <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url(<%= asset_path 'train_header' %>);"></div>
+      <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+      	<h2>Train</h2>
+      	<p class="lead mb-0">
+		    	We believe, that through proven training regiments by industry leading trainers, we can help you live your best life. We come beside trainers and trainees a like to give you access to result driven exercise workouts that have proven results by the people who created them. Through crowdsourcing the workouts with the best results and cutting edge tracking technology, we give you the tools to always persue greatness.
+			  </p>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-lg-6 text-white showcase-img" style="background-image: url(<%= asset_path 'teach_header' %>);"></div>
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>Teach</h2>
+        <p class="lead mb-0">
+		    	Knowledge is <i>POWER</i>. We believe that giving access and personal connection with trainers, that you can learn the science behind why your body does what it does Our focus is to give you the tools and knowledge for a healthy lifestyle, a commitment to a fit physique, and a desire to share science based information to help you make the best decisions to your best life. With a built in community, no question goes unanswered, no goal unattainable, and every opportunity for positive motiviation every step of the way to help you meet your next fitness goal.
+				</p>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url(<%= asset_path 'evolve_header' %>);"></div>
+      <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+        <h2>Evolve</h2>
+        <p class="lead mb-0">
+		    	Live your best life. The goal of any health/fitness coach is to make you better than you were, and to come beside you to meet your goals. We believe that through the first two statements, this will be achieved through hard work and determination. To evolve, is to be better, always growing in mind and body. We want to help you meet your goals, keep you motivated, and always looking to better your life through fitness and helthy living. Through peer-driven workouts created by industry leading exercise enthusiasts, personal trainers, and health professionals we help evolve your mind, body, and mindset to make you feel better in every day life!
+			 	</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="jumbotron" id="contact" style="margin-bottom:0px;">
-	<p class="text-center" style="color:black;">Contact Information</p>
-	<div class="text-center">
-		<%= link_to "mailto:boomslangfitness@gmail.com?Subject=Tell%20Me%20More" do %>
-		  <%= image_tag "mail_icon", size: 50 %>
-		<% end %>
-		<%= link_to "https://www.facebook.com/Boomslang-Fitness-2179301822345465/" do %>
-			<%= image_tag "facebook_icon", size: 50 %>
-		<% end %>
-		<%= link_to "https://www.instagram.com/boomslangfitness/" do %>
-			<%= image_tag "instagram_icon", size: 50 %>
-		<% end %>
-	</div>
-</div>
+<!-- Testimonials -->
+<!--   <section class="testimonials text-center bg-light">
+  <div class="container">
+    <h2 class="mb-5">What people are saying...</h2>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+          <img class="img-fluid rounded-circle mb-3" src="img/testimonials-1.jpg" alt="">
+          <h5>Margaret E.</h5>
+          <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+          <img class="img-fluid rounded-circle mb-3" src="img/testimonials-2.jpg" alt="">
+          <h5>Fred S.</h5>
+          <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of super nice landing pages."</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+          <img class="img-fluid rounded-circle mb-3" src="img/testimonials-3.jpg" alt="">
+          <h5>Sarah W.</h5>
+          <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to us!"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Call to Action -->
+<section class="call-to-action text-white text-center">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h2 class="mb-4">Ready to get started? Sign up now!</h2>
+      </div>
+      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+        <%= form_for :user, url: new_user_registration_path, method: :get do |f| %>
+          <div class="form-row">
+            <div class="col-12 col-md-9 mb-2 mb-md-0">
+            	<%= f.email_field :email, class: "form-control form-control-lg", placeholder: "Enter your email..." %>
+            </div>
+            <div class="col-12 col-md-3">
+            	<%= f.submit "Sign up!", class: "btn btn-block btn-lg btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+        <ul class="list-inline mb-2">
+          <li class="list-inline-item">
+            <%= link_to "Blog", blog_path, class: 'nav-link' %>
+          </li>
+          <li class="list-inline-item">
+            <%= link_to "Contact Us", "mailto:boomslangfitness@gmail.com?Subject=Tell%20Me%20More" %>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item mr-3">
+          	<%= link_to "https://www.facebook.com/Boomslang-Fitness-2179301822345465/" do %>
+              <%= fa_icon "facebook 2x" %>
+            <% end %>
+          </li>
+          <li class="list-inline-item">
+            <%= link_to "https://www.instagram.com/boomslangfitness/" do %>
+              <%= fa_icon "instagram 2x" %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

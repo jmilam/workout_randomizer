@@ -3,7 +3,14 @@ class GoalController < ApplicationController
   def index
   	@user = current_user
 
-  	@goals = @user.goals
+  	@show_goals_for_other_users = false
+
+  	@goals = if @user.gym.admin_ids.include?(@user.id.to_s) || @user.trainer
+  					   @show_goals_for_other_users = true
+  					   @user.gym.users.map(&:goals).flatten
+					   else
+					  	 @user.goals
+					   end
   end
 
   def create

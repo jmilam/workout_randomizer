@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'blog/index', to: 'blog#index'
 
   get 'home/blog', to: 'home#blog', as: 'blog'
+  get 'home/assessment', to: 'home#assessment', as: 'assessment'
   get 'goal/index', to: 'goal#index', as: 'goal'
   post 'goal/create', to: 'goal#create', as: 'create_goal'
   delete 'goal/:id', to: 'goal#destroy', as: 'delete_goal'

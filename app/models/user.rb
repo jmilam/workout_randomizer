@@ -33,12 +33,41 @@ class User < ApplicationRecord
 
   scope :new_users, -> (date_range=Date.today.beginning_of_week..Date.today.end_of_week) { where(created_at: date_range)}
   scope :trainers, -> { where(trainer: true) }
+
+  def self.calculate_caloric_expenditure(gender, activity_level, height, weight, age)
+    case gender.downcase
+    when "male"
+      activity_level * ((6.25 * weight) + (12.7 * height) - (6.76 * age) + 66)
+    when "female"
+      activity_level * ((4.35 * weight) + (4.7 * height) - (4.68 * age) + 655)
+    else
+      0
+    end
+  end
+
+  def self.calculate_bmi(weight, height)
+    converted_weight = weight * 0.45
+    converted_height = height * 0.025
+    converted_height *= converted_height
+
+    converted_height.zero? ? 0 : (converted_weight / converted_height).to_i
+  end
   def calculate_bmi
     converted_weight = weight * 0.45
     converted_height = height * 0.025
     converted_height *= converted_height
 
     converted_height.zero? ? 0 : (converted_weight / converted_height).to_i
+  end
+
+  def self.bmi_status(bmi)
+    if bmi < 18.5
+      'yellow'
+    elsif bmi > 25
+      'red'
+    else
+      'green'
+    end
   end
 
   def bmi_status(bmi)

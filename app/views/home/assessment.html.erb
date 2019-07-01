@@ -1,0 +1,35 @@
+<%= form_for :assessment, url: assessment_path, method: :get do |f| %>
+	<div class="row">
+    <div class="col-md-3 col-sm-3 offset-md-1 form-group">
+      <%= f.label :height, "Height (inches)", class: 'col-md-12' %>
+      <%= f.text_field :height, value: params.dig(:assessment, :height), class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-3 col-sm-3 form-group">
+      <%= f.label :weight, "Weight (pounds)", class: 'col-md-12' %>
+      <%= f.text_field :weight, value: params.dig(:assessment, :weight), class: 'col-md-12 form-control' %>
+    </div>
+   	<div class="col-md-2 col-sm-2 form-group">
+      <%= f.label :age, class: 'col-md-12' %>
+      <%= f.select :age, (1..99).collect { |value| [value, value] }, { include_blank: 'Select Age', selected: params.dig(:assessment, :age) }, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-2 col-sm-2 form-group">
+      <%= f.label :gender, class: 'col-md-12' %>
+      <%= f.select :gender, @gender.collect { |value| [value, value] }, { include_blank: 'Select Gender', selected: params.dig(:assessment, :gender) }, class: 'col-md-12 form-control' %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-10 col-sm-10 offset-md-1">
+      <%= f.label :activity_level, class: 'col-md-12' %>
+      <%= f.select :activity_level, @activity_level.collect { |regularity, value| [regularity.to_s.capitalize.gsub("_", " "), value] }, { include_blank: "Activity Level", selected: params.dig(:assessment, :activity_level) }, class: 'col-md-12 form-control' %>      
+    </div>
+  </div>
+  <div class="row">
+      <%= f.submit "Submit", class: "btn btn-success offset-9" %>  
+
+  </div>
+<% end %>
+
+<p>Daily Caloric Expenditure: <%= @caloric_expenditure %></p>
+<p style="color:<%= @bmi_status %>">Current BMI: <%= @bmi %></p>

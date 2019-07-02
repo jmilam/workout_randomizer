@@ -1,5 +1,7 @@
+<%= render 'call_to_action' %>
+
 <%= form_for :assessment, url: assessment_path, method: :get do |f| %>
-	<div class="row">
+	<div class="row" style="margin-top:2em;">
     <div class="col-md-3 col-sm-3 offset-md-1 form-group">
       <%= f.label :height, "Height (inches)", class: 'col-md-12' %>
       <%= f.text_field :height, value: params.dig(:assessment, :height), class: 'col-md-12 form-control' %>
@@ -26,10 +28,19 @@
     </div>
   </div>
   <div class="row">
-      <%= f.submit "Submit", class: "btn btn-success offset-9" %>  
-
+      <%= f.submit "Submit", class: "btn btn-lg btn-block col-md-10 offset-1", style: "background:#82B937;" %>
   </div>
 <% end %>
 
-<p>Daily Caloric Expenditure: <%= @caloric_expenditure %></p>
-<p style="color:<%= @bmi_status %>">Current BMI: <%= @bmi %></p>
+<% if @caloric_expenditure > 0 %>
+	<div class="jumbotron col-md-10 offset-md-1">
+		<div class='text-center'>
+		  <h1 class="display-4">Results</h1>
+		  <p class="lead">Daily Caloric Expenditure: <%= @caloric_expenditure %></p>
+		  <p style="color:<%= @bmi_status %>">Current BMI: <%= @bmi %></p>
+		</div>
+	  <hr class="my-4">
+	  <p class="lead">Calories for weight loss: <%= @weight_loss %></p>
+	  <p class="lead">Calories for gaining weight: <%= @lean_muscle_gain_low %> - <%= @lean_muscle_gain_high %><p>
+	</div>
+<% end %>

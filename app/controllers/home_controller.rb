@@ -19,7 +19,11 @@ class HomeController < ApplicationController
       params.dig(:assessment, :activity_level).to_f,
       params.dig(:assessment, :height).to_i,
       params.dig(:assessment, :weight).to_i,
-      params.dig(:assessment, :age).to_i)
+      params.dig(:assessment, :age).to_i).to_i
+
+    @weight_loss = @caloric_expenditure - 500
+    @lean_muscle_gain_low = (@caloric_expenditure * 1.05).to_i
+    @lean_muscle_gain_high = (@caloric_expenditure * 1.1).to_i
 
     @bmi = User.calculate_bmi(params.dig(:assessment, :weight).to_i, params.dig(:assessment, :height).to_i)
     @bmi_status = User.bmi_status(@bmi)

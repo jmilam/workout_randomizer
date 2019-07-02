@@ -13,6 +13,8 @@ class HomeController < ApplicationController
                         moderately_active: 1.55,
                         very_active: 1.725,
                         extremely_active: 1.9 }
+    @frequency = ["No Exercise", "1-3 Days A Week", "3-5 days a week",
+                  "6-7 days a week", "Physically demanding job, or challenging exercise routine"]
     @gender = ["Male", "Female"]
 
     @caloric_expenditure = User.calculate_caloric_expenditure(params.dig(:assessment, :gender).to_s,

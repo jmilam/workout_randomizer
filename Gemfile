@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # gem 'mysql2'
@@ -32,6 +32,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'after_party'
 gem 'paperclip'
+gem 'paperclip-av-transcoder'
 gem 'simplecov'
 gem "font-awesome-rails"
 # Use Capistrano for deployment
@@ -65,4 +66,3 @@ gem 'bootstrap', '~> 4.1.1'
 gem 'devise'
 gem 'jquery-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem "paperclip"

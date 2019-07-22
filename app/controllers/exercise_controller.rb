@@ -56,6 +56,7 @@ class ExerciseController < ApplicationController
           @exercise.update!(exercise_circuit_id: exercise_circuit.id)
         end
 
+        # @exercise.clip.purge
         @exercise.update!(exercise_params)
 
         @kiosk = current_user.gym.kiosks.find_by(exercise_id: @exercise.id)
@@ -108,6 +109,6 @@ class ExerciseController < ApplicationController
 
   def exercise_params
     params.require(:exercise).permit(:name, :description, :instructions, :warm_up, :warm_up_details, :set_count,
-                                     :workout_group_id, :rep_range, :priority, :band)
+                                     :workout_group_id, :rep_range, :priority, :band, :clip, :thumbnail)
   end
 end

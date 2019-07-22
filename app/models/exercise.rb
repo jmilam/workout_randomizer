@@ -2,6 +2,7 @@ class Exercise < ApplicationRecord
   belongs_to :workout_group
   # belongs_to :exercise_circuit
   has_many :workout_details
+  has_one_attached :clip
 
   validates :name, presence: true
 

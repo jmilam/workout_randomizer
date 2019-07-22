@@ -60,6 +60,11 @@
     </div>
 
     <div class="row">
+      <%= f.label :clip %>
+      <%= f.file_field :clip %>
+    </div>
+
+    <div class="row">
       <% @exercise.workout_group.exercises.each do |exercise| %>
         <% unless exercise.id == @exercise.id %>
           <div class="col-md-4 col-sm-4 col-12">

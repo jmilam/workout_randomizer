@@ -1,29 +1,32 @@
-<div style="background:#003259;padding-bottom: 350px;">
-  <div class="row">
-    <div class="col-md-10 col-10 offset-1" id="login-profile-background">
-      <div class="row">
-        <%= image_tag @gym.nil? ? "logo" : @gym.logo, class: "rounded-image" %>
-      </div>
+<div class="col-md-10 offset-md-1">
+  <div class="card container" style="margin-top:30px;">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="row">
-          <div class="col-md-12 col-sm-12 form-group">
-            <%= f.label :email %>
-            <%= f.text_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
-          </div>
 
-          <div class="col-md-12 col-sm-12 form-group">
-            <%= f.label :password, class: '' %>
-            <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
-          </div>
-        </div>
+    <div class="card-header bg-dark text-center" id="login-header">
+       <%= image_tag @gym.nil? ? "logo" : @gym.logo, class: "rounded-image" %>
+    </div>
+    <div class="card-body boomslang-color" style="margin-bottom:0px">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+              <%= f.label :email %>
+              <%= f.text_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+            </div>
 
-        <!-- <div class="actions col-md-6 col-sm-6 offset-md-8"> -->
-          <%= f.submit "Log in", class: "btn btn-lg btn-block workout-btn" %>
-        <!-- </div> -->
-      <% end %>
-      <div class="col-md-12 col-12 text-right">
-          <%= render "devise/shared/links" %>
+            <div class="col-md-12 col-sm-12 form-group">
+              <%= f.label :password, class: '' %>
+              <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+            </div>
+          </div>
+    </div>
+    <div class="card-footer bg-dark" id="login-footer">
+      <div class="col-md-12 col-12 text-right" style="margin-top:15px;">
+          <%= f.submit "Log in", class: "btn btn-lg", style:'background-color: #82B937;opacity: 0.8;' %>
+          <br/>
+          <div style="margin-top:15px;">
+            <%= render "devise/shared/links" %>
+          </div>
       </div>
     </div>
+    <% end %>
   </div>
 </div>

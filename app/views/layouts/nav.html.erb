@@ -11,7 +11,7 @@
   </head>
 
   <body>
-  	<nav class="navbar navbar-expand-lg navbar-dark">
+  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="navbar-header">
         <%= link_to profile_index_path, class: 'navbar-brand' do %>
           <%= image_tag @gym.nil? ? 'logo-snake.png' : @gym.logo.url, size: '55x55', id: 'nav-image' %>

@@ -1,5 +1,5 @@
 <%= render "partials/alert" %>
-<div class="container">
+<div class="container" style="margin-top:20px;">
 	<ul class="nav nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;">
 	  <li class='nav-item'><a class='nav-link active' id='profile-tab' data-toggle='tab' href='#profile' role='tab' aria-controls='profile' aira-selected='true'>Gym Information</a></li>
 	  <li class='nav-item'><a class='nav-link' id='workout-trending-tab' data-toggle='tab' href='#workout-trending' role='tab' aria-controls='workout-trending' aria-selected='true'>Gym Kiosks <span class="badge badge-pill badge-secondary"><%= @gym.kiosks.count %></span></a></li>

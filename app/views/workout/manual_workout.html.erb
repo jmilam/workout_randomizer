@@ -6,7 +6,7 @@
 
 <%= render "partials/alert" %>
 
-<div style="margin-top:10px;margin-left: auto;margin-right: auto;width: 95%;">
+<div class="boomslang-green" style="margin-left: auto;margin-right: auto;width: 100%; padding-top:30px;padding-bottom:30px;margin-bottom:10px;">
 	<div class="row">
 		<%= select_tag :workout, options_from_collection_for_select(@workouts, :id, :name), prompt: "Select Workout", class: "form-control col-10 offset-1" %>
 	</div>

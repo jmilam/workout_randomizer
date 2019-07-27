@@ -17,7 +17,7 @@
         $('#workoutTab').append(
           "<li class='nav-item'><a class='nav-link' id='child-div-workout" + counter + "-tab' data-toggle='tab' href='#child-div-workout" + counter + "' role='tab' aria-controls='child-div-workout" + counter + "'>" + key + " Breakout " + "</a></li>"
         );
-        $('#workoutTabContent').append("<div class='tab-pane fade col-12' id='child-div-workout" + counter + "' role='tabpanel' aria-labelledby='child-div-workout" + counter + "' style='height:300px;'><ul class='nav nav-pills' id='historyTab' role='tablist' style='margin-bottom:30px;'><li></li></ul><div class='tab-content' id='childTabContent-" + counter + "'></div></div>");
+        $('#workoutTabContent').append("<div class='tab-pane fade col-12' id='child-div-workout" + counter + "' role='tabpanel' aria-labelledby='child-div-workout" + counter + "' style='height:300px;'><ul class='nav nav-pills' id='historyTab' role='tablist' style='margin-bottom:20px;'><li></li></ul><div class='tab-content' id='childTabContent-" + counter + "'></div></div>");
       }
 
       let headerCounter = counter;
@@ -53,8 +53,8 @@
 
 <div id="chart-div">
   <div class="container">
-    <ul class="nav nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;">
-      <li class='nav-item'><a class='nav-link active' id='workout-trending-tab' data-toggle='tab' href='#workout-trending' role='tab' aria-controls='workout-trending' aria-selected='true'>Workout Details</a></li>
+    <ul class="nav nav-pills" id="workoutTab" role="tablist" style="margin-bottom:20px;">
+      <li class='nav-item'><a class='nav-link active bg-dark' id='workout-trending-tab' style="padding-top:1em;" data-toggle='tab' href='#workout-trending' role='tab' aria-controls='workout-trending' aria-selected='true'>Workout Details</a></li>
     </ul>
   </div>
   <div class="tab-content" id="workoutTabContent">
@@ -100,7 +100,7 @@
 
 								  <tbody>
 										<% prev_workout.workout_details.each do |workout_detail| %>
-												<tr style="background:#262626;">
+												<tr class="bg-dark">
 												  <th sope="row"><%= workout_detail.exercise.name unless workout_detail.exercise.nil? %></th>
 													<td><%= workout_detail.band_color %></td>
 													<td><%= workout_detail.rep_1_weight %></td>

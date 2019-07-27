@@ -27,14 +27,21 @@ nav {
 
 .workout-background {
 	background: #71B11D;
+	opacity: 0.8;
   margin-left: auto;
   margin-right: auto;
   height: 100%;
 }
 
+.nav-pills .nav-link {
+  padding-top: 1em;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
 	background: #101216;
+	opacity: 0.8;
 	border-radius: 0px;
+  padding-top: 1em;
 }
 
 .nav-link {
@@ -67,6 +74,7 @@ a {
 .workout-btn {
 	background-color: #71B11D;
 	color: #003259;
+	opacity: 0.8;
 }
 
 .workout-text {
@@ -174,6 +182,20 @@ a {
   background-color: #003259;
   padding-bottom: 15px;
   padding-top: 15px;
+}
+
+#chart-div {
+	margin-top: 20px;
+}
+
+#login-header {
+	border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+}
+
+#login-footer {
+	border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
 }
 
 .arrow-down {
@@ -295,4 +317,13 @@ a {
 	color: #82B937;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.boomslang-green {
+	background-color:#82B937;
+	opacity:0.8;
+}
+
+.category-header {
+	height:100px;
 }

@@ -21,13 +21,7 @@
 <%= form_for :exercises, url: log_exercise_path do |f| %>
 		<%= f.hidden_field :workout_date, value: Date.today %>
 		<%= f.hidden_field :manual_entry, value: @manual_entry %>
-		<% if @manual_entry %>
-			<div class="row">
-				<div class="col-10 offset-1">
-					<%= f.submit @button_title, class: "btn btn-lg btn-block", style: "background-color:#D9D278;" %>
-				</div>
-			</div>
-		<% else %>
+		<% unless @manual_entry %>
 			<div class="row">
 				<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block", style: "color:black;background-color:#D9D278;margin-bottom:-9px;" %>
 			</div>
@@ -39,7 +33,7 @@
 						<% bg_color = Category.style_tags.to_a.sample[1] %>
 								<div class="row workout-background">
 									<div class="<%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12' %>">
-										<div class="col-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
+										<div class="col-md-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 											<div class="row">
 												<div class="col-md-12 text-center exercise-header">
 													<%= exercise.name %>
@@ -96,7 +90,7 @@
 											<% end %>
 										</div>
 
-										<div class="col-6">
+										<div class="col-md-6">
 											<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
 												<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
 												<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
@@ -132,13 +126,16 @@
 										</div>
 									</div>
 									<% if exercise.clip.attached? %>
-										<div class="col-md-6">
+										<div class="col-md-6" style="background-color:black;">
 						    				<%= video_tag url_for(exercise.clip), controls: '', style: 'height:400px;width:100%' %>
 										</div>
 									<% end %>
 								</div>
 					<% end %>
 			<% end %>
+			<div class="row">
+					<%= f.submit @button_title, class: "btn btn-lg btn-block", style: "background-color:#D9D278;height:100px;margin-top: -10px;" %>
+			</div>
 		<% else %>
 			<% @exercise_group.each_with_index do |exercise, idx| %>
 				<% bg_color = Category.style_tags.to_a.sample[1] %>

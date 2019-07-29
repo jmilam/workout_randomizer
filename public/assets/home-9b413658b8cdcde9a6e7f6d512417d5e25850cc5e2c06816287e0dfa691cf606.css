@@ -1,0 +1,143 @@
+/*!
+ * Start Bootstrap - Landing Page v5.0.6 (https://startbootstrap.com/template-overviews/landing-page)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-landing-page/blob/master/LICENSE)
+ */
+/* line 11, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+body {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* line 15, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+/* line 25, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+header.masthead {
+  position: relative;
+  background-color: #343a40;
+  background-size: cover;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+/* line 34, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+header.masthead .overlay {
+  position: absolute;
+  background-color: #82B937;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+}
+
+/* line 44, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+header.masthead h1 {
+  font-size: 2rem;
+}
+
+@media (min-width: 768px) {
+  /* line 49, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+  header.masthead {
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+  }
+
+  /* line 53, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+  header.masthead h1 {
+    font-size: 3rem;
+  }
+}
+/* line 58, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.showcase .showcase-text {
+  padding: 3rem;
+}
+
+/* line 62, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.showcase .showcase-img {
+  min-height: 30rem;
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  /* line 68, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+  .showcase .showcase-text {
+    padding: 7rem;
+  }
+}
+/* line 73, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.features-icons {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+/* line 78, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.features-icons .features-icons-item {
+  max-width: 20rem;
+}
+
+/* line 82, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.features-icons .features-icons-item .features-icons-icon {
+  height: 7rem;
+}
+
+/* line 86, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.features-icons .features-icons-item .features-icons-icon i {
+  font-size: 4.5rem;
+}
+
+/* line 90, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.features-icons .features-icons-item:hover .features-icons-icon i {
+  font-size: 5rem;
+}
+
+/* line 94, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.testimonials {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+/* line 99, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.testimonials .testimonial-item {
+  max-width: 18rem;
+}
+
+/* line 103, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.testimonials .testimonial-item img {
+  max-width: 12rem;
+  box-shadow: 0px 5px 5px 0px #adb5bd;
+}
+
+/* line 109, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.call-to-action {
+  position: relative;
+  background-color: #343a40;
+  background-size: cover;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+/* line 118, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+.call-to-action .overlay {
+  position: absolute;
+  background-color: #82B937;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+}
+
+/* line 128, /Users/jmilam/Desktop/rails/workout_randomizer/app/assets/stylesheets/home.scss */
+footer.footer {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}

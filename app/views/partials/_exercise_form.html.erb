@@ -144,61 +144,63 @@
 				<% end %>
 					<div class="col-md-6 col-12">
 						<div class="row workout-background" style="border-bottom:1px solid black;margin-bottom:1px;padding-bottom:5px">
-							<div class="col-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
-								<div class="row">
-									<div class="col-md-12 text-center exercise-header">
-										<%= exercise.name %>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-md-12 text-center exercise-sub-header">
-										<i><%= exercise.description %></i>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12 text-center exercise-sub-header">
-										<%= exercise.example %>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-md-6 col-6 text-center" style="color:black;">
-										Sets
-									</div>
-									<div class="col-md-6 col-6 text-center" style="color:black;">
-									  Reps
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-md-6 col-6 text-center exercise-details">
-										<%= exercise.set_count %>
-									</div>
-									<div class="col-md-6 col-6 text-center exercise-details">
-										<%= exercise.rep_range %>
-									</div>
-								</div>
-
-								<% if exercise.warm_up %>
+							<div class="<%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12' %>">
+								<div style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 									<div class="row">
-										<div class="col-md-6 col-6 text-center">
-											Warm Up
+										<div class="col-md-12 text-center exercise-header">
+											<%= exercise.name %>
 										</div>
-										<div class="col-md-6 col-6 text-center">
-											Warm Up Details
+									</div>
+
+									<div class="row">
+										<div class="col-md-12 text-center exercise-sub-header">
+											<i><%= exercise.description %></i>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12 text-center exercise-sub-header">
+											<%= exercise.example %>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-6 col-6 text-center" style="color:black;">
+											Sets
+										</div>
+										<div class="col-md-6 col-6 text-center" style="color:black;">
+										  Reps
 										</div>
 									</div>
 
 									<div class="row">
 										<div class="col-md-6 col-6 text-center exercise-details">
-											<%= Exercise.to_word(exercise.warm_up) %>
+											<%= exercise.set_count %>
 										</div>
 										<div class="col-md-6 col-6 text-center exercise-details">
-											<%= exercise.warm_up_details %>
+											<%= exercise.rep_range %>
 										</div>
 									</div>
-								<% end %>
+
+									<% if exercise.warm_up %>
+										<div class="row">
+											<div class="col-md-6 col-6 text-center">
+												Warm Up
+											</div>
+											<div class="col-md-6 col-6 text-center">
+												Warm Up Details
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-6 col-6 text-center exercise-details">
+												<%= Exercise.to_word(exercise.warm_up) %>
+											</div>
+											<div class="col-md-6 col-6 text-center exercise-details">
+												<%= exercise.warm_up_details %>
+											</div>
+										</div>
+									<% end %>
+								</div>
 							</div>
 
 							<div class="col-6">
@@ -238,7 +240,10 @@
 						</div>
 					</div>
 					<div class="col-md-6 col-12">
-    				<%= video_tag url_for(exercise.clip), controls: '', style: 'height:400px;width:100%' %>
+						<% if exercise.clip.attached? %>
+						<div class="col-md-6" style="background-color:black;">
+    					<%= video_tag url_for(exercise.clip), controls: '', style: 'height:400px;width:100%' %>
+    				<% end %>
 					</div>
 				<% if idx.odd? %>
 					</div>

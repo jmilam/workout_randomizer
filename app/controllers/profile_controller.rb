@@ -1,5 +1,5 @@
 class ProfileController < ApplicationController
-  layout 'nav'
+  layout 'nav-home'
 
   def index
     @user = current_user

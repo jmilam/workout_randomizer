@@ -67,3 +67,4 @@ gem 'bootstrap', '~> 4.1.1'
 gem 'devise'
 gem 'jquery-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem "koala"

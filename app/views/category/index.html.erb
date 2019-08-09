@@ -13,7 +13,7 @@
   <tbody>
 		<% @categories.each do |category| %>
 			<tr>
-	      <th scope="row"><%= category.name %></th>
+	      <th scope="row" style="color:white;"><%= category.name %></th>
 	      <td class="<%= Category.style_tags[category.tag]['background-color'] %>"></td>
 	      <td class="text-center">
 	      	<% if category.editable_by_user?(current_user) %>

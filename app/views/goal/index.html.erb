@@ -6,7 +6,7 @@
 	<%= form_for :goal, url: create_goal_path, method: :post do |f| %>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-12 form-group">
-				<%= f.label :comment, "Goal Details" %>
+				<%= f.label :comment, "Goal Details", { style: "color:white;" } %>
 				<%= f.text_area :comment, placeholder: "Please enter your goal details here...", class: "form-control" %>
 			</div>
 		</div>
@@ -14,7 +14,7 @@
 		<%= f.submit "Submit Goal", class: "btn btn-block workout-btn" %>
 	<% end %>
 
-	<table class="table">
+	<table class="table" style="color:white;margin-top:20px;">
 		<thead>
 			<tr>
 				<th>Goals</th>

@@ -1,0 +1,264 @@
+<%= render "partials/alert" %>
+
+<%= form_for @user, url: user_index_path do |f| %>
+  <div class="container">
+    <div class="card boomslang-card" id="basic-info">
+      <div class="card-header boomslang-green text-center">
+        Basic User Information:
+      </div>
+      <div class="card-body bg-dark" style="margin-bottom:0;">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 form-group">
+            <%= f.label :first_name, class: 'col-md-12' %>
+            <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
+          </div>
+          <div class="col-md-6 col-sm-6 form-group">
+            <%= f.label :last_name, class: 'col-md-12' %>
+            <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-sm-6 form-group">
+            <%= f.label :height, class: 'col-md-12' %>
+            <%= f.text_field :height, class: 'col-md-12 form-control' %>
+          </div>
+          <div class="col-md-6 col-sm-6 form-group">
+            <%= f.label :weight, class: 'col-md-12' %>
+            <%= f.text_field :weight, class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <%= link_to "Goals >>", '', class: "btn btn-lg pull-right link", data: {val: 'basic-info', next: 'goals'} %>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted boomslang-green text-center">
+        Step 1/4
+      </div>
+    </div>
+
+    <div class="card boomslang-card" id="goals" style="display:none;">
+      <div class="card-header boomslang-green text-center">
+        User Goals:
+      </div>
+      <div class="card-body bg-dark" style="margin-bottom:0;">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 form-group">
+            <%= f.label :regularity_id, class: 'col-md-12' %>
+            <%= f.select :regularity_id, @regularity.collect { |key, regularity| [regularity,key] }, { prompt: "How often do you workout?", selected: "#{@user.regularity_id}week" }, class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-sm-12 form-group">
+            <%= f.label :goal_id, class: 'col-md-12' %>
+            <%= f.select :goal_id, @goals.collect { |key, goal| [goal,key] }, { prompt: "Select Goal" }, class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <%= link_to "<< Basic Info", '#', class: "btn btn-lg link",  data: {val: 'goals', next: 'basic-info'} %>
+          </div>
+          <div class="col-6">
+            <%= link_to "Measurements >>", '#', class: "btn btn-lg pull-right link",  data: {val: 'goals', next: 'measurements'} %>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted boomslang-green text-center">
+        Step 2/4
+      </div>
+    </div>
+
+    <div class="card boomslang-card" id="measurements" style="display:none;">
+      <div class="card-header boomslang-green text-center">
+        User Measurements:
+      </div>
+      <div class="card-body bg-dark" style="margin-bottom:0;">
+        <%= f.fields_for :measurements do |ff| %>
+          <h5 class="text-center lead">Girth Measurements (in.)</h5>
+          <hr/>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :upper_arm, "Upper Arm" %>
+                <%= ff.number_field :upper_arm, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :chest %>
+                <%= ff.number_field :chest, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :waist %>
+                <%= ff.number_field :waist, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :hip %>
+                <%= ff.number_field :hip, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :thigh %>
+                <%= ff.number_field :thigh, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :calf %>
+                <%= ff.number_field :calf, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :wrist %>
+                <%= ff.number_field :wrist, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :forearm %>
+                <%= ff.number_field :forearm, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <h5 class="text-center lead">Skinfolds Measurements (mm.)</h5>
+          <hr/>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :left_tricep, "Left Tricep" %>
+                <%= ff.number_field :left_tricep, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :right_tricep, "Right Tricep" %>
+                <%= ff.number_field :right_tricep, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :subscapular %>
+                <%= ff.number_field :subscapular, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :abdominal %>
+                <%= ff.number_field :abdominal, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :mid_thigh, "Mid-Thigh" %>
+                <%= ff.number_field :mid_thigh, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :inside_calf, "Inside Calf" %>
+                <%= ff.number_field :inside_calf, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :pec, "Pec (men)" %>
+                <%= ff.number_field :pec, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :left_bicep, "Left Bicep" %>
+                <%= ff.number_field :left_bicep, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :right_bicep, "Right Bicep" %>
+                <%= ff.number_field :right_bicep, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <%= ff.label :suprailiac %>
+                <%= ff.number_field :suprailiac, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="row">
+          <div class="col-6">
+            <%= link_to "<< Goals", '#', class: "btn btn-lg link",  data: {val: 'measurements', next: 'goals'} %>
+          </div>
+          <div class="col-6">
+            <%= link_to "Finalize >>", '#', class: "btn btn-lg pull-right link",  data: {val: 'measurements', next: 'finalize'} %>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted boomslang-green text-center">
+        Step 3/4
+      </div>
+    </div>
+
+    <div class="card boomslang-card" id="finalize" style="display:none;">
+      <div class="card-header boomslang-green text-center">
+        Verify User Info: <%= f.submit "Join User", class: "btn btn-standard pull-right" %>
+      </div>
+      <div class="card-body bg-dark" style="margin-bottom:0;">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 form-group">
+            <%= f.label :trainer_id, class: 'col-md-12' %>
+            <%= f.select :trainer_id, @trainers.collect { |trainer| ["#{trainer.first_name} #{trainer.last_name}", trainer.id] }, { prompt: "Select Your Trainer", selected: current_user }, class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+
+        <div class="row">
+          <%= f.label :avatar, "Upload Profile Picture:", class: 'col-6' %>
+          <div class="col-6">
+            <%= f.file_field :avatar %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <%= link_to "<< Measurements", '#', class: "btn btn-lg link",  data: {val: 'finalize', next: 'measurements'} %>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted boomslang-green text-center">
+        Step 4/4
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $('.link').click(function(e){
+    e.preventDefault();
+    let currentDiv = $(this).data('val');
+    let nextDiv = $(this).data('next');
+    console.log($('#' + currentDiv))
+    console.log(nextDiv)
+    $('#' + currentDiv).css('display', 'none');
+    $('#' + nextDiv).css('display', '');
+  })
+</script>

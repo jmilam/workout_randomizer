@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_22_172903) do
+ActiveRecord::Schema.define(version: 2019_09_06_184854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,30 @@ ActiveRecord::Schema.define(version: 2019_07_22_172903) do
   create_table "likes", force: :cascade do |t|
     t.integer "workout_id", null: false
     t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "measurements", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "upper_arm", default: 0
+    t.integer "chest", default: 0
+    t.integer "waist", default: 0
+    t.integer "hip", default: 0
+    t.integer "thigh", default: 0
+    t.integer "calf", default: 0
+    t.integer "wrist", default: 0
+    t.integer "forearm", default: 0
+    t.integer "left_tricep", default: 0
+    t.integer "right_tricep", default: 0
+    t.integer "subscapular", default: 0
+    t.integer "abdominal", default: 0
+    t.integer "mid_thigh", default: 0
+    t.integer "inside_calf", default: 0
+    t.integer "pec", default: 0
+    t.integer "left_bicep", default: 0
+    t.integer "right_bicep", default: 0
+    t.integer "suprailiac", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

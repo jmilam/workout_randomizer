@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_one :inbox
   has_many :messages
   has_many :goals
+  has_many :measurements
+  accepts_nested_attributes_for :measurements
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

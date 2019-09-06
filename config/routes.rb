@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   resources :message
   resources :message_group
   resources :gym
+  resources :user
 
   get 'workout_group/workout_groups_by_workout/:id', to: 'workout_group#workout_groups_by_workout', as: 'workout_groups_by_workout'
 

@@ -104,18 +104,19 @@
 			</div>
 		</div>
 		<div class="tab-pane fade show" id='gym-users' role='tabpanel' aria-labelledby='gym-users'>
+			<%= link_to "New User", new_user_path, class: "pull-right workout-btn btn", style: 'margin-bottom: 10px;' %>
 			<table class="table">
 				<thead>
 					<tr>
 						<th>User Name</th>
-						<th>Current WOrkout</th>
+						<th>Current Workout</th>
 					</tr>
 				</thead>
 				<tbody>
 					<% @gym_users.each do |user| %>
 						<tr>
 							<td><%= link_to "#{user.first_name} #{user.last_name}", edit_profile_path(user.id) %></td>
-							<td style="color: #101216"><i><%= user.current_workout_name %></i></td>
+							<td><i><%= user.current_workout_name %></i></td>
 						</tr>
 					<% end %>
 				</tbody>

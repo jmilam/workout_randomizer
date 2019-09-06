@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title.nil? ? 'Boomslang Fitness' : @title %></title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'favicon.ico' %>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  </head>
+
+  <body>
+  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="navbar-header">
+        <%= link_to profile_index_path, class: 'navbar-brand' do %>
+          <%= image_tag @gym.nil? ? 'logo-snake.png' : @gym.logo.url, size: '55x55', id: 'nav-image' %>
+        <% end %>
+      </div>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+  		<div class="collapse navbar-collapse" id="navbarToggler">
+  			<ul class="navbar-nav">
+          <li><%= link_to "Profile", profile_index_path, class: 'nav-link' %></li>
+          <li><%= link_to "Workouts", list_workouts_path, class: 'nav-link' %></li>
+          <li><%= link_to "Categories", category_index_path, class: 'nav-link' %></li>
+          <li><%= link_to "Inbox", inbox_index_path, class: 'nav-link' %></li>
+          <li><%= link_to "Goals", goal_path, class: 'nav-link' %></li>
+          <% if current_user.gym.admin_ids.include?(current_user.id.to_s) %>
+            <li><%= link_to "Gym", gym_path(current_user.gym.id), class: 'nav-link' %></li>
+            <li><%= link_to "Admin Portal", admin_portal_path, class: 'nav-link' %></li>
+          <% end unless current_user.gym.admin_ids.nil? %>
+		  		<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+		  	</ul>
+		  </div>
+
+		</nav>
+
+    <div>
+      <%= yield %>
+    </div>
+  </body>
+</html>

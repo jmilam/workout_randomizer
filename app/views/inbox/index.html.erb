@@ -8,7 +8,7 @@
 
 	<tbody>
 		<% @message_groups.each do |message_group| %>
-			<% message_group.each do |message| %>
+			<% message_group&.each do |message| %>
 				<tr>
 					<td><%= link_to message.subject, message_group_path(message.id) %></td>
 					<td style="color:white;"><%= message.created_at.in_time_zone.strftime("%m/%d/%y %H:%M") %></td>

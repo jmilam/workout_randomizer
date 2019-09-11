@@ -7,7 +7,7 @@ class InboxController < ApplicationController
     @message_groups = []
 
     inboxes.each do |inbox|
-    	@message_groups << inbox.message_groups.includes(:messages)
+    	@message_groups << inbox&.message_groups&.includes(:messages)
     end
   end
 end

@@ -13,10 +13,6 @@
 		font-size: 1em;
 		color: black;
 	}
-
-	body {
-		background-color: #003259;
-	}
 </style>
 <%= form_for :exercises, url: log_exercise_path do |f| %>
 		<%= f.hidden_field :workout_date, value: Date.today %>

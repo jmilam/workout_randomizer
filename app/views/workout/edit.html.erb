@@ -1,103 +1,111 @@
-<div class="card-header" style="background:#003259;color:white;">
-	<div class="row">
-		<div class="col-10 text-center">
-		  <%= @workout.name %> <% if @editable %>- <%= link_to "Edit Workout", workout_path(@workout.id) %><% end %>
-		</div>
-		<% unless @user_already_liked %>
-			<div class="col-1">
-				<%= link_to like_workout_path(workout_id: @workout), method: :post do %>
-			  	<%= image_tag "star", size: '30x30', title: 'Click to like this workout' %>
+<div class="row" style="height:100%;">
+	<div class="col-md-3" style="padding-top:20px;background:#003259;">
+		<ul class="nav nav-pills" id="workoutTab" role="tablist">
+		  <% @workout_groups.each_with_index do |group, idx| %>
+		  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
+		  	<% if idx == 0 %>
+		  		 <li class='nav-item nav-li'><a class='nav-link active show' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>
+		  	<% else %>
+		  		<li class='nav-item nav-li'><a class='nav-link' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>
+		  	<% end %>
+		  <% end %>
+		</ul>
+	</div>
+	<div class="col-md-9" style="padding-top:20px;">
+		<div class="container-fluid">
+			<div class="card-header" style="background:#003259;color:white;">
+				<div class="row">
+					<div class="col-10 text-center">
+					  <%= @workout.name %> <% if @editable %>- <%= link_to "Edit Workout", workout_path(@workout.id) %><% end %>
+					</div>
+					<% unless @user_already_liked %>
+						<div class="col-1">
+							<%= link_to like_workout_path(workout_id: @workout), method: :post do %>
+						  	<%= image_tag "star", size: '30x30', title: 'Click to like this workout' %>
+						  <% end %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+			<div class="card-body bg-light" style="border-bottom: 1px solid lightgrey;    margin-bottom: 0px;">
+			  <div class="row">
+			    <div class="col-md-9 col-sm-10 col-7">
+			      <b><i>Workout Frequency:</i></b> <%= @workout.frequency %>
+			    </div>
+			    <div class="col-md-2 col-sm-2 col-5">
+			      <%= link_to "Select Workout", accept_workout_path(workout_id: @workout.id), method: :patch, class: 'btn btn-sm workout-btn' %>
+			    </div>
+			  </div>
+
+			  <div class="row">
+			    <div class="col-md-12 col-sm-12">
+			      <b><i>Workout Category:</i></b> <%= @workout.category.name %>
+			    </div>
+			  </div>
+
+			  <div class="row">
+			    <div class="col-md-12 col-sm-12">
+			      <b><i>Workout Cycle Weeks:</i></b> <%= @workout.duration %>
+			    </div>
+			  </div>
+
+			  <div class="row">
+			    <div class="col-md-12 col-sm-12">
+			      <b><i>Users currently using this workout:</i></b> <%= @workout_users.count %>
+			    </div>
+			  </div>
+
+			  <% if @editable %>
+				  <div class="row">
+						<div class="col-md-12 col-sm-12">
+							<%= link_to "Create New Daily Workout", new_workout_group_path(workout_id: @workout.id) %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
+			<%= render "partials/alert" %>
+
+			
+			<div class="tab-content" id="workoutTabContent" style="padding-top:20px;">
+			  <% @workout_groups.each_with_index do |group, idx| %>
+			  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
+					<% bg_color = Category.style_tags.to_a.sample[1]['border'] %>
+					<% if idx == 0 %>
+				  	<div class="tab-pane fade active show" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>
+				  		<div class="card-header text-center boomslang-green">
+								<%= link_to_if @editable, "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
+							</div>
+				  		<% group.exercises.group_by(&:exercise_circuit_id).each_with_index do |exercise_group, ex_group_idx| %>
+								<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
+									<li class="list-group-item <%= bg_color %> text-center  "><%= link_to_if @editable, exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
+								<% end %>
+							<% end %>
+							<div class="card-footer text-center bg-dark">
+								<% if @editable %>
+									<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id) %>
+								<% end %>
+							</div>
+						</div>
+					<% else %>
+						<div class="tab-pane fade" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>
+							<div class="card-header text-center boomslang-green">
+								<%= link_to_if @editable, "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
+							</div>
+				  		<% group.exercises.group_by(&:exercise_circuit_id).each_with_index do |exercise_group, ex_group_idx| %>
+								<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
+									<li class="list-group-item <%= bg_color %> text-center"><%= link_to exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
+								<% end %>
+							<% end %>
+							<div class="card-footer text-center bg-dark">
+								<% if @editable %>
+									<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id)%>
+								<% end %>
+							</div>
+						</div>
+					<% end %>
 			  <% end %>
 			</div>
-		<% end %>
-	</div>
-</div>
-<div class="card-body bg-light" style="border-bottom: 1px solid lightgrey;    margin-bottom: 0px;">
-  <div class="row">
-    <div class="col-md-9 col-sm-10 col-7">
-      <b><i>Workout Frequency:</i></b> <%= @workout.frequency %>
-    </div>
-    <div class="col-md-2 col-sm-2 col-5">
-      <%= link_to "Select Workout", accept_workout_path(workout_id: @workout.id), method: :patch, class: 'btn btn-sm workout-btn' %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 col-sm-12">
-      <b><i>Workout Category:</i></b> <%= @workout.category.name %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 col-sm-12">
-      <b><i>Workout Cycle Weeks:</i></b> <%= @workout.duration %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 col-sm-12">
-      <b><i>Users currently using this workout:</i></b> <%= @workout_users.count %>
-    </div>
-  </div>
-
-  <% if @editable %>
-	  <div class="row">
-			<div class="col-md-12 col-sm-12">
-				<%= link_to "Create New Workout Group", new_workout_group_path(workout_id: @workout.id) %>
-			</div>
 		</div>
-	<% end %>
-</div>
-
-<%= render "partials/alert" %>
-
-<ul class="nav flex-column nav-pills" id="workoutTab" role="tablist" aria-orientation="vertical">
-  <% @workout_groups.each_with_index do |group, idx| %>
-  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
-  	<% if idx == 0 %>
-  		 <li class='nav-item'><a class='nav-link active show' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>	
-  	<% else %>
-  		<li class='nav-item'><a class='nav-link' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>
-  	<% end %>
-  <% end %>
-</ul>
-
-<div class="tab-content" id="workoutTabContent">
-  <% @workout_groups.each_with_index do |group, idx| %>
-  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
-		<% bg_color = Category.style_tags.to_a.sample[1]['border'] %>
-		<% if idx == 0 %>
-	  	<div class="tab-pane fade active show" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>
-	  		<div class="card-footer text-center header-background">
-					<%= link_to_if @editable, "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
-				</div>
-	  		<% group.exercises.group_by(&:exercise_circuit_id).each_with_index do |exercise_group, ex_group_idx| %>
-					<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
-						<li class="list-group-item <%= bg_color %> text-center bg-dark text-white"><%= link_to_if @editable, exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
-					<% end %>
-				<% end %>
-				<div class="card-footer text-center header-background">
-					<% if @editable %>
-						<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id), style: "color:white;" %>
-					<% end %>
-				</div>
-			</div>
-		<% else %>
-			<div class="tab-pane fade" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>
-				<div class="card-footer text-center header-background">
-					<%= link_to_if @editable, "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
-				</div>
-	  		<% group.exercises.group_by(&:exercise_circuit_id).each_with_index do |exercise_group, ex_group_idx| %>
-					<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
-						<li class="list-group-item <%= bg_color %> text-center bg-dark text-white"><%= link_to exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
-					<% end %>
-				<% end %>
-				<div class="card-footer text-center header-background">
-					<% if @editable %>
-						<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id), style:"color:white;" %>
-					<% end %>
-				</div>
-			</div>
-		<% end %>
-  <% end %>
+	</div>
 </div>

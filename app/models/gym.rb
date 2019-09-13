@@ -4,6 +4,7 @@ class Gym < ApplicationRecord
   has_many :workout_groups, through: :workouts
   has_many :exercises, through: :workouts
   has_many :kiosks
+  has_many :categories
 
   validates :name, :phone_number, presence: true
   has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "logo.jpg"

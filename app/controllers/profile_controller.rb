@@ -69,6 +69,8 @@ class ProfileController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @user_goals = @user.goals
+    @measurements = @user.measurements.last || @user.measurements.new
     @regularity = User.regularities
     @goals = User.goals
     @gyms = Gym.all.includes(:users)
@@ -91,6 +93,9 @@ class ProfileController < ApplicationController
   protected
 
   def workout_params
-    params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :current_workout, :goal_id, :gym_id, :trainer_id, :avatar)
+    params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :trainer_id,
+                                 :gym_id, :current_workout, :avatar,
+        measurements_attributes: [:upper_arm, :chest, :waist, :hip, :thigh, :calf, :wrist, :forearm, :left_tricep, :right_tricep,
+      :subscapular, :abdominal, :mid_thigh, :inside_calf, :pec, :left_bicep, :right_bicep, :suprailiac])
   end
 end

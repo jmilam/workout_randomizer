@@ -28,11 +28,11 @@ class WorkoutController < ApplicationController
 
   def new
     @workout = Workout.new
-    @categories = Category.enabled
+    @categories = current_user.gym.categories.enabled
   end
 
   def create
-    @categories = Category.enabled
+    @categories = current_user.gym.categories.enabled
     @workout = current_user.gym.workouts.new(workout_params)
     @workout.created_by_user_id = current_user.id
 
@@ -60,6 +60,7 @@ class WorkoutController < ApplicationController
 
   def show
     @workout = Workout.find(params[:id])
+    @categories = current_user.gym.categories.enabled
   end
 
   def update

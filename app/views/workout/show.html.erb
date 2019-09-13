@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 form-group">
         <%= f.label :category_id, "Category", class: 'col-md-12' %>
-        <%= f.select :category_id, Category.enabled.collect {|category| [ category.name, category.id ] }, { prompt: "--- Please select Category ---" }, class: 'col-md-12 form-control' %>
+        <%= f.select :category_id, @categories.collect {|category| [ category.name, category.id ] }, { prompt: "--- Please select Category ---" }, class: 'col-md-12 form-control' %>
       </div>
     </div>
 

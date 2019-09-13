@@ -1,4 +1,11 @@
-<div class="container">
+<div class="container" style="padding-top:10px;">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4 text-center">Daily Workout</h1>
+      <hr/>
+      <p class="lead">A daily workout is created as a group of exercises to be completed on a set date. If you want a more dynamic routine, do not associate the workout group to a specific day and it will randomize during the week and assign it to a user when they log in.</p>
+    </div>
+  </div>
   <%= form_for @workout_group, url: workout_group_index_path, method: :post do |f| %>
     <div class="row">
       <div class="col-md-12 col-sm-12 form-group">

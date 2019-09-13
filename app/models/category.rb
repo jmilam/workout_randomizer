@@ -1,7 +1,7 @@
 class Category < ApplicationRecord
   include SharedFunctions
   has_many :workouts
-
+  belongs_to :gym
   validates :name, presence: true
 
   enum style_tags: { 1 => { 'background-color' => 'bg-light', 'border' => 'border-light', 'text-color' => 'text-light',

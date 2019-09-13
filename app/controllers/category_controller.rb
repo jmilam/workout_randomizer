@@ -5,20 +5,21 @@ class CategoryController < ApplicationController
   end
 
   def new
-    @category = Category.new
+    @category = current_user.gym.categories.new
   end
 
   def create
-    @category = Category.new(category_params)
+    @gym = current_user.gym
+    @category = @gym.categories.new(category_params)
 
     begin
       @category.save!
       @category.update!(created_by_user_id: current_user.id)
       flash[:notice] = "Category #{@category.name} was successfully created."
-      redirect_to category_index_path
+      redirect_to gym_path @gym.id
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when updating your category: #{error}"
-      render :new
+      redirect_to gym_path @gym.id
     end
   end
 

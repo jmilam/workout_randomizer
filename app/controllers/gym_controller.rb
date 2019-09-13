@@ -9,7 +9,7 @@ class GymController < ApplicationController
     @admins = []
     @gym = Gym.find(params[:id])
 
-    @gym_users = @gym.users
+    @gym_users = @gym.users.order(:last_name)
 
     @gym.admin_ids.to_s.split(',').each do |admin_id|
       user = User.find(admin_id)
@@ -27,6 +27,10 @@ class GymController < ApplicationController
                      .delete_if(&:nil?)
 
     @popup_workouts = Wod.where(gym_id: @gym.id).order(:workout_date)
+
+    @categories = @gym.categories
+    @category = @gym.categories.new
+    @workouts = current_user.gym.workouts
   end
 
   def create

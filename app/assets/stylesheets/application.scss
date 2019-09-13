@@ -16,9 +16,17 @@
  @import "font-awesome";
  @import "home";
 
+html, body {
+	height: 100%;
+}
+
 nav {
 	background: #101216;
 	color: white;
+}
+
+.full-screen { 
+	height: 100%;
 }
 
 .header-background {
@@ -325,7 +333,6 @@ a {
 
 .boomslang-green {
 	background-color:#82B937;
-	opacity:0.8;
 }
 
 .category-header {

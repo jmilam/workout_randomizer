@@ -1,0 +1,1 @@
+require 'after_party/models/mongoid/task_record.rb'

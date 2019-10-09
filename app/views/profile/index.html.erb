@@ -47,7 +47,7 @@
 
   <%= link_to "Manually Enter Workout", manual_workout_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
 
-  <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @completed_workout %></div>
+  <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @completed_workout || !@user.current_workout %></div>
 
 <div class="row" style="margin-top:10px;">
   <div class="col-md-10 col-10 offset-1">

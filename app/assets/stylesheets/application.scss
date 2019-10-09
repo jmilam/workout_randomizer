@@ -63,7 +63,11 @@ nav {
 }
 
 a {
-	color: #82B937;
+	color: #007bff;
+}
+
+.registration_links {
+	color: #003259;
 }
 
 .row {
@@ -201,8 +205,7 @@ a {
 }
 
 #login-header {
-	border-top-right-radius: 30px;
-  border-top-left-radius: 30px;
+	text-align: center;
 }
 
 #login-footer {
@@ -333,6 +336,7 @@ a {
 
 .boomslang-green {
 	background-color:#82B937;
+	opacity: 0.8;
 }
 
 .category-header {
@@ -342,4 +346,9 @@ a {
 .boomslang-card {
 	margin-top: 50px;
 	color: white;
+}
+
+.profile-submit-btn {
+	margin-bottom:20px;
+	background-color:#D9D278;
 }

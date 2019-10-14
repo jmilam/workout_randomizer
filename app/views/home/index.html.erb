@@ -1,12 +1,12 @@
 <%= render 'header' %>
 
-<section class="features-icons bg-light text-center" style="padding-top:5em;padding-bottom:5em;">
+<section class="features-icons bg-light text-center" style="padding-top:5em;padding-bottom:5em;margin-bottom: 2em;">
   <div class="container">
     <div class="row">
       <div class="col-lg-3">
         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
           <div class="features-icons-icon d-flex">
-	          <%= fa_icon "bicycle 2x", class: "home-page-icon" %>
+	          <a href="#fitness" class="home-page-icon"><%= fa_icon "bicycle 2x", class: "" %></a>
           </div>
           <h3>Fitness</h3>
           <p class="lead mb-0">Proven exercise programs that get results! Personalized for each client based off their goals.</p>
@@ -15,7 +15,7 @@
       <div class="col-md-3">
         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
           <div class="features-icons-icon d-flex">
-            <%= fa_icon "heartbeat 2x", class: "home-page-icon" %>
+            <a href="#nutrition" class="home-page-icon"><%= fa_icon "heartbeat 2x", class: "home-page-icon" %></a>
           </div>
           <h3>Nutrition</h3>
           <p class="lead mb-0">We work with our clients to make personalized nutritional guides to meet your goals.</p>
@@ -24,7 +24,7 @@
       <div class="col-md-3">
         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
           <div class="features-icons-icon d-flex">
-            <%= fa_icon "user 2x", class: "home-page-icon" %>
+            <a href="#support" class="home-page-icon"><%= fa_icon "user 2x", class: "home-page-icon" %></a>
           </div>
           <h3>Support</h3>
           <p class="lead mb-0">Someone there to teach and encourage our clients every step of the way!</p>
@@ -33,7 +33,7 @@
       <div class="col-md-3">
         <div class="features-icons-item mx-auto mb-0 mb-lg-3">
           <div class="features-icons-icon d-flex">
-            <%= fa_icon "signal 2x", class: "home-page-icon" %>
+            <a href="#analytics" class="home-page-icon"><%= fa_icon "signal 2x" %></a>
           </div>
           <h3>Analytics</h3>
           <p class="lead mb-0">See real time progress through graphs and analytics captured through each workout.</p>
@@ -46,31 +46,41 @@
 <!-- Image Showcases -->
 <section class="showcase">
   <div class="container-fluid p-0">
-    <div class="row no-gutters">
-      <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url(<%= asset_path 'train_header' %>);"></div>
-      <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-      	<h2>Train</h2>
-      	<p class="lead mb-0">
-		    	We believe, that through proven training regiments by industry leading trainers, we can help you live your best life. We come beside trainers and trainees a like to give you access to result driven exercise workouts that have proven results by the people who created them. Through crowdsourcing the workouts with the best results and cutting edge tracking technology, we give you the tools to always persue greatness.
-			  </p>
+    <div class="row no-gutters" id="fitness">
+      <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url(<%= asset_path 'fitness' %>);"></div>
+      <div class="col-lg-6 order-lg-1 my-auto showcase-text" style="padding-top:0;">
+      	<h2>Fitness</h2>
+        <h5 class="lead"><i>Train. Teach. Evolve.</i></h5>
+        <p class="lead mb-0">
+          By giving access and personal connection with trainers, you can learn the science behind why your body does what it does. Our focus is to give you the tools and knowledge for a healthy lifestyle, a commitment to a fit physique, and a desire to share science based information to help you make the best decisions to your best life.
+        </p>
       </div>
     </div>
-    <div class="row no-gutters">
-      <div class="col-lg-6 text-white showcase-img" style="background-image: url(<%= asset_path 'teach_header' %>);"></div>
+    <div class="row no-gutters" id="nutrition">
+      <div class="col-lg-6 text-white showcase-img" style="background-image: url(<%= asset_path 'nutrition' %>);"></div>
       <div class="col-lg-6 my-auto showcase-text">
-        <h2>Teach</h2>
+        <h2>Nutrition</h2>
         <p class="lead mb-0">
-		    	Knowledge is <i>POWER</i>. We believe that giving access and personal connection with trainers, that you can learn the science behind why your body does what it does Our focus is to give you the tools and knowledge for a healthy lifestyle, a commitment to a fit physique, and a desire to share science based information to help you make the best decisions to your best life. With a built in community, no question goes unanswered, no goal unattainable, and every opportunity for positive motiviation every step of the way to help you meet your next fitness goal.
+		    	As important as regular exercise is, a sound nutrition plan is where you get your results. We can come beside you and help come up with a nutrition plan that is perfect for your goals and fits into your lifestyle. Fad diets are unsustainable. Balance nutrtients and a sound understanding of how your body processes food for energy will propel you to the best you possible.
 				</p>
       </div>
     </div>
-    <div class="row no-gutters">
-      <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url(<%= asset_path 'evolve_header' %>);"></div>
+    <div class="row no-gutters" id="support">
+      <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url(<%= asset_path 'teach_header' %>);"></div>
       <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-        <h2>Evolve</h2>
+        <h2>Support</h2>
         <p class="lead mb-0">
-		    	Live your best life. The goal of any health/fitness coach is to make you better than you were, and to come beside you to meet your goals. We believe that through the first two statements, this will be achieved through hard work and determination. To evolve, is to be better, always growing in mind and body. We want to help you meet your goals, keep you motivated, and always looking to better your life through fitness and helthy living. Through peer-driven workouts created by industry leading exercise enthusiasts, personal trainers, and health professionals we help evolve your mind, body, and mindset to make you feel better in every day life!
+		    	The goal of any health/fitness coach is to make you better than you were, and to come beside you to meet your goals. To evolve, is to be better, always growing in mind and body. We want to help you meet your goals, keep you motivated, and always looking to better your life through fitness and helthy living. We give you the support needed to succeed through constant communication and adjustments to your fitness plan.
 			 	</p>
+      </div>
+    </div>
+    <div class="row no-gutters" id="analytics">
+      <div class="col-lg-6 text-white showcase-img" style="background-image: url(<%= asset_path 'boomslang-graph' %>);border-top-left-radius: 25px;border-bottom-left-radius: 25px;"></div>
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>Analytics</h2>
+        <p class="lead mb-0">
+          Every workout tracked gives you the ability to see where you might be over training, needing to push for your next milestone, or keep doing what you're doing. Visual analytics gives you the ability to see your progress at the tip of your finger tips.
+        </p>
       </div>
     </div>
   </div>

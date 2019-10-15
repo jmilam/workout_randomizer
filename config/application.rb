@@ -23,7 +23,7 @@ module WorkoutRandomizer
 		    :authentication => :plain,
 		    :user_name      => ENV['EMAIL'],
 		    :password       => ENV['PASSWORD'],
-		    :enable_starttls_auto => true,
+		    # :enable_starttls_auto => true,
 		    :domain 				=> "gmail.com"
 		}
   end

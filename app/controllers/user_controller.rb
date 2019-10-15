@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:more_info]
   layout 'onboarding'
 	def new
     @user = User.new

@@ -5,6 +5,7 @@ class UserMailer < ApplicationMailer
   end
 
   def more_info_email
+    p "Mailer"
     @user = params[:user]
 
     mail(to: ENV['EMAIL'], subject: 'Requesting More Info')

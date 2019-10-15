@@ -37,6 +37,11 @@ class UserController < ApplicationController
     end
   end
 
+  def more_info
+    UserMailer.with(user: params[:user]).more_info_email.deliver_now
+    redirect_to root_path
+  end
+
   protected
 
   def user_params

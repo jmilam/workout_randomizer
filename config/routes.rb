@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'gaol/index'
+  get 'goal/index'
 
   get 'admin_portal/index', to: 'admin_portal#index', as: 'admin_portal' 
   get 'admin_portal/report_data', to: 'admin_portal#report_data' 
@@ -52,6 +52,8 @@ Rails.application.routes.draw do
   get 'workout_group/workout_groups_by_workout/:id', to: 'workout_group#workout_groups_by_workout', as: 'workout_groups_by_workout'
 
   get 'exercise/get_all_for_workout_group/:id', to: 'exercise#get_all_for_workout_group', as: 'exercises_by_workout_group'
+  
+  post 'user/more_info', to: 'user#more_info', as: 'more_info'
   # root to: 'profile#index'
   root to: 'home#index'
 end

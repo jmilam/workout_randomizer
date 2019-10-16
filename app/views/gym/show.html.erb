@@ -117,6 +117,7 @@
 									<th/>
 									<th>User Name</th>
 									<th>Current Workout</th>
+									<th/>
 								</tr>
 							</thead>
 							<tbody>
@@ -125,6 +126,13 @@
 										<td><%= image_tag user.avatar.url, class: "rounded-image" %></td>
 										<td><%= link_to "#{user.first_name} #{user.last_name}", edit_profile_path(user.id) %></td>
 										<td><i><%= user.current_workout_name %></i></td>
+										<td>
+											<% if user.account_disabled %>
+												<%= link_to "Enable Account", enable_user_path(user.id), method: :put %>
+											<% else %>
+												<%= link_to "Disable Account", disable_user_path(user.id), method: :put %>
+											<% end %>
+										</td>
 									</tr>
 								<% end %>
 							</tbody>

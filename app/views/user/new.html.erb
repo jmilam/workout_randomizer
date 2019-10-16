@@ -259,6 +259,13 @@
         </div>
 
         <div class="row">
+          <div class="col-12">
+            <%= f.label :medical_concerns, "Medical Concerns" %>
+            <%= f.text_area :medical_concerns, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-6">
             <%= link_to "<< Measurements", '#', class: "btn btn-lg link",  data: {val: 'finalize', next: 'measurements'} %>
           </div>

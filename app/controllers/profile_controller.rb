@@ -83,18 +83,17 @@ class ProfileController < ApplicationController
 
     if @user.update!(workout_params)
       flash[:notice] = 'User successfully updated'
-      redirect_to profile_index_path
     else
       flash[:alert] = "Errors on update #{@user.errors}"
-      redirect_to edit_profile_path(@user.id)
     end
+    redirect_to edit_profile_path(@user.id)
   end
 
   protected
 
   def workout_params
     params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :trainer_id,
-                                 :gym_id, :current_workout, :avatar,
+                                 :gym_id, :current_workout, :avatar, :medical_concerns,
         measurements_attributes: [:upper_arm, :chest, :waist, :hip, :thigh, :calf, :wrist, :forearm, :left_tricep, :right_tricep,
       :subscapular, :abdominal, :mid_thigh, :inside_calf, :pec, :left_bicep, :right_bicep, :suprailiac])
   end

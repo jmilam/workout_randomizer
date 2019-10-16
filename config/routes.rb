@@ -49,6 +49,9 @@ Rails.application.routes.draw do
   resources :gym
   resources :user
 
+  put 'user/disable_user/:id', to: 'user#disable_user', as: 'disable_user'
+  put 'user/enable_user/:id', to: 'user#enable_user', as: 'enable_user'
+
   get 'workout_group/workout_groups_by_workout/:id', to: 'workout_group#workout_groups_by_workout', as: 'workout_groups_by_workout'
 
   get 'exercise/get_all_for_workout_group/:id', to: 'exercise#get_all_for_workout_group', as: 'exercises_by_workout_group'

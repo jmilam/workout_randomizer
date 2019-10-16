@@ -43,11 +43,27 @@ class UserController < ApplicationController
     redirect_to root_path
   end
 
+  def disable_user
+    user = User.find(params[:id])
+    user.update(account_disabled: true)
+
+    flash[:notice] = "#{user.first_name} #{user.last_name} was disabled."
+    redirect_to gym_path(current_user.gym_id)
+  end
+
+  def enable_user
+    user =  User.find(params[:id])
+    user.update(account_disabled: false)
+
+    flash[:notice] = "#{user.first_name} #{user.last_name} was eabled."
+    redirect_to gym_path(current_user.gym_id)
+  end
+
   protected
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :height, :weight, :pin, :regularity_id, :goal_id, :trainer_id,
-                                 :email, :phone_number, :avatar,
+                                 :email, :phone_number, :avatar, :medical_concerns,
       measurements: [:upper_arm, :chest, :waist, :hip, :thigh, :calf, :wrist, :forearm, :left_tricep, :right_tricep,
                      :subscapular, :abdominal, :mid_thigh, :inside_calf, :pec, :left_bicep, :right_bicep, :suprailiac])
   end

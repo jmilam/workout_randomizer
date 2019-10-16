@@ -13,8 +13,15 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     resource = warden.authenticate!(:scope => :user)
-    sign_in(:user, resource)
-    redirect_to profile_index_path
+    if resource.account_disabled
+      sign_out(resource)
+
+      flash[:alert] = "Please contact your gym. Your account has been disabled."
+      redirect_to new_user_session_path
+    else
+      sign_in(:user, resource)
+      redirect_to profile_index_path
+    end
   end
 
   # DELETE /resource/sign_out

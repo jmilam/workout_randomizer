@@ -13,10 +13,15 @@
 	</div>
 	<div class="col-md-9" style="padding-top:20px;">
 		<div class="container-fluid">
-			<div class="card-header" style="background:#003259;color:white;">
+			<div class="jumbotron boomslang-green">
 				<div class="row">
 					<div class="col-10 text-center">
-					  <%= @workout.name %> <% if @editable %>- <%= link_to "Edit Workout", workout_path(@workout.id) %><% end %>
+					  <h3>
+					  	<%= @workout.name %> Workout
+					  </h3>
+					  <% if @editable %>
+					  	<span><%= link_to "Edit Workout", workout_path(@workout.id) %></span>
+					  <% end %>
 					</div>
 					<% unless @user_already_liked %>
 						<div class="col-1">
@@ -26,9 +31,8 @@
 						</div>
 					<% end %>
 				</div>
-			</div>
-			<div class="card-body bg-light" style="border-bottom: 1px solid lightgrey;    margin-bottom: 0px;">
-			  <div class="row">
+
+				<div class="row">
 			    <div class="col-md-9 col-sm-10 col-7">
 			      <b><i>Workout Frequency:</i></b> <%= @workout.frequency %>
 			    </div>
@@ -65,7 +69,6 @@
 			</div>
 
 			<%= render "partials/alert" %>
-
 			
 			<div class="tab-content" id="workoutTabContent" style="padding-top:20px;">
 			  <% @workout_groups.each_with_index do |group, idx| %>
@@ -73,13 +76,20 @@
 					<% bg_color = Category.style_tags.to_a.sample[1]['border'] %>
 					<% if idx == 0 %>
 				  	<div class="tab-pane fade active show" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>
-				  		<div class="card-header text-center boomslang-green">
-								<%= link_to_if @editable, "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
-							</div>
 				  		<% group.exercises.group_by(&:exercise_circuit_id).each_with_index do |exercise_group, ex_group_idx| %>
-								<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
-									<li class="list-group-item <%= bg_color %> text-center  "><%= link_to_if @editable, exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
-								<% end %>
+								<ul class="nav nav-tabs" id="exerciseTab">
+									<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
+										<li class='nav-item'><a class='nav-link' id='<%= exercise.name.gsub(" ", "").underscore %>-tab' data-toggle='tab' href='#<%= exercise.name.gsub(" ", "").underscore %>' role='tab' aria-controls='<%= exercise.name.gsub(" ", "").underscore %>' aira-selected='true'><%= exercise.name %></a>
+										</li>
+									<% end %>
+								</ul>
+								<div class="tab-content" id="exercise-tabContent-0">
+									<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
+										<div class="tab-pane fade" id='<%= exercise.name.gsub(" ", "").underscore %>' role='tabpanel' aria-labelledby='<%= exercise.name.gsub(" ", "").underscore %>'>
+		  								<%= render 'partials/exercise_entry_form', exercise: exercise, total_exercises: exercise.workout_group.exercises.count %>
+										</div>
+									<% end %>
+								</div>
 							<% end %>
 							<div class="card-footer text-center bg-dark">
 								<% if @editable %>
@@ -89,21 +99,28 @@
 						</div>
 					<% else %>
 						<div class="tab-pane fade" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>
-							<div class="card-header text-center boomslang-green">
-								<%= link_to_if @editable, "Edit #{group.name}", edit_workout_group_path(group.id), style: "color:white;", class: 'text-right' %>
-							</div>
 				  		<% group.exercises.group_by(&:exercise_circuit_id).each_with_index do |exercise_group, ex_group_idx| %>
-								<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
-									<li class="list-group-item <%= bg_color %> text-center"><%= link_to exercise.name, edit_exercise_path(exercise.id) %> - <%= ex_group_idx +1 %><%= ('a'..'z').to_a[ex_idx] %></li>
-								<% end %>
+								<ul class="nav nav-tabs" id="exerciseTab">
+									<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
+										<li class='nav-item'><a class='nav-link' id='<%= exercise.name.gsub(" ", "").underscore %>-tab' data-toggle='tab' href='#<%= exercise.name.gsub(" ", "").underscore %>' role='tab' aria-controls='<%= exercise.name.gsub(" ", "").underscore %>' aira-selected='true'><%= exercise.name %></a>
+										</li>
+									<% end %>
+								</ul>
+								<div class="tab-content" id="exercise-tabContent-0">
+									<% exercise_group[1].each_with_index do |exercise, ex_idx| %>
+										<div class="tab-pane fade" id='<%= exercise.name.gsub(" ", "").underscore %>' role='tabpanel' aria-labelledby='<%= exercise.name.gsub(" ", "").underscore %>'>
+		  								<%= render 'partials/exercise_entry_form', exercise: exercise, total_exercises: exercise.workout_group.exercises.count %>
+										</div>
+									<% end %>
+								</div>
 							<% end %>
 							<div class="card-footer text-center bg-dark">
 								<% if @editable %>
-									<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id)%>
+									<%= link_to "New Exercise for #{group.name}", new_exercise_path(workout_group_id: group.id) %>
 								<% end %>
 							</div>
 						</div>
-					<% end %>
+					<% end %> 
 			  <% end %>
 			</div>
 		</div>

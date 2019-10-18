@@ -16,7 +16,11 @@
         <%= link_to root_path, class: 'navbar-brand' do %>
           <%= image_tag 'logo-snake.png', size: '55x55' %>
         <% end %>
-        <%= link_to "Sign In", profile_index_path , class: 'btn btn-primary' %>
+        <% if current_user %>
+          <%= link_to "View Profile", profile_index_path , class: 'btn btn-primary' %>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path , class: 'btn btn-primary' %>
+        <% end %>
       </div>
     </nav>
 

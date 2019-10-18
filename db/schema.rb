@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_200904) do
+ActiveRecord::Schema.define(version: 2019_10_18_130725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(version: 2019_10_16_200904) do
     t.integer "priority"
     t.boolean "disabled", default: false
     t.boolean "band", default: false
+    t.boolean "timed_exercise", default: false
+    t.integer "time_by_minutes", default: 30
   end
 
   create_table "goals", force: :cascade do |t|

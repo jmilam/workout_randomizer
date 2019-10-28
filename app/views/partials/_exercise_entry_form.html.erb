@@ -1,4 +1,10 @@
-<%= form_for exercise, url: exercise_path(exercise.id), method: :patch do |f| %>
+<%= form_for exercise, url: request_type == :post ? exercise_index_path : exercise_path(exercise.id), method: request_type do |f| %>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.hidden_field :workout_group_id, value: workout_group.id %>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-12 col-sm-12 form-group">
         <%= f.label :name, 'Exercise Name *', class: 'col-md-12' %>
@@ -68,16 +74,26 @@
     </div>
 
     <div class="row">
-      <% exercise.workout_group.exercises.each do |wg_exercise| %>
-        <% unless wg_exercise.id == exercise.id %>
-          <div class="col-md-4 col-sm-4 col-12">
-              <% checked = exercise.exercise_circuit_id.nil? ? false : wg_exercise.exercise_circuit_id == exercise.exercise_circuit_id %>
-              <%= check_box_tag 'super_set_id[]', wg_exercise.id, checked %> <%= f.label :super_set_id, wg_exercise.name %>
-          </div>
+      <% unless request_type == :post %>
+        <% exercise.workout_group.exercises.each do |wg_exercise| %>
+          <% unless wg_exercise.id == exercise.id %>
+            <div class="col-md-4 col-sm-4 col-12">
+                <% checked = exercise.exercise_circuit_id.nil? ? false : wg_exercise.exercise_circuit_id == exercise.exercise_circuit_id %>
+                <%= check_box_tag 'super_set_id[]', wg_exercise.id, checked %> <%= f.label :super_set_id, wg_exercise.name %>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>
 
-  	<%= f.submit "Edit Exercise", class: 'btn btn-lg btn-block workout-btn' %>
-      <div class= 'text-center' style="margin-bottom:15px;"><%= link_to "Disable Exercise", exercise_path(exercise.id), method: :delete %></div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+  	   <%= f.submit request_type == :post ? "New Exercise" : "Edit Exercise", class: 'btn btn-lg btn-block workout-btn' %>
+      </div>
+      <% unless request_type == :post %>
+        <div class="col-md-6 col-sm-12" style="padding-top: 1em;">
+          <div class= 'text-center' style="margin-bottom:15px;"><%= link_to "Disable Exercise", exercise_path(exercise.id), method: :delete %></div>
+        </div>
+      <% end %>
+    </div>
   <% end %>

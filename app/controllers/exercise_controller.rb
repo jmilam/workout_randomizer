@@ -30,7 +30,7 @@ class ExerciseController < ApplicationController
       end
 
       flash[:notice] = "Exercise #{@exercise.name} was successfully added to your workout."
-      redirect_to new_exercise_path(workout_group_id: @exercise.workout_group.id)
+      redirect_to edit_workout_path(@exercise.workout_group.workout.id)
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when updating exercise: #{error}"
       redirect_to new_exercise_path(workout_group_id: params[:exercise][:workout_group_id],

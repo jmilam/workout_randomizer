@@ -4,6 +4,9 @@ class HomeController < ApplicationController
 	def index
 	end
 
+  def ad
+  end
+
 	def blog
 	end
 

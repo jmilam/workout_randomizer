@@ -1,6 +1,18 @@
+<section class="call-to-action text-white text-center">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h2 class="mb-4">Before you know where you are going, you need to know where you are and how to get there.</h2>
+        <p class="lead mb-0">
+          This assessment tool, is a way for you to easily get a starting point for what kind of calorie intake you need to be at, and what percentages of food types you should be taking in, daily.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <% if @caloric_expenditure > 0 %>
-  <%= render 'call_to_action' %>
-  
 	<div class="jumbotron col-md-10 offset-md-1" style="margin-top:2em;">
 		<div class='text-center'>
 		  <h1 class="display-4">Results</h1>
@@ -22,11 +34,11 @@
 
 <%= form_for :assessment, url: assessment_path, method: :get do |f| %>
 	<div class="row" style="margin-top:2em;">
-    <div class="col-md-3 col-sm-3 offset-md-1 form-group">
+    <div class="col-md-4 col-sm-4 offset-md-1 form-group">
       <%= f.label :height, "Height (inches)", class: 'col-md-12' %>
       <%= f.text_field :height, value: params.dig(:assessment, :height), class: 'col-md-12 form-control' %>
     </div>
-    <div class="col-md-3 col-sm-3 form-group">
+    <div class="col-md-4 col-sm-4 form-group">
       <%= f.label :weight, "Weight (pounds)", class: 'col-md-12' %>
       <%= f.text_field :weight, value: params.dig(:assessment, :weight), class: 'col-md-12 form-control' %>
     </div>
@@ -34,15 +46,15 @@
       <%= f.label :age, class: 'col-md-12' %>
       <%= f.select :age, (1..99).collect { |value| [value, value] }, { include_blank: '-- Select Age --', selected: params.dig(:assessment, :age) }, class: 'col-md-12 form-control' %>
     </div>
-    <div class="col-md-2 col-sm-2 form-group">
-      <%= f.label :gender, class: 'col-md-12' %>
-      <%= f.select :gender, @gender.collect { |value| [value, value] }, { include_blank: '-- Select Gender --', selected: params.dig(:assessment, :gender) }, class: 'col-md-12 form-control' %>
-    </div>
   </div>
 
 
   <div class="row">
-    <div class="col-md-10 col-sm-10 offset-md-1">
+    <div class="col-md-4 col-sm-4 offset-md-1 form-group">
+      <%= f.label :gender, class: 'col-md-12' %>
+      <%= f.select :gender, @gender.collect { |value| [value, value] }, { include_blank: '-- Select Gender --', selected: params.dig(:assessment, :gender) }, class: 'col-md-12 form-control' %>
+    </div>
+    <div class="col-md-6 col-sm-6">
       <%= f.label :activity_level, class: 'col-md-12' %>
       <%= f.select :activity_level, @activity_level.enum_for(:each_with_index).collect { |regularity, idx| ["#{regularity[0].to_s.capitalize.gsub("_", " ")} (#{@frequency[idx]})", regularity[1]] }, { include_blank: "-- Activity Level --", selected: params.dig(:assessment, :activity_level) }, class: 'col-md-12 form-control' %>      
     </div>
@@ -51,3 +63,7 @@
       <%= f.submit "Submit", class: "btn btn-lg btn-block col-md-10 offset-md-1", style: "background:#82B937;" %>
   </div>
 <% end %>
+
+<div style="margin-top:5em;">
+  <%= render 'call_to_action' %>
+</div>

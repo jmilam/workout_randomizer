@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_18_130725) do
+ActiveRecord::Schema.define(version: 2019_11_07_175122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,13 +34,6 @@ ActiveRecord::Schema.define(version: 2019_10_18_130725) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "blogs", force: :cascade do |t|
-    t.string "title"
-    t.text "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -77,6 +70,15 @@ ActiveRecord::Schema.define(version: 2019_10_18_130725) do
     t.boolean "band", default: false
     t.boolean "timed_exercise", default: false
     t.integer "time_by_minutes", default: 30
+  end
+
+  create_table "fitness_classes", force: :cascade do |t|
+    t.integer "gym_id"
+    t.string "name"
+    t.integer "duration"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "goals", force: :cascade do |t|

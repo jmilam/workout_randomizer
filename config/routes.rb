@@ -30,8 +30,6 @@ Rails.application.routes.draw do
   get 'wod/new', to: 'wod#new', as: 'new_wod'
   post 'wod/create', to: 'wod#create', as: 'create_wod'
 
-  get 'blog/index', to: 'blog#index'
-
   get 'home/blog', to: 'home#blog', as: 'blog'
   get 'home/assessment', to: 'home#assessment', as: 'assessment'
   get 'goal/index', to: 'goal#index', as: 'goal'
@@ -57,6 +55,8 @@ Rails.application.routes.draw do
   get 'exercise/get_all_for_workout_group/:id', to: 'exercise#get_all_for_workout_group', as: 'exercises_by_workout_group'
   
   post 'user/more_info', to: 'user#more_info', as: 'more_info'
+
+  get 'home/ad', to: 'home#ad', as: 'home_ad'
   # root to: 'profile#index'
   root to: 'home#index'
 end

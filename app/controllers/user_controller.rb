@@ -14,6 +14,7 @@ class UserController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.not_a_robot = true
     @user.password = params[:user][:pin]
     @user.gym = current_user.gym
 

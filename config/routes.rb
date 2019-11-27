@@ -57,6 +57,8 @@ Rails.application.routes.draw do
   post 'user/more_info', to: 'user#more_info', as: 'more_info'
 
   get 'home/ad', to: 'home#ad', as: 'home_ad'
+
+  post 'user_note/create', to: 'user_note#create', as: 'create_user_note'
   # root to: 'profile#index'
   root to: 'home#index'
 end

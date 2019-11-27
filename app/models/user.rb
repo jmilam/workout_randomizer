@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :goals
   has_many :measurements
+  has_many :user_notes
   accepts_nested_attributes_for :measurements
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -15,8 +16,8 @@ class User < ApplicationRecord
 
   validates :gym_id, :email, presence: true
   validates :password, presence: true, on: :create
-
   validates :email, uniqueness: true
+  validate :validate_not_a_robot
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "avatar-placeholder.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
@@ -99,5 +100,10 @@ class User < ApplicationRecord
   def current_workout_name
     workout = Workout.find_by(id: current_workout)
     workout.nil? ? 'No Current Workout' : workout.name
+  end
+
+  def validate_not_a_robot
+    return if not_a_robot
+    errors.add(:user, "cannot be a robot")
   end
 end

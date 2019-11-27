@@ -6,6 +6,9 @@
         <li class='nav-item nav-li'><a class='nav-link' id='measurements-tab' data-toggle='tab' href='#measurements' role='tab' aria-controls='measurements' aria-selected='true'>User Measurements</a></li>
         <li class='nav-item nav-li'><a class='nav-link' id='goals-tab' data-toggle='tab' href='#goals' role='tab' aria-controls='goals' aria-selected='true'>User Goals</a></li>
         <li class='nav-item nav-li'><a class='nav-link' id='inbox-tab' data-toggle='tab' href='#inbox' role='tab' aria-controls='inbox' aria-selected='true'>User Messages</a></li>
+        <% if @user.gym.admin_ids.include?(@user.id.to_s) %>
+          <li class='nav-item nav-li'><a class='nav-link' id='user-notes-tab' data-toggle='tab' href='#user-notes' role='tab' aria-controls='user-notes' aria-selected='true'>User Notes</a></li>
+        <% end %>
       </ul>
     </div>
     <div class="col-md-10" style="padding-top:20px;">
@@ -245,6 +248,36 @@
             </table>
         </div>
         <div class="tab-pane fade show" id='inbox' role='tabpanel' aria-labelledby="inbox">
+        </div>
+        <div class="tab-pane fade show" id='user-notes' role='tabpanel' aria-labelledby="user-notes">
+          <%= form_for :user_note, url: create_user_note_path, method: :post do |f| %>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-12 form-group">
+                <%= f.hidden_field :user_id, value: @user.id %>
+                <%= f.label :note, "Note about user" %>
+                <%= f.text_area :note, placeholder: "Please enter any notes to know about the user or a users workout.", class: "form-control" %>
+              </div>
+            </div>
+
+            <%= f.submit "Add Note", class: "btn btn-block workout-btn" %>
+          <% end %>
+
+          <table class="table" style="margin-top:20px;">
+              <thead>
+                <tr class="workout-background">
+                  <td colspan="3" class="text-center">Previous Notes</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @user.user_notes.each do |user_note| %>
+                  <tr>
+                    <td><%= user_note.note %></td>
+                    <td><%= user_note.created_at.strftime("%m/%d/%Y") %>
+                    <td><%#= link_to "Delete", delete_goal_path(goal.id), method: :delete, data: { confirm: 'Are you suer you want to delete this goal?' } %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
         </div>
       </div>
     </div>

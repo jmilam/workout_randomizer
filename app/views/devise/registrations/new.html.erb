@@ -1,4 +1,6 @@
-<%#= render "partials/alert" %>
+<div class="container">
+  <%= render "partials/alert" %>
+</div>
 <div class="row">
   <div class="col-md-10 col-10 offset-1">
     <%= form_for @user, url: user_registration_path do |f| %>
@@ -26,8 +28,15 @@
                 <%= f.label 'Select Boomslang Fitness if your gym isn\'t on here', class: 'text-muted text-center' %>
               </div>
             </div>
-
-            <%= f.submit "Create User", class: "btn btn-lg btn-block btn-standard" %>
+            <div class="row">
+              <div class="col-md-2 col-sm-2 col-6 form-group text-center">
+                <%= f.label :not_a_robot, "Not a robot", class: 'col-md-12 col-sm-12 col-12 text-center' %>
+                <%= f.check_box :not_a_robot, {}, true, false %>
+              </div>
+              <div class="col-md-10 col-sm-10 col-6 form-group">
+                <%= f.submit "Create User", class: "btn btn-lg btn-block btn-standard" %>
+              </div>
+            </div>
           </div>
         </div>
 

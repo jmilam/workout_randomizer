@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    @user = User.new(email: params.dig(:user, :email))
+    @user = User.new(email: params.dig(:user, :email), not_a_robot: false)
     @regularity = User.regularities
     @goals = User.goals
     @gyms = Gym.all
@@ -18,6 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+
     begin
       @user = User.new(user_sign_up_params)
 
@@ -34,7 +35,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         @user.errors.messages.each do |key, value|
           next if key.to_s.include?('gym_id')
-          error_message << "* #{key.capitalize} "
+          error_message << "* #{key.capitalize}"
 
           value.each do |val|
             error_message << "#{val}\n"
@@ -84,7 +85,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def user_sign_up_params
     params.require(:user).permit(:first_name, :last_name, :height, :weight, :username, :password,
-                                 :phone_number, :email, :regularity_id, :goal_id, :gym_id, :pin, :trainer)
+                                 :phone_number, :email, :regularity_id, :goal_id, :gym_id, :pin, :trainer,
+                                 :not_a_robot)
   end
 
   # If you have extra params to permit, append them to the sanitizer.

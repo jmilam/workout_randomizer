@@ -138,7 +138,7 @@
 				<% if idx.even? %>
 					<div class="row">
 				<% end %>
-					<div class="col-md-6 col-12">
+					<div class="<%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12'%> col-12">
 						<div class="row workout-background" style="border-bottom:1px solid black;margin-bottom:1px;padding-bottom:5px">
 							<div class="<%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12' %>">
 								<div style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
@@ -235,13 +235,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6 col-12">
-						<% if exercise.clip.attached? %>
+					<% if exercise.clip.attached? %>
+						<div class="col-md-6 col-12">
 							<div class="col-md-6" style="background-color:black;">
     						<%= video_tag url_for(exercise.clip), controls: '', style: 'height:400px;width:100%' %>
     					</div>
-    				<% end %>
-					</div>
+						</div>
+  				<% end %>
 				<% if idx.odd? %>
 					</div>
 				<% end %>

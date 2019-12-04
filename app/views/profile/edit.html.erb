@@ -6,7 +6,7 @@
         <li class='nav-item nav-li'><a class='nav-link' id='measurements-tab' data-toggle='tab' href='#measurements' role='tab' aria-controls='measurements' aria-selected='true'>User Measurements</a></li>
         <li class='nav-item nav-li'><a class='nav-link' id='goals-tab' data-toggle='tab' href='#goals' role='tab' aria-controls='goals' aria-selected='true'>User Goals</a></li>
         <li class='nav-item nav-li'><a class='nav-link' id='inbox-tab' data-toggle='tab' href='#inbox' role='tab' aria-controls='inbox' aria-selected='true'>User Messages</a></li>
-        <% if @user.gym.admin_ids.include?(@user.id.to_s) %>
+        <% if current_user.gym.admin_ids.include?(@user.id.to_s) || @user.trainer_id == current_user.id %>
           <li class='nav-item nav-li'><a class='nav-link' id='user-notes-tab' data-toggle='tab' href='#user-notes' role='tab' aria-controls='user-notes' aria-selected='true'>User Notes</a></li>
         <% end %>
       </ul>

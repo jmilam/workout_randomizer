@@ -19,9 +19,13 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12 col-sm-12 form-group">
+      <div class="col-md-10 col-sm-10 form-group">
         <%= f.label :category_id, "Category", class: 'col-md-12' %>
         <%= f.select :category_id, @categories.collect {|category| [ category.name, category.id ] }, { prompt: "--- Please select Category ---" }, class: 'col-md-12 form-control' %>
+      </div>
+      <div class="col-md-2 col-sm-2 form-group">
+        <%= f.label :user_default, "Default workout?", class: 'col-md-12' %>
+        <%= f.check_box :user_default, {}, true, false %>
       </div>
     </div>
 

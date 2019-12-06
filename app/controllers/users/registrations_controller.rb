@@ -21,6 +21,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     begin
       @user = User.new(user_sign_up_params)
+      p @user.gym.workouts
+      default_workout = @user.gym.workouts.find_by(user_default: true)
+      @user.current_workout = default_workout&.id
 
       if @user.save
         Inbox.create(user_id: @user.id)

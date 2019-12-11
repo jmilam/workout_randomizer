@@ -21,7 +21,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     begin
       @user = User.new(user_sign_up_params)
-      p @user.gym.workouts
       default_workout = @user.gym.workouts.find_by(user_default: true)
       @user.current_workout = default_workout&.id
 
@@ -30,8 +29,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         sign_in @user
 
         UserMailer.with(user: @user).welcome_email.deliver_now
-        flash[:notice] = "Please fill out remainder of information and get started working out."
-        redirect_to edit_profile_path(@user.id)
+        flash[:notice] = "Please fill out remainder of information and get started working out. Click on image placeholder to complete all user information or click Start Workout to get started now."
+        redirect_to profile_index_path
       else
         error_message = ''
         error_message = error_message.dup

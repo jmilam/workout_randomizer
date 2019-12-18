@@ -1,0 +1,57 @@
+<section class="call-to-action text-white text-center">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h2 class="mb-4">Baseline Measurement for Target Heart Rate Calculator</h2>
+        <p class="lead mb-0">
+          If you are able to know your target heart rate, track it during workouts and maintain it throughout the workout, you will be able to optimize your bodies potential during and after your workout.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= form_for :target_heart_rate, url: target_heart_rate_calculator_path, method: :get do |f| %>
+  <div class="container" style="margin-top:3em;margin-left:auto;margin-right:auto">
+    <div class="card">
+      <div class="card-header" style="background:#82B937;text-align:center;">
+        Calculate Resting Heart Rate
+      </div>
+      <div class="card-body bg-dark" style="color:white;">
+        <% unless @target_hr.nil? %>
+          <div class="conatiner">
+            <div class="jumbotron col-md-10 offset-md-1" style="margin-top:2em;">
+              <div class='text-center'>
+                <p class="lead mb-0" style="color:black;">
+                  Your target heart rate based off of your age and resting heart rate you should work towards is <b><%= @target_hr %></b>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="row">
+          <div class="col-md-4 offset-md-4">
+            <%= f.label :resting_hr, "Resting Heart Rate(Beats Per Minute)", class: 'col-md-12' %>
+            <%= f.number_field :resting_hr, value: params.dig(:target_heart_rate, :resting_hr), class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 offset-md-4">
+            <%= f.label :age, class: 'col-md-12' %>
+            <%= f.select :age, (1..99).collect { |value| [value, value] }, { include_blank: '-- Select Age --', selected: params.dig(:target_heart_rate, :age) }, class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 offset-md-4">
+            <%= f.submit "Submit", class: "btn btn-lg btn-block", style: "background:#82B937;" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div style="margin-top:5em;">
+  <%= render 'call_to_action' %>
+</div>

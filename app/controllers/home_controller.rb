@@ -33,4 +33,8 @@ class HomeController < ApplicationController
     @bmi = User.calculate_bmi(params.dig(:assessment, :weight).to_i, params.dig(:assessment, :height).to_i)
     @bmi_status = User.bmi_status(@bmi)
   end
+
+  def target_heart_rate_calculator
+    @target_hr = User.calculate_target_hr(params.dig(:target_heart_rate, :age), params.dig(:target_heart_rate, :resting_hr)) unless params[:target_heart_rate].nil?
+  end
 end

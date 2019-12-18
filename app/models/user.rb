@@ -73,6 +73,10 @@ class User < ApplicationRecord
     end
   end
 
+  def self.calculate_target_hr(age, resting_hr)
+    (((220 - age.to_i - resting_hr.to_i) * 0.7) + resting_hr.to_i).to_i
+  end
+
   def bmi_status(bmi)
     if bmi < 18.5
       'yellow'

@@ -42,35 +42,33 @@
             </div>
 
             <div class="row">
-              <div class="col-md-12 col-sm-12 form-group">
+              <div class="col-md-6 col-sm-6 form-group">
                 <%= f.label :regularity_id, class: 'col-md-12' %>
                 <%= f.select :regularity_id, @regularity.collect { |key, regularity| [regularity,key] }, { prompt: "How often do you workout?", selected: "#{@user.regularity_id}week" }, class: 'col-md-12 form-control' %>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12 col-sm-12 form-group">
+              <div class="col-md-6 col-sm-6 form-group">
                 <%= f.label :goal_id, class: 'col-md-12' %>
                 <%= f.select :goal_id, @goals.collect { |key, goal| [goal,key] }, { prompt: "Select Goal" }, class: 'col-md-12 form-control' %>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12 col-sm-12 form-group">
-                <%= f.label :gym_id, class: 'col-md-12' %>
-                <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12 col-sm-12 form-group">
+              <div class="col-md-6 col-sm-6 form-group">
                 <%= f.label :current_workout, class: 'col-md-12' %>
                 <%= f.select :current_workout, @workouts.collect { |group| [group.name, group.id] }, { prompt: "Select A Workout, see details on Workout tab", selected: @user.current_workout }, class: 'col-md-12 form-control' %>
               </div>
+               <div class="col-md-6 col-sm-6 form-group">
+                <%= f.label :current_workout_group, class: 'col-md-12' %>
+                <%= f.select :current_workout_group, @workout_groups.collect { |group| [group.name, group.id] }, { prompt: "Select A Workout Group", selected: @user.current_workout_group }, class: 'col-md-12 form-control' %>
+              </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12 col-sm-12 form-group">
+              <div class="col-md-6 col-sm-6 form-group">
+                <%= f.label :gym_id, class: 'col-md-12' %>
+                <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
+              </div>
+              <div class="col-md-6 col-sm-6 form-group">
                 <%= f.label :trainer_id, class: 'col-md-12' %>
                 <%= f.select :trainer_id, @trainers.collect { |trainer| ["#{trainer.first_name} #{trainer.last_name}", trainer.id] }, { prompt: "Select Your Trainer" }, class: 'col-md-12 form-control' %>
               </div>

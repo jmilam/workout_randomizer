@@ -75,7 +75,8 @@ class ProfileController < ApplicationController
     @goals = User.goals
     @gyms = Gym.all.includes(:users)
     @trainers = @user.gym.users.trainers
-    @workouts = Workout.all
+    @workouts = @user.gym.workouts
+    @workout_groups = @user.gym.workout_groups
   end
 
   def update
@@ -93,7 +94,7 @@ class ProfileController < ApplicationController
 
   def workout_params
     params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :trainer_id,
-                                 :gym_id, :current_workout, :avatar, :medical_concerns,
+                                 :gym_id, :current_workout, :avatar, :medical_concerns, :current_workout_group,
         measurements_attributes: [:upper_arm, :chest, :waist, :hip, :thigh, :calf, :wrist, :forearm, :left_tricep, :right_tricep,
       :subscapular, :abdominal, :mid_thigh, :inside_calf, :pec, :left_bicep, :right_bicep, :suprailiac])
   end

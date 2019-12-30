@@ -83,6 +83,7 @@ class ProfileController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update!(workout_params)
+      @user.update_goals(params[:goal])
       flash[:notice] = 'User successfully updated'
     else
       flash[:alert] = "Errors on update #{@user.errors}"

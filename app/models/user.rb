@@ -110,4 +110,8 @@ class User < ApplicationRecord
     return if not_a_robot
     errors.add(:user, "cannot be a robot")
   end
+
+  def update_goals(goal)
+    goals.create(comment: goal[:comment])
+  end
 end

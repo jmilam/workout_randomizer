@@ -96,7 +96,7 @@ class KioskController < ApplicationController
       @complete_percent = ((exercise_complete_count / exercise_count) * 100).to_i
       @step_string = "#{exercise_complete_count.to_i} of #{exercise_count.to_i}"
       @exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
-      @button_title = "Next Exercise (#{@step_string})"
+      @button_title = "Next Exercise"
     rescue StandardError => error
       flash[:alert] = "THERE WAS AN ERROR: #{error}"
     end

@@ -134,7 +134,7 @@
 				<% bg_color = Category.style_tags.to_a.sample[1] %>
 				<div class="row">
 					<div class="<%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12'%> col-12">
-						<div class="row" style="background-color:#003259;border-bottom:1px solid white;margin-bottom:1px;padding-bottom:5px">
+						<div class="row" style="background-color:#003259;padding-bottom:5px;margin-bottom:0px;">
 							<div class="container <%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12' %>">
 								<div style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 									<div class="row">
@@ -233,7 +233,7 @@
 					<% if exercise.clip.attached? %>
 						<div class="col-md-6 col-12" style="background-color: #003259;">
 							<div class="col-md-6" style="background-color:black;margin-left: auto;margin-right: auto;">
-    						<%= video_tag url_for(exercise.clip), controls: '', style: 'height:315px;width:100%' %>
+    						<%= video_tag url_for(exercise.clip), controls: '', style: 'height:310px;width:100%' %>
     					</div>
 						</div>
   				<% end %>

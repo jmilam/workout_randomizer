@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_143744) do
+ActiveRecord::Schema.define(version: 2020_01_23_185717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,19 +47,29 @@ ActiveRecord::Schema.define(version: 2019_12_06_143744) do
     t.integer "gym_id"
   end
 
+  create_table "common_equipments", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "common_exercises", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "exercise_circuits", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "exercises", force: :cascade do |t|
-    t.string "name"
     t.text "description"
     t.binary "example"
     t.text "instructions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "workout_group_id"
     t.boolean "warm_up", default: false
     t.string "warm_up_details", default: ""
     t.string "rep_range", default: ""
@@ -70,6 +80,9 @@ ActiveRecord::Schema.define(version: 2019_12_06_143744) do
     t.boolean "band", default: false
     t.boolean "timed_exercise", default: false
     t.integer "time_by_minutes", default: 30
+    t.integer "common_exercise_id", null: false
+    t.integer "common_equipment_id", null: false
+    t.integer "workout_id", null: false
   end
 
   create_table "fitness_classes", force: :cascade do |t|
@@ -191,7 +204,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_143744) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "workout_group_id"
+    t.integer "workout_id"
     t.date "workout_date"
   end
 
@@ -252,12 +265,21 @@ ActiveRecord::Schema.define(version: 2019_12_06_143744) do
     t.integer "rep_6_weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "workout_group_id"
+    t.integer "workout_id"
     t.date "workout_date"
     t.integer "user_id"
     t.integer "user_previous_workout_id"
     t.text "comment", default: ""
     t.string "band_color"
+  end
+
+  create_table "workout_group_pairings", force: :cascade do |t|
+    t.integer "workout_id", null: false
+    t.integer "workout_group_id", null: false
+    t.integer "workout_day", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "gym_id", null: false
   end
 
   create_table "workout_group_specified_days", force: :cascade do |t|

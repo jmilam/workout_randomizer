@@ -1,25 +1,30 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="card col-md-12" style="padding-top:20px;padding-bottom:20px;">
-      <div class="card-header boomslang-green text-center">
-        <div style="color:white;">Select Workout Type</div>
-      </div>
-      <div class="card-body bg-dark" style="margin-bottom:0px">
-        <%= select_tag "filter", options_for_select(User.goals.map { |key, value| [value, key] }.prepend("All")), class: 'form-control' %>
+<div class="row" style="height:100%;">
+    <div class="col-md-3" style="padding-top:20px;background:#003259;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="card col-md-12" style="padding-top:20px;padding-bottom:20px;">
+            <div class="card-header boomslang-green text-center">
+              <div style="color:white;">Select Workout Type</div>
+            </div>
+            <div class="card-body bg-dark" style="margin-bottom:0px">
+              <%= select_tag "filter", options_for_select(User.goals.map { |key, value| [value, key] }.prepend("All")), class: 'form-control' %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <% @workouts.each_with_index do |workout_group, idx| %>
-    <div class="row">
-      <% workout_group.each do |workout| %>
-        <div class="col-md-6 col-sm-12 workout" category="<%= workout.category.id %>">
-          <%= render 'workout_card', workout: workout, editable: true %>
+    <div class="col-md-9" style="padding-top:20px;">
+      <% @workouts.each_with_index do |workout_group, idx| %>
+        <div class="row">
+          <% workout_group.each do |workout| %>
+            <div class="col-md-6 col-sm-12 workout" category="<%= workout.category.id %>">
+              <%= render 'workout_card', workout: workout, editable: true %>
+            </div>
+          <% end %>
         </div>
+        <br/>
       <% end %>
     </div>
-    <br/>
-  <% end %>
 </div>
 
 <script>

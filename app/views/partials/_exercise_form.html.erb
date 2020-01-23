@@ -29,7 +29,7 @@
 										<div class="col-md-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 											<div class="row">
 												<div class="col-md-12 text-center exercise-header">
-													<%= exercise.name %>
+													<%= exercise.common_exercise.name %>
 												</div>
 											</div>
 
@@ -86,11 +86,11 @@
 										<div class="col-md-6">
 											<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
 												<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-												<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
+												<%= workout_detail.hidden_field :workout_id, value: "#{exercise.workout_id}" %>
 												<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}", class: 'workout_detail_date' %>
 
 												<div class="row" style="padding-right:10px;">
-													<% @prev_exercise = @last_workout.where(exercise_id: exercise.id).last %>
+													<% @prev_exercise = nil#@last_workout.where(exercise_id: exercise.id).last %>
 													<% comment_placeholder = @prev_exercise&.comment.blank? ? "Enter exercise comment here..." : @prev_exercise&.comment %>
 											  	<% band_color_placeholder = @prev_exercise&.band_color.blank? ? "Enter Band Color" : @prev_exercise&.band_color %>
 											  	<% col_space = 6 %>

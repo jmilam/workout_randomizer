@@ -1,15 +1,15 @@
 class Workout < ApplicationRecord
   include SharedFunctions
 
-  has_many :workout_groups, dependent: :destroy
-  has_many :user_previous_workouts, through: :workout_groups, source: 'workout_details'
-  has_many :exercises, through: :workout_groups
+  has_many :user_previous_workouts#, through: :workout_groups, source: 'workout_details'
+  has_many :exercises
   has_many :likes
 
   belongs_to :category
   belongs_to :gym
+  has_many :workout_groups, through: :workout_group_pairings
 
-  validates :name, :frequency, presence: true
+  validates :name, presence: true
 
   def self.valid_workout_with_workout_groups(user)
     workout = user.gym.workouts.includes(:exercises)

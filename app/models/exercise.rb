@@ -1,17 +1,15 @@
 class Exercise < ApplicationRecord
-  belongs_to :workout_group
-  # belongs_to :exercise_circuit
+  belongs_to :workout
+  belongs_to :common_exercise 
   has_many :workout_details
   has_one_attached :clip
-
-  validates :name, presence: true
 
   def self.to_word(boolean)
     boolean ? 'Yes' : 'No'
   end
 
-  def self.group_by_circuit(workout_group)
-    exercise_groups = workout_group.exercises
+  def self.group_by_circuit(workout)
+    exercise_groups = workout.exercises
       .sort_by { |exercise| exercise.priority.nil? ? 9999 : exercise.priority }
       .group_by(&:exercise_circuit_id)
 
@@ -25,8 +23,8 @@ class Exercise < ApplicationRecord
     exercise_groups
   end
 
-  def self.get_exercise(user, exercise_groups)
-    exercises_completed = WorkoutDetail.where(workout_date: Date.today.strftime('%Y-%m-%d'), user_id: user.id).map(&:exercise_id)
+  def self.get_exercise(user, exercise_groups, workout_date=Date.today.strftime('%Y-%m-%d'))
+    exercises_completed = WorkoutDetail.where(workout_date: workout_date, user_id: user.id).map(&:exercise_id)
 
     exercise_ids = exercise_groups.values.flatten.map(&:id).delete_if { |exercise_id| exercises_completed.include?(exercise_id) }
 

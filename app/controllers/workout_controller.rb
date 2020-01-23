@@ -29,6 +29,10 @@ class WorkoutController < ApplicationController
   def new
     @workout = Workout.new
     @categories = current_user.gym.categories.enabled
+    @exercises = CommonExercise.all
+    @equipment = CommonEquipment.all
+    @selected_exercises = []
+    @selected_equipment = []
   end
 
   def create
@@ -37,10 +41,19 @@ class WorkoutController < ApplicationController
     @workout.created_by_user_id = current_user.id
 
     begin
+      params[:selected_exercise_ids].split(',').zip(params[:selected_exercises_set_counts].split(','),
+                                                    params[:selected_equipment_ids].split(','),
+                                                    params[:selected_exercises_rep_counts].split(',')).each do |exercise_details|
+
+        @workout.exercises.new(rep_range: exercise_details[3], set_count: exercise_details[1],
+                               common_exercise_id: exercise_details[0].to_i, common_equipment_id: exercise_details[2])
+      end
+
+
       @workout.save!
 
       flash[:notice] = "Workout #{@workout.name} was successfully created. Let's add some exercises now."
-      redirect_to new_workout_group_path(workout_id: @workout.id)
+      redirect_to new_workout_path
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when creating exercise: #{error}"
       render :new
@@ -55,7 +68,8 @@ class WorkoutController < ApplicationController
     @editable = @workout.editable_by_user?(current_user)
     @user_already_liked = !@workout.likes.user_liked_workout(current_user.id, @workout.id).empty?
     @workout_users = User.where(current_workout: @workout.id)
-    @workout_groups = @workout.workout_groups.includes(:exercises)
+    # @workout_groups = @workout.workout_groups.includes(:exercises)
+    @exercises = @workout.exercises.includes(:common_exercise)
   end
 
   def show
@@ -138,14 +152,36 @@ class WorkoutController < ApplicationController
   end
 
   def manual_workout
-    @workouts = Workout.all.includes(:workout_groups, :exercises)
+    @workouts = Workout.all.includes(:exercises)
+    @users = current_user.gym.users
+    @user = current_user
     @workout_groups = []
     @manual_entry = true
+  end
+
+  def add_exercise
+    selected_exercises_ids = params[:selected_exercise_ids]&.split(',') || []
+    selected_exercises_set_counts = params[:selected_exercises_set_counts]&.split(',') || []
+    selected_exercises_rep_counts = params[:selected_exercises_rep_counts]&.split(',') || []
+    selected_equipment_ids = params[:selected_equipment_ids]&.split(',') || []
+
+    @selected_exercises = [{id: params[:exercise_id], name: CommonExercise.find(params[:exercise_id]).name,
+                            set_count: params[:set_count], rep_count: params[:rep_count]}]
+    @selected_equipment = [{id: params[:equipment_id], name: CommonEquipment.find(params[:equipment_id]).name}]
+
+    selected_exercises_ids.each_with_index do |ex_id, idx|
+      @selected_exercises << {id: ex_id, name: CommonExercise.find(ex_id).name, set_count: selected_exercises_set_counts[idx],
+                              rep_count: selected_exercises_rep_counts[idx]}
+    end
+
+    selected_equipment_ids.each do |equip_id|
+      @selected_equipment << {id: equip_id, name: CommonEquipment.find(equip_id).name}
+    end
   end
 
   protected
 
   def workout_params
-    params.require(:workout).permit(:name, :frequency, :category_id, :warm_up_details, :duration, :user_default)
+    params.require(:workout).permit(:name, :category_id)
   end
 end

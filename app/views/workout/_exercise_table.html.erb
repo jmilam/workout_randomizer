@@ -1,0 +1,22 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th />
+			<th>Exercise Name</th>
+			<th>Equipment Name</th>
+			<th>Set Count</th>
+			<th>Rep Count</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @selected_exercises.zip(@selected_equipment).each_with_index do |config, idx| %>
+			<tr>
+				<td><%= idx + 1 %></td>
+			  <td><%= config[0][:name] %></td>
+			  <td><%= config[1][:name] %></td>
+			  <td><%= config[0][:set_count] %></td>
+			  <td><%= config[0][:rep_count] %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

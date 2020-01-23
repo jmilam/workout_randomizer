@@ -67,8 +67,8 @@ class ExerciseController < ApplicationController
         end
       end
 
-      flash[:notice] = "Exercise #{@exercise.name} was successfully updated."
-      redirect_to edit_workout_path(@exercise.workout_group.workout.id)
+      flash[:notice] = "Exercise #{@exercise.common_exercise.name} was successfully updated."
+      redirect_to edit_workout_path(@exercise.workout.id)
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when updating exercise: #{error}"
       render :edit
@@ -93,10 +93,12 @@ class ExerciseController < ApplicationController
   end
 
   def get_all_for_workout_group
-    @workout_group = WorkoutGroup.find(params[:id])
-    @exercise_groups = Exercise.group_by_circuit(@workout_group)
-    @exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
-    @last_workout = @workout_group.workout_details.where(user_id: current_user.id) unless @workout_group.nil?
+    p "GET EM"
+    @workout = Workout.find(params[:id])
+    @user = User.find(params[:user_id])
+    @exercise_groups = Exercise.group_by_circuit(@workout)
+    @exercise_group = Exercise.get_exercise(@user, @exercise_groups, params[:workout_date])
+    # @last_workout = @workout.workout_details.where(user_id: current_user.id) unless @workout.nil?
     @manual_entry = true
 
     @button_title = "Submit Exercise Details"

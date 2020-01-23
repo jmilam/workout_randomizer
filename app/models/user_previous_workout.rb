@@ -1,12 +1,12 @@
 class UserPreviousWorkout < ApplicationRecord
   belongs_to :user
-  belongs_to :workout_group
+  belongs_to :workout
 
-  has_many :exercises, through: :workout_group
+  has_many :exercises, through: :workout
   has_many :workout_details
 
   validates :workout_date, presence: true
-  validates :workout_group_id, presence: true
+  validates :workout_id, presence: true
 
   def self.for_google_charts(grouped_workouts)
     workout_stats = {}

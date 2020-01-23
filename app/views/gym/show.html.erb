@@ -8,6 +8,7 @@
 			  <li class='nav-item nav-li'><a class='nav-link' id='popup-workout-tab' data-toggle='tab' href='#popup-workout' role='tab' aria-controls='popup-workout' aria-selected='true'>Daily Popup Workouts</span></a></li>
 			  <li class='nav-item nav-li'><a class='nav-link' id='categories-tab' data-toggle='tab' href='#categories' role='tab' aria-controls='categories' aria-selected='true'>Categories</span></a></li>
 			  <li class='nav-item nav-li'><a class='nav-link' id='workouts-tab' data-toggle='tab' href='#workouts' role='tab' aria-controls='workouts' aria-selected='true'>Workouts</span></a></li>
+			  <li class='nav-item nav-li'><a class='nav-link' id='workout-groups-tab' data-toggle='tab' href='#workout-groups' role='tab' aria-controls='workout-groups' aria-selected='true'>Workout Groups</span></a></li>
 			</ul>
 		</div>
 		<div class="col-md-9" style="padding-top:20px;">
@@ -92,7 +93,7 @@
 								<% @gym.kiosks.each do |kiosk| %>
 									<tr>
 										<td><%= kiosk.kiosk_number %></td>
-										<td style="color: #101216"><i><%= Exercise.find(kiosk.exercise_id).name %></i></td>
+										<td style="color: #101216"><i><%= Exercise.find(kiosk.exercise_id).common_exercise.name %></i></td>
 									</tr>
 								<% end %>
 							</tbody>
@@ -239,6 +240,28 @@
 									<tr>
 										<td><%= workout.name %></td>
 										<td><%= link_to "Edit", edit_workout_path(workout.id) %></td>
+									</tr>
+								<% end %>
+							</tbody>
+						</table>
+					</div>
+					<div class="tab-pane fade show" id='workout-groups' role='tabpanel' aria-labelledby='workout-groups'>
+						<%= link_to "New Group Workout", new_workout_group_path, class: "pull-right workout-btn btn", style: "margin-bottom:10px;" %>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Workout Group Name</th>
+									<th></th>
+									<th />
+								</tr>
+							</thead>
+							<tbody>
+								<% @gym.workout_group_pairings.map(&:workout_group).uniq.each do |workout_group| %>
+								<% p workout_group %>
+									<tr>
+										<td><%= workout_group.name %></td>
+										<td><%= link_to "View", edit_workout_group_path(workout_group.id) %></td>
+										<td><%= link_to "Delete", workout_group_path(workout_group.id, gym_id: @gym.id), method: :delete %></td>
 									</tr>
 								<% end %>
 							</tbody>

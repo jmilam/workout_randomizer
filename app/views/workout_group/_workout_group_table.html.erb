@@ -1,0 +1,18 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th />
+			<th>Workout Name</th>
+			<th>Workout Day</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @selected_workouts.each_with_index do |workout, idx| %>
+			<tr>
+				<td><%= idx + 1 %></td>
+				<td><%= workout[:workout_name] %></td>
+				<td><%= workout[:workout_day] %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

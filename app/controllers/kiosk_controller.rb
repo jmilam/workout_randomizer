@@ -29,9 +29,8 @@ class KioskController < ApplicationController
       # find current workout
       @user = current_user
 
-      if params[:workout_group_id]
-        @workout = Workout.find(WorkoutGroup.find(params[:workout_group_id]).workout.id)
-      elsif @user.current_workout.nil?
+
+      if @user.current_workout.nil?
         # Find Workouts matching user designated goals
         workouts_by_matching_goal = @user.gym.workouts.includes(:category).where(categories: {goal_id:  @user.goal_id})
         # Sort workouts by most liked, for best results
@@ -52,14 +51,15 @@ class KioskController < ApplicationController
         workouts_complete = WorkoutDetail
           .where(workout_date: Date.today.beginning_of_week.strftime('%Y-%m-%d')..Date.today.end_of_week.strftime('%Y-%m-%d'),
                  user_id: @user.id)
-          .map(&:workout_group_id)
           .uniq
+          # .map(&:workout_group_id)
 
         if @user.current_workout_group.nil? && WorkoutDetail.where(workout_date: Date.today.strftime('%Y-%m-%d'), user_id: @user.id).empty?
           # Workout Group specified for today?
-          todays_workout = WorkoutGroupSpecifiedDay
-            .where(workout_group_id: Workout.find(User.first.current_workout)&.workout_groups.map(&:id),
-                   workout_day_num: Date.today.wday).last
+          todays_workout = nil
+          # todays_workout = WorkoutGroupSpecifiedDay
+            # .where(workout_group_id: Workout.find(User.first.current_workout)&.workout_groups.map(&:id),
+                   # workout_day_num: Date.today.wday).last
 
 
           if todays_workout.nil?
@@ -97,36 +97,37 @@ class KioskController < ApplicationController
       @step_string = "#{exercise_complete_count.to_i} of #{exercise_count.to_i}"
       @exercise_group = Exercise.get_exercise(current_user, @exercise_groups)
       @button_title = "Next Exercise"
-    rescue StandardError => error
-      flash[:alert] = "THERE WAS AN ERROR: #{error}"
+    # rescue StandardError => error
+    #   flash[:alert] = "THERE WAS AN ERROR: #{error}"
     end
   end
 
   def log_exercise
     WorkoutDetail.transaction do
-      begin
+      # begin
         workout_date = params[:exercises][:workout_date].blank? ? Date.today.in_time_zone :
           params[:exercises][:workout_date]
-        workout_group_id = params[:exercises][:workout_detail].first[:workout_group_id].blank? ?
+          workout_group_id = params[:exercises][:workout_detail].first[:workout_group_id].blank? ?
           current_user.current_workout_group : params[:exercises][:workout_detail].first[:workout_group_id].to_i
-         workout_group = WorkoutGroup.find(workout_group_id)
-         workout = current_user.current_workout.nil? ? workout_group.workout : Workout.find(current_user.current_workout)
+          workout = current_user.current_workout.nil? ? Workout.find(workout_id) : Workout.find(current_user.current_workout)
 
-         reference_exercise = Exercise.find(params[:exercises][:workout_detail].first[:exercise_id])
+          p current_user.user_previous_workouts.find_by(workout_id: workout.id,
+           workout_date: workout_date)
 
          prev_workout = current_user.user_previous_workouts.find_or_create_by!(
-           workout_group_id: reference_exercise.workout_group_id,
+           workout_id: workout.id,
            workout_date: workout_date
          )
 
          params[:exercises][:workout_detail].each do |details|
            next if details['rep_1_weight'].blank?
+
            prev_workout.workout_details.new(details.permit!)
            workout_details = prev_workout.workout_details.create(details.permit!)
            workout_details.update!(user_id: current_user.id)
          end
 
-         exercise_groups = Exercise.group_by_circuit(workout_group)
+         exercise_groups = Exercise.group_by_circuit(workout)
          no_more_exercises = Exercise.get_exercise(current_user, exercise_groups).nil?
          current_user.update(current_workout_group: nil) if no_more_exercises
          flash[:notice] = current_user.current_workout_group.nil? ? 'Great Workout! You completed todays workout!' : 'Exercise Complete'
@@ -146,9 +147,10 @@ class KioskController < ApplicationController
         else
           redirect_to kiosk_exercise_path workout_group_id: workout_group_id
         end
-       rescue StandardError => error
-         flash[:alert] = "There was an error when saving Workout Details #{error}"
-       end
+       # rescue StandardError => error
+
+       #   flash[:alert] = "There was an error when saving Workout Details #{error}"
+       # end
     end
   end
 

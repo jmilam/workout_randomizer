@@ -23,7 +23,7 @@ class GymController < ApplicationController
 
     kiosk_exercise_ids = @gym.kiosks.map(&:exercise_id)
 
-    @exercises = @gym.exercises.map { |exercise| [exercise.name, exercise.id] unless kiosk_exercise_ids.include?(exercise.id) }
+    @exercises = CommonExercise.all.map { |exercise| [exercise.name, exercise.id] unless kiosk_exercise_ids.include?(exercise.id) }
                      .delete_if(&:nil?)
 
     @popup_workouts = Wod.where(gym_id: @gym.id).order(:workout_date)

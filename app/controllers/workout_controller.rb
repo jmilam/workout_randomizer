@@ -29,8 +29,8 @@ class WorkoutController < ApplicationController
   def new
     @workout = Workout.new
     @categories = current_user.gym.categories.enabled
-    @exercises = CommonExercise.all
-    @equipment = CommonEquipment.all
+    @exercises = CommonExercise.all.order(:name)
+    @equipment = CommonEquipment.all.order(:name)
     @selected_exercises = []
     @selected_equipment = []
   end

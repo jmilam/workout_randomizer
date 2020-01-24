@@ -1,68 +1,83 @@
 <%= render "partials/alert" %>
-<div class="container">
-  <div class="card">
-    <div class="card-header boomslang-green">
-      Add Exercises To Workout <strong>Step #1</strong>
-    </div>
-    <div class="card-body">
-      <%= form_tag :add_exercise, method: :put, remote: true do |f| %>
-        <%= hidden_field_tag :selected_exercise_ids, [], class: 'selected_exercise_ids_field' %>
-        <%= hidden_field_tag :selected_exercises_set_counts, [], class: 'selected_exercise_set_counts_field' %>
-        <%= hidden_field_tag :selected_exercises_rep_counts, [], class: 'selected_exercise_rep_counts_field' %>
-        <%= hidden_field_tag :selected_equipment_ids, [], class: 'selected_equipment_ids_field' %>
-        <div id="exercise_table">
-        </div>
-        <div class="row">
-          <div class="col-md-3 col-sm-12 form-group">
-            <%= label_tag :exercise_id, "Exercise", class: 'col-md-12' %>
-            <%= select_tag :exercise_id, options_from_collection_for_select(@exercises, "id", "name"), prompt: "--- Please select an exercise ---", class: 'col-md-12 form-control' %>
+<div class="row" style="height:100%;">
+    <div class="col-md-3" style="padding-top:20px;background:#003259;color:white;">
+      <div class="col-md-12">
+        <div class="card bg-secondary">
+          <div class="card-body" style="margin-top:1em;">
+            Select exercise, equipment, and set rep and set counts to add to your workout before creating it.
           </div>
-          <div class="col-md-3 col-sm-12 form-group">
-              <%= label_tag :equipment_id, "Equipment", class: 'col-md-12' %>
-              <%= select_tag :equipment_id, options_from_collection_for_select(@equipment, "id", "name") , prompt: "--- Please select an equipment ---", class: 'col-md-12 form-control' %>
-          </div>
-          <div class="col-md-2 col-sm-12 form-group">
-            <%= label_tag :set_count, "Sets Count", class: 'col-md-12' %>
-            <%= select_tag :set_count, options_for_select(1..10, 3), prompt: "--- How Many Sets? ---", class: 'col-md-12 form-control' %>
-          </div>
-          <div class="col-md-2 col-sm-12 form-group">
-            <%= label_tag :rep_count, "Rep Count", class: 'col-md-12' %>
-            <%= text_field_tag :rep_count, '10-12', placeholder: "10-12", class: 'col-md-12 form-control' %>
-          </div>
-          <div class="col-md-2 col-sm-12 form-group" style="margin-top:2em;">
-            <%= submit_tag "Add Exercise", class: 'btn workout-btn' %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header boomslang-green">
-      Workout Details <strong>Step #2</strong>
-    </div>
-    <div class="card-body">
-      <%= form_for @workout, url: workout_index_path, method: :post do |f| %>
-        <%= hidden_field_tag :selected_exercise_ids, [], class: 'selected_exercise_ids_field' %>
-        <%= hidden_field_tag :selected_exercises_set_counts, [], class: 'selected_exercise_set_counts_field' %>
-        <%= hidden_field_tag :selected_exercises_rep_counts, [], class: 'selected_exercise_rep_counts_field' %>
-        <%= hidden_field_tag :selected_equipment_ids, [], class: 'selected_equipment_ids_field' %>
-
-       <div class="row">
-        <div class="col-md-12 col-sm-12 form-group">
-          <%= f.label :name, class: 'col-md-12' %>
-          <%= f.text_field :name, class: 'col-md-12 form-control' %>
-        </div>
-       </div>
-
-      <div class="row">
-        <div class="col-md-12 col-sm-12 form-group">
-          <%= f.label :category_id, "Category", class: 'col-md-12' %>
-          <%= f.select :category_id, @categories.collect {|category| [ category.name, category.id ] }, { prompt: "--- Please select Category ---" }, class: 'col-md-12 form-control' %>
         </div>
       </div>
-
-      <%= f.submit "Create Workout", class: 'btn btn-lg btn-block workout-btn', style: 'margin-bottom:2em;' %>
-      <% end %>
+      <div class="col-md-12" style="padding-top:2em;">
+      <%= form_tag :add_exercise, method: :put, remote: true do |f| %>
+            <%= hidden_field_tag :selected_exercise_ids, [], class: 'selected_exercise_ids_field' %>
+            <%= hidden_field_tag :selected_exercises_set_counts, [], class: 'selected_exercise_set_counts_field' %>
+            <%= hidden_field_tag :selected_exercises_rep_counts, [], class: 'selected_exercise_rep_counts_field' %>
+            <%= hidden_field_tag :selected_equipment_ids, [], class: 'selected_equipment_ids_field' %>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 form-group">
+                <%= label_tag :exercise_id, "Exercise", class: 'col-md-12' %>
+                <%= select_tag :exercise_id, options_from_collection_for_select(@exercises, "id", "name"), prompt: "--- Please select an exercise ---", class: 'col-md-12 form-control' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 form-group">
+                  <%= label_tag :equipment_id, "Equipment", class: 'col-md-12' %>
+                  <%= select_tag :equipment_id, options_from_collection_for_select(@equipment, "id", "name") , prompt: "--- Please select an equipment ---", class: 'col-md-12 form-control' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 form-group">
+                <%= label_tag :set_count, "Sets Count", class: 'col-md-12' %>
+                <%= select_tag :set_count, options_for_select(1..10, 3), prompt: "--- How Many Sets? ---", class: 'col-md-12 form-control' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 form-group">
+                <%= label_tag :rep_count, "Rep Count", class: 'col-md-12' %>
+                <%= text_field_tag :rep_count, '10-12', placeholder: "10-12", class: 'col-md-12 form-control' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 form-group" style="margin-top:2em;">
+                <%= submit_tag "Add Exercise", class: 'btn workout-btn btn-block' %>
+              </div>
+            </div>
+          <% end %>
+      </div>
     </div>
-  </div>
+    <div class="col-md-9" style="padding-top:20px;">
+    <div class="container">
+      <div id="exercise_table">
+      </div>
+      <div class="card">
+        <div class="card-header boomslang-green text-center" style="color:white;">
+          <h5>Workout Details</h5>
+        </div>
+        <div class="card-body">
+          <%= form_for @workout, url: workout_index_path, method: :post do |f| %>
+            <%= hidden_field_tag :selected_exercise_ids, [], class: 'selected_exercise_ids_field' %>
+            <%= hidden_field_tag :selected_exercises_set_counts, [], class: 'selected_exercise_set_counts_field' %>
+            <%= hidden_field_tag :selected_exercises_rep_counts, [], class: 'selected_exercise_rep_counts_field' %>
+            <%= hidden_field_tag :selected_equipment_ids, [], class: 'selected_equipment_ids_field' %>
+
+           <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+              <%= f.label :name, class: 'col-md-12' %>
+              <%= f.text_field :name, class: 'col-md-12 form-control' %>
+            </div>
+           </div>
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+              <%= f.label :category_id, "Category", class: 'col-md-12' %>
+              <%= f.select :category_id, @categories.collect {|category| [ category.name, category.id ] }, { prompt: "--- Please select Category ---" }, class: 'col-md-12 form-control' %>
+            </div>
+          </div>
+
+          <%= f.submit "Create Workout", class: 'btn btn-lg btn-block workout-btn', style: 'margin-bottom:2em;' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
 </div>

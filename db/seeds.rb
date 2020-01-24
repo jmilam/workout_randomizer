@@ -7,7 +7,7 @@ lose_weight = gym.categories.create!(name: "Lose Weight", goal_id: User.goals.ke
 chest_exercises = ["Flat Chest Press", "Incline Chest Press", "Decline Chest Press", "Chest Fly", "Overhead Pull", "Pushup"]
 back_exercises = ["Sitting Row", "Bent Over Row", "Pulldown", "Pull up", "Back Fly", "Chin Up", "Inverted Row", "Lat Raise", "Shrugs", "Deadlift", "Sled Pull"]
 bicep_exercises = ["Preacher Curl", "Alternating Curl", "Inclined Curl", "21's", "Hammer Curl", "Outside Curl", "Standard Curl"]
-shoulder_exercises = ["Military Press", "Lateral Raise", "Front Raise", "Upright Rows", "Face Pull", "Around The World", "Swings", "Rotator Rotation"]
+shoulder_exercises = ["Military Press", "Lateral Raise", "Front Raise", "Upright Rows", "Face Pull", "Around The World", "Swings", "Rotator Rotation", "Shoulder Drag"]
 tricep_exercises = ["Push Down", "Kickback", "Dips", "Close Grip Press", "Overhead Press", "Skull Crusher"]
 leg_exercises = ["Standard Squat", "Leg Press", "Calf Raise", "Lunge", "Sled Push", "Leg Curl", "Leg Extension", "Calf Press", "Reverese Lunge", "Side Lunge", "Goblit Squat", "Sumo Squat"]
 
@@ -15,7 +15,7 @@ chest_exercises.concat(back_exercises, bicep_exercises, shoulder_exercises, tric
   CommonExercise.create!(name: exercise)
 end
 
-equipment = ["Cable", "Barbell", "Dumbbell", "Kettlebell", "Band", "Rope", "Sled", "Pull Up Bar", "Dip Bar", "Box", "Curl Bar", "Hex Bar"]
+equipment = ["Cable", "Barbell", "Dumbbell", "Kettlebell", "Band", "Rope", "Sled", "Pull Up Bar", "Dip Bar", "Box", "Curl Bar", "Hex Bar", "SandBag"]
 
 equipment.each do |equip|
   CommonEquipment.create!(name: equip)

@@ -13,7 +13,7 @@
 				<%= date_field_tag :workout_date, {}, {value: Date.today, class: "form-control col-10 offset-1"} %>
 			</div>
 			<div class="row">
-					<%= select_tag :user, options_from_collection_for_select(@users, :id, "#{:last_name}", @user.id), prompt: "Select User", class: "form-control col-10 offset-1" %>
+					<%= select_tag :user, options_for_select(@users.collect{ |u| ["#{u.first_name} #{u.last_name}", u.id] }, @user.id), prompt: "Select User", class: "form-control col-10 offset-1" %>
 			</div>
 		</div>
 	</div>
@@ -31,7 +31,7 @@
 		$('#exercises_workout_date').val($(this).val());
 	});
 
-	$('#workout, #workout_date', '#user').on('change', function(){
+	$('#workout, #workout_date, #user').on('change', function(){
 		$.ajax({
 		  dataType: 'script',
 		  type: 'GET',

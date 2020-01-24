@@ -8,7 +8,7 @@ class Workout < ApplicationRecord
   belongs_to :category
   belongs_to :gym
   has_many :workout_groups, through: :workout_group_pairings
-
+  has_many :workout_details
   validates :name, presence: true
 
   def self.valid_workout_with_workout_groups(user)
@@ -50,5 +50,9 @@ class Workout < ApplicationRecord
       user = User.find_by(id: created_by_user_id)
       "Created By: #{user.first_name} #{user.last_name}"
     end
+  end
+
+  def user_worked_out_today?
+    !user_previous_workouts.where(workout_date: Date.today).empty?
   end
 end

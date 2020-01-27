@@ -44,7 +44,7 @@
 			<% @exercise_groups.each do |key, exercise_group| %>
 					<% exercise_group.each_with_index do |exercise, idx| %>
 						<% bg_color = Category.style_tags.to_a.sample[1] %>
-								<div class="row bg-dark">
+								<div class="row boomslang-green">
 									<div class="<%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12' %>">
 										<div class="col-md-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 											<div class="row">

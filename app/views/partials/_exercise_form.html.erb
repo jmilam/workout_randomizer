@@ -18,9 +18,11 @@
 		<%= f.hidden_field :workout_date, value: Date.today %>
 		<%= f.hidden_field :manual_entry, value: @manual_entry %>
 		<%= f.hidden_field :user_id, value: @user.id %>
-		<div class="boomslang-green" style="padding-top:20px;padding-bottom:20px;color:#003259;text-align:center;margin-top:auto;margin-bottom:10px;height:100%;margin-left:-15px;">
-			<h4>Exercises Completed <%= @step_string %></h4>
-		</div>
+		<% unless @manual_entry %>
+			<div class="boomslang-green" style="padding-top:20px;padding-bottom:20px;color:#003259;text-align:center;margin-top:auto;margin-bottom:10px;height:100%;margin-left:-15px;">
+				<h4>Exercises Completed <%= @step_string %></h4>
+			</div>
+		<% end %>
 		<div  class="jumboton">
 			<div class="container-fluid">
 				<div class="row">
@@ -259,9 +261,9 @@
 			<% end %>
 			<div class="row boomslang-green" style="padding-top: 15px;padding-bottom: 15px;margin-top: -10px;">
 				<% unless @manual_entry %>
-						<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block col-md-5 offset-md-1", style: "margin-top:auto;;height:75px;padding-top:20px;background-color:transparent;color:black;" %> 
+						<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block col-md-5 offset-md-1", style: "margin-top:auto;;height:75px;padding-top:20px;background-color:transparent;color:#003259;" %> 
 				<% end %>
-				<%= f.submit @button_title, class: "btn btn-lg btn-block col-md-4 offset-md-1", style: "background-color:transparent;height:75px;" %>
+				<%= f.submit @button_title, class: "btn btn-lg btn-block col-md-4 offset-md-1", style: "background-color:transparent;height:75px;color:#003259;" %>
 			</div>
 		<% end %>
 	<% end %>

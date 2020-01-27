@@ -90,6 +90,7 @@ class KioskController < ApplicationController
       #     return
       #   end
       # end
+
       @last_workout = @workout.workout_details.where(user_id: @user.id) unless @workout.nil?
       @exercise_groups = Exercise.group_by_circuit(@workout)
       exercise_complete_count = @workout.workout_details.where(workout_date: Date.today.strftime('%Y-%m-%d')).count.to_f
@@ -106,7 +107,7 @@ class KioskController < ApplicationController
 
   def log_exercise
     WorkoutDetail.transaction do
-      # begin
+      begin
         user_id = params.dig(:exercises, :user_id)
         user = user_id.blank? ? current_user : User.find(user_id)
 
@@ -141,17 +142,17 @@ class KioskController < ApplicationController
             message_group.messages.create!(detail: "Saw you got your workout in today, any problem areas I can help with?",
                                        user_id: trainer.id)
           end
-        if params[:exercises][:workout_detail].first[:workout_group_id].blank?
+        if params[:exercises][:workout_detail].first[:workout_id].blank?
           redirect_to kiosk_exercise_path
         elsif params[:exercises][:manual_entry] == "true"
           redirect_to manual_workout_path
         else
-          redirect_to kiosk_exercise_path workout_group_id: workout_group_id
+          redirect_to kiosk_exercise_path workout_id: workout_id
         end
-       # rescue StandardError => error
+       rescue StandardError => error
 
-       #   flash[:alert] = "There was an error when saving Workout Details #{error}"
-       # end
+         flash[:alert] = "There was an error when saving Workout Details #{error}"
+       end
     end
   end
 

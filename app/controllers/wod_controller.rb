@@ -3,7 +3,7 @@ class WodController < ApplicationController
   def new
   	@wod = Wod.new
   	@gym = current_user.gym
-  	@workout_groups = current_user.gym.workout_groups.map{ |group| [group.name, group.id]}
+  	@workouts = current_user.gym.workouts.map{ |group| [group.name, group.id]}
   end
 
   def create

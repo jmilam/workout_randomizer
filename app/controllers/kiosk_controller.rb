@@ -27,8 +27,8 @@ class KioskController < ApplicationController
   def configure_exercise
     begin
       @user = current_user
-      @workout = Workout.find(@user.current_workout)
-      
+      workout_id = params[:workout_id] || @user.current_workout
+      @workout = Workout.find(workout_id)
 
       if @workout.user_worked_out_today?
       else

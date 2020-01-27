@@ -4,6 +4,7 @@ class Workout < ApplicationRecord
   has_many :user_previous_workouts#, through: :workout_groups, source: 'workout_details'
   has_many :exercises
   has_many :likes
+  has_many :wods
 
   belongs_to :category
   belongs_to :gym

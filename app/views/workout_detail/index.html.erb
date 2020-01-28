@@ -17,8 +17,8 @@
 				      <h5 class="mb-0 text-center">
 				        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_<%= idx %>" aria-expanded="true" aria-controls="collapse_<% idx %>" style="color:white;">
 				          <div>
-				          	<%= prev_workout.workout_group.workout.name %>
-						  			<div class="text-muted">(<%=prev_workout.workout_group.name %>)</div>
+				          	<%= prev_workout.workout.name %>
+						  			<div class="text-muted">(<%=prev_workout.workout.name %>)</div>
 						  			<i><%= prev_workout.workout_date.strftime('%m/%d/%y') %></i>
 								 	</div>
 				        </button>
@@ -32,8 +32,8 @@
 							  <thead>
 								  	<tr>
 								  		<th scope="col" colspan="8" class="text-center workout-header">
-								  			<%= prev_workout.workout_group.workout.name %>
-								  			<div class="text-muted">(<%=prev_workout.workout_group.name %>)</div>
+								  			<%= prev_workout.workout.name %>
+								  			<div class="text-muted">(<%=prev_workout.workout.name %>)</div>
 								  			<i><%= prev_workout.workout_date.strftime('%m/%d/%y') %></i>
 								  		</th>
 								  	</tr>  
@@ -52,7 +52,7 @@
 								  <tbody>
 										<% prev_workout.workout_details.each do |workout_detail| %>
 												<tr class="bg-dark">
-												  <th sope="row"><%= workout_detail.exercise.name unless workout_detail.exercise.nil? %></th>
+												  <th sope="row"><%= workout_detail.exercise.common_exercise.name unless workout_detail.exercise.nil? %></th>
 													<td><%= workout_detail.band_color %></td>
 													<td><%= workout_detail.rep_1_weight %></td>
 													<td><%= workout_detail.rep_2_weight %></td>

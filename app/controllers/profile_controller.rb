@@ -6,6 +6,7 @@ class ProfileController < ApplicationController
     @gym = @user.gym
     @title = "#{@user.first_name} Profile"
     @weeks_doing_workout = 0
+    @workout_group = WorkoutGroup.find_by(id: @user.current_workout_group)
 
     if params[:manual_exit]
       @user.update(current_workout_group: nil)
@@ -14,7 +15,7 @@ class ProfileController < ApplicationController
     unless @user.current_workout.nil?
       @workout = Workout.find(@user.current_workout)
       current_workout_group_exercises_count = @user.current_workout_group.nil? ?
-        0 : WorkoutGroup.find(@user.current_workout_group).exercises.count 
+        0 : WorkoutGroup.find(@user.current_workout_group).workout_group_pairings.count 
 
       @completed_workout = !@user.user_previous_workouts
                                   .where(workout_date: Date.today.in_time_zone)
@@ -41,27 +42,27 @@ class ProfileController < ApplicationController
 
     @differences = {}
 
-    unless @user.current_workout.nil?
-      current_workout = Workout.find(@user.current_workout)
-      WorkoutDetail.all.where(workout_group_id: current_workout.workout_groups.map(&:id)).group_by(&:exercise_id).each do |detail|
-        exercise = Exercise.find(detail[0])
-        @differences[exercise.name] = { avg: [], max: [] }
+    # unless @user.current_workout.nil?
+    #   current_workout = Workout.find(@user.current_workout)
+    #   WorkoutDetail.all.where(workout_group_id: current_workout.workout_groups.map(&:id)).group_by(&:exercise_id).each do |detail|
+    #     exercise = Exercise.find(detail[0])
+    #     @differences[exercise.name] = { avg: [], max: [] }
 
-        detail[1].each do |workout_detail|
-          @differences[exercise.name][:avg] << workout_detail.avg_rep_weight
-          @differences[exercise.name][:max] << workout_detail.max_rep_weight
-        end
+    #     detail[1].each do |workout_detail|
+    #       @differences[exercise.name][:avg] << workout_detail.avg_rep_weight
+    #       @differences[exercise.name][:max] << workout_detail.max_rep_weight
+    #     end
 
-        @differences[exercise.name].each do |key, value|
-          value = value.sort!
-          @differences[exercise.name][key] = if value.count > 1
-                                               (value[1] - value[0]).round(2)
-                                             else
-                                               0.0
-                                             end
-        end
-      end
-    end
+    #     @differences[exercise.name].each do |key, value|
+    #       value = value.sort!
+    #       @differences[exercise.name][key] = if value.count > 1
+    #                                            (value[1] - value[0]).round(2)
+    #                                          else
+    #                                            0.0
+    #                                          end
+    #     end
+    #   end
+    # end
 
     @counter = 0
     @wod = Wod.where(gym_id: @user.gym.id, workout_date: Date.today).last
@@ -76,7 +77,7 @@ class ProfileController < ApplicationController
     @gyms = Gym.all.includes(:users)
     @trainers = @user.gym.users.trainers
     @workouts = @user.gym.workouts
-    @workout_groups = @user.gym.workout_groups
+    @workout_groups = @user.gym.workout_groups.uniq
   end
 
   def update

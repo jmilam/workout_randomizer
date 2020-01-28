@@ -1,15 +1,5 @@
 <div class="row" style="height:100%;">
 	<div class="col-md-3" style="padding-top:20px;background:#003259;">
-		<ul class="nav nav-pills" id="workoutTab" role="tablist">
-		  <% @workout_groups.each_with_index do |group, idx| %>
-		  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
-		  	<% if idx == 0 %>
-		  		 <li class='nav-item nav-li'><a class='nav-link active show' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>
-		  	<% else %>
-		  		<li class='nav-item nav-li'><a class='nav-link' id='<%= regex_group_name %>-tab' data-toggle='tab' href='#<%= regex_group_name %>' role='tab' aria-controls='<%= regex_group_name %>' aira-selected='true'><%= group.name %></a></li>
-		  	<% end %>
-		  <% end %>
-		</ul>
 	</div>
 	<div class="col-md-9" style="padding-top:20px;">
 		<div class="container-fluid">
@@ -34,7 +24,6 @@
 
 				<div class="row">
 			    <div class="col-md-9 col-sm-10 col-7">
-			      <b><i>Workout Frequency:</i></b> <%= @workout.frequency %>
 			    </div>
 			    <div class="col-md-2 col-sm-2 col-5">
 			      <%= link_to "Select Workout", accept_workout_path(workout_id: @workout.id), method: :patch, class: 'btn btn-sm bg-warning' %>
@@ -49,7 +38,6 @@
 
 			  <div class="row">
 			    <div class="col-md-12 col-sm-12">
-			      <b><i>Workout Cycle Weeks:</i></b> <%= @workout.duration %>
 			    </div>
 			  </div>
 
@@ -59,10 +47,15 @@
 			    </div>
 			  </div>
 
+			  <div class="row">
+			    <div class="col-md-12 col-sm-12">
+			      <b><i>Workout Details: </i></b> <%= @workout.details %>
+			    </div>
+			  </div>
+
 			  <% if @editable %>
 				  <div class="row">
 						<div class="col-md-12 col-sm-12">
-							<%= link_to "Create New Daily Workout", new_workout_group_path(workout_id: @workout.id) %>
 						</div>
 					</div>
 				<% end %>
@@ -71,31 +64,22 @@
 			<%= render "partials/alert" %>
 			
 			<div class="tab-content" id="workoutTabContent" style="padding-top:20px;">
-			  <% @workout_groups.each_with_index do |group, idx| %>
-			  	<% regex_group_name = group.name.scan(/\w+/).join('_') %>
-					<% bg_color = Category.style_tags.to_a.sample[1]['border'] %>
-				  	<div class="tab-pane fade active <%= idx == 0 ? 'show' : '' %>" id='<%= regex_group_name %>' role='tabpanel' aria-labelledby='<%= regex_group_name %>'>
-							<ul class="nav nav-tabs" id="exerciseTab">
-								<% group.exercises.each do |exercise, ex_idx| %>
-									<li class='nav-item'><a class='nav-link' id='<%= exercise.name.gsub(" ", "").remove(/\W/).underscore %>-tab' data-toggle='tab' href='#<%= exercise.name.gsub(" ", "").remove(/\W/).underscore %>' role='tab' aria-controls='<%= exercise.name.gsub(" ", "").remove(/\W/).underscore %>' aira-selected='true'><%= exercise.name %></a>
-									</li>
-								<% end %>
-								<% if @editable %>
-									<li class='nav-item'><a class='nav-link' id='new_exercise-<%= group.name.gsub(" ", "").remove(/\W/).underscore %>-tab' data-toggle='tab' href='#new_exercise-<%= group.name.gsub(" ", "").remove(/\W/).underscore %>' role='tab' aria-controls='new_exercise-<%= group.name.gsub(" ", "").remove(/\W/).underscore %>' aira-selected='true'>New Exercise</a>
-								<% end %>
-							</ul>
-							<div class="tab-content" id="exercise-tabContent-0">
-								<% group.exercises.each do |exercise, ex_idx| %>
-									<div class="tab-pane fade" id='<%= exercise.name.gsub(" ", "").remove(/\W/).underscore %>' role='tabpanel' aria-labelledby='<%= exercise.name.gsub(" ", "").remove(/\W/).underscore %>'>
-	  								<%= render 'partials/exercise_entry_form', exercise: exercise, total_exercises: exercise.workout_group.exercises.count, request_type: :patch, workout_group: exercise.workout_group %>
-									</div>
-								<% end %>
-								<div class="tab-pane fade" id='new_exercise-<%= group.name.gsub(" ", "").remove(/\W/).underscore %>' role='tabpanel' aria-labelledby='new_exercise-<%= group.name.gsub(" ", "").underscore %>'>
-									<%= render 'partials/exercise_entry_form', exercise: Exercise.new, total_exercises: 0, request_type: :post, workout_group: group %>
-								</div>
-							</div>
+				<ul class="nav nav-tabs" id="exerciseTab">
+					<% @exercises.each do |exercise, ex_idx| %>
+						<li class='nav-item'><a class='nav-link' id='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>-tab' data-toggle='tab' href='#<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>' role='tab' aria-controls='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>' aira-selected='true'><%= exercise.common_exercise.name %></a>
+						</li>
+					<% end %>
+					<% if @editable %>
+						
+					<% end %>
+				</ul>
+				<div class="tab-content" id="exercise-tabContent-0">
+					<% @exercises.each do |exercise, ex_idx| %>
+						<div class="tab-pane fade" id='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>' role='tabpanel' aria-labelledby='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>'>
+							<%= render 'partials/exercise_entry_form', exercise: exercise, total_exercises: @exercises.count, request_type: :patch, exercises: @exercises %>
 						</div>
-			  <% end %>
+					<% end %>
+				</div>
 			</div>
 		</div>
 	</div>

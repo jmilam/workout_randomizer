@@ -1,7 +1,8 @@
 class Gym < ApplicationRecord
   has_many :users
   has_many :workouts
-  has_many :workout_groups, through: :workouts
+  has_many :workout_group_pairings
+  has_many :workout_groups, through: :workout_group_pairings
   has_many :exercises, through: :workouts
   has_many :kiosks
   has_many :categories

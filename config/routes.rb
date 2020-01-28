@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post 'workout/accept_deny_workout', to: 'workout#accept_deny_workout', as: 'accept_deny_workout'
   patch 'workout/accept_workout', to: 'workout#accept_workout', as: 'accept_workout'
   patch 'workout/stop_workout', to: 'workout#stop_workout', as: 'stop_workout'
+  put 'workout/add_exercise', to: 'workout#add_exercise', as: 'add_exercise'
 
   get 'workout_detail/index', to: 'workout_detail#index', as: 'workout_history'
   post 'workout_detail/create', to: 'workout_detail#create', as: 'create_workout_detail'
@@ -37,6 +38,10 @@ Rails.application.routes.draw do
   post 'goal/create', to: 'goal#create', as: 'create_goal'
   delete 'goal/:id', to: 'goal#destroy', as: 'delete_goal'
 
+  put 'workout_group/add_workout', to: 'workout_group#add_workout', as: 'add_workout'
+  get 'workout_group/workout_groups_by_workout/:id', to: 'workout_group#workout_groups_by_workout', as: 'workout_groups_by_workout'
+
+  get 'exercise/get_all_for_workout_group', to: 'exercise#get_all_for_workout_group', as: 'exercises_by_workout_group'
   resources :profile
   resources :workout
   resources :exercise
@@ -51,9 +56,6 @@ Rails.application.routes.draw do
   put 'user/disable_user/:id', to: 'user#disable_user', as: 'disable_user'
   put 'user/enable_user/:id', to: 'user#enable_user', as: 'enable_user'
 
-  get 'workout_group/workout_groups_by_workout/:id', to: 'workout_group#workout_groups_by_workout', as: 'workout_groups_by_workout'
-
-  get 'exercise/get_all_for_workout_group/:id', to: 'exercise#get_all_for_workout_group', as: 'exercises_by_workout_group'
   
   post 'user/more_info', to: 'user#more_info', as: 'more_info'
 

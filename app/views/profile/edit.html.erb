@@ -6,7 +6,7 @@
         <li class='nav-item nav-li'><a class='nav-link' id='measurements-tab' data-toggle='tab' href='#measurements' role='tab' aria-controls='measurements' aria-selected='true'>User Measurements</a></li>
         <li class='nav-item nav-li'><a class='nav-link' id='goals-tab' data-toggle='tab' href='#goals' role='tab' aria-controls='goals' aria-selected='true'>User Goals</a></li>
         <li class='nav-item nav-li'><a class='nav-link' id='inbox-tab' data-toggle='tab' href='#inbox' role='tab' aria-controls='inbox' aria-selected='true'>User Messages</a></li>
-        <% if current_user.gym.admin_ids.include?(@user.id.to_s) || @user.trainer_id == current_user.id %>
+        <% if current_user.gym.admin_ids&.include?(@user.id.to_s) || @user.trainer_id == current_user.id %>
           <li class='nav-item nav-li'><a class='nav-link' id='user-notes-tab' data-toggle='tab' href='#user-notes' role='tab' aria-controls='user-notes' aria-selected='true'>User Notes</a></li>
         <% end %>
       </ul>
@@ -59,7 +59,7 @@
               </div>
                <div class="col-md-6 col-sm-6 form-group">
                 <%= f.label :current_workout_group, class: 'col-md-12' %>
-                <%= f.select :current_workout_group, @workout_groups.collect { |group| [group.name, group.id] }, { prompt: "Select A Workout Group", selected: @user.current_workout_group }, class: 'col-md-12 form-control' %>
+                <%= f.select :current_workout_group, @workout_groups.collect { |group| p group; [group.name, group.id] }, { prompt: "Select A Workout Group", selected: @user.current_workout_group }, class: 'col-md-12 form-control' %>
               </div>
             </div>
 

@@ -9,10 +9,6 @@
     <% end %>
 
     <div class="row">
-      <div class="col-md-6 offset-6 col-sm-6 col-6 text-center"><%= link_to "Workout of the Day", kiosk_exercise_path(workout_group_id: @wod.workout_group_id) unless @wod.nil? %></div>
-    </div>
-
-    <div class="row">
       <div class="col-md-4 col-sm-4 col-4 detail-font-size">
         <b style="color:#fafafa;">Weight:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @user.weight %> lbs.</div>
       </div>
@@ -25,7 +21,7 @@
     </div>
 
     <div class="row">
-      <% unless @workout.nil? %>
+      <% unless @workout_group.nil? %>
         <div class="container">
           <div class="card">
             <div class="card-body" style="margin-bottom:0px;">
@@ -46,11 +42,13 @@
   </div>
 </div>
 
-  <%= link_to "Workout History", workout_history_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
+  <%#= link_to "Workout History", workout_history_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
 
   <%= link_to "Manually Enter Workout", manual_workout_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
 
   <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @completed_workout || !@user.current_workout %></div>
+
+  <%= link_to "Workout of the Day", kiosk_exercise_path(workout_id: @wod.workout_id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @wod.nil? %>
 
 <div class="row" style="margin-top:10px;">
   <div class="col-md-10 col-10 offset-1">

@@ -6,10 +6,41 @@
       <p class="lead">A daily workout is created as a group of exercises to be completed on a set date. If you want a more dynamic routine, do not associate the workout group to a specific day and it will randomize during the week and assign it to a user when they log in.</p>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-header">
+      Add Exercises To Workout
+    </div>
+    <div class="card-body">
+      <%= form_tag :add_workout, method: :put, remote: true do |f| %>
+        <%= hidden_field_tag :selected_workout_ids, [], class: 'selected_workout_ids_field' %>
+        <%= hidden_field_tag :selected_workout_day_ids, [], class: 'selected_workout_day_ids_field' %>
+
+        <div id="workout_table">
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 col-sm-12 form-group">
+            <%= label_tag :workout %>
+            <%= select_tag :workout, options_for_select(@workouts.map { |workout| [workout.name, workout.id] }), {class: 'form-control'} %>
+          </div>
+          <div class="col-md-5 col-sm-12 form-group">
+            <%= label_tag 'Workout Day' %>
+            <%= select_tag 'workout_day', options_for_select(WorkoutGroup.day_of_the_weeks.map { |key, value| [value, key] }), class: 'form-control' %>
+          </div>
+          <div class="col-md-2 col-sm-12 form-group" style="margin-top:2em;">
+            <%= submit_tag "Add Workout", class: 'btn workout-btn' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <%= form_for @workout_group, url: workout_group_index_path, method: :post do |f| %>
     <div class="row">
       <div class="col-md-12 col-sm-12 form-group">
-        <%= f.hidden_field :workout_id, value: @workout.id, class: 'col-md-12 form-control' %>
+        <%= hidden_field_tag :selected_workout_ids, [], class: 'selected_workout_ids_field' %>
+        <%= hidden_field_tag :selected_workout_day_ids, [], class: 'selected_workout_day_ids_field' %>
       </div>
     </div>
 
@@ -20,13 +51,6 @@
       </div>
     </div>
     
-    <div class="row">
-      <% WorkoutGroup.day_of_the_weeks.each do |day_of_the_week_num, day_of_the_week_string| %>
-          <div class="col-md-4 col-sm-4 col-12">
-              <%= check_box_tag 'days_of_the_week[]', day_of_the_week_num, false %> <%= label_tag day_of_the_week_string %>
-          </div>
-      <% end %>
-    </div>
     
     <div class="row">
       <div class="col-md-12 col-sm-12">

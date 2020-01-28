@@ -1,14 +1,16 @@
 <%= form_for exercise, url: request_type == :post ? exercise_index_path : exercise_path(exercise.id), method: request_type do |f| %>
     <div class="row">
       <div class="col-md-12 col-sm-12 form-group">
-        <%= f.hidden_field :workout_group_id, value: workout_group.id %>
+        <%#= f.hidden_field :workout_group_id, value: workout_group.id %>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-12 col-sm-12 form-group">
-        <%= f.label :name, 'Exercise Name *', class: 'col-md-12' %>
-        <%= f.text_field :name, class: 'col-md-12 form-control' %>
+        <%= f.fields_for :common_exercise do |ex| %>
+          <%= ex.label :name, 'Exercise Name *', class: 'col-md-12' %>
+          <%= ex.text_field :name, value: exercise.common_exercise.name, class: 'col-md-12 form-control', readonly: true %>
+        <% end %>
       </div>
     </div>
 
@@ -75,11 +77,11 @@
 
     <div class="row">
       <% unless request_type == :post %>
-        <% exercise.workout_group.exercises.each do |wg_exercise| %>
+        <% exercises.each do |wg_exercise| %>
           <% unless wg_exercise.id == exercise.id %>
             <div class="col-md-4 col-sm-4 col-12">
                 <% checked = exercise.exercise_circuit_id.nil? ? false : wg_exercise.exercise_circuit_id == exercise.exercise_circuit_id %>
-                <%= check_box_tag 'super_set_id[]', wg_exercise.id, checked %> <%= f.label :super_set_id, wg_exercise.name %>
+                <%= check_box_tag 'super_set_id[]', wg_exercise.id, checked %> <%= f.label :super_set_id, wg_exercise.common_exercise.name %>
             </div>
           <% end %>
         <% end %>

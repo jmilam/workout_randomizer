@@ -17,19 +17,39 @@
 <%= form_for :exercises, url: log_exercise_path do |f| %>
 		<%= f.hidden_field :workout_date, value: Date.today %>
 		<%= f.hidden_field :manual_entry, value: @manual_entry %>
-		<div class="boomslang-green" style="padding-top:20px;padding-bottom:20px;color:#003259;text-align:center;margin-top:auto;margin-bottom:auto;height:100%;margin-left:-15px;">
-			<h4>Exercises Completed <%= @step_string %></h4>
+		<%= f.hidden_field :user_id, value: @user.id %>
+		<% unless @manual_entry %>
+			<div class="boomslang-green" style="padding-top:20px;padding-bottom:20px;color:#003259;text-align:center;margin-top:auto;margin-bottom:10px;height:100%;margin-left:-15px;">
+				<h4>Exercises Completed <%= @step_string %></h4>
+			</div>
+		<% end %>
+		<div  class="jumboton">
+			<div class="container-fluid">
+				<div class="row">
+					<h4 class="col-10 offset-1"><b>Workout Name:</b></h4>
+					<p class="lead col-10 offset-1">
+						<%= @workout.name %>
+					</p>
+				</div>
+				<div class="hard-return" style="border:1px solid white;margin-bottom:1em;"></div>
+				<div class="row">
+					<h4 class="col-10 offset-1"><b>Workout Details:</b></h4>
+					<p class="lead col-10 offset-1">
+						<%= @workout.details %>
+					</p>
+				</div>
+			</div>
 		</div>
 		<% if @manual_entry %>
 			<% @exercise_groups.each do |key, exercise_group| %>
 					<% exercise_group.each_with_index do |exercise, idx| %>
 						<% bg_color = Category.style_tags.to_a.sample[1] %>
-								<div class="row bg-dark">
+								<div class="row boomslang-green">
 									<div class="<%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12' %>">
 										<div class="col-md-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 											<div class="row">
 												<div class="col-md-12 text-center exercise-header">
-													<%= exercise.name %>
+													<%= exercise.common_exercise.name %>
 												</div>
 											</div>
 
@@ -86,7 +106,7 @@
 										<div class="col-md-6">
 											<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
 												<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-												<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
+												<%= workout_detail.hidden_field :workout_id, value: "#{exercise.workout_id}" %>
 												<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}", class: 'workout_detail_date' %>
 
 												<div class="row" style="padding-right:10px;">
@@ -134,12 +154,12 @@
 				<% bg_color = Category.style_tags.to_a.sample[1] %>
 				<div class="row">
 					<div class="<%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12'%> col-12">
-						<div class="row" style="background-color:#003259;border-bottom:1px solid white;margin-bottom:1px;padding-bottom:5px">
+						<div class="row" style="background-color:#003259;padding-bottom:5px;margin-bottom:0px;">
 							<div class="container <%= exercise.clip.attached? ? 'col-md-6' : 'col-md-12' %>">
 								<div style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 									<div class="row">
 										<div class="col-md-12 text-center exercise-header">
-											<%= exercise.name %>
+											<%= exercise.common_exercise.name %>
 										</div>
 									</div>
 
@@ -197,7 +217,7 @@
 							<div class="container">
 								<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
 									<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-									<%= workout_detail.hidden_field :workout_group_id, value: "#{exercise.workout_group_id}" %>
+									<%= workout_detail.hidden_field :workout_id, value: "#{exercise.workout_id}" %>
 									<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}", class: "workout_detail_date" %>
 
 									<div class="row" style="padding-right:10px;">
@@ -233,17 +253,17 @@
 					<% if exercise.clip.attached? %>
 						<div class="col-md-6 col-12" style="background-color: #003259;">
 							<div class="col-md-6" style="background-color:black;margin-left: auto;margin-right: auto;">
-    						<%= video_tag url_for(exercise.clip), controls: '', style: 'height:315px;width:100%' %>
+    						<%= video_tag url_for(exercise.clip), controls: '', style: 'height:310px;width:100%' %>
     					</div>
 						</div>
   				<% end %>
   			</div>
 			<% end %>
-			<div class="row bg-dark" style="padding-top: 15px;padding-bottom: 15px;margin-top: -15px;">
-				<%= f.submit @button_title, class: "btn btn-lg btn-block workout-btn col-md-4 offset-md-1", style: "border-radius:0px;border-bottom: 1px solid white;height:75px;" %>
+			<div class="row boomslang-green" style="padding-top: 15px;padding-bottom: 15px;margin-top: -10px;">
 				<% unless @manual_entry %>
-						<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block workout-btn col-md-5 offset-md-1", style: "border-radius:0px;margin-top:auto;border-bottom: 1px solid white;height:75px;padding-top:20px;" %>
+						<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block col-md-5 offset-md-1", style: "margin-top:auto;;height:75px;padding-top:20px;background-color:transparent;color:#003259;" %> 
 				<% end %>
+				<%= f.submit @button_title, class: "btn btn-lg btn-block col-md-4 offset-md-1", style: "background-color:transparent;height:75px;color:#003259;" %>
 			</div>
 		<% end %>
 	<% end %>

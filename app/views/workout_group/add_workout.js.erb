@@ -1,0 +1,5 @@
+$(".selected_workout_ids_field").val("<%= @selected_workout_ids.join(',') %>");
+$(".selected_workout_day_ids_field").val("<%= @selected_workout_day_ids.join(',') %>");
+
+
+$("#workout_table").html("<%= j render(partial: 'workout_group_table') %>");

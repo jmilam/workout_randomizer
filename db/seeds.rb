@@ -4,10 +4,19 @@ gym = Gym.create!(name: "Boomslang Fitness", phone_number: "336-707-7939")
 gym.categories.create!(name: "Lean Muscle Gain", goal_id: User.goals.keys[1])
 lose_weight = gym.categories.create!(name: "Lose Weight", goal_id: User.goals.keys[0])
 
-["Boxing", "Martial Arts", "Group Class"].each do |class_name|
-  workout = gym.workouts.create!(name: class_name, category_id: lose_weight.id, frequency: 0)
-  workout_group = workout.workout_groups.create!(name: "#{class_name} Workouts")
-  workout_group.exercises.create!(name: "#{class_name} Exercises",
-                                  timed_exercise: true,
-                                  time_by_minutes: 45)
+chest_exercises = ["Flat Chest Press", "Incline Chest Press", "Decline Chest Press", "Chest Fly", "Overhead Pull", "Pushup"]
+back_exercises = ["Sitting Row", "Bent Over Row", "Pulldown", "Pull up", "Back Fly", "Chin Up", "Inverted Row", "Lat Raise", "Shrugs", "Deadlift", "Sled Pull"]
+bicep_exercises = ["Preacher Curl", "Alternating Curl", "Inclined Curl", "21's", "Hammer Curl", "Outside Curl", "Standard Curl"]
+shoulder_exercises = ["Military Press", "Lateral Raise", "Front Raise", "Upright Rows", "Face Pull", "Around The World", "Swings", "Rotator Rotation", "Shoulder Drag"]
+tricep_exercises = ["Push Down", "Kickback", "Dips", "Close Grip Press", "Overhead Press", "Skull Crusher"]
+leg_exercises = ["Standard Squat", "Leg Press", "Calf Raise", "Lunge", "Sled Push", "Leg Curl", "Leg Extension", "Calf Press", "Reverese Lunge", "Side Lunge", "Goblit Squat", "Sumo Squat"]
+
+chest_exercises.concat(back_exercises, bicep_exercises, shoulder_exercises, tricep_exercises, leg_exercises).each do |exercise|
+  CommonExercise.create!(name: exercise)
+end
+
+equipment = ["Cable", "Barbell", "Dumbbell", "Kettlebell", "Band", "Rope", "Sled", "Pull Up Bar", "Dip Bar", "Box", "Curl Bar", "Hex Bar", "SandBag"]
+
+equipment.each do |equip|
+  CommonEquipment.create!(name: equip)
 end

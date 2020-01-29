@@ -1,6 +1,7 @@
 class Exercise < ApplicationRecord
   belongs_to :workout
-  belongs_to :common_exercise 
+  belongs_to :common_exercise
+  belongs_to :common_equipment
   has_many :workout_details
   has_one_attached :clip
 

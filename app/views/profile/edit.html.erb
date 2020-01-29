@@ -82,9 +82,15 @@
             </div>
 
             <div class="row">
-              <%= f.label :avatar, "Upload Profile Picture:", class: 'col-6' %>
               <div class="col-6">
-                <%= f.file_field :avatar %>
+                <%= f.label :email %>
+                <%= f.text_field :email, class: 'col-12 form-control' %>
+              </div>
+              <div class="col-6">
+                <%= f.label :avatar, "Upload Profile Picture:", class: 'col-6' %>
+                <div class="col-6">
+                  <%= f.file_field :avatar %>
+                </div>
               </div>
             </div>
             <%= f.submit "Edit User Profile", class: 'btn btn-lg btn-block profile-submit-btn container' %>

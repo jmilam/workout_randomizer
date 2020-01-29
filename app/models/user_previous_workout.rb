@@ -11,11 +11,12 @@ class UserPreviousWorkout < ApplicationRecord
   def self.for_google_charts(grouped_workouts)
     workout_stats = {}
 
-    grouped_workouts.each do |previous_workout|
-      workout_name = Workout.find(previous_workout[0]).name
+    grouped_workouts.each do |previous_workout, previous_workkout_details|
+      workout_name = previous_workout.name
       workout_details = ['Date']
-      previous_workout[1].each do |prev_workout|
-        exercises = prev_workout.exercises.sort
+
+      previous_workkout_details.each do |prev_workout_detail|
+        exercises = prev_workout_detail.workout.exercises.sort
         exercise_names = exercises.map { |exercise| exercise.common_exercise.name }
         exercise_ids = exercises.map(&:id)
 
@@ -23,37 +24,30 @@ class UserPreviousWorkout < ApplicationRecord
 
         if workout_stats[workout_name.to_s].nil?
           workout_stats[workout_name.to_s] = {}
-          workout_stats[workout_name.to_s][prev_workout.workout.name.to_s] = [workout_details.flatten]
-        elsif workout_stats[workout_name.to_s][prev_workout.workout.name.to_s].nil? || workout_stats[workout_name.to_s][prev_workout.workout.name.to_s].include?(exercise_names[0])
-          workout_stats[workout_name.to_s][prev_workout.workout.name.to_s] = [workout_details.flatten]
+          workout_stats[workout_name.to_s] = [workout_details.flatten]
+        elsif workout_stats[workout_name.to_s].nil? || workout_stats[workout_name.to_s].include?(exercise_names[0])
+          workout_stats[workout_name.to_s] = [workout_details.flatten]
         end
 
-        workout_stats[workout_name.to_s][prev_workout.workout.name.to_s] <<
-          [prev_workout.workout_date.strftime('%m/%d/%y'), build_max_reps(prev_workout.workout_details, exercise_ids)].flatten
+        workout_stats[workout_name.to_s] <<
+          [prev_workout_detail.workout_date.strftime('%m/%d/%y'), build_max_reps(prev_workout_detail, exercise_ids)].flatten
       end
     end
 
     workout_stats
   end
 
-  def self.build_max_reps(details, exercise_ids)
-    p details
-    p exercise_ids
-    p max_reps = Array.new(exercise_ids.count)
-
-    p detail_exercise_ids = details.map(&:exercise_id).sort
+  def self.build_max_reps(detail, exercise_ids)
+    max_reps = Array.new(exercise_ids.count)
 
     exercise_ids.each_with_index do |id, idx|
 
-      max_reps[idx] = 0 unless detail_exercise_ids.include?(id)
+      max_reps[idx] = 0
     end
 
-    p max_reps
+    idx = exercise_ids.index(detail.exercise_id)
+    max_reps[idx] = detail.avg_rep_weight
 
-    # details.each do |detail|
-    #   idx = exercise_ids.index(detail.exercise_id)
-    #   max_reps[idx] = detail.avg_rep_weight
-    # end
     max_reps
   end
 end

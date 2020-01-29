@@ -73,6 +73,13 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-md-12 col-sm-12 form-group">
+              <%= f.label :details, "Workout Details", class: 'col-md-12' %>
+              <%= f.text_area :details, placeholder: "Enter any specific details of this workout you want a person to know", class: 'col-md-12 form-control' %>
+            </div>
+          </div>
+
           <%= f.submit "Create Workout", class: 'btn btn-lg btn-block workout-btn', style: 'margin-bottom:2em;' %>
           <% end %>
         </div>

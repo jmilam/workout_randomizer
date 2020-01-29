@@ -111,10 +111,9 @@ class KioskController < ApplicationController
         user_id = params.dig(:exercises, :user_id)
         user = user_id.blank? ? current_user : User.find(user_id)
 
-        workout_date = params[:exercises][:workout_date].blank? ? Date.today.in_time_zone :
-          params[:exercises][:workout_date]
-          workout_id = params[:exercises][:workout_detail].first[:workout_id].blank? ?
-          user.current_workout_id: params[:exercises][:workout_detail].first[:workout_id].to_i
+        workout_date = params[:exercises][:workout_date]
+        workout_id = params[:exercises][:workout_detail].first[:workout_id].blank? ?
+        user.current_workout_id: params[:exercises][:workout_detail].first[:workout_id].to_i
 
           workout = user.current_workout.nil? ? Workout.find(workout_id) : Workout.find(user.current_workout)
 
@@ -126,9 +125,8 @@ class KioskController < ApplicationController
          params[:exercises][:workout_detail].each do |details|
            next if details['rep_1_weight'].blank?
 
-           prev_workout.workout_details.new(details.permit!)
            workout_details = prev_workout.workout_details.create(details.permit!)
-           workout_details.update!(user_id: user.id)
+           workout_details.update!(user_id: user.id, workout_date: workout_date)
          end
 
          exercise_groups = Exercise.group_by_circuit(workout)
@@ -149,10 +147,9 @@ class KioskController < ApplicationController
         else
           redirect_to kiosk_exercise_path workout_id: workout_id
         end
-       rescue StandardError => error
-
+      rescue StandardError => error
          flash[:alert] = "There was an error when saving Workout Details #{error}"
-       end
+      end
     end
   end
 

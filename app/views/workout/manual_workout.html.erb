@@ -26,11 +26,6 @@
 </div>
 
 <script type="text/javascript">
-	$('#workout_date').on('change', function(){
-		$('.workout_detail_date').val($(this).val());
-		$('#exercises_workout_date').val($(this).val());
-	});
-
 	$('#workout, #workout_date, #user').on('change', function(){
 		$.ajax({
 		  dataType: 'script',

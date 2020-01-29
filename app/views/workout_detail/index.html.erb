@@ -11,15 +11,15 @@
 				<div class="tab-content" id="workoutTabContent">
     <div class="tab-pane fade show active" id='workout-trending' role='tabpanel' aria-labelledby='workout-trending'>
     	<div class="accordion" id="accordionWorkoutDetail">
-				<% @workouts.each_with_index do |prev_workout, idx| %>
+				<% @workouts.each_with_index do |(workout, prev_workout), idx| %>
 					<div class="card" style="margin-bottom:10px;">
 				    <div class="card-header boomslang-green" id="heading_<%= idx %>">
 				      <h5 class="mb-0 text-center">
 				        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_<%= idx %>" aria-expanded="true" aria-controls="collapse_<% idx %>" style="color:white;">
 				          <div>
-				          	<%= prev_workout.workout.name %>
-						  			<div class="text-muted">(<%=prev_workout.workout.name %>)</div>
-						  			<i><%= prev_workout.workout_date.strftime('%m/%d/%y') %></i>
+				          	<%= workout.name %>
+						  			<div class="text-muted">(<%= workout.name %>)</div>
+						  			<i><%#= prev_workout[1].workout_date.strftime('%m/%d/%y') %></i>
 								 	</div>
 				        </button>
 				      </h5>
@@ -28,43 +28,46 @@
 				    <div id="collapse_<%= idx %>" class="collapse" aria-labelledby="heading_<%= idx %>" data-parent="#accordionWorkoutDetail">
 				      <div class="container">
 				      	<div class="table-responsive">
-				      	<table class="table table-bordered" style="color:white;border-top-right-radius: 25px;border-top-left-radius: 25px;margin-top:15px;">
-							  <thead>
-								  	<tr>
-								  		<th scope="col" colspan="8" class="text-center workout-header">
-								  			<%= prev_workout.workout.name %>
-								  			<div class="text-muted">(<%=prev_workout.workout.name %>)</div>
-								  			<i><%= prev_workout.workout_date.strftime('%m/%d/%y') %></i>
-								  		</th>
-								  	</tr>  
-								    <tr style="background-color:#8C8C8C;">
-								      <th scope="col">Exercise</th>
-								      <th scope="col">Band Detail</th>
-								      <th scope="col">Rep 1</th>
-								      <th scope="col">Rep 2</th>
-								      <th scope="col">Rep 3</th>
-								      <th scope="col">Rep 4</th>
-								      <th scope="col">Rep 5</th>
-								      <th scope="col">Exercise Comment</th>
-								    </tr>
-								  </thead>
+				      		<% p prev_workout %>
+				      		<% prev_workout.group_by(&:workout_date).each do |workout_date, workout_details| %>
+				      			<table class="table table-bordered" style="color:white;border-top-right-radius: 25px;border-top-left-radius: 25px;margin-top:15px;">
+										  <thead>
+										  	<tr>
+										  		<th scope="col" colspan="8" class="text-center workout-header">
+										  			<%= workout.name %>
+										  			<div class="text-muted">(<%= workout.name %>)</div>
+										  			<i><%= workout_date.strftime('%m/%d/%y') %></i>
+										  		</th>
+										  	</tr>  
+										    <tr style="background-color:#8C8C8C;">
+										      <th scope="col">Exercise</th>
+										      <th scope="col">Band Detail</th>
+										      <th scope="col">Rep 1</th>
+										      <th scope="col">Rep 2</th>
+										      <th scope="col">Rep 3</th>
+										      <th scope="col">Rep 4</th>
+										      <th scope="col">Rep 5</th>
+										      <th scope="col">Exercise Comment</th>
+										    </tr>
+										  </thead>
 
-								  <tbody>
-										<% prev_workout.workout_details.each do |workout_detail| %>
-												<tr class="bg-dark">
-												  <th sope="row"><%= workout_detail.exercise.common_exercise.name unless workout_detail.exercise.nil? %></th>
-													<td><%= workout_detail.band_color %></td>
-													<td><%= workout_detail.rep_1_weight %></td>
-													<td><%= workout_detail.rep_2_weight %></td>
-													<td><%= workout_detail.rep_3_weight %></td>
-													<td><%= workout_detail.rep_4_weight %></td>
-													<td><%= workout_detail.rep_5_weight %></td>
-													<td><%= workout_detail.comment %></td>
-												</tr>
-										<% end %>
-									</tbody>
-								</table>
-							</div>
+										  <tbody>
+										  	<% workout_details.each do |workout_detail| %>
+													<tr class="bg-dark">
+													  <th sope="row"><%= workout_detail.exercise.common_exercise.name unless workout_detail.exercise.nil? %></th>
+														<td><%= workout_detail.band_color %></td>
+														<td><%= workout_detail.rep_1_weight %></td>
+														<td><%= workout_detail.rep_2_weight %></td>
+														<td><%= workout_detail.rep_3_weight %></td>
+														<td><%= workout_detail.rep_4_weight %></td>
+														<td><%= workout_detail.rep_5_weight %></td>
+														<td><%= workout_detail.comment %></td>
+													</tr>
+												<% end %>
+											</tbody>
+										</table>
+									<% end %>
+								</div>
 				      </div>
 				    </div>
 			   	</div>
@@ -90,14 +93,14 @@
       if (reloadId) {
       } else {
         $('#workoutTab').append(
-          "<li class='nav-item' style='width:100%;''><a class='nav-link' id='child-div-workout" + counter + "-tab' data-toggle='tab' href='#child-div-workout" + counter + "' role='tab' aria-controls='child-div-workout" + counter + "'>" + key + " Breakout " + "</a></li>"
+          "<li class='nav-item' style='width:100%;''><a class='nav-link' id='child-div-workout" + counter + "-tab' data-toggle='tab' href='#child-div-workout" + counter + "' role='tab' aria-controls='child-div-workout" + counter + "'>" + key + "</a></li>"
         );
         $('#workoutTabContent').append("<div class='tab-pane fade col-12' id='child-div-workout" + counter + "' role='tabpanel' aria-labelledby='child-div-workout" + counter + "' style='height:300px;'><ul class='nav nav-pills' id='historyTab' role='tablist' style='margin-bottom:20px;'><li></li></ul><div class='tab-content' id='childTabContent-" + counter + "'></div></div>");
       }
 
       let headerCounter = counter;
-      $.each(values, function( key, value) {
-        let data = google.visualization.arrayToDataTable(value);
+        let data = google.visualization.arrayToDataTable(values);
+        console.log(data)
         if (reloadId && $('#' + reloadId + '-tab').text() === key) {
           element = document.getElementById(reloadId);
           chart = new google.visualization.LineChart(element);
@@ -122,7 +125,6 @@
         }
         counter++;
       });
-    });
   }
 </script>
 

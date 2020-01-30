@@ -6,13 +6,14 @@ lose_weight = gym.categories.create!(name: "Lose Weight", goal_id: User.goals.ke
 
 chest_exercises = ["Flat Chest Press", "Incline Chest Press", "Decline Chest Press", "Chest Fly", "Overhead Pull", "Pushup"]
 back_exercises = ["Sitting Row", "Bent Over Row", "Pulldown", "Pull up", "Back Fly", "Chin Up", "Inverted Row", "Lat Raise", "Shrugs", "Deadlift", "Sled Pull"]
-bicep_exercises = ["Preacher Curl", "Alternating Curl", "Inclined Curl", "21's", "Hammer Curl", "Outside Curl", "Standard Curl"]
+bicep_exercises = ["Curl & Extend", "Preacher Curl", "Alternating Curl", "Inclined Curl", "21's", "Hammer Curl", "Outside Curl", "Standard Curl"]
 shoulder_exercises = ["Military Press", "Lateral Raise", "Front Raise", "Upright Rows", "Face Pull", "Around The World", "Swings", "Rotator Rotation", "Shoulder Drag"]
 tricep_exercises = ["Push Down", "Kickback", "Dips", "Close Grip Press", "Overhead Press", "Skull Crusher"]
 leg_exercises = ["Standard Squat", "Leg Press", "Calf Raise", "Lunge", "Sled Push", "Leg Curl", "Leg Extension", "Calf Press", "Reverese Lunge", "Side Lunge", "Goblit Squat", "Sumo Squat", "Step Up"]
-full_body = ["Turkish Get Up", "Half Turkish Get Up"]
-abs = ["Spiderman & Reverse Through Crunch"]
-chest_exercises.concat(back_exercises, bicep_exercises, shoulder_exercises, tricep_exercises, leg_exercises, full_body).each do |exercise|
+full_body = ["Turkish Get Up", "Half Turkish Get Up", "Squat Press"]
+abs = ["Spiderman & Reverse Through Crunch", "Mountain Climbers"]
+mb = ["Lunge/Twist"]
+chest_exercises.concat(back_exercises, bicep_exercises, shoulder_exercises, tricep_exercises, leg_exercises, full_body, abs, mb).each do |exercise|
   CommonExercise.create!(name: exercise)
 end
 

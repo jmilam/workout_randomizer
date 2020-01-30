@@ -1,7 +1,7 @@
 class UserMailer < ApplicationMailer
 	def welcome_email
     @user = params[:user]
-    attachments['Nutrition Plan.docx'] = File.read('lib/Nutrition Plan.docx')
+    # attachments['Nutrition Plan.docx'] = File.read('lib/Nutrition Plan.docx')
     mail(to: @user.email, bcc: ENV['EMAIL'], subject: 'Welcome to Boomslang Fitness!')
   end
 

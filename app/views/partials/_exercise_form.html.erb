@@ -15,7 +15,6 @@
 	}
 </style>
 <%= form_for :exercises, url: log_exercise_path do |f| %>
-<% p params %>
 		<%= f.hidden_field :workout_date, value: params[:workout_date] %>
 		<%= f.hidden_field :manual_entry, value: @manual_entry %>
 		<%= f.hidden_field :user_id, value: @user.id %>
@@ -24,7 +23,7 @@
 				<h4>Exercises Completed <%= @step_string %></h4>
 			</div>
 		<% end %>
-		<div  class="jumboton">
+		<div  class="jumboton" style="padding-top: 20px;">
 			<div class="container-fluid">
 				<div class="row">
 					<h4 class="col-10 offset-1"><b>Workout Name:</b></h4>

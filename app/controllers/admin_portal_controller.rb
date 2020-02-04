@@ -7,8 +7,11 @@ class AdminPortalController < ApplicationController
 
   def time_cards
     @gym = current_user.gym
-    @time_cards = TimeCard.includes(:task).where(user_id: @gym.users.where(trainer: true).map(&:id),
-                                 start_time: [Date.today.beginning_of_month..Date.today.end_of_month])
+    @time_cards_grouped_by_user = TimeCard.includes(:task)
+                                          .where(user_id: @gym.users.where(trainer: true).map(&:id),
+                                                 start_time: [Date.today.beginning_of_month..Date.today.end_of_month])
+                                          .group_by(&:user)
+
   end
 
   def report_data
@@ -38,7 +41,7 @@ class AdminPortalController < ApplicationController
                     Date.today.beginning_of_week..Date.today.end_of_week
                   end
     @gym = current_user.gym
-    @time_cards = TimeCard.includes(:task).where(user_id: @gym.users.where(trainer: true).map(&:id),
-                                 start_time: date_range)
+    @time_cards_grouped_by_user = TimeCard.includes(:task).where(user_id: @gym.users.where(trainer: true).map(&:id),
+                                 start_time: date_range).group_by(&:user)
   end
 end

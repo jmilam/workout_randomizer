@@ -2,8 +2,8 @@ class TimeCardController < ApplicationController
   layout 'time_card'
   skip_before_action :authenticate_user!
   def new
-    sub_domain = request.domain.scan(/\w+/)[0]
-    @gym = Gym.find_by(subdomain: sub_domain)
+    # sub_domain = request.domain.scan(/\w+/)[0]
+    @gym = Gym.find_by(subdomain: params[:gym])
     @employees = @gym.users.where(trainer: true)
     @clients = @gym.users.where(trainer: false)
     @time_card = TimeCard.new

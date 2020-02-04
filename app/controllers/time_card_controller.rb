@@ -1,4 +1,5 @@
 class TimeCardController < ApplicationController
+  layout 'time_card'
   skip_before_action :authenticate_user!
   def new
     sub_domain = request.domain.scan(/\w+/)[0]
@@ -14,7 +15,7 @@ class TimeCardController < ApplicationController
     @client_id = User.find(params[:time_card][:client_id]).id unless params[:time_card][:client_id].empty?
 
     TimeCard.transaction do
-      if params[:sign_in_out].downcase == "sign in"
+      if params[:sign_in_out].downcase == "clock in"
         time_card = @user.time_cards.new(task_id: @task.id, client_id: @client_id).set_task_specifics(@task)
         time_card.save
       else

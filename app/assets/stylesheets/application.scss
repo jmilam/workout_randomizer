@@ -356,3 +356,12 @@ a {
 	margin-bottom:20px;
 	background-color:#D9D278;
 }
+
+.browser-center {
+	display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}

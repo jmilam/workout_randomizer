@@ -24,7 +24,7 @@
 				<% total_sum = 0 %>
 				<% time_cards.group_by(&:task).each do |task, time_cards| %>
 					<% sum = 0 %>
-					<tr>
+					<tr style="background: #003259;color: white;">
 						<th><%= task.name %></th>
 						<th colspan=3></th>
 					</tr>

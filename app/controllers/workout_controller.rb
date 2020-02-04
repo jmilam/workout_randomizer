@@ -44,7 +44,7 @@ class WorkoutController < ApplicationController
       params[:selected_exercise_ids].split(',').zip(params[:selected_exercises_set_counts].split(','),
                                                     params[:selected_equipment_ids].split(','),
                                                     params[:selected_exercises_rep_counts].split(',')).each do |exercise_details|
-        p exercise = CommonEquipment.find(exercise_details[2].to_i)
+        exercise = CommonEquipment.find(exercise_details[2].to_i)
         @workout.exercises.new(rep_range: exercise_details[3], set_count: exercise_details[1],
                                common_exercise_id: exercise_details[0].to_i, common_equipment_id: exercise_details[2],
                                band: exercise.name.downcase.squish == "band")

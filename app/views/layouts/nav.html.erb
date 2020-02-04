@@ -26,7 +26,13 @@
           <li><%= link_to "Workouts", list_workouts_path, class: 'nav-link' %></li>
           <% if current_user.gym.admin_ids.include?(current_user.id.to_s) %>
             <li><%= link_to "Gym", gym_path(current_user.gym.id), class: 'nav-link' %></li>
-            <li><%= link_to "Admin Portal", admin_portal_path, class: 'nav-link' %></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reporting</a>
+              <div class="dropdown-menu">
+                <%= link_to "New Users", admin_portal_new_users_path, class: 'dropdown-item' %>
+                <%= link_to "Time Card", admin_portal_time_cards_path, class: 'dropdown-item' %>
+              </div>
+            </li>
           <% end unless current_user.gym.admin_ids.nil? %>
 		  		<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
 		  	</ul>

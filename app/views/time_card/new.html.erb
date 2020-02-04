@@ -1,0 +1,56 @@
+<%= render "partials/alert" %>
+
+<%= form_for @time_card, url: time_card_index_path, method: :post do |f| %>
+	<div class="card" style="padding-top:20px;padding-bottom:20px;">
+	  <div class="card-header boomslang-green text-center">
+	    <div style="color:white;">Log Time</div>
+	    <div class="text-muted">Add a new task to be accessed by employees for billing</div>
+	  </div>
+	  <div class="card-body badge-dark" style="margin-bottom:0px">
+	  	<div class="container">
+		    <div class="row">
+		    	<div class="col-md-6 col-sm-12 form-group toggle-col">
+		        <%#= f.label :user_id, class: 'col-md-12' %>
+		        <%= f.select :user_id, @employees.collect { |user| ["#{user.first_name} #{user.last_name}", user.id] }, { prompt: "--- Please select employee name ---"}, { class: 'col-md-12 form-control' } %>
+		      </div>
+		      <div class="col-md-6 col-sm-12 form-group toggle-col">
+		        <%#= f.label :task_id, class: 'col-md-12' %>
+		        <%= f.select :task_id, @gym.tasks.collect { |task| [task.name, task.id] }, { prompt: "--- Please select a task ---"}, { class: 'col-md-12 form-control' } %>
+		      </div>
+		       <div class="col-md-4 col-sm-12 form-group" id="client" style='display:none;'>
+		        <%#= f.label :client_id, class: 'col-md-12' %>
+		        <%= f.select :client_id, @clients.collect { |client| ["#{client.first_name} #{client.last_name}", client.id] }, { prompt: "--- Please select your client ---"}, { class: 'col-md-12 form-control hide' } %>
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="col-md-12 col-sm-12 form-group">
+		        <%= select_tag :sign_in_out, options_for_select(["Sign In", "Sign Out"].collect { |step| [step, step] }), {class: 'col-md-12 form-control'} %>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<%= f.submit "Clock In/Out", class: 'btn btn-lg btn-block workout-btn card-footer' %>
+	</div>
+<% end %>
+
+<script type="text/javascript">
+	$('#time_card_task_id').on('change', function(){
+		$.ajax({
+		  dataType: 'script',
+		  type: 'GET',
+		  url: "/task/check_if_select_client",
+		  data: { id: $(this).val() },
+		  success: function(data) {
+		  	var obj = $.parseJSON(data);
+		  	if (obj.select_client) {
+		  		$('.toggle-col').attr('class', 'col-md-4 col-sm-12 form-group toggle-col');
+		  		$('#client').css('display','block');
+		  	} else {
+		  		$('#client').css('display','none');
+		  		$('.toggle-col').attr('class', 'col-md-6 col-sm-12 form-group toggle-col')
+		  		$('#time_card_client_id').val('');
+		  	}
+			}
+		});
+	});
+</script>

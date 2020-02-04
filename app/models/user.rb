@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :goals
   has_many :measurements
   has_many :user_notes
+  has_many :time_cards
   accepts_nested_attributes_for :measurements
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

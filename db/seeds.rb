@@ -11,7 +11,7 @@ shoulder_exercises = ["Military Press", "Lateral Raise", "Front Raise", "Upright
 tricep_exercises = ["Push Down", "Kickback", "Dips", "Close Grip Press", "Overhead Press", "Skull Crusher"]
 leg_exercises = ["Standard Squat", "Leg Press", "Calf Raise", "Lunge", "Sled Push", "Leg Curl", "Leg Extension", "Calf Press", "Reverese Lunge", "Side Lunge", "Goblit Squat", "Sumo Squat", "Step Up"]
 full_body = ["Turkish Get Up", "Half Turkish Get Up", "Squat Press"]
-abs = ["Spiderman & Reverse Through Crunch", "Mountain Climbers"]
+abs = ["Spiderman & Reverse Through Crunch", "Mountain Climbers", "Side Plank", "Plank"]
 mb = ["Lunge/Twist"]
 chest_exercises.concat(back_exercises, bicep_exercises, shoulder_exercises, tricep_exercises, leg_exercises, full_body, abs, mb).each do |exercise|
   CommonExercise.create!(name: exercise)
@@ -22,4 +22,12 @@ equipment = ["Cable", "Barbell", "Dumbbell", "Kettlebell", "Band", "Rope", "Sled
 
 equipment.each do |equip|
   CommonEquipment.create!(name: equip)
+end
+
+tasks = [{ name: "Large Group Classes", duration: 45, select_client: false },
+         { name: "Personl Training", duration: 30, select_client: true },
+         { name: "Small Group", duration: 45, select_client: false }]
+
+tasks.each do |task_hash|
+  tym.tasks.create(name: task_hash[:name], duration: task_hash[:duration], select_client: task_hash[:select_client])
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_27_183243) do
+ActiveRecord::Schema.define(version: 2020_02_04_150901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2020_01_27_183243) do
     t.string "logo_content_type"
     t.bigint "logo_file_size"
     t.datetime "logo_updated_at"
+    t.string "subdomain"
   end
 
   create_table "inboxes", force: :cascade do |t|
@@ -191,6 +192,25 @@ ActiveRecord::Schema.define(version: 2020_01_27_183243) do
 
   create_table "task_records", id: false, force: :cascade do |t|
     t.string "version", null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "gym_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "duration"
+    t.boolean "select_client", default: false
+  end
+
+  create_table "time_cards", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "task_id", null: false
+    t.datetime "start_time", null: false
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "client_id"
   end
 
   create_table "user_notes", force: :cascade do |t|

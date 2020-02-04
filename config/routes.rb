@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   get 'goal/index'
 
-  get 'admin_portal/index', to: 'admin_portal#index', as: 'admin_portal' 
+  get 'admin_portal/new_users', to: 'admin_portal#new_users', as: 'admin_portal_new_users' 
+  get 'admin_portal/time_cards', to: 'admin_portal#time_cards', as: 'admin_portal_time_cards' 
   get 'admin_portal/report_data', to: 'admin_portal#report_data' 
+  get 'admin_portal/update_users', to: 'admin_portal#update_users' 
 
   get 'home/index', to: 'home#index'
   get 'kiosk/index', to: 'kiosk#index', as: 'kiosk'
@@ -42,6 +44,8 @@ Rails.application.routes.draw do
   get 'workout_group/workout_groups_by_workout/:id', to: 'workout_group#workout_groups_by_workout', as: 'workout_groups_by_workout'
 
   get 'exercise/get_all_for_workout_group', to: 'exercise#get_all_for_workout_group', as: 'exercises_by_workout_group'
+  get 'task/check_if_select_client', to: 'task#check_if_select_client', as: 'check_if_select_client'
+
   resources :profile
   resources :workout
   resources :exercise
@@ -52,6 +56,8 @@ Rails.application.routes.draw do
   resources :message_group
   resources :gym
   resources :user
+  resources :task
+  resources :time_card
 
   put 'user/disable_user/:id', to: 'user#disable_user', as: 'disable_user'
   put 'user/enable_user/:id', to: 'user#enable_user', as: 'enable_user'

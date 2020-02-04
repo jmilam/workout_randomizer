@@ -12,7 +12,7 @@
   <body>
     <div style="background-color:#343a40 !important;height:10em;">
       <div class="row">
-        <%= image_tag @gym.nil? ? "logo" : @gym.logo, class: "rounded-image" %>
+        <%= image_tag @gym&.logo.nil? ? "logo" : @gym.logo.url, class: "rounded-image" %>
       </div>
     </div>
 

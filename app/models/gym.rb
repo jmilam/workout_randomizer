@@ -7,6 +7,7 @@ class Gym < ApplicationRecord
   has_many :kiosks
   has_many :categories
   has_many :fitness_classes
+  has_many :tasks
 
   validates :name, :phone_number, presence: true
   has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "logo.jpg"

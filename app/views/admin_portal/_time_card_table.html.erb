@@ -1,0 +1,65 @@
+<% if @time_cards.empty? %>
+	<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4 text-center">Time Cards</h1>
+      <hr/>
+      <p class="lead">No time cards have been created for the time frame selected.</b></p>
+    </div>
+  </div>
+<% else %>
+	<% @time_cards.group_by(&:user_id).each do |user_id, time_cards| %>
+		<table class="table table-stripped" style="color:#003259">
+			<thead>
+				<tr>
+					<th class="text-center boomslang-green" colspan=4><i><%= time_cards.first.user.first_name %> <%= time_cards.first.user.last_name %> </i></th>
+				</tr>
+				<tr class="bg-light">
+					<th/>
+					<th class="text-center">Task Duration</th>
+					<th>Client Name</th>
+					<th/>
+				</tr>
+			</thead>
+			<tbody id="user_body">
+				<% total_sum = 0 %>
+				<% time_cards.group_by(&:task).each do |task, time_cards| %>
+					<% sum = 0 %>
+					<tr>
+						<th><%= task.name %></th>
+						<th colspan=3></th>
+					</tr>
+					<% time_cards.each do |time_card| %>
+						<% duration = time_card.task&.calculate_time(time_card) %>
+						<% sum += duration %>
+						<% total_sum += duration %>
+						<tr>
+							<td></td>
+							<td class="text-center">
+								<% if time_card.end_time.nil? %>
+									Pending
+								<% else %>
+									<%= duration / 60 %>:<%= (duration % 60).to_s.rjust(2, '0') %>
+								<% end %>
+							</td>
+							<td>
+								<% unless time_card.client_id.nil? %>
+									<% client = User.find(time_card.client_id) %>
+									<%= client.first_name %> <%= client.last_name %>
+								<% end %>
+							</td>
+							<td/>
+						</tr>
+					<% end %>
+					<tr>
+						<th colspan="3"></th>
+						<th class="text-center"><b>Total Time for <%= task.name %>: </b><i><%= sum / 60 %> Hours <%= sum % 60 %> Minutes </i></th>
+					</tr>
+				<% end %>
+			</tbody>
+			<tfoot class="bg-dark">
+				<th colspan="3"></th>
+				<th class="text-center" style="color:white;"><b>Total Time for all tasks: </b><i><%= total_sum / 60 %> Hours <%= total_sum % 60 %> Minutes </i></th>
+			</tfoot>
+		</table>
+	<% end %>
+<% end %>

@@ -30,6 +30,7 @@ class GymController < ApplicationController
 
     @categories = @gym.categories
     @category = @gym.categories.new
+    @tasks = @gym.tasks
     @workouts = current_user.gym.workouts
   end
 

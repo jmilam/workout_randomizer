@@ -15,7 +15,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :gym_id, :email, presence: true
+  validates :gym_id, :email, :first_name, :last_name, presence: true
   validates :password, presence: true, on: :create
   validates :email, uniqueness: true
   validate :validate_not_a_robot

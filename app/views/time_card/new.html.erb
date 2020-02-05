@@ -12,19 +12,16 @@
 			    <div class="container">
 				    <div class="row">
 				    	<div class="col-md-12 col-sm-12 form-group">
-				        <%#= f.label :user_id, class: 'col-md-12' %>
 				        <%= f.select :user_id, @employees.collect { |user| ["#{user.first_name} #{user.last_name}", user.id] }, { prompt: "--- Select employee name ---"}, { class: 'col-md-12 form-control' } %>
 				      </div>
 				    </div>
 				    <div class="row">
 				      <div class="col-md-12 col-sm-12 form-group">
-				        <%#= f.label :task_id, class: 'col-md-12' %>
 				        <%= f.select :task_id, @gym.tasks.order(name: :asc).collect { |task| [task.name, task.id] }, { prompt: "--- Please select a task ---"}, { class: 'col-md-12 form-control' } %>
 				      </div>
 				    </div>
 				    <div class="row">
 				      <div class="col-md-12 col-sm-12 form-group" id="client" style='display:none;'>
-				        <%#= f.label :client_id, class: 'col-md-12' %>
 				        <%= f.select :client_id, @clients.collect { |client| ["#{client.first_name} #{client.last_name}", client.id] }, { prompt: "--- Please select your client ---"}, { class: 'col-md-12 form-control hide' } %>
 				      </div>
 				    </div>

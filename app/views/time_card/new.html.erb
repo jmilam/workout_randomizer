@@ -26,7 +26,7 @@
 				      </div>
 				    </div>
 				    <div class="row">
-				      <div class="col-md-12 col-sm-12 form-group">
+				      <div class="col-md-12 col-sm-12 form-group" id="sign_in_out_div" style='display:none;'>
 				        <%= select_tag :sign_in_out, options_for_select(["Clock In", "Clock Out"].collect { |step| [step, step] }), {class: 'col-md-12 form-control'} %>
 				        <p class="text-muted">
 				        	If a task is pre-set with a duration then that time will <br/> be logged as complete and you will not need to sign out.
@@ -52,9 +52,12 @@
 		  data: { id: $(this).val() },
 		  success: function(data) {
 		  	var obj = $.parseJSON(data);
+	  		$('#sign_in_out').val('Clock In');
 		  	if (obj.select_client) {
 		  		$('#client').css('display','block');
+		  		$('#sign_in_out_div').css('display', 'none');
 		  	} else {
+		  		$('#sign_in_out_div').css('display', 'block');
 		  		$('#client').css('display','none');
 		  		$('#time_card_client_id').val('');
 		  	}

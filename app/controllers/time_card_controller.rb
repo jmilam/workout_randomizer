@@ -4,8 +4,8 @@ class TimeCardController < ApplicationController
   def new
     # sub_domain = request.domain.scan(/\w+/)[0]
     @gym = Gym.find_by(subdomain: params[:gym])
-    @employees = @gym.users.where(trainer: true)
-    @clients = @gym.users.where(trainer: false)
+    @employees = @gym.users.where(trainer: true).order(last_name: :asc)
+    @clients = @gym.users.where(trainer: false).order(last_name: :asc)
     @time_card = TimeCard.new
   end
 

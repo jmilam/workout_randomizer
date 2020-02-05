@@ -19,7 +19,7 @@
 				    <div class="row">
 				      <div class="col-md-12 col-sm-12 form-group">
 				        <%#= f.label :task_id, class: 'col-md-12' %>
-				        <%= f.select :task_id, @gym.tasks.collect { |task| [task.name, task.id] }, { prompt: "--- Please select a task ---"}, { class: 'col-md-12 form-control' } %>
+				        <%= f.select :task_id, @gym.tasks.order(name: :asc).collect { |task| [task.name, task.id] }, { prompt: "--- Please select a task ---"}, { class: 'col-md-12 form-control' } %>
 				      </div>
 				    </div>
 				    <div class="row">

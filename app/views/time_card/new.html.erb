@@ -4,7 +4,8 @@
 		<div class="container">
 			<div class="card border-success">
 			  <div class="card-header text-success bg-white border-success">
-			  	<div>Log Time</div>
+          <%= image_tag @gym.logo.nil? ? "logo" : @gym.logo.url, class: "rounded-image" %>
+			  	<h4>Log Time</h4>
 			    <div class="text-muted">Select the employee and that employees task they are performating.</div>
 			  </div>
 			  <div class="card-body text-success bg-white" style="margin-bottom:0;">

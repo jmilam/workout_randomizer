@@ -27,10 +27,10 @@ class TimeCardController < ApplicationController
       end
 
       flash[:notice] = "Time successfully saved"
-      redirect_to new_time_card_path
+      redirect_to new_time_card_path(gym: @user.gym.subdomain)
     rescue => error
       flash[:alert] = "There was an error when inputing your time card #{error}"
-      redirect_to new_time_card_path
+      redirect_to new_time_card_path(gym: @user.gym.subdomain)
     end
   end
 end

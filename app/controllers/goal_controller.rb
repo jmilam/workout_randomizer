@@ -5,7 +5,7 @@ class GoalController < ApplicationController
 
   	@show_goals_for_other_users = false
 
-  	@goals = if @user.gym.admin_ids.include?(@user.id.to_s) || @user.trainer
+  	@goals = if @user.gym.current_user_gym_admin(@user) || @user.trainer
   					   @show_goals_for_other_users = true
   					   @user.gym.users.map(&:goals).flatten
 					   else

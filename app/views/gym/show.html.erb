@@ -52,24 +52,6 @@
 						    </div>
 						  </div>
 
-						  <div class="row">
-						    <div class="col-md-5 col-sm-5 col-5 form-group">
-						    	<%= f.label 'Users' %>
-						    	<%= select_tag 'users', options_for_select(@non_admins), multiple: true, class: 'form-control' %>
-						    </div>
-
-						    <div class="col-md-2 col-sm-2 col-2" style="padding-top: 50px;padding-bottom: 50px;width: 100%;text-align: center;">
-						    	<button class="btn btn-warning" id="add-admin">-></button>
-						    	<button class="btn btn-danger" id="remove-admin"><-</button>
-
-						    </div>
-
-						    <div class="col-md-5 col-sm-5 col-5 form-group">
-									<%= f.label :admin_ids %>
-									<%= f.select :admin_ids, options_for_select(@admins), {}, multiple: true, class: 'form-control' %>
-								</div>
-							</div>
-
 							<div class="row">
 							  <div class="col-12">
 									<%= f.label :logo, "Upload Gym Logo: " %>
@@ -339,18 +321,7 @@
 <script>
 	$('#gym-update').on('click', function(e) {
 		e.preventDefault();
-		$('#gym_admin_ids option').prop('selected', true);
 		$('.edit_gym').submit();
-	});
-
-	$('#add-admin, #remove-admin').on('click', function(e){
-		e.preventDefault();
-
-		if ($(this).attr('id') === 'add-admin'){
-			$('#gym_admin_ids').append($('#users option:selected'))
-		} else {
-			$('#users').append($('#gym_admin_ids option:selected'))
-		}
 	});
 
   $('#category_tag').on('change', function(){

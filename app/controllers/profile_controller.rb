@@ -78,10 +78,13 @@ class ProfileController < ApplicationController
     @trainers = @user.gym.users.trainers
     @workouts = @user.gym.workouts
     @workout_groups = @user.gym.workout_groups.uniq
+    @gym_admin = !GymAdmin.where(gym_id: @user.gym.id, user_id: @user.id).empty?
   end
 
   def update
     @user = User.find(params[:id])
+
+    @user.gym.update_gym_admin(params[:gym_admin], @user.id)
 
     if @user.update!(workout_params)
       @user.update_goals(params[:goal])

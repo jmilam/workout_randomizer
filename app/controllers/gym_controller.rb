@@ -6,20 +6,9 @@ class GymController < ApplicationController
 
   def show
     @non_admins = []
-    @admins = []
     @gym = Gym.find(params[:id])
 
     @gym_users = @gym.users.order(:last_name)
-
-    @gym.admin_ids.to_s.split(',').each do |admin_id|
-      user = User.find(admin_id)
-      @admins << [user.username, user.id]
-    end
-
-    @gym.non_selected_users.each do |user_id|
-      user = User.find(user_id)
-      @non_admins << [user.username, user.id]
-    end
 
     kiosk_exercise_ids = @gym.kiosks.map(&:exercise_id)
 
@@ -47,7 +36,6 @@ class GymController < ApplicationController
     @gym = Gym.find(params[:id])
 
     if @gym.update!(gym_params)
-      @gym.admin_ids = params[:gym][:admin_ids].delete_if(&:blank?).join(',')
       @gym.save!
 
       flash[:notice] = 'Successfully Updated Gym Information.'

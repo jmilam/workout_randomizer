@@ -82,13 +82,25 @@
             </div>
 
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-4">
                 <%= f.label :email %>
-                <%= f.text_field :email, class: 'col-12 form-control' %>
+                <%= f.text_field :email, class: 'col-md-12 form-control' %>
               </div>
-              <div class="col-6">
-                <%= f.label :avatar, "Upload Profile Picture:", class: 'col-6' %>
-                <div class="col-6">
+              <div class="col-md-2 col-6">
+                <%= f.label :employee %>
+                <div class="col-md-2 col-6">
+                  <%= f.check_box :employee %>
+                </div>
+              </div>
+              <div class="col-md-2 col-6">
+                <%= f.label :trainer %>
+                <div class="col-md-2 col-6">
+                  <%= f.check_box :trainer %>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <%= f.label :avatar, "Upload Profile Picture:" %>
+                <div class="col-md-4">
                   <%= f.file_field :avatar %>
                 </div>
               </div>

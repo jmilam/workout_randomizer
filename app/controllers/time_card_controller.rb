@@ -41,8 +41,6 @@ class TimeCardController < ApplicationController
         redirect_to new_time_card_path(gym: @user.gym.subdomain)
       end
     rescue => error
-      p @time_card
-      p @time_card.errors
       flash[:alert] = "There was an error when inputing your time card #{error}"
 
       if params[:manual_entry]

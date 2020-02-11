@@ -3,10 +3,6 @@ class Task < ApplicationRecord
   has_many :time_cards
 
   def calculate_time(time_card)
-    if duration.nil?
-      time_card.end_time.nil? ? 0 : ((time_card.end_time - time_card.start_time) / 60).round
-    else
-      duration
-    end
+    time_card.end_time.nil? ? 0 : ((time_card.end_time - time_card.start_time) / 60).round
   end
 end

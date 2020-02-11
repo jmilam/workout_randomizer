@@ -21,6 +21,8 @@ class GymController < ApplicationController
     @category = @gym.categories.new
     @tasks = @gym.tasks.order(name: :asc)
     @workouts = current_user.gym.workouts
+    @employees = @gym.users.where(employee: true).order(last_name: :asc)
+    @clients = @gym.users.where(employee: false).order(last_name: :asc)
   end
 
   def create

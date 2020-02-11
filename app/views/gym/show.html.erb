@@ -257,6 +257,7 @@
 						  <div class="nav nav-tabs" id="nav-tab" role="tablist">
 						    <a class="nav-item nav-link active" id="nav-current-tasks-tab" data-toggle="tab" href="#nav-current-tasks" role="tab" aria-controls="nav-current-tasks" aria-selected="true">Configured Tasks</a>
 						    <a class="nav-item nav-link" id="nav-new-tasks-tab" data-toggle="tab" href="#nav-new-tasks" role="tab" aria-controls="nav-new-tasks" aria-selected="false">New Task</a>
+						    <a class="nav-item nav-link" id="nav-new-time-tab" data-toggle="tab" href="#nav-new-time" role="tab" aria-controls="nav-new-time" aria-selected="false">Manually Enter Time</a>
 						  </div>
 						</nav>
 						<div class="tab-content" id="tasks-tabContent">
@@ -309,6 +310,41 @@
 									<% end %>
 
 								</div>
+						  </div>
+						  <div class="tab-pane fade" id="nav-new-time" role="tabpanel" aria-labelledby="nav-new-time-tab">
+						  	<%= form_for :time_card, url: time_card_index_path, method: :post do |f| %>
+						  		<%= hidden_field_tag :manual_entry, true %>
+									<div class="container">
+									    <div class="row">
+									    	<div class="col-md-12 col-sm-12 form-group">
+									        <%= f.select :user_id, @employees.collect { |user| ["#{user.first_name} #{user.last_name}", user.id] }, { prompt: "--- Select employee name ---"}, { class: 'col-md-12 form-control' } %>
+									      </div>
+									    </div>
+									    <div class="row">
+									      <div class="col-md-12 col-sm-12 form-group">
+									        <%= f.select :task_id, @gym.tasks.order(name: :asc).collect { |task| [task.name, task.id] }, { prompt: "--- Please select a task ---"}, { class: 'col-md-12 form-control' } %>
+									      </div>
+									    </div>
+									    <div class="row">
+									      <div class="col-md-12 col-sm-12 form-group" id="client">
+									        <%= f.select :client_id, @clients.collect { |client| ["#{client.first_name} #{client.last_name}", client.id] }, { prompt: "--- Please select your client ---"}, { class: 'col-md-12 form-control' } %>
+									      </div>
+									    </div>
+									    <div class="row">
+									      <div class="col-md-12 col-sm-12 form-group" id="client">
+									        <%= date_field_tag :date, Date.today, {placeholder: "Enter duration of the task entering in minutes", class: 'col-md-12 form-control'}%>
+									      </div>
+									    </div>
+									    <div class="row">
+									      <div class="col-md-12 col-sm-12 form-group" id="client">
+									        <%= f.number_field :duration, placeholder: "Enter duration of the task entering", class: 'col-md-12 form-control'%>
+									      </div>
+									    </div>
+										  <div>
+												<%= f.submit "Log time", class: 'btn btn-lg btn-block workout-btn card-footer' %>
+										  </div>
+									</div>
+								<% end %>
 						  </div>
 						</div>
 					</div>

@@ -33,7 +33,7 @@ class User < ApplicationRecord
 
   enum goal: { '0' => 'Fat Loss',
                '1' => 'Lean Mass Gain',
-               '2' => 'Maintain',
+               '2' => 'Maintain Wait',
                '3' => 'Other' }
 
   scope :new_users, -> (date_range=Date.today.beginning_of_week..Date.today.end_of_week) { where(created_at: date_range)}

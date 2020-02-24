@@ -26,13 +26,13 @@
           <div class="card">
             <div class="card-body" style="margin-bottom:0px;">
               <div class="row">
-                <div class="col-md-12 text-center" style="color:white;"><%=  @workout.name %></div>
+                <div class="col-md-12 text-center" style="color:white;"><%=  @workout&.name %></div>
               </div>
               <div class="row">
                 <div class="col-md-12 text-center" style="color:white;"><%=  @weeks_remaining %> weeks remaining</div>
               </div>
               <div class="progress">
-                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= progress_percent(@workout.duration, @weeks_doing_workout) %>" aria-valuenow="<%=  @workout.duration - @weeks_doing_workout %>" aria-valuemin="0" aria-valuemax="<%= @workout.duration %>"></div>
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= progress_percent(@workout&.duration, @weeks_doing_workout) %>" aria-valuenow="<%=  @workout&.duration.to_i - @weeks_doing_workout %>" aria-valuemin="0" aria-valuemax="<%= @workout&.duration %>"></div>
               </div>
             </div>
           </div>
@@ -46,7 +46,7 @@
 
   <%= link_to "Manually Enter Workout", manual_workout_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
 
-  <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @completed_workout || !@user.current_workout %></div>
+  <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @completed_workout %></div>
 
   <%= link_to "Workout of the Day", kiosk_exercise_path(workout_id: @wod.workout_id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @wod.nil? %>
 

@@ -8,9 +8,9 @@ class ProfileController < ApplicationController
     @weeks_doing_workout = 0
     @workout_group = WorkoutGroup.find_by(id: @user.current_workout_group)
 
-    if params[:manual_exit]
-      @user.update(current_workout_group: nil)
-    end
+    # if params[:manual_exit]
+    #   @user.update(current_workout_group: nil)
+    # end
 
     unless @user.current_workout.nil?
       @workout = Workout.find(@user.current_workout)
@@ -30,9 +30,9 @@ class ProfileController < ApplicationController
 
       @weeks_remaining = @workout.duration - @weeks_doing_workout
 
-      if @weeks_remaining < 0
-        @user.workout_complete
-      end
+      # if @weeks_remaining < 0
+      #   @user.workout_complete
+      # end
     end
 
     @height = (@user.height / 12.0).round(1).to_s.split('.')

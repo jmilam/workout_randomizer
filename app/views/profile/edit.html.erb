@@ -55,7 +55,7 @@
             <div class="row">
               <div class="col-md-6 col-sm-6 form-group">
                 <%= f.label :current_workout, class: 'col-md-12' %>
-                <%= f.select :current_workout, @workouts.collect { |group| [group.name, group.id] }, { prompt: "Select A Workout, see details on Workout tab", selected: @user.current_workout }, class: 'col-md-12 form-control' %>
+                <%= f.select :current_workout, @workouts.collect { |group| [group.name, group.id] }, { prompt: "Select A Workout, see details on Workout tab", selected: @user.current_workout, include_blank: true }, class: 'col-md-12 form-control' %>
               </div>
                <div class="col-md-6 col-sm-6 form-group">
                 <%= f.label :current_workout_group, class: 'col-md-12' %>

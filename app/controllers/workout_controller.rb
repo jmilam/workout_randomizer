@@ -125,7 +125,7 @@ class WorkoutController < ApplicationController
 
   def stop_workout
     current_user.current_workout = nil
-    current_user.current_workout_group = nil
+    # current_user.current_workout_group = nil
 
     if current_user.save!(validate: false)
       flash[:notice] = 'Awesome job on the workout. Your next workout is waiting for you.'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_190303) do
+ActiveRecord::Schema.define(version: 2020_02_24_163544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_190303) do
     t.boolean "disabled", default: false
     t.boolean "band", default: false
     t.boolean "timed_exercise", default: false
-    t.integer "time_by_minutes", default: 30
+    t.integer "time_by_minutes", default: 1
     t.integer "common_exercise_id", null: false
     t.integer "common_equipment_id", null: false
     t.integer "workout_id", null: false

@@ -59,7 +59,7 @@
               </div>
                <div class="col-md-6 col-sm-6 form-group">
                 <%= f.label :current_workout_group, class: 'col-md-12' %>
-                <%= f.select :current_workout_group, @workout_groups.collect { |group| p group; [group.name, group.id] }, { prompt: "Select A Workout Group", selected: @user.current_workout_group }, class: 'col-md-12 form-control' %>
+                <%= f.select :current_workout_group, @workout_groups.collect { |group| p group; [group.name, group.id] }, { prompt: "Select A Workout Group", include_blank: true, selected: @user.current_workout_group }, class: 'col-md-12 form-control' %>
               </div>
             </div>
 

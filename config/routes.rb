@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   get 'exercise/get_all_for_workout_group', to: 'exercise#get_all_for_workout_group', as: 'exercises_by_workout_group'
   get 'task/check_if_select_client', to: 'task#check_if_select_client', as: 'check_if_select_client'
 
+  post 'common_exercise/create', to: 'common_exercise#create', as: 'create_common_exercise'
+
   resources :profile
   resources :workout
   resources :exercise

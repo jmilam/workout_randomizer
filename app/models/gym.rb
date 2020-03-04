@@ -9,6 +9,7 @@ class Gym < ApplicationRecord
   has_many :fitness_classes
   has_many :tasks
   has_many :gym_admins
+  has_many :common_exercises
 
   validates :name, :phone_number, presence: true
   has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "logo.jpg"

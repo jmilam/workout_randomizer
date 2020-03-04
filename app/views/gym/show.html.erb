@@ -8,6 +8,7 @@
 			  <li class='nav-item nav-li'><a class='nav-link' id='gym-users-tab' data-toggle='tab' href='#gym-users' role='tab' aria-controls='gym-users' aria-selected='true'>Gym Users <span class="badge badge-pill badge-secondary"><%= @gym_users.count %></span></a></li>
 			  <li class='nav-item nav-li'><a class='nav-link' id='popup-workout-tab' data-toggle='tab' href='#popup-workout' role='tab' aria-controls='popup-workout' aria-selected='true'>Daily Popup Workouts</span></a></li>
 			  <li class='nav-item nav-li'><a class='nav-link' id='categories-tab' data-toggle='tab' href='#categories' role='tab' aria-controls='categories' aria-selected='true'>Categories</span></a></li>
+			  <li class='nav-item nav-li'><a class='nav-link' id='common-exercises-tab' data-toggle='tab' href='#common-exercises' role='tab' aria-controls='common-exercises' aria-selected='true'>Common Exercises</span></a></li>
 			  <li class='nav-item nav-li'><a class='nav-link' id='workouts-tab' data-toggle='tab' href='#workouts' role='tab' aria-controls='workouts' aria-selected='true'>Workouts</span></a></li>
 			  <li class='nav-item nav-li'><a class='nav-link' id='workout-groups-tab' data-toggle='tab' href='#workout-groups' role='tab' aria-controls='workout-groups' aria-selected='true'>Workout Groups</span></a></li>
 			  <li class='nav-item nav-li'><a class='nav-link' id='gym-tasks-tab' data-toggle='tab' href='#gym-tasks' role='tab' aria-controls='gym-tasks' aria-selected='true'>Task <span class="badge badge-pill badge-secondary"><%= @tasks.count %></span></a></li>
@@ -211,6 +212,9 @@
 								</div>
 						  </div>
 						</div>
+					</div>
+					<div class="tab-pane fade show" id='common-exercises' role='tabpanel' aria-labelledby='common-exercises'>
+						<%= render "partials/common_exercise", common_exercises: @common_exercises %>
 					</div>
 					<div class="tab-pane fade show" id='workouts' role='tabpanel' aria-labelledby='workouts'>
 						<%= link_to "New Workout", new_workout_path, class: "pull-right workout-btn btn", style: "margin-bottom:10px;" %>

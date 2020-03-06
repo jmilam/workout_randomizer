@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_193901) do
+ActiveRecord::Schema.define(version: 2020_03_06_175615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,10 @@ ActiveRecord::Schema.define(version: 2020_03_04_193901) do
     t.integer "common_exercise_id", null: false
     t.integer "common_equipment_id", null: false
     t.integer "workout_id", null: false
+    t.string "video_file_name"
+    t.string "video_content_type"
+    t.bigint "video_file_size"
+    t.datetime "video_updated_at"
   end
 
   create_table "fitness_classes", force: :cascade do |t|

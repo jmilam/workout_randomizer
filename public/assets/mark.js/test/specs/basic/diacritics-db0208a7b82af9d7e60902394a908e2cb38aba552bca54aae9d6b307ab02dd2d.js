@@ -1,0 +1,1 @@
+"use strict";describe("basic mark with diacritics",function(){var i;beforeEach(function(a){loadFixtures("basic/diacritics.html"),i=$(".basic-diacritics"),new Mark(i[0]).mark(["dolor","amet","justo","lores ipsum"],{separateWordSearch:!1,done:function(){a()}})}),it("should treat normal and diacritic characters equally",function(){expect(i.find("mark")).toHaveLength(15)})});

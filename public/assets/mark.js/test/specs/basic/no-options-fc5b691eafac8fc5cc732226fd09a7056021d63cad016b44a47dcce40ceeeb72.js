@@ -1,0 +1,1 @@
+"use strict";describe("basic mark with no options",function(){var t,o;beforeEach(function(){loadFixtures("basic/no-options.html"),t=$(".basic-no-options"),o=!1;try{new Mark(t[0]).mark("lorem ipsum")}catch(n){o=!0}}),it("should not throw an error",function(){expect(o).toBe(!1)}),it("should wrap matches",function(){expect(t.find("mark").length).toBeGreaterThan(0)})});

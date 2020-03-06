@@ -1,0 +1,1 @@
+"use strict";describe("basic mark with each callback",function(){var a,c;beforeEach(function(e){loadFixtures("basic/main.html"),c=0,a=$(".basic"),new Mark(a[0]).mark("lorem ipsum",{diacritics:!1,separateWordSearch:!1,each:function(){c++},done:function(){e()}})}),it("should call the each callback for each marked element",function(){expect(c).toBe(4)})});

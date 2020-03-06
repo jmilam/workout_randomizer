@@ -1,0 +1,1 @@
+"use strict";jasmine.getFixtures().fixturesPath="base/test/fixtures",jasmine.DEFAULT_TIMEOUT_INTERVAL=6e4;

@@ -1,0 +1,1 @@
+"use strict";describe("basic mark ignore empty synonyms",function(){var n;beforeEach(function(e){loadFixtures("basic/synonyms-not-empty.html"),n=$(".synonyms-not-empty > div"),new Mark(n[0]).mark("lorem",{synonyms:{lorem:""},separateWordSearch:!1,diacritics:!1,done:e})}),it("should ignore empty synonyms",function(){expect(n.find("mark")).toHaveLength(4)})});

@@ -1,0 +1,1 @@
+"use strict";describe("basic mark with multiple same keywords",function(){var e;beforeEach(function(t){loadFixtures("basic/same-keywords.html"),e=$(".basic-same-keywords"),new Mark(e[0]).mark(["test","test"],{diacritics:!1,separateWordSearch:!1,done:function(){t()}})}),it("matches should be wrapped only once",function(){expect(e.find("mark")).toHaveLength(1)})});

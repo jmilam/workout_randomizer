@@ -1,0 +1,1 @@
+import MarkJS from"./lib/mark";export default function Mark(r){const a=new MarkJS(r);return this.mark=((r,t)=>(a.mark(r,t),this)),this.markRegExp=((r,t)=>(a.markRegExp(r,t),this)),this.markRanges=((r,t)=>(a.markRanges(r,t),this)),this.unmark=(r=>(a.unmark(r),this)),this};

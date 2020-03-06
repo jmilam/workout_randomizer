@@ -1,0 +1,1 @@
+"use strict";describe("basic mark with diacritics for Vietnamese",function(){var a;beforeEach(function(e){loadFixtures("basic/diacritics-vietnamese.html"),a=$(".basic-diacritics-vietnamese"),new Mark(a[0]).mark(["truong","am","ac"],{separateWordSearch:!1,done:e})}),it("should treat normal and diacritic characters equally",function(){expect(a.find("mark")).toHaveLength(9)})});

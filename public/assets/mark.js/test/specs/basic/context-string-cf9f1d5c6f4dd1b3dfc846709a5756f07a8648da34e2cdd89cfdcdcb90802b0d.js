@@ -1,0 +1,1 @@
+"use strict";describe("basic mark called with a string selector as context",function(){var t;beforeEach(function(e){loadFixtures("basic/context-string.html"),t=$(".basic-context-string"),new Mark(".basic-context-string").mark("lorem",{diacritics:!1,separateWordSearch:!1,done:e})}),it("should wrap matches",function(){expect(t.find("mark")).toHaveLength(8)})});

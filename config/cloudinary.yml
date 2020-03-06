@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: hufypckhf
+  api_key: '258322728145756'
+  api_secret: BG4OzHDzM_Ct6rXAMtc9TjC89zQ
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: hufypckhf
+  api_key: '258322728145756'
+  api_secret: BG4OzHDzM_Ct6rXAMtc9TjC89zQ
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: hufypckhf
+  api_key: '258322728145756'
+  api_secret: BG4OzHDzM_Ct6rXAMtc9TjC89zQ
+  enhance_image_tag: true
+  static_file_support: false

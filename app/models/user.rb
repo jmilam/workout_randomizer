@@ -21,7 +21,11 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validate :validate_not_a_robot
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "avatar-placeholder.png"
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" },
+                             default_url: "avatar-placeholder.png",
+                             storage: :cloudinary,
+                             path: ':id/:style/:filename'
+
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
   enum regularity: { '1week' => '1 day week',

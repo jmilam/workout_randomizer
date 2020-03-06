@@ -74,6 +74,7 @@ class ProfileController < ApplicationController
     @measurements = @user.measurements.last || @user.measurements.new
     @regularity = User.regularities
     @goals = User.goals
+    @gym = @user.gym
     @gyms = Gym.all.includes(:users)
     @trainers = @user.gym.users.trainers
     @workouts = @user.gym.workouts

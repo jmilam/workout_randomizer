@@ -41,9 +41,15 @@
 			</div>
 		</div>
 		<% if @manual_entry %>
+			<% counter = 1 %>
 			<% @exercise_groups.each do |key, exercise_group| %>
-					<% exercise_group.each_with_index do |exercise, idx| %>
-						<% bg_color = Category.style_tags.to_a.sample[1] %>
+				<div class="card">
+				  <div class="card-header" style="background-color:#003259;color:white;">
+				    <div class="lead">Exercise Group <%= counter %></div>
+				  </div>
+				  <div class="card-body">
+				  	<% exercise_group.each_with_index do |exercise, idx| %>
+							<% bg_color = Category.style_tags.to_a.sample[1] %>
 								<div class="row boomslang-green">
 									<div class="<%= exercise.video_file_name.nil? ? 'col-md-12' : 'col-md-6' %>">
 										<div class="col-md-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
@@ -145,7 +151,10 @@
 										</div>
 									<% end %>
 								</div>
-					<% end %>
+						<% end %>
+				  </div>
+				</div>
+				<% counter += 1 %>
 			<% end %>
 			<div class="row">
 					<%= f.submit @button_title, class: "btn btn-lg btn-block workout-btn", style: "height:100px;margin-top: -10px;" %>

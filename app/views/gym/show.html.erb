@@ -2,7 +2,10 @@
 <div class="row" style="height:100%;width:100%;">
 	<div class="row" style="height:100%;">
 		<div class="col-md-3" style="padding-top:20px;background:#003259;">
-			<ul class="nav nav-pills" id="workoutTab" role="tablist" style="margin-bottom:30px;">
+			<button class="navbar-toggler sidebar-collapse-button pull-right" type="button" data-toggle="collapse" data-target="#workoutTab" aria-controls="workoutTab" aria-expanded="false" aria-label="Toggle navigation" style="margin-left: auto;margin-right: auto;padding-bottom:20px;">
+				<i class="fa fa-list fa-lg fa-pull-right" style="color:white;"></i>
+		  </button>
+			<ul class="nav nav-pills navbar-collapse" id="workoutTab" role="tablist" style="margin-bottom:30px;">
 			  <li class='nav-item nav-li'><a class='nav-link active' id='profile-tab' data-toggle='tab' href='#profile' role='tab' aria-controls='profile' aira-selected='true'>Gym Information</a></li>
 			  <li class='nav-item nav-li'><a class='nav-link' id='workout-trending-tab' data-toggle='tab' href='#workout-trending' role='tab' aria-controls='workout-trending' aria-selected='true'>Gym Kiosks <span class="badge badge-pill badge-secondary"><%= @gym.kiosks.count %></span></a></li>
 			  <li class='nav-item nav-li'><a class='nav-link' id='gym-users-tab' data-toggle='tab' href='#gym-users' role='tab' aria-controls='gym-users' aria-selected='true'>Gym Users <span class="badge badge-pill badge-secondary"><%= @gym_users.count %></span></a></li>
@@ -369,4 +372,27 @@
     let new_class = parser.exec($(this).find(":selected").attr('class'))[0]
     $('#category-color').attr('class', "col-md-1 col-sm-1 col-1 " + new_class)
   });
+
+  function checkWidth(init)
+	{
+	    /*If browser resized, check width again */
+	    if ($(window).width() < 768) {
+	        $('#workoutTab').addClass('collapse');
+	      	$('.sidebar-collapse-button').show();
+	    }
+	    else {
+	        if (!init) {
+	          $('#workoutTab').removeClass('collapse');
+		        $('.sidebar-collapse-button').hide();
+	        }
+	    }
+	}
+
+	$(document).ready(function() {
+	    checkWidth(false);
+
+	    $(window).resize(function() {
+	        checkWidth(false);
+	    });
+	});
 </script>

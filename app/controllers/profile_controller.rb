@@ -17,10 +17,6 @@ class ProfileController < ApplicationController
       current_workout_group_exercises_count = @user.current_workout_group.nil? ?
         0 : WorkoutGroup.find(@user.current_workout_group).workout_group_pairings.count 
 
-      @completed_workout = !@user.user_previous_workouts
-                                  .where(workout_date: Date.today.in_time_zone)
-                                  .empty?
-
       @weeks_doing_workout = @workout.user_previous_workouts.where(user_id: @user.id)
         .sort
         .group_by(&:workout_date)
@@ -42,6 +38,9 @@ class ProfileController < ApplicationController
 
     @differences = {}
 
+    @completed_workout = !@user.user_previous_workouts
+                            .where(workout_date: Date.today.in_time_zone)
+                            .empty?
     # unless @user.current_workout.nil?
     #   current_workout = Workout.find(@user.current_workout)
     #   WorkoutDetail.all.where(workout_group_id: current_workout.workout_groups.map(&:id)).group_by(&:exercise_id).each do |detail|

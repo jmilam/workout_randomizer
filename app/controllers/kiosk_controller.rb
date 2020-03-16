@@ -84,7 +84,7 @@ class KioskController < ApplicationController
 
          exercise_groups = Exercise.group_by_circuit(workout)
          no_more_exercises = Exercise.get_exercise(user, exercise_groups).nil?
-         user.update(current_workout: nil) if no_more_exercises
+         # user.update(current_workout: nil) if no_more_exercises
          flash[:notice] = user.current_workout_group.nil? ? 'Great Workout! You completed todays workout!' : 'Exercise Complete'
 
          if !user.trainer_id.nil? && no_more_exercises

@@ -272,9 +272,9 @@
 			<% end %>
 			<div class="row boomslang-green" style="padding-top: 15px;padding-bottom: 15px;margin-top: -10px;">
 				<% unless @manual_entry %>
-						<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block col-md-5 offset-md-1", style: "margin-top:auto;;height:75px;padding-top:20px;background-color:transparent;color:#003259;" %> 
+						<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block col-md-5 offset-md-1 col-6", style: "margin-top:auto;;height:75px;padding-top:20px;background-color:transparent;color:#003259;" %> 
 				<% end %>
-				<%= f.submit @button_title, class: "btn btn-lg btn-block col-md-4 offset-md-1", style: "background-color:transparent;height:75px;color:#003259;" %>
+				<%= f.submit @button_title, class: "btn btn-lg btn-block col-md-4 offset-md-1 col-6", style: "background-color:transparent;height:75px;color:#003259;" %>
 			</div>
 		<% end %>
 	<% end %>

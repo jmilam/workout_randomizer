@@ -10,6 +10,7 @@ class Users::SessionsController < Devise::SessionsController
     flash[:notice] = nil
     uri = URI.parse(request.original_url)
     @gym = Gym.where("lower(name) = ?", uri.host.split('.').first.to_s.gsub("_", " ")).last
+    @title = "Sign In"
     super
   end
 

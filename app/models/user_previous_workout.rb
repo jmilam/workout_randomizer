@@ -11,42 +11,46 @@ class UserPreviousWorkout < ApplicationRecord
   def self.for_google_charts(grouped_workouts)
     workout_stats = {}
 
-    grouped_workouts.each do |previous_workout, previous_workkout_details|
+    grouped_workouts.each do |previous_workout, previous_workout_details|
       workout_name = previous_workout.name
       workout_details = ['Date']
 
-      previous_workkout_details.each do |prev_workout_detail|
-        exercises = prev_workout_detail.workout.exercises.sort
-        exercise_names = exercises.map { |exercise| exercise.common_exercise.name }
-        exercise_ids = exercises.map(&:id)
+      previous_workout_details.sort_by(&:workout_date).group_by(&:workout_date).each do |workout_date, prev_workout_details|
+          exercise_ids = nil
+          prev_workout_details.each do |prev_workout_detail|
+            exercises = prev_workout_detail.workout.exercises.sort
+            exercise_names = exercises.map { |exercise| exercise.common_exercise.name }
+            exercise_ids = exercises.map(&:id)
 
-        workout_details << exercise_names
+            workout_details << exercise_names
 
-        if workout_stats[workout_name.to_s].nil?
-          workout_stats[workout_name.to_s] = {}
-          workout_stats[workout_name.to_s] = [workout_details.flatten]
-        elsif workout_stats[workout_name.to_s].nil? || workout_stats[workout_name.to_s].include?(exercise_names[0])
-          workout_stats[workout_name.to_s] = [workout_details.flatten]
-        end
+            if workout_stats[workout_name.to_s].nil?
+              workout_stats[workout_name.to_s] = {}
+              workout_stats[workout_name.to_s] = [workout_details.flatten]
+            elsif workout_stats[workout_name.to_s].nil? || workout_stats[workout_name.to_s].include?(exercise_names[0])
+              workout_stats[workout_name.to_s] = [workout_details.flatten]
+            end
+          end
 
-        workout_stats[workout_name.to_s] <<
-          [prev_workout_detail.workout_date.strftime('%m/%d/%y'), build_max_reps(prev_workout_detail, exercise_ids)].flatten
+          workout_stats[workout_name.to_s] <<
+              [workout_date.strftime('%m/%d/%y'), build_max_reps(prev_workout_details, exercise_ids)].flatten
       end
     end
 
     workout_stats
   end
 
-  def self.build_max_reps(detail, exercise_ids)
+  def self.build_max_reps(details, exercise_ids)
     max_reps = Array.new(exercise_ids.count)
 
     exercise_ids.each_with_index do |id, idx|
-
       max_reps[idx] = 0
     end
-
-    idx = exercise_ids.index(detail.exercise_id)
-    max_reps[idx] = detail.avg_rep_weight
+    
+    details.each_with_index do |detail, idx|
+      idx = exercise_ids.index(detail.exercise_id)
+      max_reps[idx] = detail.avg_rep_weight
+    end
 
     max_reps
   end

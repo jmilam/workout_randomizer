@@ -107,6 +107,7 @@
 									<th>User Name</th>
 									<th>Current Workout</th>
 									<th>Employee</th>
+									<th>Last Workout</th>
 									<th/>
 								</tr>
 							</thead>
@@ -117,6 +118,8 @@
 										<td style="vertical-align: middle;"><%= link_to "#{user.first_name} #{user.last_name}", edit_profile_path(user.id) %></td>
 										<td style="vertical-align: middle;"><i><%= user.current_workout_name %></i></td>
 										<td style="vertical-align: middle;"><b><%= user.employee? ? "Yes" : "No" %></b></td>
+
+										<td style="vertical-align: middle;"><b><%= user.user_previous_workouts.last&.workout_date&.strftime("%m/%d/%y") %></b></td>
 										<td style="vertical-align: middle;">
 											<% if user.account_disabled %>
 												<%= link_to "Enable Account", enable_user_path(user.id), method: :put %>

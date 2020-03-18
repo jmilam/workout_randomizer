@@ -8,7 +8,7 @@ class GymController < ApplicationController
     @non_admins = []
     @gym = Gym.find(params[:id])
 
-    @gym_users = @gym.users.order(:last_name)
+    @gym_users = @gym.users.includes(:user_previous_workouts).order(:last_name)
 
     kiosk_exercise_ids = @gym.kiosks.map(&:exercise_id)
 

@@ -25,9 +25,9 @@ class MessageController < ApplicationController
 
       if @message.save!
         # Send email
-        MessageMailer.with(recipient: User.find(@message.recipient_id), sender: User.find(@message.user_id), message_group_id: @message_group.id)
-                     .new_message
-                     .deliver_now
+        # MessageMailer.with(recipient: User.find(@message.recipient_id), sender: User.find(@message.user_id), message_group_id: @message_group.id)
+        #              .new_message
+        #              .deliver_now
 
         redirect_to message_group_path(@message_group.id)
       else

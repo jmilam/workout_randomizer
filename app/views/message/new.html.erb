@@ -3,6 +3,7 @@
     <%= f.hidden_field :message_group_id, {value: @message_group.id} %>
     <%= f.hidden_field :user_id, { value: @message.user_id } %>
     <%= f.hidden_field :trainer_id, { value: current_user.trainer_id } %>
+    <%= f.hidden_field :recipient_id, { value: @recipient_id } %>
 
     <% if @message_group.id.nil? %> 
       <% if current_user.trainer_id.nil? %>

@@ -4,7 +4,6 @@
 			<% if message.user_id != @user.id %>
 				<%= image_tag message.user.avatar.url, class: "message-rounded-image" %>
 			<% end %>
-
 			<div class="<%= message.user_id == @user.id ? 'col-6 text-left speech-bubble-right' : 'col-6 text-right speech-bubble-left' %> " style="margin-bottom: 15px;min-height: 50px;font-size:0.9em;">
 					<p><%= message.detail %></p>
 					<% if message.user_id != @user.id %>
@@ -17,6 +16,6 @@
 			<% end %>
 		</div>
 	<% end %>
-  <%= link_to "New Message", new_message_path(message_group_id: @message_group.id), class: 'btn btn-info col-6' %>
+  <%= link_to "New Message", new_message_path(message_group_id: @message_group.id, recipient_id: @recipient&.id), class: 'btn btn-info col-6' %>
 </div>
 

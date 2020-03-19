@@ -7,6 +7,7 @@ class MessageController < ApplicationController
                        MessageGroup.find(params[:message_group_id])
                      end
     @message = @message_group.messages.new(user_id: current_user.id)
+    @recipient_id = params[:recipient_id]
     @clients = User.where(trainer_id: current_user.id)
   end
 
@@ -25,9 +26,13 @@ class MessageController < ApplicationController
 
       if @message.save!
         # Send email
-        # MessageMailer.with(recipient: User.find(@message.recipient_id), sender: User.find(@message.user_id), message_group_id: @message_group.id)
-        #              .new_message
-        #              .deliver_now
+        recipient_id = params[:message][:trainer_id].presence || params[:message][:recipient_id]
+        unless recipient_id.blank?
+          recipient = User.find(recipient_id)
+          MessageMailer.with(recipient: recipient, sender: User.find(@message.user_id), message_group_id: @message_group.id)
+                       .new_message
+                       .deliver_now
+        end
 
         redirect_to message_group_path(@message_group.id)
       else

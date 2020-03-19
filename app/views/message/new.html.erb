@@ -4,7 +4,7 @@
     <%= f.hidden_field :user_id, { value: @message.user_id } %>
     <%= f.hidden_field :trainer_id, { value: current_user.trainer_id } %>
 
-    <% if @message_group.id.nil? %>
+    <% if @message_group.id.nil? %> 
       <% if current_user.trainer_id.nil? %>
         <div class="row">
           <div class="col-md-6 col-sm-12 form-group">

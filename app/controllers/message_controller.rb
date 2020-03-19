@@ -19,11 +19,16 @@ class MessageController < ApplicationController
                        end
       @message = @message_group.messages.new(message_params)
 
-      unless params[:message][:trainer_id].nil?
+      unless params[:message][:trainer_id].blank?
         @message.recipient_id = params[:message][:trainer_id]
       end
 
       if @message.save!
+        # Send email
+        MessageMailer.with(recipient: User.find(@message.recipient_id), sender: User.find(@message.user_id), message_group_id: @message_group.id)
+                     .new_message
+                     .deliver_now
+
         redirect_to message_group_path(@message_group.id)
       else
         render :new

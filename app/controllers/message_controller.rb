@@ -7,6 +7,7 @@ class MessageController < ApplicationController
                        MessageGroup.find(params[:message_group_id])
                      end
     @message = @message_group.messages.new(user_id: current_user.id)
+    @clients = User.where(trainer_id: current_user.id)
   end
 
   def create
@@ -17,6 +18,10 @@ class MessageController < ApplicationController
                          MessageGroup.find(params[:message][:message_group_id])
                        end
       @message = @message_group.messages.new(message_params)
+
+      unless params[:message][:trainer_id].nil?
+        @message.recipient_id = params[:message][:trainer_id]
+      end
 
       if @message.save!
         redirect_to message_group_path(@message_group.id)
@@ -33,6 +38,6 @@ class MessageController < ApplicationController
   protected
 
   def message_params
-    params.require(:message).permit(:detail, :user_id)
+    params.require(:message).permit(:detail, :user_id, :recipient_id)
   end
 end

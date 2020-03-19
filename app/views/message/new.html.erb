@@ -2,8 +2,16 @@
   <%= form_for @message, url: message_index_path, method: :post do |f| %>
     <%= f.hidden_field :message_group_id, {value: @message_group.id} %>
     <%= f.hidden_field :user_id, { value: @message.user_id } %>
+    <%= f.hidden_field :trainer_id, { value: current_user.trainer_id } %>
 
     <% if @message_group.id.nil? %>
+      <% if current_user.trainer_id.nil? %>
+        <div class="row">
+          <div class="col-md-6 col-sm-12 form-group">
+            <%= f.select :recipient_id, @clients.map { |client| ["#{client.first_name} #{client.last_name}", client.id] }, {}, {class: 'col-md-12 form-control'} %>
+          </div>
+        </div>
+      <% end %>
       <div class="row">
         <div class="col-md-6 col-sm-12 form-group">
           <%= label_tag :subjet, "Message Subject", class: 'col-12' %>

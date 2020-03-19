@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_06_175615) do
+ActiveRecord::Schema.define(version: 2020_03_18_200023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.integer "created_by_user_id"
     t.boolean "disabled", default: false
     t.integer "gym_id"
+    t.index ["gym_id"], name: "index_categories_on_gym_id"
   end
 
   create_table "common_equipments", force: :cascade do |t|
@@ -58,6 +59,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "gym_id"
+    t.index ["gym_id"], name: "index_common_exercises_on_gym_id"
   end
 
   create_table "exercise_circuits", force: :cascade do |t|
@@ -88,6 +90,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.string "video_content_type"
     t.bigint "video_file_size"
     t.datetime "video_updated_at"
+    t.index ["workout_id"], name: "index_exercises_on_workout_id"
   end
 
   create_table "fitness_classes", force: :cascade do |t|
@@ -97,6 +100,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["gym_id"], name: "index_fitness_classes_on_gym_id"
   end
 
   create_table "goals", force: :cascade do |t|
@@ -104,6 +108,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.text "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_goals_on_user_id"
   end
 
   create_table "gym_admins", force: :cascade do |t|
@@ -111,6 +116,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["gym_id", "user_id"], name: "index_gym_admins_on_gym_id_and_user_id"
   end
 
   create_table "gyms", force: :cascade do |t|
@@ -151,6 +157,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["workout_id"], name: "index_likes_on_workout_id"
   end
 
   create_table "measurements", force: :cascade do |t|
@@ -175,6 +182,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.integer "suprailiac", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_measurements_on_user_id"
   end
 
   create_table "message_groups", force: :cascade do |t|
@@ -182,6 +190,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.string "subject", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["inbox_id"], name: "index_message_groups_on_inbox_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -191,6 +200,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.integer "message_group_id"
     t.integer "user_id"
     t.boolean "read", default: false
+    t.integer "recipient_id"
     t.index ["message_group_id"], name: "index_messages_on_message_group_id"
   end
 
@@ -238,6 +248,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.datetime "updated_at", null: false
     t.integer "workout_id"
     t.date "workout_date"
+    t.index ["user_id"], name: "index_user_previous_workouts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -275,8 +286,10 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.boolean "account_disabled", default: false
     t.boolean "not_a_robot", default: false
     t.boolean "employee", default: false
+    t.index ["current_workout"], name: "index_users_on_current_workout"
     t.index ["current_workout_group"], name: "index_users_on_current_workout_group"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["gym_id"], name: "index_users_on_gym_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -286,6 +299,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.date "workout_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["workout_id", "gym_id"], name: "index_wods_on_workout_id_and_gym_id"
   end
 
   create_table "workout_details", force: :cascade do |t|
@@ -342,6 +356,7 @@ ActiveRecord::Schema.define(version: 2020_03_06_175615) do
     t.boolean "disabled", default: false
     t.boolean "user_default", default: false
     t.text "details"
+    t.index ["gym_id"], name: "index_workouts_on_gym_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

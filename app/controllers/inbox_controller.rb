@@ -4,10 +4,10 @@ class InboxController < ApplicationController
   def index
     inboxes = current_user.trainer ? User.all.where(trainer_id: current_user.id).map(&:inbox) : [current_user.inbox]
 
-    @message_groups = []
-
-    inboxes.each do |inbox|
-    	@message_groups << inbox&.message_groups&.includes(:messages)
-    end
+    @message_groups = Message.includes(:message_group)
+                             .where("user_id = ? OR recipient_id = ?", current_user.id, current_user.id)
+                             .map(&:message_group)
+                             .delete_if(&:nil?)
+                             .uniq
   end
 end

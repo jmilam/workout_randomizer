@@ -34,7 +34,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'after_party'
 gem 'paperclip'
 gem 'paperclip-av-transcoder'
-
 gem 'paperclip-cloudinary'
 gem 'simplecov'
 gem "font-awesome-rails"

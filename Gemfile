@@ -37,6 +37,7 @@ gem 'paperclip-av-transcoder'
 gem 'paperclip-cloudinary'
 gem 'simplecov'
 gem "font-awesome-rails"
+gem "aws-sdk-s3"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

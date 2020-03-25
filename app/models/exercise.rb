@@ -4,20 +4,18 @@ class Exercise < ApplicationRecord
   belongs_to :common_equipment
   has_many :workout_details
 
-  has_attached_file :video,
-    styles: {
-        :medium => {
-          :format => 'mp4',
-          :quality => 75
-          # :geometry => "300x300"
-        },
-        # :thumb => { :geometry => "160x120", :format => 'jpeg', :time => 10}
-    },
-    :processors => [:transcoder],
-    :storage => :cloudinary,
-    :cloudinary_resource_type => :video,
-    path: ':id/:style/:filename'
+  # has_attached_file :video,
+  #   styles: {
+  #       :medium => {
+  #         :format => 'mp4',
+  #       },
+  #   },
+  #   :processors => [:transcoder]
+    # :storage => :cloudinary,
+    # :cloudinary_resource_type => :video,
+    # path: ':id/:style/:filename'
 
+  has_attached_file :video, styles: { medium: "300x300>", thumb: "100x100>" }
   validates_attachment_content_type :video, content_type: /\Avideo\/.*\Z/
 
   def self.to_word(boolean)

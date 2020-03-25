@@ -30,15 +30,15 @@ Kernel configured for up to 4 processors.
 Processor type: x86_64h (Intel x86-64h Haswell)
 Processors active: 0 1 2 3
 Primary memory available: 8.00 gigabytes
-Default processor set: 490 tasks, 1937 threads, 4 processors
-Load average: 4.22, Mach factor: 0.88
+Default processor set: 443 tasks, 1920 threads, 4 processors
+Load average: 16.27, Mach factor: 0.13
 /bin/machine           = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
-PATH: /Users/jmilam/.rvm/gems/ruby-2.6.3/bin
-PATH: /Users/jmilam/.rvm/gems/ruby-2.6.3@global/bin
-PATH: /Users/jmilam/.rvm/rubies/ruby-2.6.3/bin
+PATH: /Users/jmilam/.rvm/gems/ruby-2.6.5/bin
+PATH: /Users/jmilam/.rvm/gems/ruby-2.6.5@global/bin
+PATH: /Users/jmilam/.rvm/rubies/ruby-2.6.5/bin
 PATH: /Users/jmilam/.rvm/bin
 PATH: /usr/local/bin
 PATH: /usr/bin
@@ -80,66 +80,66 @@ configure:3328: result: yes
 configure:3357: checking whether make supports nested variables
 configure:3374: result: yes
 configure:3559: checking for gcc
-configure:3586: result:  gcc
+configure:3586: result: gcc
 configure:3815: checking for C compiler version
-configure:3824:  gcc --version >&5
+configure:3824: gcc --version >&5
 Apple clang version 11.0.0 (clang-1100.0.33.17)
 Target: x86_64-apple-darwin19.0.0
 Thread model: posix
 InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
 Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1
 configure:3835: $? = 0
-configure:3824:  gcc -v >&5
+configure:3824: gcc -v >&5
 Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1
 Apple clang version 11.0.0 (clang-1100.0.33.17)
 Target: x86_64-apple-darwin19.0.0
 Thread model: posix
 InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
 configure:3835: $? = 0
-configure:3824:  gcc -V >&5
+configure:3824: gcc -V >&5
 clang: error: unsupported option '-V -Wno-framework-include-private-from-public'
 clang: error: no input files
 configure:3835: $? = 1
-configure:3824:  gcc -qversion >&5
+configure:3824: gcc -qversion >&5
 clang: error: unknown argument '-qversion', did you mean '--version'?
 clang: error: no input files
 configure:3835: $? = 1
 configure:3855: checking whether the C compiler works
-configure:3877:  gcc    conftest.c  >&5
+configure:3877: gcc    conftest.c  >&5
 configure:3881: $? = 0
 configure:3929: result: yes
 configure:3932: checking for C compiler default output file name
 configure:3934: result: a.out
 configure:3940: checking for suffix of executables
-configure:3947:  gcc -o conftest    conftest.c  >&5
+configure:3947: gcc -o conftest    conftest.c  >&5
 configure:3951: $? = 0
 configure:3973: result: 
 configure:3995: checking whether we are cross compiling
-configure:4003:  gcc -o conftest    conftest.c  >&5
+configure:4003: gcc -o conftest    conftest.c  >&5
 configure:4007: $? = 0
 configure:4014: ./conftest
 configure:4018: $? = 0
 configure:4033: result: no
 configure:4038: checking for suffix of object files
-configure:4060:  gcc -c   conftest.c >&5
+configure:4060: gcc -c   conftest.c >&5
 configure:4064: $? = 0
 configure:4085: result: o
 configure:4089: checking whether we are using the GNU C compiler
-configure:4108:  gcc -c   conftest.c >&5
+configure:4108: gcc -c   conftest.c >&5
 configure:4108: $? = 0
 configure:4117: result: yes
-configure:4126: checking whether  gcc accepts -g
-configure:4146:  gcc -c -g  conftest.c >&5
+configure:4126: checking whether gcc accepts -g
+configure:4146: gcc -c -g  conftest.c >&5
 configure:4146: $? = 0
 configure:4187: result: yes
-configure:4204: checking for  gcc option to accept ISO C89
-configure:4267:  gcc  -c   conftest.c >&5
+configure:4204: checking for gcc option to accept ISO C89
+configure:4267: gcc  -c   conftest.c >&5
 configure:4267: $? = 0
 configure:4280: result: none needed
-configure:4305: checking whether  gcc understands -c and -o together
-configure:4327:  gcc -c conftest.c -o conftest2.o
+configure:4305: checking whether gcc understands -c and -o together
+configure:4327: gcc -c conftest.c -o conftest2.o
 configure:4330: $? = 0
-configure:4327:  gcc -c conftest.c -o conftest2.o
+configure:4327: gcc -c conftest.c -o conftest2.o
 configure:4330: $? = 0
 configure:4342: result: yes
 configure:4362: checking whether make supports the include directive
@@ -147,7 +147,7 @@ configure:4377: make -f confmf.GNU && cat confinc.out
 this is the am__doit target
 configure:4380: $? = 0
 configure:4399: result: yes (GNU style)
-configure:4424: checking dependency style of  gcc
+configure:4424: checking dependency style of gcc
 configure:4535: result: none
 configure:4608: checking for g++
 configure:4624: found /usr/bin/g++
@@ -185,7 +185,7 @@ configure:4743: $? = 0
 configure:4784: result: yes
 configure:4809: checking dependency style of g++
 configure:4920: result: none
-configure:4950: checking dependency style of  gcc
+configure:4950: checking dependency style of gcc
 configure:5059: result: none
 configure:5121: checking how to print strings
 configure:5148: result: printf
@@ -197,14 +197,14 @@ configure:5314: checking for egrep
 configure:5376: result: /usr/bin/grep -E
 configure:5381: checking for fgrep
 configure:5443: result: /usr/bin/grep -F
-configure:5478: checking for ld used by  gcc
+configure:5478: checking for ld used by gcc
 configure:5545: result: ld
 configure:5552: checking if the linker (ld) is GNU ld
 configure:5567: result: no
 configure:5579: checking for BSD- or MS-compatible name lister (nm)
 configure:5633: result: /usr/bin/nm -B
 configure:5763: checking the name lister (/usr/bin/nm -B) interface
-configure:5770:  gcc -c   conftest.c >&5
+configure:5770: gcc -c   conftest.c >&5
 configure:5773: /usr/bin/nm -B "conftest.o"
 configure:5776: output
 0000000000000000 S _some_variable
@@ -232,7 +232,7 @@ configure:6624: checking for ar
 configure:6640: found /usr/bin/ar
 configure:6651: result: ar
 configure:6688: checking for archiver @FILE support
-configure:6705:  gcc -c   conftest.c >&5
+configure:6705: gcc -c   conftest.c >&5
 configure:6705: $? = 0
 configure:6708: ar cru libconftest.a @conftest.lst >&5
 ar: @conftest.lst: No such file or directory
@@ -244,15 +244,15 @@ configure:6816: result: strip
 configure:6888: checking for ranlib
 configure:6904: found /usr/bin/ranlib
 configure:6915: result: ranlib
-configure:7017: checking command to parse /usr/bin/nm -B output from  gcc object
-configure:7170:  gcc -c   conftest.c >&5
+configure:7017: checking command to parse /usr/bin/nm -B output from gcc object
+configure:7170: gcc -c   conftest.c >&5
 configure:7173: $? = 0
 configure:7177: /usr/bin/nm -B conftest.o | sed -n -e 's/^.*[	 ]\([BCDEGRST][BCDEGRST]*\)[	 ][	 ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p' | sed '/ __gnu_lto/d' > conftest.nm
 cannot find nm_test_var in conftest.nm
-configure:7170:  gcc -c   conftest.c >&5
+configure:7170: gcc -c   conftest.c >&5
 configure:7173: $? = 0
 configure:7177: /usr/bin/nm -B conftest.o | sed -n -e 's/^.*[	 ]\([BCDEGRST][BCDEGRST]*\)[	 ][	 ]*_\([_A-Za-z][_A-Za-z0-9]*\)$/\1 _\2 \2/p' | sed '/ __gnu_lto/d' > conftest.nm
-configure:7243:  gcc -o conftest    conftest.c conftstm.o >&5
+configure:7243: gcc -o conftest    conftest.c conftstm.o >&5
 configure:7246: $? = 0
 configure:7284: result: ok
 configure:7331: checking for sysroot
@@ -281,22 +281,22 @@ configure:8177: result: otool
 configure:8242: checking for otool64
 configure:8272: result: no
 configure:8317: checking for -single_module linker flag
- gcc   -o libconftest.dylib -dynamiclib -Wl,-single_module conftest.c
+gcc   -o libconftest.dylib -dynamiclib -Wl,-single_module conftest.c
 configure:8350: result: yes
 configure:8353: checking for -exported_symbols_list linker flag
-configure:8373:  gcc -o conftest    -Wl,-exported_symbols_list,conftest.sym conftest.c  >&5
+configure:8373: gcc -o conftest    -Wl,-exported_symbols_list,conftest.sym conftest.c  >&5
 configure:8373: $? = 0
 configure:8383: result: yes
 configure:8386: checking for -force_load linker flag
- gcc  -c -o conftest.o conftest.c
+gcc  -c -o conftest.o conftest.c
 ar cru libconftest.a conftest.o
 ranlib libconftest.a
- gcc   -o conftest conftest.c -Wl,-force_load,./libconftest.a
+gcc   -o conftest conftest.c -Wl,-force_load,./libconftest.a
 configure:8418: result: yes
 configure:8495: checking how to run the C preprocessor
-configure:8526:  gcc -E  conftest.c
+configure:8526: gcc -E  conftest.c
 configure:8526: $? = 0
-configure:8540:  gcc -E  conftest.c
+configure:8540: gcc -E  conftest.c
 conftest.c:11:10: fatal error: 'ac_nonexistent.h' file not found
 #include <ac_nonexistent.h>
          ^~~~~~~~~~~~~~~~~~
@@ -314,10 +314,10 @@ configure: failed program was:
 | #define VERSION "3.3"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:8565: result:  gcc -E
-configure:8585:  gcc -E  conftest.c
+configure:8565: result: gcc -E
+configure:8585: gcc -E  conftest.c
 configure:8585: $? = 0
-configure:8599:  gcc -E  conftest.c
+configure:8599: gcc -E  conftest.c
 conftest.c:11:10: fatal error: 'ac_nonexistent.h' file not found
 #include <ac_nonexistent.h>
          ^~~~~~~~~~~~~~~~~~
@@ -336,74 +336,74 @@ configure: failed program was:
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
 configure:8628: checking for ANSI C header files
-configure:8648:  gcc -c   conftest.c >&5
+configure:8648: gcc -c   conftest.c >&5
 configure:8648: $? = 0
-configure:8721:  gcc -o conftest    conftest.c  >&5
+configure:8721: gcc -o conftest    conftest.c  >&5
 configure:8721: $? = 0
 configure:8721: ./conftest
 configure:8721: $? = 0
 configure:8732: result: yes
 configure:8745: checking for sys/types.h
-configure:8745:  gcc -c   conftest.c >&5
+configure:8745: gcc -c   conftest.c >&5
 configure:8745: $? = 0
 configure:8745: result: yes
 configure:8745: checking for sys/stat.h
-configure:8745:  gcc -c   conftest.c >&5
+configure:8745: gcc -c   conftest.c >&5
 configure:8745: $? = 0
 configure:8745: result: yes
 configure:8745: checking for stdlib.h
-configure:8745:  gcc -c   conftest.c >&5
+configure:8745: gcc -c   conftest.c >&5
 configure:8745: $? = 0
 configure:8745: result: yes
 configure:8745: checking for string.h
-configure:8745:  gcc -c   conftest.c >&5
+configure:8745: gcc -c   conftest.c >&5
 configure:8745: $? = 0
 configure:8745: result: yes
 configure:8745: checking for memory.h
-configure:8745:  gcc -c   conftest.c >&5
+configure:8745: gcc -c   conftest.c >&5
 configure:8745: $? = 0
 configure:8745: result: yes
 configure:8745: checking for strings.h
-configure:8745:  gcc -c   conftest.c >&5
+configure:8745: gcc -c   conftest.c >&5
 configure:8745: $? = 0
 configure:8745: result: yes
 configure:8745: checking for inttypes.h
-configure:8745:  gcc -c   conftest.c >&5
+configure:8745: gcc -c   conftest.c >&5
 configure:8745: $? = 0
 configure:8745: result: yes
 configure:8745: checking for stdint.h
-configure:8745:  gcc -c   conftest.c >&5
+configure:8745: gcc -c   conftest.c >&5
 configure:8745: $? = 0
 configure:8745: result: yes
 configure:8745: checking for unistd.h
-configure:8745:  gcc -c   conftest.c >&5
+configure:8745: gcc -c   conftest.c >&5
 configure:8745: $? = 0
 configure:8745: result: yes
 configure:8759: checking for dlfcn.h
-configure:8759:  gcc -c   conftest.c >&5
+configure:8759: gcc -c   conftest.c >&5
 configure:8759: $? = 0
 configure:8759: result: yes
 configure:9026: checking for objdir
 configure:9041: result: .libs
-configure:9305: checking if  gcc supports -fno-rtti -fno-exceptions
-configure:9323:  gcc -c   -fno-rtti -fno-exceptions conftest.c >&5
+configure:9305: checking if gcc supports -fno-rtti -fno-exceptions
+configure:9323: gcc -c   -fno-rtti -fno-exceptions conftest.c >&5
 configure:9327: $? = 0
 configure:9340: result: yes
-configure:9704: checking for  gcc option to produce PIC
+configure:9704: checking for gcc option to produce PIC
 configure:9711: result: -fno-common -DPIC
-configure:9719: checking if  gcc PIC flag -fno-common -DPIC works
-configure:9737:  gcc -c   -fno-common -DPIC -DPIC conftest.c >&5
+configure:9719: checking if gcc PIC flag -fno-common -DPIC works
+configure:9737: gcc -c   -fno-common -DPIC -DPIC conftest.c >&5
 configure:9741: $? = 0
 configure:9754: result: yes
-configure:9783: checking if  gcc static flag -static works
+configure:9783: checking if gcc static flag -static works
 configure:9811: result: no
-configure:9826: checking if  gcc supports -c -o file.o
-configure:9847:  gcc -c   -o out/conftest2.o conftest.c >&5
+configure:9826: checking if gcc supports -c -o file.o
+configure:9847: gcc -c   -o out/conftest2.o conftest.c >&5
 configure:9851: $? = 0
 configure:9873: result: yes
-configure:9881: checking if  gcc supports -c -o file.o
+configure:9881: checking if gcc supports -c -o file.o
 configure:9928: result: yes
-configure:9961: checking whether the  gcc linker (ld) supports shared libraries
+configure:9961: checking whether the gcc linker (ld) supports shared libraries
 configure:11224: result: yes
 configure:11464: checking dynamic linker characteristics
 configure:12294: result: darwin19.0.0 dyld
@@ -512,13 +512,13 @@ configure:16271: result: darwin19.0.0 dyld
 configure:16336: checking how to hardcode library paths into programs
 configure:16361: result: immediate
 configure:16429: checking size of size_t
-configure:16434:  gcc -o conftest    conftest.c  >&5
+configure:16434: gcc -o conftest    conftest.c  >&5
 configure:16434: $? = 0
 configure:16434: ./conftest
 configure:16434: $? = 0
 configure:16448: result: 8
 configure:16459: checking for C compiler vendor
-configure:16507:  gcc -c   conftest.c >&5
+configure:16507: gcc -c   conftest.c >&5
 conftest.c:30:9: error: use of undeclared identifier 'thisisanerror'
         thisisanerror;
         ^
@@ -560,7 +560,7 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:16507:  gcc -c   conftest.c >&5
+configure:16507: gcc -c   conftest.c >&5
 conftest.c:30:9: error: use of undeclared identifier 'thisisanerror'
         thisisanerror;
         ^
@@ -602,7 +602,7 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:16507:  gcc -c   conftest.c >&5
+configure:16507: gcc -c   conftest.c >&5
 conftest.c:30:9: error: use of undeclared identifier 'thisisanerror'
         thisisanerror;
         ^
@@ -644,11 +644,11 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:16507:  gcc -c   conftest.c >&5
+configure:16507: gcc -c   conftest.c >&5
 configure:16507: $? = 0
 configure:16515: result: clang
 configure:17360: checking CFLAGS for maximum warnings
-configure:17380:  gcc -c  -warn all  -warn all  conftest.c >&5
+configure:17380: gcc -c  -warn all  -warn all  conftest.c >&5
 clang: error: unknown argument: '-warn'
 clang: error: unknown argument: '-warn'
 clang: error: no such file or directory: 'all'
@@ -686,7 +686,7 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:17380:  gcc -c  -pedantic  -Wall  conftest.c >&5
+configure:17380: gcc -c  -pedantic  -Wall  conftest.c >&5
 configure:17380: $? = 0
 configure:17388: result: -Wall
 configure:17408: : CFLAGS="$CFLAGS"
@@ -694,21 +694,21 @@ configure:17411: $? = 0
 configure:17448: checking whether to enable maintainer-specific portions of Makefiles
 configure:17457: result: no
 configure:17473: checking sys/mman.h usability
-configure:17473:  gcc -c  -Wall -fexceptions  conftest.c >&5
+configure:17473: gcc -c  -Wall -fexceptions  conftest.c >&5
 configure:17473: $? = 0
 configure:17473: result: yes
 configure:17473: checking sys/mman.h presence
-configure:17473:  gcc -E  conftest.c
+configure:17473: gcc -E  conftest.c
 configure:17473: $? = 0
 configure:17473: result: yes
 configure:17473: checking for sys/mman.h
 configure:17473: result: yes
 configure:17486: checking for mmap
-configure:17486:  gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
+configure:17486: gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
 configure:17486: $? = 0
 configure:17486: result: yes
 configure:17486: checking for mkostemp
-configure:17486:  gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
+configure:17486: gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
 configure:17486: $? = 0
 configure:17486: result: yes
 configure:17496: checking for sys/mman.h
@@ -720,7 +720,7 @@ configure:17534: result: yes
 configure:17536: checking whether mmap from /dev/zero works
 configure:17558: result: no
 configure:17562: checking for MAP_ANON(YMOUS)
-configure:17585:  gcc -c  -Wall -fexceptions  conftest.c >&5
+configure:17585: gcc -c  -Wall -fexceptions  conftest.c >&5
 conftest.c:38:5: warning: unused variable 'n' [-Wunused-variable]
 int n = MAP_ANONYMOUS;
     ^
@@ -732,7 +732,7 @@ configure:17615: result: yes
 configure:17658: checking for ANSI C header files
 configure:17762: result: yes
 configure:17772: checking for memcpy
-configure:17772:  gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
+configure:17772: gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
 conftest.c:53:6: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration]
 char memcpy ();
      ^
@@ -741,9 +741,9 @@ conftest.c:53:6: note: 'memcpy' is a builtin with type 'void *(void *, const voi
 configure:17772: $? = 0
 configure:17772: result: yes
 configure:17781: checking for size_t
-configure:17781:  gcc -c  -Wall -fexceptions  conftest.c >&5
+configure:17781: gcc -c  -Wall -fexceptions  conftest.c >&5
 configure:17781: $? = 0
-configure:17781:  gcc -c  -Wall -fexceptions  conftest.c >&5
+configure:17781: gcc -c  -Wall -fexceptions  conftest.c >&5
 conftest.c:67:21: error: expected expression
 if (sizeof ((size_t)))
                     ^
@@ -823,31 +823,31 @@ configure: failed program was:
 | }
 configure:17781: result: yes
 configure:17794: checking for working alloca.h
-configure:17811:  gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
+configure:17811: gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
 configure:17811: $? = 0
 configure:17819: result: yes
 configure:17827: checking for alloca
-configure:17864:  gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
+configure:17864: gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
 configure:17864: $? = 0
 configure:17872: result: yes
 configure:17983: checking size of double
-configure:17988:  gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
+configure:17988: gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
 configure:17988: $? = 0
 configure:17988: ./conftest
 configure:17988: $? = 0
 configure:18002: result: 8
 configure:18016: checking size of long double
-configure:18021:  gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
+configure:18021: gcc -o conftest  -Wall -fexceptions   conftest.c  >&5
 configure:18021: $? = 0
 configure:18021: ./conftest
 configure:18021: $? = 0
 configure:18035: result: 16
 configure:18068: checking whether byte ordering is bigendian
-configure:18083:  gcc -c  -Wall -fexceptions  conftest.c >&5
+configure:18083: gcc -c  -Wall -fexceptions  conftest.c >&5
 configure:18083: $? = 0
-configure:18128:  gcc -c  -Wall -fexceptions  conftest.c >&5
+configure:18128: gcc -c  -Wall -fexceptions  conftest.c >&5
 configure:18128: $? = 0
-configure:18146:  gcc -c  -Wall -fexceptions  conftest.c >&5
+configure:18146: gcc -c  -Wall -fexceptions  conftest.c >&5
 conftest.c:43:4: error: use of undeclared identifier 'not'
                  not big endian
                  ^
@@ -904,7 +904,7 @@ configure: failed program was:
 | }
 configure:18274: result: no
 configure:18293: checking assembler .cfi pseudo-op support
-configure:18311:  gcc -c  -Wall -fexceptions  conftest.c >&5
+configure:18311: gcc -c  -Wall -fexceptions  conftest.c >&5
 <inline asm>:1:14: error: Expected an identifier
 .cfi_sections
              ^
@@ -958,7 +958,7 @@ configure:18319: result: no
 configure:18406: checking assembler supports pc related relocs
 configure:18419: result: yes
 configure:18465: checking for _ prefix in compiled symbols
-configure:18475:  gcc -c  -Wall -fexceptions  conftest.c >&5
+configure:18475: gcc -c  -Wall -fexceptions  conftest.c >&5
 conftest.c:2:12: warning: expression result unused [-Wunused-value]
 int main(){nm_test_func;return 0;}
            ^~~~~~~~~~~~
@@ -972,10 +972,10 @@ configure:18572: result: no
 configure:18582: checking whether .eh_frame section should be read-only
 configure:18604: result: no
 configure:18619: checking for __attribute__((visibility("hidden")))
-configure:18628:  gcc -Werror -S conftest.c -o conftest.s 1>&5
+configure:18628: gcc -Werror -S conftest.c -o conftest.s 1>&5
 configure:18631: $? = 0
 configure:18640: result: yes
-configure:18779: checking for ld used by  gcc
+configure:18779: checking for ld used by gcc
 configure:18846: result: ld
 configure:18853: checking if the linker (ld) is GNU ld
 configure:18868: result: no
@@ -997,7 +997,7 @@ generated by GNU Autoconf 2.69.  Invocation command line was
   CONFIG_COMMANDS = 
   $ ./config.status 
 
-on Administrators-MacBook-Air.local
+on AdminisatorsAir
 
 config.status:1222: creating include/Makefile
 config.status:1222: creating include/ffi.h
@@ -1072,10 +1072,10 @@ ac_cv_path_install='/usr/local/bin/ginstall -c'
 ac_cv_path_lt_DD=/bin/dd
 ac_cv_path_mkdir=/usr/local/bin/gmkdir
 ac_cv_prog_AWK=awk
-ac_cv_prog_CPP=' gcc -E'
+ac_cv_prog_CPP='gcc -E'
 ac_cv_prog_CXXCPP='g++ -E'
 ac_cv_prog_ac_ct_AR=ar
-ac_cv_prog_ac_ct_CC=' gcc'
+ac_cv_prog_ac_ct_CC=gcc
 ac_cv_prog_ac_ct_CXX=g++
 ac_cv_prog_ac_ct_DSYMUTIL=dsymutil
 ac_cv_prog_ac_ct_LIPO=lipo
@@ -1165,13 +1165,13 @@ AUTOMAKE='${SHELL} /Users/jmilam/Desktop/rails/workout_randomizer/vendor/bundle/
 AWK='awk'
 BUILD_DOCS_FALSE=''
 BUILD_DOCS_TRUE='#'
-CC=' gcc'
-CCAS=' gcc'
+CC='gcc'
+CCAS='gcc'
 CCASDEPMODE='depmode=none'
 CCASFLAGS=''
 CCDEPMODE='depmode=none'
 CFLAGS=' -Wall -fexceptions'
-CPP=' gcc -E'
+CPP='gcc -E'
 CPPFLAGS=''
 CXX='g++'
 CXXCPP='g++ -E'
@@ -1251,7 +1251,7 @@ TESTSUBDIR_FALSE='#'
 TESTSUBDIR_TRUE=''
 VERSION='3.3'
 ac_ct_AR='ar'
-ac_ct_CC=' gcc'
+ac_ct_CC='gcc'
 ac_ct_CXX='g++'
 ac_ct_DUMPBIN=''
 am__EXEEXT_FALSE=''

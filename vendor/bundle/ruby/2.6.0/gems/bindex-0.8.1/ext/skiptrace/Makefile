@@ -12,12 +12,12 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /Users/jmilam/.rvm/rubies/ruby-2.6.3/include/ruby-2.6.0
+topdir = /Users/jmilam/.rvm/rubies/ruby-2.6.5/include/ruby-2.6.0
 hdrdir = $(topdir)
-arch_hdrdir = /Users/jmilam/.rvm/rubies/ruby-2.6.3/include/ruby-2.6.0/x86_64-darwin17
+arch_hdrdir = /Users/jmilam/.rvm/rubies/ruby-2.6.5/include/ruby-2.6.0/x86_64-darwin19
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
-prefix = $(DESTDIR)/Users/jmilam/.rvm/rubies/ruby-2.6.3
+prefix = $(DESTDIR)/Users/jmilam/.rvm/rubies/ruby-2.6.5
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 rubyarchprefix = $(rubylibprefix)/$(arch)
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
@@ -31,8 +31,8 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20191009-1054-16yyi38
-sitelibdir = $(DESTDIR)./.gem.20191009-1054-16yyi38
+sitearchdir = $(DESTDIR)./.gem.20200325-7404-18ao96e
+sitelibdir = $(DESTDIR)./.gem.20200325-7404-18ao96e
 sitedir = $(rubylibprefix)/site_ruby
 rubyarchdir = $(rubylibdir)/$(arch)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
@@ -52,6 +52,7 @@ infodir = $(datarootdir)/info
 docdir = $(datarootdir)/doc/$(PACKAGE)
 oldincludedir = $(SDKROOT)/usr/include
 includedir = $(prefix)/include
+runstatedir = $(localstatedir)/run
 localstatedir = $(prefix)/var
 sharedstatedir = $(prefix)/com
 sysconfdir = $(prefix)/etc
@@ -64,7 +65,7 @@ archdir = $(rubyarchdir)
 
 
 CC_WRAPPER = 
-CC = $(CC_WRAPPER) gcc
+CC = gcc
 CXX = g++
 LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
@@ -104,7 +105,7 @@ RUBY_VERSION_NAME = $(RUBY_BASE_NAME)-$(ruby_version)
 RUBYW_BASE_NAME = rubyw
 RUBY_BASE_NAME = ruby
 
-arch = x86_64-darwin17
+arch = x86_64-darwin19
 sitearch = $(arch)
 ruby_version = 2.6.0
 ruby = $(bindir)/$(RUBY_BASE_NAME)

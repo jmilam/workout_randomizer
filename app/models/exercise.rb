@@ -7,7 +7,9 @@ class Exercise < ApplicationRecord
   has_attached_file :video,
     styles: {
         :medium => {
-          :format => 'mp4'
+          :format => 'mp4',
+          :quality => 75
+          # :geometry => "300x300"
         },
         # :thumb => { :geometry => "160x120", :format => 'jpeg', :time => 10}
     },

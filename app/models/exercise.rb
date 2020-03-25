@@ -15,7 +15,7 @@ class Exercise < ApplicationRecord
     # :cloudinary_resource_type => :video,
     # path: ':id/:style/:filename'
 
-  has_attached_file :video, styles: { medium: "300x300>", thumb: "100x100>" }
+  has_attached_file :video
   validates_attachment_content_type :video, content_type: /\Avideo\/.*\Z/
 
   def self.to_word(boolean)

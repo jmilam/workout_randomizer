@@ -153,7 +153,7 @@ class WorkoutController < ApplicationController
   end
 
   def manual_workout
-    @workouts = Workout.all.includes(:exercises)
+    @workouts = current_user.gym.workouts.includes(:exercises)
     @users = current_user.gym.users
     @user = current_user
     @workout_groups = []

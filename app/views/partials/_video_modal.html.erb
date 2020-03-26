@@ -1,0 +1,22 @@
+<% unless exercise.video.nil? %>
+  <div class="modal fade" id="<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>Modal" tabindex="-1" role="dialog" aria-labelledby="<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>ModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>ModelLabel"><%= exercise.common_exercise.name %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div style="background-color:black;">
+      				<%= video_tag url_for(exercise.video.url), controls: '', style: 'height:400px;width:100%' %>
+  				</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

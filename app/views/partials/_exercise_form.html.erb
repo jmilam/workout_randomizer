@@ -50,108 +50,16 @@
 				  <div class="card-body">
 				  	<% exercise_group.each_with_index do |exercise, idx| %>
 							<% bg_color = Category.style_tags.to_a.sample[1] %>
-								<div class="row boomslang-green">
-									<div class="<%= exercise.video_file_name.nil? ? 'col-md-12' : 'col-md-6' %>">
-										<div class="col-md-6" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
-											<div class="row">
-												<div class="col-md-12 text-center exercise-header">
-													<%= exercise.common_exercise.name %>
-													<div class="lead"><%= exercise.common_equipment.name %></div>
-												</div>
-											</div>
-
-											<div class="row">
-												<div class="col-md-12 text-center exercise-sub-header">
-													<i><%= exercise.description %></i>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12 text-center exercise-sub-header">
-													<%= exercise.example %>
-												</div>
-											</div>
-
-											<div class="row">
-												<div class="col-md-6 col-6 text-center" style="color:white;">
-													Sets
-												</div>
-												<div class="col-md-6 col-6 text-center" style="color:white;">
-												  Reps
-												</div>
-											</div>
-
-											<div class="row">
-												<div class="col-md-6 col-6 text-center exercise-details">
-													<%= exercise.set_count %>
-												</div>
-												<div class="col-md-6 col-6 text-center exercise-details">
-													<%= exercise.rep_range %>
-												</div>
-											</div>
-
-											<% if exercise.warm_up %>
-												<div class="row">
-													<div class="col-md-6 col-6 text-center">
-														Warm Up
-													</div>
-													<div class="col-md-6 col-6 text-center">
-														Warm Up Details
-													</div>
-												</div>
-
-												<div class="row">
-													<div class="col-md-6 col-6 text-center exercise-details">
-														<%= Exercise.to_word(exercise.warm_up) %>
-													</div>
-													<div class="col-md-6 col-6 text-center exercise-details">
-														<%= exercise.warm_up_details %>
-													</div>
-												</div>
-											<% end %>
-										</div>
-
-										<div class="col-md-6">
-											<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
-												<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-												<%= workout_detail.hidden_field :workout_id, value: "#{exercise.workout_id}" %>
-												<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}", class: 'workout_detail_date' %>
-
-												<div class="row" style="padding-right:10px;">
-													<% @prev_exercise = @last_workout.where(exercise_id: exercise.id).last %>
-													<% comment_placeholder = @prev_exercise&.comment.blank? ? "Enter exercise comment here..." : @prev_exercise&.comment %>
-											  	<% band_color_placeholder = @prev_exercise&.band_color.blank? ? "Enter Band Color" : @prev_exercise&.band_color %>
-											  	<% col_space = 6 %>
-											    <% 1.upto(exercise.set_count) do |num| %>
-											  		<%# if @user.current_workout == @workout.id %>
-											  			<% if @prev_exercise.nil? %>
-											  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", type: 'number' %></div>
-											  			<% else %>
-											  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", placeholder: @prev_exercise["rep_#{num}_weight"], type: 'number' %></div>
-											  			<% end %>
-											  		<%# end %>
-											    <% end %>
-												</div>
-
-												<% if exercise.band %>
-													<div class="row" style="margin-left:1px;padding-right: 25px;">
-														<%= workout_detail.label "Band Color:" %>
-														<%= workout_detail.text_field :band_color, class: "col-md-12 form-control custom-input", placeholder: "#{band_color_placeholder}" %>
-													</div>
-												<% end %>
-
-												<div class="row" style="margin-left:1px;padding-right: 25px;">
-													<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: "#{comment_placeholder}" %>
-												</div>
-											<% end %>
-										</div>
-									</div>
-									<% unless exercise.video_file_name.nil? %>
-										<div class="col-md-6" style="background-color:black;">
-						    				<%= video_tag url_for(exercise.video.url), controls: '', style: 'height:400px;width:100%' %>
-										</div>
-									<% end %>
+							<div class="row boomslang-green">
+								<div class="col-md-12" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
+									<%= render 'partials/exercise_detail_header', exercise: exercise, bg_color: bg_color %>
 								</div>
+
+								<%= render 'partials/exercise_entry_details', exercise: exercise, f: f %>
+							</div>
+							<%= render 'partials/video_modal', exercise: exercise %>
 						<% end %>
+
 				  </div>
 				</div>
 				<% counter += 1 %>
@@ -161,113 +69,15 @@
 			</div>
 		<% else %>
 			<% @exercise_group.each_with_index do |exercise, idx| %>
-				<% bg_color = Category.style_tags.to_a.sample[1] %>
 				<div class="row">
-					<div class="<%= exercise.video_file_name.nil? ? 'col-md-12' : 'col-md-6'%> col-12">
+					<div class="col-12">
 						<div class="row" style="background-color:#003259;padding-bottom:5px;margin-bottom:0px;">
-							<div class="container <%= exercise.video_file_name.nil? ? 'col-md-12' : 'col-md-6' %>">
-								<div style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
-									<div class="row">
-										<div class="col-md-12 text-center exercise-header">
-											<%= exercise.common_exercise.name %>
-											<div class="lead"><%= exercise.common_equipment.name %></div>
-										</div>
-									</div>
+							<%= render 'partials/exercise_detail_header', exercise: exercise, bg_color: Category.style_tags.to_a.sample[1] %>
 
-									<div class="row">
-										<div class="col-md-12 text-center exercise-sub-header">
-											<i><%= exercise.description %></i>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 text-center exercise-sub-header">
-											<%= exercise.example %>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-md-6 col-6 text-center" style="color:white;">
-											Sets
-										</div>
-										<div class="col-md-6 col-6 text-center" style="color:white;">
-										  Reps
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="col-md-6 col-6 text-center exercise-details">
-											<%= exercise.set_count %>
-										</div>
-										<div class="col-md-6 col-6 text-center exercise-details">
-											<%= exercise.rep_range %>
-										</div>
-									</div>
-
-									<% if exercise.warm_up %>
-										<div class="row">
-											<div class="col-md-6 col-6 text-center">
-												Warm Up
-											</div>
-											<div class="col-md-6 col-6 text-center">
-												Warm Up Details
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-6 col-6 text-center exercise-details">
-												<%= Exercise.to_word(exercise.warm_up) %>
-											</div>
-											<div class="col-md-6 col-6 text-center exercise-details">
-												<%= exercise.warm_up_details %>
-											</div>
-										</div>
-									<% end %>
-								</div>
-							</div>
-
-							<div class="container">
-								<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
-									<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-									<%= workout_detail.hidden_field :workout_id, value: "#{exercise.workout_id}" %>
-									<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}", class: "workout_detail_date" %>
-
-									<div class="row" style="padding-right:10px;">
-										<% @prev_exercise = @last_workout.where(exercise_id: exercise.id).last %>
-										<% comment_placeholder = @prev_exercise&.comment.blank? ? "Enter exercise comment here..." : @prev_exercise&.comment %>
-								  	<% band_color_placeholder = @prev_exercise&.band_color.blank? ? "Enter Band Color" : @prev_exercise&.band_color %>
-								  	<% col_space = 6 %>
-								    <% 1.upto(exercise.set_count) do |num| %>
-								  		<%# if @user.current_workout == @workout.id %>
-								  			<% if @prev_exercise.nil? %>
-								  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", type: 'number' %></div>
-								  			<% else %>
-								  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", placeholder: @prev_exercise["rep_#{num}_weight"], type: 'number' %></div>
-								  			<% end %>
-								  		<%# end %>
-								    <% end %>
-									</div>
-
-									<% if exercise.band %>
-										<div class="row" style="margin-left:1px;padding-right: 25px;">
-											<%= workout_detail.label "Band Color:" %>
-											<%= workout_detail.text_field :band_color, class: "col-md-12 form-control custom-input", placeholder: "#{band_color_placeholder}" %>
-										</div>
-									<% end %>
-
-									<div class="row" style="margin-left:1px;padding-right: 25px;">
-										<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: "#{comment_placeholder}" %>
-									</div>
-								<% end %>
-							</div>
+							<%= render 'partials/exercise_entry_details', exercise: exercise, f: f %>
 						</div>
 					</div>
-					<% unless exercise.video_file_name.nil? %>
-						<div class="col-md-6 col-12" style="background-color: #003259;">
-							<div class="col-md-6" style="background-color:black;margin-left: auto;margin-right: auto;">
-    						<%= video_tag url_for(exercise.video.url), controls: '', style: 'height:310px;width:100%' %>
-    					</div>
-						</div>
-  				<% end %>
+					<%= render 'partials/video_modal', exercise: exercise %>
   			</div>
 			<% end %>
 			<div class="row boomslang-green" style="padding-top: 15px;padding-bottom: 15px;margin-top: -10px;">

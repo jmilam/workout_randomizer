@@ -28,12 +28,12 @@
               <div class="row">
                 <div class="col-md-12 text-center" style="color:white;"><%=  @workout&.name %></div>
               </div>
-              <div class="row">
+<!--               <div class="row">
                 <div class="col-md-12 text-center" style="color:white;"><%=  @weeks_remaining %> weeks remaining</div>
-              </div>
-              <div class="progress">
+              </div> -->
+             <!--  <div class="progress">
                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: <%= progress_percent(@workout&.duration, @weeks_doing_workout) %>" aria-valuenow="<%=  @workout&.duration.to_i - @weeks_doing_workout %>" aria-valuemin="0" aria-valuemax="<%= @workout&.duration %>"></div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

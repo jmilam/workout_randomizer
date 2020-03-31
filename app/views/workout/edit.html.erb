@@ -1,85 +1,83 @@
-<div class="row" style="height:100%;">
-	<div class="col-md-3" style="padding-top:20px;background:#003259;">
-	</div>
-	<div class="col-md-9" style="padding-top:20px;">
-		<div class="container-fluid">
-			<div class="jumbotron boomslang-green">
-				<div class="row">
-					<div class="col-10 text-center">
-					  <h3>
-					  	<%= @workout.name %> Workout
-					  </h3>
-					  <% if @editable %>
-					  	<span><%= link_to "Edit Workout", workout_path(@workout.id) %></span>
-					  <% end %>
-					</div>
-					<% unless @user_already_liked %>
-						<div class="col-1">
-							<%= link_to like_workout_path(workout_id: @workout), method: :post do %>
-						  	<%= image_tag "star", size: '30x30', title: 'Click to like this workout' %>
-						  <% end %>
-						</div>
-					<% end %>
+<div class="col-md-3" style="padding-top:20px;background:#003259;">
+</div>
+<div class="col-md-9" style="padding-top:20px;">
+	<div class="container-fluid">
+		<div class="jumbotron boomslang-green">
+			<div class="row">
+				<div class="col-10 text-center">
+				  <h3>
+				  	<%= @workout.name %> Workout
+				  </h3>
+				  <% if @editable %>
+				  	<span><%= link_to "Edit Workout", workout_path(@workout.id) %></span>
+				  <% end %>
 				</div>
-
-				<div class="row">
-			    <div class="col-md-9 col-sm-10 col-7">
-			    </div>
-			    <div class="col-md-2 col-sm-2 col-5">
-			      <%= link_to "Select Workout", accept_workout_path(workout_id: @workout.id), method: :patch, class: 'btn btn-sm bg-warning' %>
-			    </div>
-			  </div>
-
-			  <div class="row">
-			    <div class="col-md-12 col-sm-12">
-			      <b><i>Workout Category:</i></b> <%= @workout.category.name %>
-			    </div>
-			  </div>
-
-			  <div class="row">
-			    <div class="col-md-12 col-sm-12">
-			    </div>
-			  </div>
-
-			  <div class="row">
-			    <div class="col-md-12 col-sm-12">
-			      <b><i>Users currently using this workout:</i></b> <%= @workout_users.count %>
-			    </div>
-			  </div>
-
-			  <div class="row">
-			    <div class="col-md-12 col-sm-12">
-			      <b><i>Workout Details: </i></b> <%= @workout.details %>
-			    </div>
-			  </div>
-
-			  <% if @editable %>
-				  <div class="row">
-						<div class="col-md-12 col-sm-12">
-						</div>
+				<% unless @user_already_liked %>
+					<div class="col-1">
+						<%= link_to like_workout_path(workout_id: @workout), method: :post do %>
+					  	<%= image_tag "star", size: '30x30', title: 'Click to like this workout' %>
+					  <% end %>
 					</div>
 				<% end %>
 			</div>
 
-			<%= render "partials/alert" %>
-			
-			<div class="tab-content" id="workoutTabContent" style="padding-top:20px;">
-				<ul class="nav nav-tabs" id="exerciseTab">
-					<% @exercises.each do |exercise, ex_idx| %>
-						<li class='nav-item'><a class='nav-link' id='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>-tab' data-toggle='tab' href='#<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>' role='tab' aria-controls='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>' aira-selected='true'><%= exercise.common_exercise.name %></a>
-						</li>
-					<% end %>
-					<% if @editable %>
-						
-					<% end %>
-				</ul>
-				<div class="tab-content" id="exercise-tabContent-0">
-					<% @exercises.each do |exercise, ex_idx| %>
-						<div class="tab-pane fade" id='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>' role='tabpanel' aria-labelledby='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>'>
-							<%= render 'partials/exercise_entry_form', exercise: exercise, total_exercises: @exercises.count, request_type: :patch, exercises: @exercises %>
-						</div>
-					<% end %>
+			<div class="row">
+		    <div class="col-md-9 col-sm-10 col-7">
+		    </div>
+		    <div class="col-md-2 col-sm-2 col-5">
+		      <%= link_to "Select Workout", accept_workout_path(workout_id: @workout.id), method: :patch, class: 'btn btn-sm bg-warning' %>
+		    </div>
+		  </div>
+
+		  <div class="row">
+		    <div class="col-md-12 col-sm-12">
+		      <b><i>Workout Category:</i></b> <%= @workout.category.name %>
+		    </div>
+		  </div>
+
+		  <div class="row">
+		    <div class="col-md-12 col-sm-12">
+		    </div>
+		  </div>
+
+		  <div class="row">
+		    <div class="col-md-12 col-sm-12">
+		      <b><i>Users currently using this workout:</i></b> <%= @workout_users.count %>
+		    </div>
+		  </div>
+
+		  <div class="row">
+		    <div class="col-md-12 col-sm-12">
+		      <b><i>Workout Details: </i></b> <%= @workout.details %>
+		    </div>
+		  </div>
+
+		  <% if @editable %>
+			  <div class="row">
+					<div class="col-md-12 col-sm-12">
+					</div>
 				</div>
+			<% end %>
+		</div>
+
+		<%= render "partials/alert" %>
+		
+		<div class="tab-content" id="workoutTabContent" style="padding-top:20px;">
+			<ul class="nav nav-tabs" id="exerciseTab">
+				<% @exercises.each do |exercise, ex_idx| %>
+					<li class='nav-item'><a class='nav-link' id='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>-tab' data-toggle='tab' href='#<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>' role='tab' aria-controls='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>' aira-selected='true'><%= exercise.common_exercise.name %></a>
+					</li>
+				<% end %>
+				<% if @editable %>
+					
+				<% end %>
+			</ul>
+			<div class="tab-content" id="exercise-tabContent-0">
+				<% @exercises.each do |exercise, ex_idx| %>
+					<div class="tab-pane fade" id='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>' role='tabpanel' aria-labelledby='<%= exercise.common_exercise.name.gsub(" ", "").remove(/\W/).underscore %>'>
+						<%= render 'partials/exercise_entry_form', exercise: exercise, total_exercises: @exercises.count, request_type: :patch, exercises: @exercises %>
+					</div>
+				<% end %>
 			</div>
 		</div>
 	</div>

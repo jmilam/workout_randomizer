@@ -8,10 +8,6 @@ class ProfileController < ApplicationController
     @weeks_doing_workout = 0
     @workout_group = WorkoutGroup.find_by(id: @user.current_workout_group)
 
-    # if params[:manual_exit]
-    #   @user.update(current_workout_group: nil)
-    # end
-
     unless @user.current_workout.nil?
       @workout = Workout.find(@user.current_workout)
       current_workout_group_exercises_count = @user.current_workout_group.nil? ?
@@ -25,10 +21,6 @@ class ProfileController < ApplicationController
         .count
 
       @weeks_remaining = @workout.duration - @weeks_doing_workout
-
-      # if @weeks_remaining < 0
-      #   @user.workout_complete
-      # end
     end
 
     @height = (@user.height / 12.0).round(1).to_s.split('.')
@@ -41,27 +33,6 @@ class ProfileController < ApplicationController
     @completed_workout = !@user.user_previous_workouts
                             .where(workout_date: Date.today.in_time_zone)
                             .empty?
-    # unless @user.current_workout.nil?
-    #   current_workout = Workout.find(@user.current_workout)
-    #   WorkoutDetail.all.where(workout_group_id: current_workout.workout_groups.map(&:id)).group_by(&:exercise_id).each do |detail|
-    #     exercise = Exercise.find(detail[0])
-    #     @differences[exercise.name] = { avg: [], max: [] }
-
-    #     detail[1].each do |workout_detail|
-    #       @differences[exercise.name][:avg] << workout_detail.avg_rep_weight
-    #       @differences[exercise.name][:max] << workout_detail.max_rep_weight
-    #     end
-
-    #     @differences[exercise.name].each do |key, value|
-    #       value = value.sort!
-    #       @differences[exercise.name][key] = if value.count > 1
-    #                                            (value[1] - value[0]).round(2)
-    #                                          else
-    #                                            0.0
-    #                                          end
-    #     end
-    #   end
-    # end
 
     @counter = 0
     @wod = Wod.where(gym_id: @user.gym.id, workout_date: Date.today).last

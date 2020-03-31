@@ -1,80 +1,90 @@
 <div id="chart-div">
 	<div class="row" style="height:100%;">
-		<div class="col-md-3" style="padding-top:20px;background:#003259;">
+		<div class="col-md-3" id="mySidebar" style="padding-top:20px;background:#003259;">
+			<div class="row">
+				<button class="sidebar-collapse-button btn btn pull-left" type="button" data-target="#workoutTab" aria-controls="workoutTab" aria-expanded="false" aria-label="Toggle navigation" style="margin-bottom:10px;margin-left:3px;margin-right:5px;background-color:white;" onclick="openCloseNav()">
+					<i class="fa fa-th-list fa-sm" style=""></i>
+			  </button>
+			</div>
 			<ul class="nav nav-pills" id="workoutTab" role="tablist" style="margin-bottom:20px;">
 	      <li class='nav-item' style='width:100%;'><a class='nav-link active' id='workout-trending-tab' style="padding-top:1em;" data-toggle='tab' href='#workout-trending' role='tab' aria-controls='workout-trending' aria-selected='true'>Workout Details</a></li>
 	    </ul>
 		</div>
-		<div class="col-md-9" style="padding-top:20px;">
-			<%= render "partials/alert" %>
-			<div class="container-fluid">
-				<div class="tab-content" id="workoutTabContent">
-    <div class="tab-pane fade show active" id='workout-trending' role='tabpanel' aria-labelledby='workout-trending'>
-    	<div class="accordion" id="accordionWorkoutDetail">
-				<% @workouts.each_with_index do |(workout, prev_workout), idx| %>
-					<div class="card" style="margin-bottom:10px;">
-				    <div class="card-header boomslang-green" id="heading_<%= idx %>">
-				      <h5 class="mb-0 text-center">
-				        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_<%= idx %>" aria-expanded="true" aria-controls="collapse_<% idx %>" style="color:white;">
-				          <div>
-				          	<%= workout.name %>
-						  			<div class="text-muted">(<%= workout.name %>)</div>
-						  			<i><%#= prev_workout[1].workout_date.strftime('%m/%d/%y') %></i>
-								 	</div>
-				        </button>
-				      </h5>
-				    </div>
-
-				    <div id="collapse_<%= idx %>" class="collapse" aria-labelledby="heading_<%= idx %>" data-parent="#accordionWorkoutDetail">
-				      <div class="container">
-				      	<div class="table-responsive">
-				      		<% prev_workout.group_by(&:workout_date).each do |workout_date, workout_details| %>
-				      			<table class="table table-bordered" style="color:white;border-top-right-radius: 25px;border-top-left-radius: 25px;margin-top:15px;">
-										  <thead>
-										  	<tr>
-										  		<th scope="col" colspan="8" class="text-center workout-header">
-										  			<%= workout.name %>
+		<div class="col-md-9" id="right-col" style="padding-top:20px;margin-top:10px;">
+			<div id="main">
+				<%= render "partials/alert" %>
+				<div class="container-fluid">
+					<div class="tab-content" id="workoutTabContent">
+				    <div class="tab-pane fade show active" id='workout-trending' role='tabpanel' aria-labelledby='workout-trending'>
+				    	<div class="accordion" id="accordionWorkoutDetail">
+								<% @workouts.each_with_index do |(workout, prev_workout), idx| %>
+									<div class="card" style="margin-bottom:10px;">
+								    <div class="card-header boomslang-green" id="heading_<%= idx %>">
+								      <h5 class="mb-0 text-center">
+								        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_<%= idx %>" aria-expanded="true" aria-controls="collapse_<% idx %>" style="color:white;">
+								          <div>
+								          	<%= workout.name %>
 										  			<div class="text-muted">(<%= workout.name %>)</div>
-										  			<i><%= workout_date.strftime('%m/%d/%y') %></i>
-										  		</th>
-										  	</tr>  
-										    <tr style="background-color:#8C8C8C;">
-										      <th scope="col">Exercise</th>
-										      <th scope="col">Band Detail</th>
-										      <th scope="col">Rep 1</th>
-										      <th scope="col">Rep 2</th>
-										      <th scope="col">Rep 3</th>
-										      <th scope="col">Rep 4</th>
-										      <th scope="col">Rep 5</th>
-										      <th scope="col">Exercise Comment</th>
-										    </tr>
-										  </thead>
+										  			<i><%#= prev_workout[1].workout_date.strftime('%m/%d/%y') %></i>
+												 	</div>
+								        </button>
+								      </h5>
+								    </div>
 
-										  <tbody>
-										  	<% workout_details.each do |workout_detail| %>
-													<tr class="bg-dark">
-													  <th sope="row"><%= workout_detail.exercise.common_exercise.name unless workout_detail.exercise.nil? %></th>
-														<td><%= workout_detail.band_color %></td>
-														<td><%= workout_detail.rep_1_weight %></td>
-														<td><%= workout_detail.rep_2_weight %></td>
-														<td><%= workout_detail.rep_3_weight %></td>
-														<td><%= workout_detail.rep_4_weight %></td>
-														<td><%= workout_detail.rep_5_weight %></td>
-														<td><%= workout_detail.comment %></td>
-													</tr>
-												<% end %>
-											</tbody>
-										</table>
-									<% end %>
-								</div>
-				      </div>
+								    <div id="collapse_<%= idx %>" class="collapse" aria-labelledby="heading_<%= idx %>" data-parent="#accordionWorkoutDetail">
+								      <div class="container">
+								      	<div class="table-responsive">
+								      		<% prev_workout.group_by(&:workout_date).each do |workout_date, workout_details| %>
+								      			<table class="table table-bordered" style="color:white;border-top-right-radius: 25px;border-top-left-radius: 25px;margin-top:15px;">
+														  <thead>
+														  	<tr>
+														  		<th scope="col" colspan="8" class="text-center workout-header">
+														  			<%= workout.name %>
+														  			<div class="text-muted">(<%= workout.name %>)</div>
+														  			<i><%= workout_date.strftime('%m/%d/%y') %></i>
+														  		</th>
+														  	</tr>  
+														    <tr style="background-color:#8C8C8C;">
+														      <th scope="col">Exercise</th>
+														      <th scope="col">Band Detail</th>
+														      <th scope="col">Rep 1</th>
+														      <th scope="col">Rep 2</th>
+														      <th scope="col">Rep 3</th>
+														      <th scope="col">Rep 4</th>
+														      <th scope="col">Rep 5</th>
+														      <th scope="col">Exercise Comment</th>
+														    </tr>
+														  </thead>
+
+														  <tbody>
+														  	<% workout_details.each do |workout_detail| %>
+																	<tr class="bg-dark">
+																	  <th sope="row"><%= workout_detail.exercise.common_exercise.name unless workout_detail.exercise.nil? %></th>
+																		<td><%= workout_detail.band_color %></td>
+																		<td><%= workout_detail.rep_1_weight %></td>
+																		<td><%= workout_detail.rep_2_weight %></td>
+																		<td><%= workout_detail.rep_3_weight %></td>
+																		<td><%= workout_detail.rep_4_weight %></td>
+																		<td><%= workout_detail.rep_5_weight %></td>
+																		<td><%= workout_detail.comment %></td>
+																	</tr>
+																<% end %>
+															</tbody>
+														</table>
+													<% end %>
+												</div>
+								      </div>
+								    </div>
+							   	</div>
+								<% end %>
+							</div>
 				    </div>
-			   	</div>
-				<% end %>
+				  </div>
+				</div>
 			</div>
-    </div>
-  </div>
-			</div>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(drawChart);
@@ -125,5 +135,62 @@
         counter++;
       });
   }
+
+  function checkWidth(init)
+	{
+	    /*If browser resized, check width again */
+	    if ($(window).width() < 768) {
+	        $('#mySidebar').addClass('sidebar');
+	        document.getElementById("mySidebar").style.width = null;
+	        document.getElementById("mySidebar").style.position = "absolute";
+	        document.getElementById("mySidebar").style.width = "3em";
+	        document.getElementById("main").style.width = "100%";
+	        $("#right-col").addClass('offset-2');
+  				$('.td-toggle').hide();
+	      	$('.sidebar-collapse-button').show();
+	      	$('#main').addClass('small-main');
+	    }
+	    else {
+	        if (!init) {
+	          $('#mySidebar').removeClass('sidebar');
+	        	document.getElementById("mySidebar").style.width = null;
+	        	document.getElementById("mySidebar").style.position = null;
+	        	document.getElementById("main").style.width = null;
+  					$('.td-toggle').show();
+		        $('.sidebar-collapse-button').hide();
+		        $("#right-col").removeClass('offset-2');
+	      		$('#main').removeClass('small-main');
+	        }
+	    }
+	}
+
+	$(document).ready(function() {
+	    checkWidth(false);
+
+	    $(window).resize(function() {
+	        checkWidth(false);
+	    });
+	});
+
+	function openCloseNav() {
+		if (document.getElementById("mySidebar").style.width == "") {
+	  	openNav();
+		} else if (document.getElementById("mySidebar").style.width == "300px") {
+	  	closeNav();
+			
+		} else {
+	  	openNav();
+		}
+	}
+
+		/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+	function openNav() {
+	  document.getElementById("mySidebar").style.width = "300px";
+	}
+
+	/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+	function closeNav() {
+	  document.getElementById("mySidebar").style.width = "3em";
+	}
 </script>
 

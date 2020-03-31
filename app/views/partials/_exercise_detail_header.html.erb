@@ -1,66 +1,27 @@
 <div class="container col-md-12">
 	<div style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 		<div class="row">
-			<div class="col-10 text-center exercise-header">
+			<div class="col-md-6 col-12 text-center exercise-header">
 				<%= exercise.common_exercise.name %>
-			</div>
-			<div class="col-2 text-center" style="margin-left: -10px;margin-top: 5px;">
-				<% unless exercise.video_file_name.nil? %>
-					<button type="button" class="btn sidebar-collapse-button" data-toggle="modal" data-target="#<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>Modal" aria-expanded="false" style="background:transparent;" title="See exercise example">
+				<span>
+					<button type="button" class="btn sidebar-collapse-button" data-toggle="modal" data-target="#<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>Modal" aria-expanded="false" style="background:transparent;" title="See exercise details. Including form to enter weight">
 					  <i class="fa fa-external-link fa-lg fa-pull-right" style="color:white;"></i>
 					</button>
-				<% end %>
+				</span>
+				<div class="lead text-center"><%= exercise.common_equipment.name %></div>
 			</div>
-			<div class="col-12 lead text-center"><%= exercise.common_equipment.name %></div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-12 text-center exercise-sub-header">
-				<i><%= exercise.description %></i>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12 text-center exercise-sub-header">
-				<%= exercise.example %>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-6 col-6 text-center" style="color:white;">
-				Sets
-			</div>
-			<div class="col-md-6 col-6 text-center" style="color:white;">
-			  Reps
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-6 col-6 text-center exercise-details">
-				<%= exercise.set_count %>
-			</div>
-			<div class="col-md-6 col-6 text-center exercise-details">
-				<%= exercise.rep_range %>
-			</div>
-		</div>
-
-		<% if exercise.warm_up %>
-			<div class="row">
-				<div class="col-md-6 col-6 text-center">
-					Warm Up
-				</div>
-				<div class="col-md-6 col-6 text-center">
-					Warm Up Details
+			<div class="col-md-6 col-12 text-center exercise-details">
+				<div class="row">
+					<div class="col-md-6 col-6 text-center" style="color:white;">
+						<p>Set Count</p>
+						<p><%= exercise.set_count %></p>
+					</div>
+					<div class="col-md-6 col-6 text-center" style="color:white;">
+						<p>Rep Count</p>
+						<p><%= exercise.rep_range %></p>
+					</div>
 				</div>
 			</div>
-
-			<div class="row">
-				<div class="col-md-6 col-6 text-center exercise-details">
-					<%= Exercise.to_word(exercise.warm_up) %>
-				</div>
-				<div class="col-md-6 col-6 text-center exercise-details">
-					<%= exercise.warm_up_details %>
-				</div>
-			</div>
-		<% end %>
+		</div>
 	</div>
 </div>

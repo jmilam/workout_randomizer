@@ -10,18 +10,16 @@
 	  	<% band_color_placeholder = @prev_exercise&.band_color.blank? ? "Enter Band Color" : @prev_exercise&.band_color %>
 	  	<% col_space = 6 %>
 	    <% 1.upto(exercise.set_count) do |num| %>
-	  		<%# if @user.current_workout == @workout.id %>
 	  			<% if @prev_exercise.nil? %>
 	  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", type: 'number' %></div>
 	  			<% else %>
 	  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", placeholder: @prev_exercise["rep_#{num}_weight"], type: 'number' %></div>
 	  			<% end %>
-	  		<%# end %>
 	    <% end %>
 		</div>
 
 		<% if exercise.band %>
-			<div class="row" style="margin-left:1px;padding-right: 25px;">
+			<div class="row" style="margin-left:1px;padding-right: 25px;color:white;">
 				<%= workout_detail.label "Band Color:" %>
 				<%= workout_detail.text_field :band_color, class: "col-md-12 form-control custom-input", placeholder: "#{band_color_placeholder}" %>
 			</div>

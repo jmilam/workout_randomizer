@@ -1,22 +1,54 @@
-<% unless exercise.video.nil? %>
-  <div class="modal fade" id="<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>Modal" tabindex="-1" role="dialog" aria-labelledby="<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>ModelLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>ModelLabel"><%= exercise.common_exercise.name %></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<div class="modal fade" id="<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>Modal" tabindex="-1" role="dialog" aria-labelledby="<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>ModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>ModelLabel"><%= exercise.common_exercise.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body boomslang-blue">
+        <div class="row">
+          <div class="col-md-6 col-12 text-center exercise-sub-header">
+            <i><%= exercise.description %></i>
+          </div>
         </div>
-        <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 col-12 text-center exercise-sub-header">
+            <%= exercise.example %>
+          </div>
+        </div>
+
+        <% if exercise.warm_up %>
+          <div class="row">
+            <div class="col-md-6 col-6 text-center" style="color:white;">
+              Warm Up:
+            </div>
+            <div class="col-md-6 col-6 text-center" style="color:white;">
+              Warm Up Details:
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-6 text-center exercise-details">
+              <%= Exercise.to_word(exercise.warm_up) %>
+            </div>
+            <div class="col-md-6 col-6 text-center exercise-details">
+              <%= exercise.warm_up_details %>
+            </div>
+          </div>
+        <% end %>
+
+        <%= render 'partials/exercise_entry_details', exercise: exercise, f: f %>
+
+        <% unless exercise.video.nil? %>
           <div style="background-color:black;">
       				<%= video_tag url_for(exercise.video.url), controls: '', style: 'height:400px;width:100%' %>
   				</div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
       </div>
     </div>
   </div>
-<% end %>
+</div>

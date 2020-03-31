@@ -54,10 +54,8 @@
 								<div class="col-md-12" style="<%= bg_color['style'] %>;padding-right:10px;border-radius: 5px;">
 									<%= render 'partials/exercise_detail_header', exercise: exercise, bg_color: bg_color %>
 								</div>
-
-								<%= render 'partials/exercise_entry_details', exercise: exercise, f: f %>
 							</div>
-							<%= render 'partials/video_modal', exercise: exercise %>
+							<%= render 'partials/video_modal', exercise: exercise, f: f %>
 						<% end %>
 
 				  </div>
@@ -69,22 +67,18 @@
 			</div>
 		<% else %>
 			<% @exercise_group.each_with_index do |exercise, idx| %>
-				<div class="row">
-					<div class="col-12">
-						<div class="row" style="background-color:#003259;padding-bottom:5px;margin-bottom:0px;">
-							<%= render 'partials/exercise_detail_header', exercise: exercise, bg_color: Category.style_tags.to_a.sample[1] %>
-
-							<%= render 'partials/exercise_entry_details', exercise: exercise, f: f %>
-						</div>
-					</div>
-					<%= render 'partials/video_modal', exercise: exercise %>
-  			</div>
+				<div class="col-12 boomslang-green" style="border: 1px solid #003259;padding-bottom:5px;margin-bottom:0px;">
+					<%= render 'partials/exercise_detail_header', exercise: exercise, bg_color: Category.style_tags.to_a.sample[1] %>
+				</div>
+				<%= render 'partials/video_modal', exercise: exercise, f: f %>
 			<% end %>
-			<div class="row boomslang-green" style="padding-top: 15px;padding-bottom: 15px;margin-top: -10px;">
-				<% unless @manual_entry %>
-						<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block col-md-5 offset-md-1 col-6", style: "margin-top:auto;;height:75px;padding-top:20px;background-color:transparent;color:#003259;" %> 
-				<% end %>
-				<%= f.submit @button_title, class: "btn btn-lg btn-block col-md-4 offset-md-1 col-6", style: "background-color:transparent;height:75px;color:#003259;" %>
+			<div class="boomslang-blue container-fluid" style="padding-top: 15px;padding-bottom: 15px;">
+				<div class="row">
+					<% unless @manual_entry %>
+						<%= link_to "Exit Workout", profile_index_path(manual_exit: true), data: { confirm: 'Please make sure you complete the last exercise so your data will not be lost.' }, class: "btn btn-lg btn-block col-md-5 offset-md-1 col-6", style: "margin-top:auto;;height:75px;padding-top:20px;background-color:transparent;color:white;" %> 
+					<% end %>
+					<%= f.submit @button_title, class: "btn btn-lg btn-block col-md-4 offset-md-1 col-6", style: "background-color:transparent;height:75px;color:white;" %>
+				</div>
 			</div>
 		<% end %>
 	<% end %>

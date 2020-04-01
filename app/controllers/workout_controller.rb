@@ -69,8 +69,10 @@ class WorkoutController < ApplicationController
     @editable = @workout.editable_by_user?(current_user)
     @user_already_liked = !@workout.likes.user_liked_workout(current_user.id, @workout.id).empty?
     @workout_users = User.where(current_workout: @workout.id)
-    # @workout_groups = @workout.workout_groups.includes(:exercises)
     @exercises = @workout.exercises.includes(:common_exercise)
+    @common_exercises = CommonExercise.all.order(:name)
+    @equipment = CommonEquipment.all.order(:name)
+
   end
 
   def show

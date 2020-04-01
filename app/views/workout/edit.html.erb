@@ -73,6 +73,7 @@
 						<% if @editable %>
 							
 						<% end %>
+						<li class='nav-item'><a class='nav-link' id='new-exercise-tab' data-toggle='tab' href='#new_exercise' role='tab' aria-controls='new_exercise' aira-selected='true'>Add Exercise</a>
 					</ul>
 					<div class="tab-content" id="exercise-tabContent-0">
 						<% @exercises.each do |exercise, ex_idx| %>
@@ -80,6 +81,9 @@
 								<%= render 'partials/exercise_entry_form', exercise: exercise, total_exercises: @exercises.count, request_type: :patch, exercises: @exercises %>
 							</div>
 						<% end %>
+						<div class="tab-pane fade" id='new_exercise' role='tabpanel' aria-labelledby='new_exercise'>
+								<%= render 'partials/new_exercise_form',total_exercises: @exercises.count, exercises: @common_exercises, workout: @workout, equipment: @equipment %>
+						</div>
 					</div>
 				</div>
 			</div>

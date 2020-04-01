@@ -1,0 +1,84 @@
+<%= form_for Exercise.new, url: add_exercise_to_workout_path, method: :post do |f| %>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.hidden_field :workout_id, value: workout.id %>
+      </div>
+    </div>
+
+  	<div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= label_tag :exercise_id, "Exercise", class: 'col-md-12' %>
+        <%= select_tag :exercise_id, options_from_collection_for_select(exercises, "id", "name"), prompt: "--- Please select an exercise ---", class: 'col-md-12 form-control' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= label_tag :equipment_id, "Equipment", class: 'col-md-12' %>
+        <%= select_tag :equipment_id, options_from_collection_for_select(equipment, "id", "name") , prompt: "--- Please select an equipment ---", class: 'col-md-12 form-control' %>
+      </div>
+    </div>
+
+     <div class="row">
+      <div class="col-md-6 col-sm-12 form-group">
+        <%= f.label :description, 'Exercise Description', class: 'col-md-12' %>
+        <%= f.text_area :description, height:30, class: 'col-md-12 form-control' %>
+      </div>
+      <div class="col-md-6 col-sm-12 form-group">
+        <%= f.label :instructions, 'Exercise Instructions', class: 'col-md-12' %>
+        <%= f.text_area :instructions, height:30, class: 'col-md-12 form-control' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2 col-sm-2 col-2 form-group">
+        <%= f.label :warm_up, "Warm Up?", class: 'col-md-12' %>
+        <%= f.check_box :warm_up, class: 'col-md-12 form-control' %>
+      </div>
+      <div class="col-md-10 col-sm-10 col-10 form-group">
+        <%= f.label :warm_up_details, class: 'col-md-12' %>
+        <%= f.text_area :warm_up_details, class: 'col-md-12 form-control' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 col-sm-3 col-3 form-group">
+        <%= f.label :kiosk_number, class: 'col-md-12' %>
+        <%= text_field_tag :kiosk_number, nil, class: 'col-md-12 form-control' %>
+      </div>
+      <div class="col-md-4 col-sm-4 col-4 form-group">
+        <%= f.label :set_count, "Set Count? *", class: 'col-md-12' %>
+        <%= f.select :set_count, (1..6).to_a.collect {|set| [ set, set ] }, { prompt: "--- Select How Many Sets for this exercise ---" }, class: 'col-md-12 form-control' %>
+      </div>
+    	<div class="col-md-4 col-sm-4 col-4 form-group">
+        <%= f.label :rep_range, "Rep Count? *", class: 'col-md-12' %>
+        <%= f.text_field :rep_range, placeholder: "10-12", class: 'col-md-12 form-control' %>
+      </div>
+      <div class="col-md-1 col-sm-1 col-4 form-group text-center">
+        <%= f.label :band, "Band?", class: 'col-md-12' %>
+        <%= f.check_box :band %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 form-group">
+        <%= f.label :priority, class: 'col-md-12' %>
+        <%= f.select :priority, (1..total_exercises + 1).to_a.collect { |exercise| [exercise, exercise] }, { prompt: "--- Select the priority in the workout you want them to do this exercise ---"}, class: 'col-md-12 form-control' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <%= f.label :video, "Upload Instructional Video ** Only .mp4 allowed **:" %>
+      </div>
+      <div class="col-md-1">
+        <%= f.file_field :video %>
+      </div>
+    </div>
+
+    <div class="row">
+      <%= f.label :super_set_id, 'Select all exercises you\'d like to pair with this exercise to make a circuit', class: 'col-md-12 text-muted' %>
+    </div>
+
+  	<%= f.submit "New Exercise", class: 'btn btn-lg btn-block workout-btn', style: "margin-bottom: 15px;" %>
+  <% end %>
+</div>

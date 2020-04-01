@@ -17,13 +17,13 @@
             <div class="row">
               <div class="col-md-12 col-sm-12 form-group">
                 <%= label_tag :exercise_id, "Exercise", class: 'col-md-12' %>
-                <%= select_tag :exercise_id, options_from_collection_for_select(@exercises, "id", "name"), prompt: "--- Please select an exercise ---", class: 'col-md-12 form-control' %>
+                <%= select_tag :exercise_id, options_from_collection_for_select(exercises, "id", "name"), prompt: "--- Please select an exercise ---", class: 'col-md-12 form-control' %>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 col-sm-12 form-group">
                   <%= label_tag :equipment_id, "Equipment", class: 'col-md-12' %>
-                  <%= select_tag :equipment_id, options_from_collection_for_select(@equipment, "id", "name") , prompt: "--- Please select an equipment ---", class: 'col-md-12 form-control' %>
+                  <%= select_tag :equipment_id, options_from_collection_for_select(equipment, "id", "name") , prompt: "--- Please select an equipment ---", class: 'col-md-12 form-control' %>
               </div>
             </div>
             <div class="row">

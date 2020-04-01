@@ -81,10 +81,10 @@ class ExerciseController < ApplicationController
 
     if !@workout_ids_with_exercise.empty?
       flash[:alert] = 'Exercise cannot be deleted because someone has used it with their workout. It will mess up their history. We have disabled it instead.'
-      redirect_to edit_workout_path(@exercise.workout_group.workout_id)
+      redirect_to edit_workout_path(@exercise.workout_id)
     elsif @exercise.delete
       flash[:notice] = 'Exercise was successfully delete.'
-      redirect_to edit_workout_path(@exercise.workout_group.workout_id)
+      redirect_to edit_workout_path(@exercise.workout_id)
     else
       flash[:alert] = "There was an error when deleting exercise: #{@exercise.error}"
       render :edit
@@ -106,10 +106,31 @@ class ExerciseController < ApplicationController
       format.js
     end
   end
+
+  def add_exercise_to_workout
+    @exercise = Exercise.new(exercise_params)
+    @exercise.common_exercise_id = params[:exercise_id]
+    @exercise.common_equipment_id = params[:equipment_id]
+
+    begin
+      @exercise.save!
+
+      unless params[:kiosk_number].blank?
+        current_user.gym.kiosks.create!(gym_id: current_user.gym_id, exercise_id: @exercise.id, kiosk_number: params[:kiosk_number])
+      end
+
+      flash[:notice] = "Exercise #{@exercise.common_exercise.name} was successfully added to your workout."
+      redirect_to edit_workout_path(@exercise.workout_id)
+    rescue ActiveRecord::RecordInvalid => error
+      flash[:alert] = "There was an error when updating exercise: #{error}"
+      redirect_to edit_workout_path(@exercise.workout_id)
+    end
+  end
+
   protected
 
   def exercise_params
     params.require(:exercise).permit(:name, :description, :instructions, :warm_up, :warm_up_details, :set_count,
-                                     :workout_group_id, :rep_range, :priority, :band, :video, :time_by_minutes)
+                                     :workout_group_id, :rep_range, :priority, :band, :video, :time_by_minutes, :workout_id)
   end
 end

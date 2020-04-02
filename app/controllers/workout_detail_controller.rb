@@ -1,5 +1,5 @@
 class WorkoutDetailController < ApplicationController
-  layout 'nav'
+  # layout 'nav'
   def index
     @workouts = current_user.workout_details.includes(:exercise).order(workout_date: :desc).group_by(&:workout)
     @workout_stats = UserPreviousWorkout.for_google_charts(current_user.workout_details.group_by(&:workout)).to_json.html_safe

@@ -1,5 +1,5 @@
 class CommonExerciseController < ApplicationController
-  layout 'onboarding'
+  layout 'nav'
   def edit
     @common_exercise = CommonExercise.find(params[:id])
   end

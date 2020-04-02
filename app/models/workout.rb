@@ -12,6 +12,9 @@ class Workout < ApplicationRecord
   has_many :workout_details
   validates :name, presence: true
 
+  has_attached_file :video
+  validates_attachment_content_type :video, content_type: /\Avideo\/.*\Z/
+
   def self.valid_workout_with_workout_groups(user)
     workout = user.gym.workouts.includes(:exercises)
                   .joins(:category)

@@ -42,7 +42,15 @@
 		</nav>
 
     <div class="full-screen">
-      <%= yield %>
+      <div class="container-fluid" style="height:100%;width:100%;">
+        <div class="row" style="height:100%;">
+          <div class="col-md-2 col-12" id="mySidebarNoHide">
+          </div>
+          <div class="col-md-10 col-12 " id="right-col">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
     </div>
 
     <% if @footer %>

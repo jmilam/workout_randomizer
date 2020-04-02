@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_02_003108) do
+ActiveRecord::Schema.define(version: 2020_04_02_141836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -360,6 +360,10 @@ ActiveRecord::Schema.define(version: 2020_04_02_003108) do
     t.boolean "disabled", default: false
     t.boolean "user_default", default: false
     t.text "details"
+    t.string "video_file_name"
+    t.string "video_content_type"
+    t.bigint "video_file_size"
+    t.datetime "video_updated_at"
     t.index ["gym_id"], name: "index_workouts_on_gym_id"
   end
 

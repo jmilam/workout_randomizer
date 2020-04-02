@@ -36,13 +36,12 @@
 		<tr>
 			<th>Exercise Name</th>
       <th>Has Video?</th>
-      <th />
 		</tr>
 	</thead>
 	<tbody>
 		<% common_exercises.each do |ex| %>
 			<tr>
-				<td><%= ex.name %></td>
+				<td><%= link_to ex.name, edit_common_exercise_path(ex.id) %></td>
         <td>
           <% if ex.video.url.include? "missing.png" %>
             <i class="fa fa-times-circle fa-lg" style="color:red;"></i>
@@ -50,7 +49,6 @@
             <i class="fa fa-check-circle fa-lg" style="color:green;"></i>
           <% end %>
         </td>
-        <td><%= link_to "Edit", edit_common_exercise_path(ex.id) %></td>
 			</tr>
 		<% end %>
 	</tbody>

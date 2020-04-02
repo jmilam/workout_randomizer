@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   skip_before_action :authenticate_user!, only: [:more_info]
-  layout 'onboarding'
+  layout 'nav'
 	def new
     @user = User.new
     @measurements = @user.measurements.build

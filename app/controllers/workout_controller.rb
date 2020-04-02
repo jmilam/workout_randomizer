@@ -1,6 +1,5 @@
 class WorkoutController < ApplicationController
-  layout 'nav'
-
+  layout 'nav', except: ['list', 'new']  
   def index
     @user = current_user
 

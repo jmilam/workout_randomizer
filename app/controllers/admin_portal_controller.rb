@@ -1,5 +1,5 @@
 class AdminPortalController < ApplicationController
-	layout 'nav'
+	layout 'nav', except: ['time_cards']
   def new_users
   	@new_users = User.new_users
   	@new_gyms = Gym.new_gyms

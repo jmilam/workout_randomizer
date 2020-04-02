@@ -19,11 +19,15 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12 col-sm-12 form-group">
+      <div class="col-md-9 col-sm-12 form-group">
         <%= f.label :details, class: 'col-md-12' %>
         <%= f.text_area :details, class: 'col-md-12 form-control' %>
       </div>
-     </div>
+      <div class="col-md-3 col-sm-12 form-group">
+        <%= f.label :video, "Workout Intro Video: ", class: 'col-md-12' %>
+        <%= f.file_field :video %>
+      </div>
+    </div>
 
     	<%= f.submit "Update Workout", class: 'btn btn-lg btn-block workout-btn' %>
   <% end %>

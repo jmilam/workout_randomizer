@@ -1,5 +1,5 @@
 class GymController < ApplicationController
-  layout 'onboarding'
+  layout 'nav', except: ['show']
   def new
     @gym = Gym.new
   end

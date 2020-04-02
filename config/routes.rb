@@ -49,6 +49,8 @@ Rails.application.routes.draw do
   get 'task/check_if_select_client', to: 'task#check_if_select_client', as: 'check_if_select_client'
 
   post 'common_exercise/create', to: 'common_exercise#create', as: 'create_common_exercise'
+  get 'common_exercise/edit/:id', to: 'common_exercise#edit', as: 'edit_common_exercise'
+  patch 'common_exercise/update', to: 'common_exercise#update', as: 'updated_common_exercise'
 
 
   resources :profile

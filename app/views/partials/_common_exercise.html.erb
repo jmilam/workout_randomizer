@@ -17,9 +17,13 @@
 
 <%= form_for :common_exercises, url: create_common_exercise_path do |f| %>
     <div class="row">
-      <div class="col-md-6 offset-md-2 col-sm-12 form-group">
+      <div class="col-md-6 col-sm-12 form-group">
       	<%= f.label :name %>
       	<%= f.text_field :name, class: 'col-md-12 form-control', value: '' %>
+      </div>
+      <div class="col-md-4 col-sm-8 form-group">
+        <%= f.label :video, "Upload Exercise Video:"%>
+        <%= f.file_field :video %>
       </div>
       <div class="col-md-2 col-sm-4 form-group">
 				<%= f.submit "Save", class: 'btn btn-lg btn-block workout-btn', style: 'margin-top: 1em;' %>
@@ -31,12 +35,14 @@
 	<thead>
 		<tr>
 			<th>Exercise Name</th>
+      <th />
 		</tr>
 	</thead>
 	<tbody>
 		<% common_exercises.each do |ex| %>
 			<tr>
-				<td><%= ex.name.titleize %></td>
+				<td><%= ex.name %></td>
+        <td><%= link_to "Edit", edit_common_exercise_path(ex.id) %></td>
 			</tr>
 		<% end %>
 	</tbody>

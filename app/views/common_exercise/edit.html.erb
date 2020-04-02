@@ -1,0 +1,35 @@
+<div class="container-fluid" style="height:100%;width:100%;">
+	<div class="row" style="height:100%;">
+		<div class="col-md-3 col-12" id="mySidebar">
+		</div>
+		<div class="col-md-9 col-11 " id="right-col">
+			<div class="container-fluid">
+			  <%= form_for @common_exercise, url: updated_common_exercise_path(@common_exercise.id), method: :patch do |f| %>
+			  	<%= f.hidden_field :id, value: @common_exercise.id %>
+					<div class="row">
+						<div class="col-md-6 offset-md-3">
+							<%= f.label :name, "Common Exercise Name" %>
+							<%= f.text_field :name, class: "form-control" %>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 offset-md-3">
+							<%= f.label :video, "Upload New Video: " %>
+							<%= f.file_field :video %>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 offset-md-3">
+							<%= video_tag url_for(@common_exercise.video.url), controls: '', style: 'height:300px;width:100%' %>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 offset-md-3 text-right">
+							<%= f.submit "Update Exercise Info", class: "btn btn-lg workout-btn" %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

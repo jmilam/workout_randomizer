@@ -4,7 +4,7 @@
 			<div class="col-md-6 col-12 text-center exercise-header">
 				<%= exercise.common_exercise.name %>
 				<span>
-					<button type="button" class="btn sidebar-collapse-button" data-toggle="modal" data-target="#<%= exercise.common_exercise.name.downcase.gsub(' ', '_') %>Modal" aria-expanded="false" style="background:transparent;" title="See exercise details. Including form to enter weight">
+					<button type="button" class="btn sidebar-collapse-button" data-toggle="modal" data-target="#<%= exercise.common_exercise.name.downcase.gsub(/[^0-9A-Za-z]/, '').prepend('_') %>Modal" aria-expanded="false" style="background:transparent;" title="See exercise details. Including form to enter weight">
 					  <i class="fa fa-external-link fa-lg fa-pull-right" style="color:white;"></i>
 					</button>
 				</span>

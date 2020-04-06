@@ -39,7 +39,7 @@
 														  <thead>
 														  	<tr>
 														  		<th scope="col" colspan="8" class="text-center workout-header">
-														  			<%= workout.name %>
+														  			<%= workout.name %> <span><%= link_to "Edit", manual_workout_path(workout_id: workout.id, workout_date: workout_date, edit_mode: true) %></span>
 														  			<div class="text-muted">(<%= workout.name %>)</div>
 														  			<i><%= workout_date.strftime('%m/%d/%y') %></i>
 														  		</th>

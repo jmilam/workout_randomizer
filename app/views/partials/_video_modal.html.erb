@@ -38,8 +38,7 @@
             </div>
           </div>
         <% end %>
-
-        <%= render 'partials/exercise_entry_details', exercise: exercise, f: f %>
+        <%= render 'partials/exercise_entry_details', exercise: exercise, previous_exercise: previous_workout&.workout_details&.where(exercise_id: exercise.id)&.last || [] , workout_date: workout_date, f: f %>
 
         <% unless exercise.video.nil? %>
           <div style="background-color:black;">

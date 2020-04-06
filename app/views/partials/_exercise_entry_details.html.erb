@@ -1,32 +1,43 @@
 <div class="container">
 	<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
+		<%= workout_detail.hidden_field :user_id, value: "#{@user.id}" %>
 		<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
 		<%= workout_detail.hidden_field :workout_id, value: "#{exercise.workout_id}" %>
-		<%= workout_detail.hidden_field :workout_date, value: "#{DateTime.now.in_time_zone}", class: "workout_detail_date" %>
-
+		<%= workout_detail.hidden_field :workout_date, value: "#{workout_date}", class: "workout_detail_date" %>
+		<%= workout_detail.hidden_field :edit, value: !previous_exercise.blank? %>
+		<%= workout_detail.hidden_field :workout_detail_id, value: "#{ previous_exercise.blank? ? nil : previous_exercise[:id]}" %>
+		<% p @edit_mode != "false" %>
 		<div class="row" style="padding-right:10px;">
-			<% @prev_exercise = @last_workout.where(exercise_id: exercise.id).last %>
-			<% comment_placeholder = @prev_exercise&.comment.blank? ? "Enter exercise comment here..." : @prev_exercise&.comment %>
-	  	<% band_color_placeholder = @prev_exercise&.band_color.blank? ? "Enter Band Color" : @prev_exercise&.band_color %>
 	  	<% col_space = 6 %>
 	    <% 1.upto(exercise.set_count) do |num| %>
-	  			<% if @prev_exercise.nil? %>
-	  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", type: 'number' %></div>
-	  			<% else %>
-	  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", placeholder: @prev_exercise["rep_#{num}_weight"], type: 'number' %></div>
-	  			<% end %>
+				<% prev_value = previous_exercise.blank? ? nil : previous_exercise["rep_#{num}_weight"] %>
+  			<% if previous_exercise.nil? || @edit_mode == "false" %>
+  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", type: 'number', placeholder: prev_value %></div>
+  			<% else %>
+  				<div class="col-md-<%= col_space %> col-sm-<%= col_space %> col-<%= col_space %> rep" style="padding-top:10px;"><%= workout_detail.text_field "rep_#{num}_weight", size: 3, class: "rep_input form-control custom-input", type: 'number', value: prev_value %></div>
+  			<% end %>
 	    <% end %>
 		</div>
 
 		<% if exercise.band %>
 			<div class="row" style="margin-left:1px;padding-right: 25px;color:white;">
 				<%= workout_detail.label "Band Color:" %>
-				<%= workout_detail.text_field :band_color, class: "col-md-12 form-control custom-input", placeholder: "#{band_color_placeholder}" %>
+	  			<% prev_band = previous_exercise.blank? ? nil : previous_exercise&.band_color %>
+	  		<% if previous_exercise.nil? || @edit_mode == "false" %>
+					<%= workout_detail.text_field :band_color, class: "col-md-12 form-control custom-input", placeholder: prev_band || "Enter Band Color" %>
+				<% else %>
+					<%= workout_detail.text_field :band_color, class: "col-md-12 form-control custom-input", placeholder: "Enter Band Color", value: "#{prev_band}" %>
+				<% end %>
 			</div>
 		<% end %>
 
 		<div class="row" style="margin-left:1px;padding-right: 25px;">
-			<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: "#{comment_placeholder}" %>
+	  		<% prev_comment = previous_exercise.blank? ? nil : previous_exercise&.comment %>
+			<% if previous_exercise.nil? || @edit_mode == "false" %>
+				<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: prev_comment || "Enter exercise comment here..."  %>
+			<% else %>
+				<%= workout_detail.text_area :comment, class: "col-md-12 form-control custom-input", placeholder: "Enter exercise comment here...", value: "#{prev_comment}"  %>
+			<% end %>
 		</div>
 	<% end %>
 </div>

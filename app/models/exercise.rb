@@ -26,19 +26,20 @@ class Exercise < ApplicationRecord
     exercise_groups
   end
 
-  def self.get_exercise(user, exercise_groups, workout_date=Date.today.strftime('%Y-%m-%d'))
+  def self.get_exercise(user, exercise_groups, workout_date=Date.today.strftime('%Y-%m-%d'), manual=false)
     exercises_completed = WorkoutDetail.where(workout_date: workout_date, user_id: user.id).map(&:exercise_id)
 
     exercise_ids = exercise_groups.values.flatten.map(&:id).delete_if { |exercise_id| exercises_completed.include?(exercise_id) }
 
-    exercise_groups.each do |_group, group_exercises|
-      group_exercise = group_exercises.delete_if { |group_exercise| !exercise_ids.include?(group_exercise.id) }
+    unless manual
+      exercise_groups.each do |_group, group_exercises|
+        group_exercise = group_exercises.delete_if { |group_exercise| !exercise_ids.include?(group_exercise.id) }
+      end
     end
 
     exercise_groups.delete_if { |_key, value| value.empty? }
 
     if exercise_groups.empty?
-      # user.update(current_workout_group: nil)
       exercise_groups
     else
       exercise_groups.first[1]

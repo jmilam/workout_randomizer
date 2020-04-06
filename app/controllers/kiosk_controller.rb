@@ -29,22 +29,14 @@ class KioskController < ApplicationController
       @user = current_user
       workout_id = if params[:workout_id] 
         params[:workout_id] 
-      elsif @user.current_workout_group
-        WorkoutGroup.find(@user.current_workout_group)
-                    .workout_group_pairings
-                    .where(workout_day: Time.now.in_time_zone.wday)
-                    .first
-                    &.workout_id
-      elsif @user.current_workout
-        @user.current_workout
+      else
+        @user.get_appropriate_workout
       end
+      
       @workout = Workout.find(workout_id)
 
-      if @workout.user_worked_out_today?
-      else
-      end
-
-      @last_workout = @workout.workout_details.where(user_id: @user.id) unless @workout.nil?
+      @previous_workout = @user.user_previous_workouts.includes(:exercises).where(workout_id: @workout.id).last
+      @edit_mode = "false"
       @exercise_groups = Exercise.group_by_circuit(@workout)
       exercise_complete_count = @workout.workout_details.where(workout_date: Date.today.strftime('%Y-%m-%d')).count.to_f
       exercise_count = @workout.exercises.count.to_f
@@ -66,9 +58,9 @@ class KioskController < ApplicationController
 
         workout_date = params[:exercises][:workout_date].blank? ? Date.today.in_time_zone : params[:exercises][:workout_date]
         workout_id = params[:exercises][:workout_detail].first[:workout_id].blank? ?
-        user.current_workout_id: params[:exercises][:workout_detail].first[:workout_id].to_i
+        user.current_workout_id : params[:exercises][:workout_detail].first[:workout_id].to_i
 
-        workout = user.current_workout.nil? ? Workout.find(workout_id) : Workout.find(user.current_workout)
+        workout = Workout.find(workout_id)
 
         prev_workout = user.user_previous_workouts.find_or_create_by!(
           workout_id: workout.id,
@@ -76,15 +68,19 @@ class KioskController < ApplicationController
         )
 
          params[:exercises][:workout_detail].each do |details|
-           next if details['rep_1_weight'].blank?
+          next if details['rep_1_weight'].blank?
 
-           workout_details = prev_workout.workout_details.create(details.permit!)
-           workout_details.update!(user_id: user.id, workout_date: workout_date)
+          if details["edit"] == "true"
+            workout_details = prev_workout.workout_details.find(details[:workout_detail_id])
+            workout_details.update(details.except(:edit, :workout_detail_id).permit!)
+          else
+            workout_details = prev_workout.workout_details.new(details.except(:edit, :workout_detail_id).permit!)
+            workout_details.save
+          end
          end
 
          exercise_groups = Exercise.group_by_circuit(workout)
          no_more_exercises = Exercise.get_exercise(user, exercise_groups).nil?
-         # user.update(current_workout: nil) if no_more_exercises
          flash[:notice] = user.current_workout_group.nil? ? 'Great Workout! You completed todays workout!' : 'Exercise Complete'
 
          if !user.trainer_id.nil? && no_more_exercises
@@ -101,7 +97,8 @@ class KioskController < ApplicationController
           redirect_to kiosk_exercise_path workout_id: workout_id
         end
       rescue StandardError => error
-         flash[:alert] = "There was an error when saving Workout Details #{error}"
+        flash[:alert] = "There was an error when saving Workout Details #{error}"
+        redirect_to manual_workout_path
       end
     end
   end

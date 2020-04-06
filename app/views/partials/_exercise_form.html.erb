@@ -55,7 +55,7 @@
 									<%= render 'partials/exercise_detail_header', exercise: exercise, bg_color: bg_color %>
 								</div>
 							</div>
-							<%= render 'partials/video_modal', exercise: exercise, f: f %>
+							<%= render 'partials/video_modal', exercise: exercise, previous_workout: @previous_workout, workout_date: params[:workout_date], f: f %>
 						<% end %>
 
 				  </div>
@@ -70,7 +70,7 @@
 				<div class="col-12 boomslang-green" style="border: 1px solid #003259;padding-bottom:5px;margin-bottom:0px;">
 					<%= render 'partials/exercise_detail_header', exercise: exercise, bg_color: Category.style_tags.to_a.sample[1] %>
 				</div>
-				<%= render 'partials/video_modal', exercise: exercise, f: f %>
+				<%= render 'partials/video_modal', exercise: exercise, previous_workout: @previous_workout, workout_date: params[:workout_date] || Date.today, f: f %>
 			<% end %>
 			<div class="boomslang-blue container-fluid" style="padding-top: 15px;padding-bottom: 15px;">
 				<div class="row">

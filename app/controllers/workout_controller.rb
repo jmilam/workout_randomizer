@@ -1,5 +1,5 @@
 class WorkoutController < ApplicationController
-  layout 'nav', except: ['list', 'new']  
+  layout 'nav', except: ['list', 'new', 'manual_workout']  
   def index
     @user = current_user
 
@@ -154,10 +154,13 @@ class WorkoutController < ApplicationController
   end
 
   def manual_workout
+    @selected_workout = Workout.find_by(id: params[:workout_id])
+    @working_date = params[:workout_date] || Date.today
     @workouts = current_user.gym.workouts.includes(:exercises)
     @users = current_user.gym.users
     @user = current_user
     @workout_groups = []
+    @edit_mode = params[:edit_mode] || false
     @manual_entry = true
   end
 

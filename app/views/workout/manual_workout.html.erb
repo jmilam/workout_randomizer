@@ -2,8 +2,9 @@
 	<div class="row" style="height:100%;">
 		<div class="col-md-3" style="padding-top:20px;background:#003259;">
 			<div class="" style="margin-left: auto;margin-right: auto;width: 100%; padding-top:30px;padding-bottom:30px;margin-bottom:10px;">
+				<%= hidden_field_tag :edit_mode, @edit_mode %>
 				<div class="row">
-					<%= select_tag :workout, options_from_collection_for_select(@workouts, :id, :name), prompt: "Select Workout", class: "form-control col-10 offset-1" %>
+					<%= select_tag :workout, options_from_collection_for_select(@workouts, :id, :name, @selected_workout&.id), prompt: "Select Workout", class: "form-control col-10 offset-1" %>
 				</div>
 				<div class="row">
 					<div class="col-10 offset-1">
@@ -11,7 +12,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<%= date_field_tag :workout_date, {}, {value: Date.today, class: "form-control col-10 offset-1"} %>
+					<%= date_field_tag :workout_date, {}, {value: @working_date, class: "form-control col-10 offset-1"} %>
 				</div>
 				<div class="row">
 						<%= select_tag :user, options_for_select(@users.collect{ |u| ["#{u.first_name} #{u.last_name}", u.id] }, @user.id), prompt: "Select User", class: "form-control col-10 offset-1" %>
@@ -26,15 +27,28 @@
 		</div>
 	</div>
 </div>
+
 <script type="text/javascript">
-	$('#workout, #workout_date, #user').on('change', function(){
-		$.ajax({
+	$(document).ready(function() {
+	  $.ajax({
 		  dataType: 'script',
 		  type: 'GET',
 		  url: "/exercise/get_all_for_workout_group",
-		  data: {id: $('#workout').val(), workout_date: $('#workout_date').val(), user_id: $('#user').val()},
+		  data: {id: $('#workout').val(), workout_date: $('#workout_date').val(), user_id: $('#user').val(), edit_mode: $('#edit_mode').val()},
 		  success: function(data) {
 			}
+		});
+
+		$('#workout, #workout_date, #user').on('change', function(){
+			$.ajax({
+			  dataType: 'script',
+			  type: 'GET',
+			  url: "/exercise/get_all_for_workout_group",
+			  data: {id: $('#workout').val(), workout_date: $('#workout_date').val(), user_id: $('#user').val(), edit_mode: $('#edit_mode').val()},
+			  success: function(data) {
+			  	console.log(data)
+				}
+			});
 		});
 	});
 </script>

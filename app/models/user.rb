@@ -120,4 +120,16 @@ class User < ApplicationRecord
   def update_goals(goal)
     goals.create(comment: goal[:comment])
   end
+
+  def get_appropriate_workout
+    if current_workout_group
+        WorkoutGroup.find(current_workout_group)
+                    .workout_group_pairings
+                    .where(workout_day: Time.now.in_time_zone.wday)
+                    .first
+                    &.workout_id
+    else
+      current_workout
+    end
+  end
 end

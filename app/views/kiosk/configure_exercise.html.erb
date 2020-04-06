@@ -4,5 +4,5 @@
 		<p class="lead">Awesome job today. You have completed all the exercises for todays workout. Rest and let your body do what it was made to do....evolve!</p>
 		<p><%= link_to "View Proifle Home", profile_index_path %>
 <% else %>
-	<%= render 'partials/exercise_form' %>
+	<%= render 'partials/exercise_form', previous_workout: @previous_workout %>
 <% end %>

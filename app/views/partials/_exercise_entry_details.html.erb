@@ -4,9 +4,9 @@
 		<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
 		<%= workout_detail.hidden_field :workout_id, value: "#{exercise.workout_id}" %>
 		<%= workout_detail.hidden_field :workout_date, value: "#{workout_date}", class: "workout_detail_date" %>
-		<%= workout_detail.hidden_field :edit, value: !previous_exercise.blank? %>
+		<%= workout_detail.hidden_field :edit, value: @edit_mode %>
 		<%= workout_detail.hidden_field :workout_detail_id, value: "#{ previous_exercise.blank? ? nil : previous_exercise[:id]}" %>
-		<% p @edit_mode != "false" %>
+
 		<div class="row" style="padding-right:10px;">
 	  	<% col_space = 6 %>
 	    <% 1.upto(exercise.set_count) do |num| %>

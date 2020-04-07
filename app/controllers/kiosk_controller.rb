@@ -98,7 +98,7 @@ class KioskController < ApplicationController
         end
       rescue StandardError => error
         flash[:alert] = "There was an error when saving Workout Details #{error}"
-        redirect_to manual_workout_path
+        redirect_to manual_workout_path(workout_id: workout.id, workout_date: workout_date)
       end
     end
   end

@@ -187,6 +187,6 @@ class WorkoutController < ApplicationController
   protected
 
   def workout_params
-    params.require(:workout).permit(:name, :category_id, :details)
+    params.require(:workout).permit(:name, :category_id, :details, :video)
   end
 end

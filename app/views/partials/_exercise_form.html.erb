@@ -36,6 +36,35 @@
 					<h4 class="col-10 offset-1"><b>Workout Details:</b></h4>
 					<p class="lead col-10 offset-1">
 						<%= @workout.details %>
+						<% unless @workout.video.url.include?("missing") %>
+							<span>
+								<button type="button" class="btn sidebar-collapse-button" data-toggle="modal" data-target="#<%= @workout.name.downcase.gsub(/[^0-9A-Za-z]/, '').prepend('_') %>Modal" aria-expanded="false" style="background:transparent;" title="See workout intro. Including form to enter weight">
+								  <i class="fa fa-external-link fa-lg fa-pull-right"></i>
+								</button>
+							</span>
+							<div class="modal fade" id="<%= @workout.name.downcase.gsub(/[^0-9A-Za-z]/, '').prepend('_') %>Modal" tabindex="-1" role="dialog" aria-labelledby="<%= @workout.name.downcase.gsub(/[^0-9A-Za-z]/, '').prepend('_') %>ModelLabel" aria-hidden="true">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="<%= @workout.name.downcase.gsub(/[^0-9A-Za-z]/, '').prepend('_') %>ModelLabel"><%= @workout.name %> Intro</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body boomslang-blue">
+								          <div style="background-color:black;">
+								      				<%= video_tag url_for(@workout.video.url), controls: '', autoplay: true, loop: true, style: 'height:400px;width:100%' %>
+								  				</div>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn workout-btn" data-dismiss="modal" aria-label="Close">
+								          Close
+								        </button>
+								      </div>
+								    </div>
+								  </div>
+							</div>
+						<% end %>
 					</p>
 				</div>
 			</div>

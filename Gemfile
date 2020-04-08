@@ -38,6 +38,7 @@ gem 'paperclip-cloudinary'
 gem 'simplecov'
 gem "font-awesome-rails"
 gem "aws-sdk-s3"
+gem 'pry', '~> 0.12.2'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

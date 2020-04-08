@@ -51,9 +51,12 @@ RSpec.describe 'Users', js: true do
 
     context 'Passes Validation' do
       it 'saves user' do
+        fill_in 'First Name', with: "Dwight"
+        fill_in 'Last Name', with: "Shrute"
         fill_in 'Password', with: 'plafluer'
         fill_in 'Email', with: 'plafluer@gmail.com'
         select gym.name, from: 'Gym'
+        check 'Not a robot'
         click_on 'Create User'
 
         expect(page).to have_content('Please fill out remainder of information and get started working out.')

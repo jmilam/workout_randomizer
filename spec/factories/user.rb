@@ -10,5 +10,6 @@ FactoryBot.define do
     password 'dodgeball'
     regularity_id 1
     goal_id 1
+    not_a_robot true
   end
 end

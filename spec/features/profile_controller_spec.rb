@@ -35,6 +35,28 @@ RSpec.describe 'Profile', js: true do
 
   context 'User wants to change workout' do
     it 'removes user from current workout' do
+      click_on 'Change Workout'
+      expect(page).to have_content('Awesome job on the workout. Your next workout is waiting for you.')
+    end
+  end
+
+  context 'User wants to' do
+    it 'Start Manual Workout' do
+      click_link 'Manually Enter Workout'
+
+      expect(page).to have_content('Select the date you completed the workout')
+    end
+
+    it 'Start Suggested Workout' do
+      click_link 'Start Workout'
+
+      expect(page).to have_content('There are no Workouts for you!')
+    end
+
+    it 'View Workout History' do
+      click_link 'Workout History'
+
+      expect(page).to have_content('Workout Details')
     end
   end
 end

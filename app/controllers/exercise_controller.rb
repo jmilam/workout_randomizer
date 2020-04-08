@@ -92,18 +92,21 @@ class ExerciseController < ApplicationController
   end
 
   def get_all_for_workout_group
-    @workout = Workout.find(params[:id])
+    @workout = Workout.find(params[:id]) unless params[:id].blank?
     @user = User.find(params[:user_id])
 
-    @previous_workout = @user.user_previous_workouts.includes(:exercises).where(workout_id: @workout.id)
+    @previous_workout = @user.user_previous_workouts.includes(:exercises).where(workout_id: @workout&.id)
     @previous_workout = @previous_workout.where.not(workout_date: params[:workout_date]) unless params[:edit_mode]
     @previous_workout = @previous_workout.last
 
-    @last_workout = @workout.workout_details.where(user_id: @user.id) unless @workout.nil?
-    @exercise_groups = Exercise.group_by_circuit(@workout)
+    unless @workout.nil?
+      @last_workout = @workout.workout_details.where(user_id: @user.id)
+      @exercise_groups = Exercise.group_by_circuit(@workout)
+      @exercise_group = Exercise.get_exercise(@user, @exercise_groups, params[:workout_date], @manual_entry)
+    end
+
     @manual_entry = true
     @edit_mode = params[:edit_mode] || "false"
-    @exercise_group = Exercise.get_exercise(@user, @exercise_groups, params[:workout_date], @manual_entry)
 
     @button_title = "Submit Exercise Details"
 

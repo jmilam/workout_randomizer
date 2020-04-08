@@ -1,9 +1,6 @@
 <div class="container">
 	<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
-		<%= workout_detail.hidden_field :user_id, value: "#{@user.id}" %>
 		<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
-		<%= workout_detail.hidden_field :workout_id, value: "#{exercise.workout_id}" %>
-		<%= workout_detail.hidden_field :workout_date, value: "#{workout_date}", class: "workout_detail_date" %>
 		<%= workout_detail.hidden_field :edit, value: @edit_mode %>
 		<%= workout_detail.hidden_field :workout_detail_id, value: "#{ previous_exercise.blank? ? nil : previous_exercise[:id]}" %>
 

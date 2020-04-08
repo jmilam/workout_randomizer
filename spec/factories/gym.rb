@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :gym do
-    name 'Average Joe'
+    name Faker::Name.name
     address '1 Average ln.'
     city 'Rotterdam'
     state 'NY'

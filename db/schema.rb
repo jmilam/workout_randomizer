@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_02_141836) do
+ActiveRecord::Schema.define(version: 2020_04_08_175732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -316,9 +316,6 @@ ActiveRecord::Schema.define(version: 2020_04_02_141836) do
     t.integer "rep_6_weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "workout_id"
-    t.date "workout_date"
-    t.integer "user_id"
     t.integer "user_previous_workout_id"
     t.text "comment", default: ""
     t.string "band_color"

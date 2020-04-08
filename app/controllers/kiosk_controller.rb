@@ -38,7 +38,8 @@ class KioskController < ApplicationController
       @previous_workout = @user.user_previous_workouts.includes(:exercises).where(workout_id: @workout.id).where.not(workout_date: Date.today).last
       @edit_mode = "false"
       @exercise_groups = Exercise.group_by_circuit(@workout)
-      exercise_complete_count = @workout.workout_details.where(workout_date: Date.today.strftime('%Y-%m-%d')).count.to_f
+      exercise_complete_count = WorkoutDetail.where(user_previous_workout: UserPreviousWorkout.where(workout_date: Date.today.strftime('%Y-%m-%d'),
+                                                    workout: @workout)).count.to_f
       exercise_count = @workout.exercises.count.to_f
 
       @complete_percent = ((exercise_complete_count / exercise_count) * 100).to_i
@@ -56,15 +57,11 @@ class KioskController < ApplicationController
         user_id = params.dig(:exercises, :user_id)
         user = user_id.blank? ? current_user : User.find(user_id)
 
-        workout_date = params[:exercises][:workout_date].blank? ? Date.today.in_time_zone : params[:exercises][:workout_date]
-        workout_id = params[:exercises][:workout_detail].first[:workout_id].blank? ?
-        user.current_workout_id : params[:exercises][:workout_detail].first[:workout_id].to_i
-
-        workout = Workout.find(workout_id)
+        workout = Workout.find(params[:workout_id])
 
         prev_workout = user.user_previous_workouts.find_or_create_by!(
           workout_id: workout.id,
-          workout_date: workout_date
+          workout_date: params[:exercises][:workout_date].blank? ? Date.today.in_time_zone : params[:exercises][:workout_date]
         )
 
          params[:exercises][:workout_detail].each do |details|

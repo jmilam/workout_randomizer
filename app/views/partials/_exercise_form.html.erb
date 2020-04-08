@@ -16,7 +16,7 @@
 </style>
 
 <% unless @workout.nil? %>
-	<%= form_for :exercises, url: log_exercise_path do |f| %>
+	<%= form_for :exercises, url: log_exercise_path(workout_id: @workout.id) do |f| %>
 		<%= f.hidden_field :workout_date, value: params[:workout_date] %>
 		<%= f.hidden_field :manual_entry, value: @manual_entry %>
 		<%= f.hidden_field :user_id, value: @user.id %>

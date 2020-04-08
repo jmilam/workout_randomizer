@@ -27,11 +27,11 @@ class Exercise < ApplicationRecord
   end
 
   def self.get_exercise(user, exercise_groups, workout_date=Date.today.strftime('%Y-%m-%d'), manual=false)
-    exercises_completed = WorkoutDetail.where(workout_date: workout_date, user_id: user.id).map(&:exercise_id)
-
-    exercise_ids = exercise_groups.values.flatten.map(&:id).delete_if { |exercise_id| exercises_completed.include?(exercise_id) }
+    user_previous_workout = UserPreviousWorkout.where(workout_date: workout_date, user_id: user.id)
+    exercises_completed = WorkoutDetail.where(user_previous_workout: user_previous_workout).map(&:exercise_id)
 
     unless manual
+      exercise_ids = exercise_groups.values.flatten.map(&:id).delete_if { |exercise_id| exercises_completed.include?(exercise_id) }
       exercise_groups.each do |_group, group_exercises|
         group_exercise = group_exercises.delete_if { |group_exercise| !exercise_ids.include?(group_exercise.id) }
       end

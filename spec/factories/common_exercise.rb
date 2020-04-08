@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :common_exercise do
-    name { 'Bench Press' }
+    gym
+    name { Faker::Name.name }
   end
 end

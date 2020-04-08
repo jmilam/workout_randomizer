@@ -9,7 +9,7 @@ class Workout < ApplicationRecord
   belongs_to :category
   belongs_to :gym
   has_many :workout_groups, through: :workout_group_pairings
-  has_many :workout_details
+  has_many :workout_details, through: :user_previous_workouts
   validates :name, presence: true
 
   has_attached_file :video

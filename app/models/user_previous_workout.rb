@@ -14,11 +14,12 @@ class UserPreviousWorkout < ApplicationRecord
     grouped_workouts.each do |previous_workout, previous_workout_details|
       workout_name = previous_workout.name
       workout_details = ['Date']
-
-      previous_workout_details.sort_by(&:workout_date).group_by(&:workout_date).each do |workout_date, prev_workout_details|
+      previous_workout_details.sort_by(&:user_previous_workout).group_by do |detail|
+        detail.user_previous_workout.workout_date
+      end.each do |workout_date, prev_workout_details|
           exercise_ids = nil
           prev_workout_details.each do |prev_workout_detail|
-            exercises = prev_workout_detail.workout.exercises.sort
+            exercises = prev_workout_detail.user_previous_workout.workout.exercises.sort
             exercise_names = exercises.map { |exercise| exercise.common_exercise.name }
             exercise_ids = exercises.map(&:id)
 

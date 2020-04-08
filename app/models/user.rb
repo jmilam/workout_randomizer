@@ -2,7 +2,7 @@ class User < ApplicationRecord
   belongs_to :gym
   # belongs_to :trainer
   has_many :user_previous_workouts
-  has_many :workout_details
+  has_many :workout_details, through: :user_previous_workouts
   has_one :inbox
   has_many :messages
   has_many :goals

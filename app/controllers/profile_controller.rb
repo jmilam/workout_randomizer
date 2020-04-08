@@ -3,36 +3,16 @@ class ProfileController < ApplicationController
     @user = current_user
     @gym = @user.gym
     @title = "#{@user.first_name} Profile"
-    @weeks_doing_workout = 0
     @workout_group = WorkoutGroup.find_by(id: @user.current_workout_group)
 
-    unless @user.current_workout.nil?
-      @workout = Workout.find(@user.current_workout)
-      current_workout_group_exercises_count = @user.current_workout_group.nil? ?
-        0 : WorkoutGroup.find(@user.current_workout_group).workout_group_pairings.count 
-
-      @weeks_doing_workout = @workout.user_previous_workouts.where(user_id: @user.id)
-        .sort
-        .group_by(&:workout_date)
-        .keys
-        .uniq { |i| i.beginning_of_week }
-        .count
-
-      @weeks_remaining = @workout.duration - @weeks_doing_workout
-    end
+    
+    @workout = Workout.find(@user.current_workout) unless @user.current_workout.nil?
 
     @height = (@user.height / 12.0).round(1).to_s.split('.')
 
     @bmi = @user.calculate_bmi
     @bmi_status = @user.bmi_status(@bmi)
 
-    @differences = {}
-
-    @completed_workout = !@user.user_previous_workouts
-                            .where(workout_date: Date.today.in_time_zone)
-                            .empty?
-
-    @counter = 0
     @wod = Wod.where(gym_id: @user.gym.id, workout_date: Date.today).last
   end
 

@@ -118,6 +118,8 @@ class User < ApplicationRecord
   end
 
   def update_goals(goal)
+    return if goal["comment"].blank?
+
     goals.create(comment: goal[:comment])
   end
 

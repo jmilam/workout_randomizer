@@ -22,7 +22,7 @@ class GoalController < ApplicationController
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when creating a goal: #{error}"
     ensure
-      redirect_to goal_path
+      redirect_to edit_profile_path(current_user.id)
     end
   end
 
@@ -34,7 +34,7 @@ class GoalController < ApplicationController
   	else
   		flash[:alert] = "There was an error when deleting your goal: #{@goal.errors}"
   	end
-  	redirect_to goal_path
+  	redirect_to edit_profile_path(current_user.id)
   end
 
   private

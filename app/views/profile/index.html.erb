@@ -2,7 +2,7 @@
 
 <div id="profile-background">
   <div class="col-md-10 col-10 offset-1">
-    <%= link_to edit_profile_path(@user.id) do %>
+    <%= link_to edit_profile_path(@user.id), id: "edit_profile" do %>
       <div class="row">
         <%= image_tag @user.avatar.url, class: "rounded-image" %>
       </div>

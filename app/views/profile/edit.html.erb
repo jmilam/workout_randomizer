@@ -10,7 +10,6 @@
         <li class='nav-item nav-li'><a class='nav-link active' id='user_info-tab' data-toggle='tab' href='#user_info' role='tab' aria-controls='user_info' aira-selected='true'>User Info.</a></li>
         <li class='nav-item nav-li'><a class='nav-link' id='measurements-tab' data-toggle='tab' href='#measurements' role='tab' aria-controls='measurements' aria-selected='true'>User Measurements</a></li>
         <li class='nav-item nav-li'><a class='nav-link' id='goals-tab' data-toggle='tab' href='#goals' role='tab' aria-controls='goals' aria-selected='true'>User Goals</a></li>
-        <li class='nav-item nav-li'><a class='nav-link' id='inbox-tab' data-toggle='tab' href='#inbox' role='tab' aria-controls='inbox' aria-selected='true'>User Messages</a></li>
         <% if current_user.gym.current_user_gym_admin(current_user) || @user.trainer_id == current_user.id %>
           <li class='nav-item nav-li'><a class='nav-link' id='user-notes-tab' data-toggle='tab' href='#user-notes' role='tab' aria-controls='user-notes' aria-selected='true'>User Notes</a></li>
         <% end %>
@@ -20,241 +19,244 @@
       <div id="main">
         <%= render "partials/alert" %>
         <div class="container-fluid">
-          <%= form_for @user, url: profile_path(@user.id), method: :patch do |f| %>
             <div class="tab-content" id="workoutTabContent">
               <div class="tab-pane fade show active" id='user_info' role='tabpanel' aria-labelledby='user_info'>
-                <div class="container">
-                  <div class="row">
-                    <%= image_tag @user.avatar.url, class: "rounded-image" %>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :first_name, class: 'col-md-12' %>
-                      <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
+                <%= form_for @user, url: profile_path(@user.id), method: :patch do |f| %>
+                  <div class="container">
+                    <div class="row">
+                      <%= image_tag @user.avatar.url, class: "rounded-image" %>
                     </div>
-                    <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :last_name, class: 'col-md-12' %>
-                      <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :first_name, class: 'col-md-12' %>
+                        <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :last_name, class: 'col-md-12' %>
+                        <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :height, class: 'col-md-12' %>
-                      <%= f.text_field :height, class: 'col-md-12 form-control' %>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :height, class: 'col-md-12' %>
+                        <%= f.text_field :height, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :weight, class: 'col-md-12' %>
+                        <%= f.text_field :weight, class: 'col-md-12 form-control' %>
+                      </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :weight, class: 'col-md-12' %>
-                      <%= f.text_field :weight, class: 'col-md-12 form-control' %>
-                    </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :regularity_id, class: 'col-md-12' %>
-                      <%= f.select :regularity_id, @regularity.collect { |key, regularity| [regularity,key] }, { prompt: "How often do you workout?", selected: "#{@user.regularity_id}week" }, class: 'col-md-12 form-control' %>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :regularity_id, class: 'col-md-12' %>
+                        <%= f.select :regularity_id, @regularity.collect { |key, regularity| [regularity,key] }, { prompt: "How often do you workout?", selected: "#{@user.regularity_id}week" }, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :goal_id, class: 'col-md-12' %>
+                        <%= f.select :goal_id, @goals.collect { |key, goal| [goal,key] }, { prompt: "Select Goal" }, class: 'col-md-12 form-control' %>
+                      </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :goal_id, class: 'col-md-12' %>
-                      <%= f.select :goal_id, @goals.collect { |key, goal| [goal,key] }, { prompt: "Select Goal" }, class: 'col-md-12 form-control' %>
-                    </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :current_workout, class: 'col-md-12' %>
-                      <%= f.select :current_workout, @workouts.collect { |group| [group.name, group.id] }, { prompt: "Select A Workout, see details on Workout tab", selected: @user.current_workout, include_blank: true }, class: 'col-md-12 form-control' %>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :current_workout, class: 'col-md-12' %>
+                        <%= f.select :current_workout, @workouts.collect { |group| [group.name, group.id] }, { prompt: "Select A Workout, see details on Workout tab", selected: @user.current_workout, include_blank: true }, class: 'col-md-12 form-control' %>
+                      </div>
+                       <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :current_workout_group, class: 'col-md-12' %>
+                        <%= f.select :current_workout_group, @workout_groups.collect { |group| p group; [group.name, group.id] }, { prompt: "Select A Workout Group", include_blank: true, selected: @user.current_workout_group }, class: 'col-md-12 form-control' %>
+                      </div>
                     </div>
-                     <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :current_workout_group, class: 'col-md-12' %>
-                      <%= f.select :current_workout_group, @workout_groups.collect { |group| p group; [group.name, group.id] }, { prompt: "Select A Workout Group", include_blank: true, selected: @user.current_workout_group }, class: 'col-md-12 form-control' %>
-                    </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :gym_id, class: 'col-md-12' %>
-                      <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :gym_id, class: 'col-md-12' %>
+                        <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :trainer_id, class: 'col-md-12' %>
+                        <%= f.select :trainer_id, @trainers.collect { |trainer| ["#{trainer.first_name} #{trainer.last_name}", trainer.id] }, { prompt: "Select Your Trainer" }, class: 'col-md-12 form-control' %>
+                      </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 form-group">
-                      <%= f.label :trainer_id, class: 'col-md-12' %>
-                      <%= f.select :trainer_id, @trainers.collect { |trainer| ["#{trainer.first_name} #{trainer.last_name}", trainer.id] }, { prompt: "Select Your Trainer" }, class: 'col-md-12 form-control' %>
-                    </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-12">
-                      <%= f.label :medical_concerns, "Medical Concerns" %>
-                      <%= f.text_area :medical_concerns, class: 'form-control' %>
+                    <div class="row">
+                      <div class="col-12">
+                        <%= f.label :medical_concerns, "Medical Concerns" %>
+                        <%= f.text_area :medical_concerns, class: 'form-control' %>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-md-6">
-                      <%= f.label :email %>
-                      <%= f.text_field :email, class: 'col-md-12 form-control' %>
-                    </div>
-                    <div class="col-md-2">
-                      <%= f.label :employee %>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <%= f.label :email %>
+                        <%= f.text_field :email, class: 'col-md-12 form-control' %>
+                      </div>
                       <div class="col-md-2">
-                        <%= f.check_box :employee %>
+                        <%= f.label :employee %>
+                        <div class="col-md-2">
+                          <%= f.check_box :employee %>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-2">
-                      <%= f.label :trainer %>
                       <div class="col-md-2">
-                        <%= f.check_box :trainer %>
+                        <%= f.label :trainer %>
+                        <div class="col-md-2">
+                          <%= f.check_box :trainer %>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-2">
-                      <%= label_tag "Gym Admin?" %>
                       <div class="col-md-2">
-                        <%= check_box_tag :gym_admin, true, @gym_admin %>
+                        <%= label_tag "Gym Admin?" %>
+                        <div class="col-md-2">
+                          <%= check_box_tag :gym_admin, true, @gym_admin %>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-md-4">
-                      <%= f.label :avatar, "Upload Profile Picture:" %>
-                      <div class="col-md-4">
-                        <%= f.file_field :avatar %>
+                    <div class="row">
+                       <div class="col-md-4">
+                        <%= f.label :avatar, "Upload Profile Picture:" %>
+                        <div class="col-md-4">
+                          <%= f.file_field :avatar %>
+                        </div>
                       </div>
                     </div>
+                    <%= f.submit "Edit User Profile", class: 'btn btn-lg btn-block profile-submit-btn container' %>
                   </div>
-                  <%= f.submit "Edit User Profile", class: 'btn btn-lg btn-block profile-submit-btn container' %>
-                </div>
+                <% end %>
               </div>
               <div class="tab-pane fade show" id='measurements' role='tabpanel' aria-labelledby='measurements'>
-                <div class="container">
-                  <%= f.fields_for :measurements, @user.measurements.last do |ff| %>
-                    <h5 class="text-center lead">Girth Measurements (in.)</h5>
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :upper_arm, "Upper Arm" %>
-                          <%= ff.number_field :upper_arm, value: @measurements.upper_arm, class: "form-control" %>
+                <%= form_for @user, url: profile_path(@user.id), method: :patch do |f| %>
+                  <div class="container">
+                    <%= f.fields_for :measurements, @user.measurements.last do |ff| %>
+                      <h5 class="text-center lead">Girth Measurements (in.)</h5>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :upper_arm, "Upper Arm" %>
+                            <%= ff.number_field :upper_arm, value: @measurements.upper_arm, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :chest %>
+                            <%= ff.number_field :chest, value: @measurements.chest, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :waist %>
+                            <%= ff.number_field :waist, value: @measurements.waist, class: "form-control" %>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :chest %>
-                          <%= ff.number_field :chest, value: @measurements.chest, class: "form-control" %>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :hip %>
+                            <%= ff.number_field :hip, value: @measurements.hip, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :thigh %>
+                            <%= ff.number_field :thigh, value: @measurements.thigh, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :calf %>
+                            <%= ff.number_field :calf, value: @measurements.calf, class: "form-control" %>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :waist %>
-                          <%= ff.number_field :waist, value: @measurements.waist, class: "form-control" %>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :wrist %>
+                            <%= ff.number_field :wrist, value: @measurements.wrist, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :forearm %>
+                            <%= ff.number_field :forearm, value: @measurements.forearm, class: "form-control" %>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :hip %>
-                          <%= ff.number_field :hip, value: @measurements.hip, class: "form-control" %>
+                      <h5 class="text-center lead">Skinfolds Measurements (mm.)</h5>
+                      <hr/>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :left_tricep, "Left Tricep" %>
+                            <%= ff.number_field :left_tricep, value: @measurements.left_tricep, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :right_tricep, "Right Tricep" %>
+                            <%= ff.number_field :right_tricep, value: @measurements.right_tricep, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :subscapular %>
+                            <%= ff.number_field :subscapular, value: @measurements.subscapular, class: "form-control" %>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :thigh %>
-                          <%= ff.number_field :thigh, value: @measurements.thigh, class: "form-control" %>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :abdominal %>
+                            <%= ff.number_field :abdominal, value: @measurements.abdominal, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :mid_thigh, "Mid-Thigh" %>
+                            <%= ff.number_field :mid_thigh, value: @measurements.mid_thigh, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :inside_calf, "Inside Calf" %>
+                            <%= ff.number_field :inside_calf, value: @measurements.inside_calf, class: "form-control" %>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :calf %>
-                          <%= ff.number_field :calf, value: @measurements.calf, class: "form-control" %>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :pec, "Pec (men)" %>
+                            <%= ff.number_field :pec, value: @measurements.pec, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :left_bicep, "Left Bicep" %>
+                            <%= ff.number_field :left_bicep, value: @measurements.left_bicep, class: "form-control" %>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :right_bicep, "Right Bicep" %>
+                            <%= ff.number_field :right_bicep, value: @measurements.right_bicep, class: "form-control" %>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :wrist %>
-                          <%= ff.number_field :wrist, value: @measurements.wrist, class: "form-control" %>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="form-group">
+                            <%= ff.label :suprailiac %>
+                            <%= ff.number_field :suprailiac, value: @measurements.suprailiac, class: "form-control" %>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :forearm %>
-                          <%= ff.number_field :forearm, value: @measurements.forearm, class: "form-control" %>
-                        </div>
-                      </div>
-                    </div>
-                    <h5 class="text-center lead">Skinfolds Measurements (mm.)</h5>
-                    <hr/>
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :left_tricep, "Left Tricep" %>
-                          <%= ff.number_field :left_tricep, value: @measurements.left_tricep, class: "form-control" %>
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :right_tricep, "Right Tricep" %>
-                          <%= ff.number_field :right_tricep, value: @measurements.right_tricep, class: "form-control" %>
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :subscapular %>
-                          <%= ff.number_field :subscapular, value: @measurements.subscapular, class: "form-control" %>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :abdominal %>
-                          <%= ff.number_field :abdominal, value: @measurements.abdominal, class: "form-control" %>
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :mid_thigh, "Mid-Thigh" %>
-                          <%= ff.number_field :mid_thigh, value: @measurements.mid_thigh, class: "form-control" %>
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :inside_calf, "Inside Calf" %>
-                          <%= ff.number_field :inside_calf, value: @measurements.inside_calf, class: "form-control" %>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :pec, "Pec (men)" %>
-                          <%= ff.number_field :pec, value: @measurements.pec, class: "form-control" %>
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :left_bicep, "Left Bicep" %>
-                          <%= ff.number_field :left_bicep, value: @measurements.left_bicep, class: "form-control" %>
-                        </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :right_bicep, "Right Bicep" %>
-                          <%= ff.number_field :right_bicep, value: @measurements.right_bicep, class: "form-control" %>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-4">
-                        <div class="form-group">
-                          <%= ff.label :suprailiac %>
-                          <%= ff.number_field :suprailiac, value: @measurements.suprailiac, class: "form-control" %>
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>
-                  <%= f.submit "Edit User Profile", class: 'btn btn-lg btn-block profile-submit-btn container' %>
-                </div>
+                    <% end %>
+                    <%= f.submit "Edit User Measurements", class: 'btn btn-lg btn-block profile-submit-btn container' %>
+                  </div>
+                <% end %>
               </div>
               <div class="tab-pane fade show" id='goals' role='tabpanel' aria-labelledby="goals">
                   <%= form_for :goal, url: create_goal_path, method: :post do |f| %>
@@ -278,8 +280,6 @@
                       <% end %>
                     </tbody>
                   </table>
-              </div>
-              <div class="tab-pane fade show" id='inbox' role='tabpanel' aria-labelledby="inbox">
               </div>
               <div class="tab-pane fade show" id='user-notes' role='tabpanel' aria-labelledby="user-notes">
                 <%= form_for :user_note, url: create_user_note_path, method: :post do |f| %>
@@ -320,8 +320,6 @@
                 <% end %>
               </div>
             </div>
-          <% end %>
-
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     begin
       @user = User.new(user_sign_up_params)
-      default_workout = @user.gym.workouts.find_by(user_default: true)
+      default_workout = @user.gym&.workouts&.find_by(user_default: true)
       @user.current_workout = default_workout&.id
 
       if @user.save
@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           error_message << "* #{key.capitalize}"
 
           value.each do |val|
-            error_message << "#{val}\n"
+            error_message << " #{val}\n"
           end
         end
 

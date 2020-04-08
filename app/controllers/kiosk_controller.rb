@@ -35,7 +35,7 @@ class KioskController < ApplicationController
       
       @workout = Workout.find(workout_id)
 
-      @previous_workout = @user.user_previous_workouts.includes(:exercises).where(workout_id: @workout.id).last
+      @previous_workout = @user.user_previous_workouts.includes(:exercises).where(workout_id: @workout.id).where.not(workout_date: Date.today).last
       @edit_mode = "false"
       @exercise_groups = Exercise.group_by_circuit(@workout)
       exercise_complete_count = @workout.workout_details.where(workout_date: Date.today.strftime('%Y-%m-%d')).count.to_f
@@ -70,8 +70,9 @@ class KioskController < ApplicationController
          params[:exercises][:workout_detail].each do |details|
           next if details['rep_1_weight'].blank?
 
-          if details["edit"] == "true"
-            workout_details = prev_workout.workout_details.find(details[:workout_detail_id])
+          workout_details = prev_workout.workout_details.find_by(id: details[:workout_detail_id])
+
+          if details["edit"] == "true" && !workout_details.nil?
             workout_details.update(details.except(:edit, :workout_detail_id).permit!)
           else
             workout_details = prev_workout.workout_details.new(details.except(:edit, :workout_detail_id).permit!)

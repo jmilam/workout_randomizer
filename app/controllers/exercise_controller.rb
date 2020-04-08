@@ -94,7 +94,11 @@ class ExerciseController < ApplicationController
   def get_all_for_workout_group
     @workout = Workout.find(params[:id])
     @user = User.find(params[:user_id])
-    @previous_workout = @user.user_previous_workouts.includes(:exercises).where(workout_id: @workout.id).last
+
+    @previous_workout = @user.user_previous_workouts.includes(:exercises).where(workout_id: @workout.id)
+    @previous_workout = @previous_workout.where.not(workout_date: params[:workout_date]) unless params[:edit_mode]
+    @previous_workout = @previous_workout.last
+
     @last_workout = @workout.workout_details.where(user_id: @user.id) unless @workout.nil?
     @exercise_groups = Exercise.group_by_circuit(@workout)
     @manual_entry = true

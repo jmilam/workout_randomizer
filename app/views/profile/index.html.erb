@@ -40,7 +40,7 @@
 
   <%= link_to "Manually Enter Workout", manual_workout_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
 
-  <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @completed_workout %></div>
+  <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %></div>
 
   <%= link_to "Workout of the Day", kiosk_exercise_path(workout_id: @wod.workout_id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @wod.nil? %>
 

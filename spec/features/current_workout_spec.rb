@@ -41,11 +41,23 @@ RSpec.describe 'Current Workout', js: true do
 
     context 'previous data' do
       let!(:user_previous_workout) { create(:user_previous_workout, workout: workout, user: user) }
-      let!(:workout_detail) { create(:workout_detail, exercise: exercise, workout_date: user_previous_workout.workout_date)}
-      it 'in placeholder for reference' do
-        p user
-        p user_previous_workout
-        p workout_detail
+      let!(:workout_detail) { create(:workout_detail, exercise: exercise, user_previous_workout: user_previous_workout)}
+      it 'is a placeholder for reference' do
+        click_link "Start Workout"
+        find(".exerciseModalLink").click
+        
+        expect(find('#exercises_workout_detail__rep_1_weight')['placeholder']).to eq(workout_detail.rep_1_weight.to_s)
+        expect(find('#exercises_workout_detail__rep_1_weight').value).to eq('')
+      end
+
+      it 'is a value for editing' do
+        click_link 'Workout History'
+        click_button workout.name
+        click_link 'Edit'
+        find(".exerciseModalLink").click
+
+        expect(find('#exercises_workout_detail__rep_1_weight')['placeholder']).to eq('')
+        expect(find('#exercises_workout_detail__rep_1_weight').value).to eq(workout_detail.rep_1_weight.to_s)
       end
     end
   end

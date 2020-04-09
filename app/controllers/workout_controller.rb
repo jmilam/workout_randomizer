@@ -103,6 +103,7 @@ class WorkoutController < ApplicationController
   def accept_workout
     current_user.update!(current_workout: params[:workout_id])
 
+    flash[:notice] = "New workout selected and ready to use. Click 'Start Workout' to get started."
     redirect_to profile_index_path
   end
 

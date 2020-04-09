@@ -15,7 +15,6 @@ class ExerciseController < ApplicationController
     @exercise = Exercise.find(params[:id])
     @kiosk = current_user.gym.kiosks.find_by(exercise_id: @exercise.id)
     @kiosk_number = @kiosk.nil? ? '' : @kiosk.kiosk_number
-    # @superset_exercise = SuperSet.get_shared_exercise(@exercise)
     @total_exercises = @exercise.workout_group.exercises.count
   end
 

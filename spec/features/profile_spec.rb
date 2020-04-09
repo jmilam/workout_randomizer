@@ -12,11 +12,11 @@ RSpec.describe 'Profile', js: true do
 
   context 'Users Profile' do
     it 'shows stats' do
-      expect(page).to have_content "Weight: #{user.weight}"
+      expect(page).to have_content "Weight:\n#{user.weight}"
       expect(page).to have_content "Height:"
-      expect(page).to have_content "BMI: #{user.calculate_bmi}"
-      expect(page).to have_content "Current Workout: #{workout.name}"
-      expect(page).to have_content "Current Gym: #{user.gym.name}"
+      expect(page).to have_content "BMI:\n#{user.calculate_bmi}"
+      expect(page).to have_content "Current Workout:\n#{workout.name}"
+      expect(page).to have_content "Current Gym:\n#{user.gym.name}"
     end
 
     it 'shows links' do

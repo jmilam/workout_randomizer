@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="<%= exercise.common_exercise.name.downcase.gsub(/[^0-9A-Za-z]/, '').prepend('_') %>ModelLabel"><%= exercise.common_exercise.name %></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-<%=exercise.common_exercise.name.downcase.gsub(/[^0-9A-Za-z]/, '') %>">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

@@ -67,4 +67,5 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :feature
 
   Capybara.javascript_driver = :selenium_chrome_headless
+  Selenium::WebDriver.logger.level = :error
 end

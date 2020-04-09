@@ -33,7 +33,7 @@ RSpec.describe 'Current Workout', js: true do
       find(".exerciseModalLink").click
 
       fill_in 'exercises_workout_detail__rep_1_weight', with: 30
-      click_button 'Close'
+      find("#close-#{exercise2.common_exercise.name.downcase.gsub(/[^0-9A-Za-z]/, '')}").click
       click_button 'Next Exercise >>'
 
       expect(page).to have_content("Exercises Completed 1 of 2")

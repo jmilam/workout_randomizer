@@ -1,30 +1,5 @@
 class WorkoutController < ApplicationController
   layout 'nav', except: ['list', 'new', 'manual_workout']  
-  def index
-    @user = current_user
-
-    if @user.current_workout.nil?
-      @workout, @workout_group = Workout.valid_workout_with_workout_groups(@user)
-    else
-      @workout = Workout.find(current_user.current_workout)
-      @workout_group = @workout.workout_groups.to_a.delete_if { |group| @user.this_weeks_workouts.include?(group.id) }&.sample
-      @last_workout = @workout_group.workout_details.where(user_id: @user.id) unless @workout_group.nil?
-      @already_worked_out = !@user.user_previous_workouts
-                                  .where(workout_date: Date.today.strftime('%m/%d/%y'))
-                                  .empty?
-    end
-
-    @exercise_groups = @workout_group.exercises.group_by(&:super_set_id)
-
-    unless @exercise_groups[nil].nil?
-      @exercise_groups[nil].each do |nil_group|
-        @exercise_groups["#{nil_group.id}a"] = [nil_group]
-      end
-    end
-
-    @exercise_groups.delete(nil)
-  end
-
   def new
     @workout = Workout.new
     @categories = current_user.gym.categories.enabled
@@ -56,10 +31,12 @@ class WorkoutController < ApplicationController
       redirect_to new_workout_path
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when creating exercise: #{error}"
-      render :new
+      redirect_to new_workout_path
+      # render :new
     rescue ActiveRecord::StandardError => error
       flash[:alert] = "There was an error when creating exercise: #{error}"
-      render :new
+      redirect_to new_workout_path
+      # render :new
     end
   end
 
@@ -89,6 +66,8 @@ class WorkoutController < ApplicationController
       redirect_to edit_workout_path(workout_id: @workout.id)
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when updating exercise: #{error}"
+      @categories = current_user.gym.categories.enabled
+
       render :show, id: @workout.id
     end
   end
@@ -107,27 +86,8 @@ class WorkoutController < ApplicationController
     redirect_to profile_index_path
   end
 
-  def accept_deny_workout
-    user = current_user
-    workout = Workout.find(params[:workout_id])
-
-    if params[:accept]
-      begin
-        user.current_workout = workout.id
-        user.save!(validate: false)
-        redirect_to workout_index_path
-      rescue StandardException => error
-        flash[:alert] = error
-        redirect_to workout_id
-      end
-    elsif params[:deny]
-      redirect_to workout_index_path
-    end
-  end
-
   def stop_workout
     current_user.current_workout = nil
-    # current_user.current_workout_group = nil
 
     if current_user.save!(validate: false)
       flash[:notice] = 'Awesome job on the workout. Your next workout is waiting for you.'

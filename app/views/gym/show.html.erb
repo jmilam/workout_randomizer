@@ -146,11 +146,20 @@
 									  <tbody>
 											<% @categories.each do |category| %>
 												<tr>
-										      <th scope="row"><%= category.name %></th>
+										      <th scope="row">
+										      	<% if category.editable_by_user?(current_user) %>
+										      		<%= link_to category.name, edit_category_path(category.id) %>
+										      	<% else %>
+										      		<%= category.name %></th>
+										      	<% end %>
 										      <td class="<%= Category.style_tags[category.tag]['background-color'] %>"></td>
 										      <td class="text-center">
 										      	<% if category.editable_by_user?(current_user) %>
-										      		<%= link_to "Edit", edit_category_path(category.id) %> |  <% if category.disabled %> <%= link_to "Enable", enable_category_path(id: category.id), method: :put %> <% else %> <%= link_to "Disable", disable_category_path(id: category.id), method: :put %> <% end %>
+										      		<% if category.disabled %>
+										      			<%= link_to "Enable", enable_category_path(id: category.id), method: :put, class: 'edit-link' %>
+										      		<% else %>
+										      		  <%= link_to "Disable", disable_category_path(id: category.id), method: :put %>
+										      		<% end %>
 										      	<% end %>		
 										      </td>
 										    </tr>
@@ -217,7 +226,7 @@
 							</table>
 						</div>
 						<div class="tab-pane fade show" id='workout-groups' role='tabpanel' aria-labelledby='workout-groups'>
-							<%= link_to "New Group Workout", new_workout_group_path, class: "pull-right workout-btn btn", style: "margin-bottom:10px;" %>
+							<%= link_to "New Workout Group", new_workout_group_path, class: "pull-right workout-btn btn", style: "margin-bottom:10px;" %>
 							<table class="table">
 								<thead>
 									<tr>

@@ -26,7 +26,7 @@ class WorkoutGroupController < ApplicationController
                                                                workout_day: workout_grouping[1])
         end
 
-        flash[:notice] = "Workout Group #{@workout_group.name} was successfully created. Let's add some exercises now."
+        flash[:notice] = "Workout Group #{@workout_group.name} was successfully created."
         redirect_to gym_path(current_user.gym.id)
       rescue ActiveRecord::RecordInvalid => error
         flash[:alert] = "There was an error when updating exercise: #{error}"

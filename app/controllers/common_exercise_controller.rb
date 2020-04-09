@@ -21,8 +21,8 @@ class CommonExerciseController < ApplicationController
     gym = current_user.gym
     @exercise = CommonExercise.find(params[:common_exercise][:id])
 
-    if @exercise.update!(exercise_params)
-      flash[:notice] = "Exercise #{@exercise.name} was successfully created."
+    if @exercise.update!(update_exercise_params)
+      flash[:notice] = "Exercise #{@exercise.name} was successfully updated."
       redirect_to gym_path(gym.id)
     else
       flash[:alert] = "There was an error when creating your exercise: #{@exercise.errors.messages}"
@@ -33,6 +33,10 @@ class CommonExerciseController < ApplicationController
   protected
 
   def exercise_params
+    params.require(:common_exercises).permit(:name, :video)
+  end
+
+  def update_exercise_params
     params.require(:common_exercise).permit(:name, :video)
   end
 end

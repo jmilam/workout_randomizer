@@ -21,6 +21,6 @@ class WodController < ApplicationController
   protected
 
   def wod_params
-  	params.require(:wod).permit(:workout_group_id, :gym_id, :workout_date)
+  	params.require(:wod).permit(:workout_id, :gym_id, :workout_date)
   end
 end

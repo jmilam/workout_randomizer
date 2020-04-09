@@ -46,10 +46,11 @@ class CategoryController < ApplicationController
     begin
       category = Category.find(params[:id])
       category.update!(disabled: true)
+      flash[:notice] = "Category was disabled successfully."
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when disabling your category: #{error}"
     ensure
-      redirect_to category_index_path
+      redirect_to gym_path category.gym_id
     end
   end
 
@@ -57,10 +58,11 @@ class CategoryController < ApplicationController
     begin
       category = Category.find(params[:id])
       category.update!(disabled: false)
+      flash[:notice] = "Category was enabled successfully."
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when enabling your category: #{error}"
     ensure
-      redirect_to category_index_path
+      redirect_to gym_path category.gym_id
     end
   end
 

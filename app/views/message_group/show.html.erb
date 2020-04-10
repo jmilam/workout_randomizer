@@ -1,4 +1,10 @@
 <div class="container" style="margin-top:15px">
+	<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4 text-center"><%= @message_group.subject %></h1>
+
+    </div>
+  </div>
 	<% @messages.each do |message| %>
 		<div class="row">
 			<% if message.user_id != @user.id %>
@@ -6,9 +12,7 @@
 			<% end %>
 			<div class="<%= message.user_id == @user.id ? 'col-6 text-left speech-bubble-right' : 'col-6 text-right speech-bubble-left' %> " style="margin-bottom: 15px;min-height: 50px;font-size:0.9em;">
 					<p><%= message.detail %></p>
-					<% if message.user_id != @user.id %>
 						<p>--<%= message.user_name %></p>
-					<% end %>
 			</div>
 
 			<% if message.user_id == @user.id %>

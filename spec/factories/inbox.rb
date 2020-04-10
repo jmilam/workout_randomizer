@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :blog do
-    
+  factory :inbox do
+    user
   end
 end

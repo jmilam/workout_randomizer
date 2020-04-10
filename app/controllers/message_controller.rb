@@ -14,7 +14,7 @@ class MessageController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       @message_group = if params[:message][:message_group_id].empty?
-                         current_user.inbox.message_groups.create!(subject: params[:subject])
+                         current_user.inbox.message_groups.new(subject: params[:subject])
                        else
                          MessageGroup.find(params[:message][:message_group_id])
                        end
@@ -24,7 +24,14 @@ class MessageController < ApplicationController
         @message.recipient_id = params[:message][:trainer_id]
       end
 
-      if @message.save!
+      if @message.recipient_id.nil?
+        # Look Up last message of message group and pull from there. Client hasn't responded yet
+        recipient_id = @message_group.messages.where.not(recipient_id: current_user.id).last&.recipient_id
+        @message.recipient_id = recipient_id unless recipient_id.nil?
+      end
+
+      
+      if @message.save! && @message_group.save!
         # Send email
         recipient_id = params[:message][:trainer_id].presence || params[:message][:recipient_id]
         unless recipient_id.blank?
@@ -38,6 +45,11 @@ class MessageController < ApplicationController
       else
         render :new
       end
+    rescue ActiveRecord::RecordInvalid => error
+      @clients = User.where(trainer_id: current_user.id)
+
+      flash[:alert] = "There was an error when sending your message: #{error}"
+      render :new
     end
   end
 

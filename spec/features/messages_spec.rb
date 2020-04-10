@@ -45,7 +45,7 @@ RSpec.describe 'Messages', js: true do
   end
 
   context 'As a client' do
-    let(:message_group2) { create(:message_group, inbox: inbox) }
+    let!(:message_group2) { create(:message_group, inbox: inbox) }
     let!(:message2) { create(:message, message_group: message_group2, user: user, recipient_id: client.id) }
     before do
       sign_in client

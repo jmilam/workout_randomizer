@@ -6,8 +6,8 @@ class Users::SessionsController < Devise::SessionsController
   
   # GET /resource/sign_in
   def new
-    flash[:alert] = nil
-    flash[:notice] = nil
+    # flash[:alert] = nil
+    # flash[:notice] = nil
     uri = URI.parse(request.original_url)
     @gym = Gym.where("lower(name) = ?", uri.host.split('.').first.to_s.gsub("_", " ")).last
     @title = "Sign In"
@@ -32,6 +32,7 @@ class Users::SessionsController < Devise::SessionsController
   def destroy
     sign_out current_user
 
+    flash[:notice] = "User Successfully Signed Out"
     redirect_to user_session_path
   end
 

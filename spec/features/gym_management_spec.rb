@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Manage Gym', js: true do
   let!(:gym) { create(:gym) }
   let!(:user) { create(:user, gym: gym) }
+  let!(:disabled_user) { create(:user, gym: gym, account_disabled: true) }
   let!(:gym_admin) { create(:gym_admin, gym: gym, user_id: user.id) }
   let!(:category) { create(:category, gym: gym) }
   let!(:enabled_category) { create(:category, created_by_user_id: user.id, gym: gym) }
@@ -44,17 +45,45 @@ RSpec.describe 'Manage Gym', js: true do
 
     it 'Creates New User' do
       click_on 'New User'
-      expect(page).to have_content 'Basic User Information:'
+
+      fill_in 'First Name', with: 'Test'
+      fill_in 'Last Name', with: 'User'
+      fill_in 'Height', with: '68'
+      fill_in 'Weight', with: '200'
+
+      click_link 'Goals >>'
+      # Goals select boxes set by default, no need to test select
+      click_link 'Measurements >>'
+      fill_in 'Upper Arm', with: 15
+      fill_in 'Inside Calf', with: 20
+
+      click_link 'Finalize >>'
+      fill_in 'Email', with: 'testuser@email.com'
+      fill_in 'Pin', with: '123456'
+      fill_in 'Phone Number', with: '1234567890'
+
+      click_on 'Join User'
+      expect(page).to have_content 'New User, Test User, successfully created.'
     end
 
     it 'Edits Current User' do
       click_link "#{user.first_name} #{user.last_name}"
-      expect(page).to have_content 'First name'
+
+      fill_in 'First name', with: "Hakeem"
+      click_on 'Edit User Profile'
+
+      expect(page).to have_content 'User successfully updated'
     end
 
     it 'Disables Users' do
       click_link 'Disable Account'
       expect(page).to have_content "#{user.username} was disabled."
+    end
+
+    it 'Enables Users' do
+      click_link 'Enable Account'
+      save_screenshot
+      expect(page).to have_content "#{disabled_user.username} was enabled."
     end
   end
 

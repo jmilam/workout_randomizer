@@ -1,13 +1,12 @@
 <div class="browser-center">
   <div class="container">
-    <%= render "partials/alert" %>
-
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="card border-success">
         <div class="card-header text-success border-success boomslang-green">
           <%= image_tag @gym&.logo.nil? ? "logo" : @gym.logo.url, class: "rounded-image" %>
         </div>
         <div class="card-body text-success bg-white" style="margin-bottom:0;">
+          <%= render "partials/alert" %>
           <div class="col-md-12 col-sm-12 form-group">
             <%= f.label :email %>
             <%= f.text_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
@@ -21,7 +20,7 @@
         </div>
         <div class="card-footer boomslang-green">
           <div class="text-right" style="margin-top:15px;">
-            <%= f.submit "Log in", class: "btn btn-lg btn-standard" %>
+            <%= f.submit "Log In", class: "btn btn-lg btn-standard" %>
             <br/>
             <%= render "devise/shared/links" %>
           </div>

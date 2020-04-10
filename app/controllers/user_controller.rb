@@ -28,6 +28,7 @@ class UserController < ApplicationController
     @current_gym = current_user.gym
 
     if @user.save
+      flash[:notice] = "New User, #{@user.username}, successfully created."
       redirect_to gym_path(current_user.gym_id)
     else
       error_string = ""
@@ -56,7 +57,7 @@ class UserController < ApplicationController
     user =  User.find(params[:id])
     user.update(account_disabled: false)
 
-    flash[:notice] = "#{user.first_name} #{user.last_name} was eabled."
+    flash[:notice] = "#{user.first_name} #{user.last_name} was enabled."
     redirect_to gym_path(current_user.gym_id)
   end
 

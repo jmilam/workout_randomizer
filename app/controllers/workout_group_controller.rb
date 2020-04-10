@@ -48,22 +48,6 @@ class WorkoutGroupController < ApplicationController
     end
   end
 
-  def update
-    WorkoutGroup.transaction do
-      begin
-        @workout_group = WorkoutGroup.find(params[:id])
-        @workout_group.update!(workout_group_params)
-
-        flash[:notice] = "Workout Group #{@workout_group.name} was successfully updated."
-        redirect_to edit_workout_path(@workout_group.workout.id)
-
-      rescue ActiveRecord::RecordInvalid => error
-        flash[:alert] = "There was an error when updating exercise: #{error}"
-        render :edit
-      end
-    end
-  end
-
   def destroy
     @workout_group = WorkoutGroup.find(params[:id])
 
@@ -76,16 +60,6 @@ class WorkoutGroupController < ApplicationController
       else
         flash[:alert] = "There was an error when deleting workout group. #{@workout_group.errors}"
       end
-    end
-  end
-
-  def workout_groups_by_workout
-    @workout = Workout.find(params[:id])
-
-    @workout_groups = @workout.workout_groups
-
-    respond_to do |format|
-      format.js { render :json => {workout_groups: @workout_groups} }
     end
   end
 

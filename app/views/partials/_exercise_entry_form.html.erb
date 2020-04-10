@@ -8,8 +8,8 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 form-group">
         <%= f.fields_for :common_exercise do |ex| %>
-          <%= ex.label :name, 'Exercise Name *', class: 'col-md-12' %>
-          <%= ex.text_field :name, value: exercise.common_exercise.name, class: 'col-md-12 form-control', readonly: true %>
+          <%= ex.label :id, 'Exercise Name *', class: 'col-md-12' %>
+          <%= ex.select :id, @common_exercises.map { |ex| [ex.name, ex.id] }, { prompt: "--- Select Exercise ---", selected: exercise.common_exercise.id }, class: 'col-md-12 form-control', onchange:  'changeAlert()' %>
         <% end %>
       </div>
     </div>
@@ -103,3 +103,9 @@
       <% end %>
     </div>
   <% end %>
+
+  <script>
+    function changeAlert() {
+      alert("You are making a change to an exercise name for a workout that users might have be using. Please be sure you want to make this change before you save.");
+    }
+  </script>

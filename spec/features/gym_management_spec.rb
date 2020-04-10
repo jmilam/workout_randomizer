@@ -10,6 +10,8 @@ RSpec.describe 'Manage Gym', js: true do
   let!(:common_exercise) { create(:common_exercise, gym: gym) }
   let!(:common_equipment) { create(:common_equipment) }
   let!(:workout) { create(:workout, gym: gym, created_by_user_id: user.id) }
+  let!(:workout_group) { create(:workout_group) }
+  let!(:workout_group_pairing) { (create(:workout_group_pairing, workout_group: workout_group, workout: workout, gym: gym))}
 
   before do
     page.driver.browser.manage.window.resize_to(1024,768)
@@ -211,5 +213,22 @@ RSpec.describe 'Manage Gym', js: true do
 
       expect(page).to have_content 'Workout Group First Workout Group was successfully created.'
     end
+
+    it 'displays selected workout groups' do
+      user.update(current_workout_group: workout_group.id)
+      click_link 'View'
+
+      expect(page).to have_content workout_group.name
+      expect(find('#workout_table table tbody').all('tr').count).to eq workout_group.workout_group_pairings.count
+      expect(find('#workout-group-users-table tbody').all('tr').count).to eq 1
+    end
+
+    it 'deletes successfully' do
+      click_link 'Delete'
+      expect(page).to have_content 'Workout Group was successfully deleted.'
+    end
+  end
+
+  context 'Manage Tasks' do
   end
 end

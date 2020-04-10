@@ -1,18 +1,5 @@
 class GoalController < ApplicationController
 	layout 'nav'
-  def index
-  	@user = current_user
-
-  	@show_goals_for_other_users = false
-
-  	@goals = if @user.gym.current_user_gym_admin(@user) || @user.trainer
-  					   @show_goals_for_other_users = true
-  					   @user.gym.users.map(&:goals).flatten
-					   else
-					  	 @user.goals
-					   end
-  end
-
   def create
   	begin
 	  	@goal = current_user.goals.new(goal_params)

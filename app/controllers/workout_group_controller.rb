@@ -65,16 +65,16 @@ class WorkoutGroupController < ApplicationController
   end
 
   def destroy
-    @workout = WorkoutGroup.find(params[:id])
+    @workout_group = WorkoutGroup.find(params[:id])
 
     WorkoutGroup.transaction do 
-      @workout.workout_group_pairings.each(&:destroy!)
+      @workout_group.workout_group_pairings.each(&:destroy!)
  
-      if @workout.delete
+      if @workout_group.delete
         flash[:notice] = 'Workout Group was successfully deleted.'
         redirect_to gym_path(params[:gym_id])
       else
-        flash[:alert] = "There was an error when deleting workout group. #{@workout.errors}"
+        flash[:alert] = "There was an error when deleting workout group. #{@workout_group.errors}"
       end
     end
   end

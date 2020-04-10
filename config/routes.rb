@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   put 'workout/add_exercise', to: 'workout#add_exercise', as: 'add_exercise'
 
   get 'workout_detail/index', to: 'workout_detail#index', as: 'workout_history'
-  post 'workout_detail/create', to: 'workout_detail#create', as: 'create_workout_detail'
 
   post 'workout/like_workout', to: 'workout#like_workout', as: 'like_workout'
 

@@ -55,7 +55,8 @@ class ExerciseController < ApplicationController
           @exercise.update!(exercise_circuit_id: exercise_circuit.id)
         end
 
-        @exercise.update(common_exercise_id: params[:exercise][:common_exercise][:id])
+        @exercise.update(common_exercise_id: params[:exercise][:common_exercise][:id],
+                         common_equipment_id: params[:exercise][:common_equipment][:id])
         @exercise.update!(exercise_params)
 
 

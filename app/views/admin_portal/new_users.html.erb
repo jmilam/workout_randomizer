@@ -5,7 +5,7 @@
 	<%= select_tag :report_time_frame, options_for_select(['Week', 'Month', 'Year'], 'Week'), class: 'form-control', style: 'margin-bottom:10px;' %>
 
 	<div class="bg-secondary">
-		<table class="table table-stripped" style="color:#003259">
+		<table class="table table-stripped" style="color:#003259" id="gyms">
 			<thead>
 				<tr>
 					<th class="text-center">New Gyms signs up: <i id="gym_count"><%= @new_gyms.count %></i></th>
@@ -25,7 +25,7 @@
 	</div>
 
 	<div class="bg-secondary">
-		<table class="table table-stripped" style="color:#003259">
+		<table class="table table-stripped" style="color:#003259" id="users">
 			<thead>
 				<tr>
 					<th class="text-center" colspan=3>New Users signed up: <i id="user_count"><%= @new_users.count %></i></th>

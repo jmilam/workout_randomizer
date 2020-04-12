@@ -6,10 +6,16 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12 col-sm-12 form-group">
+      <div class="col-md-6 col-sm-12 form-group">
         <%= f.fields_for :common_exercise do |ex| %>
           <%= ex.label :id, 'Exercise Name *', class: 'col-md-12' %>
           <%= ex.select :id, @common_exercises.map { |ex| [ex.name, ex.id] }, { prompt: "--- Select Exercise ---", selected: exercise.common_exercise.id }, class: 'col-md-12 form-control', onchange:  'changeAlert()' %>
+        <% end %>
+      </div>
+      <div class="col-md-6 col-sm-12 form-group">
+        <%= f.fields_for :common_equipment do |ex| %>
+          <%= ex.label :id, 'Exercise Name *', class: 'col-md-12' %>
+          <%= ex.select :id, @equipment.map { |ex| [ex.name, ex.id] }, { prompt: "--- Select Equipment ---", selected: exercise.common_equipment.id }, class: 'col-md-12 form-control' %>
         <% end %>
       </div>
     </div>

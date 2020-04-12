@@ -8,8 +8,8 @@ class AdminPortalController < ApplicationController
   def time_cards
     @gym = current_user.gym
     @time_cards_grouped_by_user = TimeCard.includes(:task)
-                                          .where(user_id: @gym.users.where(trainer: true).map(&:id),
-                                                 start_time: [Date.today.beginning_of_week..Date.today.end_of_week])
+                                          .where(user: @gym.users.where(employee: true),
+                                                 start_time: [DateTime.now.beginning_of_week..DateTime.now.end_of_week])
                                           .group_by(&:user)
 
   end

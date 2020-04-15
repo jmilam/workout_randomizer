@@ -9,19 +9,31 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag 'favicon.ico' %>
     <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/ba2895b48715180ecc670eeb4/db6e29e511358b11414780fdf.js");</script>
+    <script>
+      document.addEventListener('turbolinks:load', function() {
+        $('[data-toggle="popover"]').popover({html: true});
+      });
+      $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({html: true});
+      });
+    </script>
   </head>
 
   <body>
     <nav class="navbar navbar-light bg-dark static-top">
       <div class="container">
-        <%= link_to root_path, class: 'navbar-brand' do %>
-          <%= image_tag 'logo-snake.png', size: '55x55' %>
-        <% end %>
-        <% if current_user %>
-          <%= link_to "View Profile", profile_index_path , class: 'btn btn-primary' %>
-        <% else %>
-          <%= link_to "Sign In", new_user_session_path , class: 'btn btn-primary' %>
-        <% end %>
+        <div class="navbar-header">
+          <%= link_to root_path, class: 'navbar-brand' do %>
+            <%= image_tag 'logo-snake.png', size: '55x55' %>
+          <% end %>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <% if current_user %>
+            <%= link_to "View Profile", profile_index_path , class: 'btn btn-primary' %>
+          <% else %>
+            <%= button_tag "Sign In", class: 'btn btn-primary', data: {container: 'body', toggle: "popover", placement: "bottom", content: "#{render 'partials/sign_in_form'}"} %> <%= link_to 'Sign Up', new_user_registration_path, style: "margin-left: 0.5em;margin-top: 1.5em;" %>
+          <% end %>
+        </div>
       </div>
     </nav>
 

@@ -12,7 +12,9 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="navbar-header">
-          <%= image_tag 'logo-snake.png', size: '55x55', id: 'nav-image' %>
+          <%= link_to root_path, class: 'navbar-brand' do %>
+            <%= image_tag 'logo-snake.png', size: '55x55', id: 'nav-image' %>
+          <% end %>
       </div>
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav">

@@ -2,8 +2,8 @@
   <div class="row" style="height:100%;width:100%;">
     <div class="col-md-2 col-12" id="mySidebar">
       <div class="row">
-        <button class="sidebar-collapse-button btn btn pull-left" type="button" data-target="#workoutTab" aria-controls="workoutTab" aria-expanded="false" aria-label="Toggle navigation" style="margin-bottom:10px;margin-left:3px;margin-right:5px;background-color:white;" onclick="openCloseNav()">
-          <i class="fa fa-th-list fa-sm" style=""></i>
+        <button class="sidebar-collapse-button btn btn pull-left" type="button" data-target="#workoutTab" aria-controls="workoutTab" aria-expanded="false" aria-label="Toggle navigation" style="margin-bottom:10px;margin-left:5px;margin-right:5px;background-color:white;" onclick="openCloseNav()">
+          <i class="fa fa-chevron-right fa-sm" id="expand" style=""></i>
         </button>
       </div>
       <ul class="nav nav-pills navbar-collapse" id="workoutTab" role="tablist">
@@ -336,6 +336,7 @@
           document.getElementById("mySidebar").style.position = "absolute";
           document.getElementById("mySidebar").style.width = "3em";
           document.getElementById("main").style.width = "100%";
+          $('.nav-link').parent('.nav-item.nav-li').css('padding-left', '2em');
           $("#right-col").addClass('offset-2');
           $('.sidebar-collapse-button').show();
           $('#main').addClass('small-main');
@@ -346,6 +347,7 @@
             document.getElementById("mySidebar").style.width = null;
             document.getElementById("mySidebar").style.position = null;
             document.getElementById("main").style.width = null;
+            $('.nav-link').parent('.nav-item.nav-li').css('padding-left', '');
             $('.sidebar-collapse-button').hide();
             $("#right-col").removeClass('offset-2');
             $('#main').removeClass('small-main');
@@ -375,10 +377,14 @@
     /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
   function openNav() {
     document.getElementById("mySidebar").style.width = "300px";
+    document.getElementById('expand').classList.add('fa-chevron-left');
+    document.getElementById('expand').classList.remove('fa-chevron-right');
   }
 
   /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
   function closeNav() {
     document.getElementById("mySidebar").style.width = "3em";
+    document.getElementById('expand').classList.add('fa-chevron-right');
+    document.getElementById('expand').classList.remove('fa-chevron-left');
   }
 </script>

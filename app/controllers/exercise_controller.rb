@@ -102,7 +102,7 @@ class ExerciseController < ApplicationController
     @previous_workout = @previous_workouts.last
 
     unless @workout.nil?
-      @last_workout = @previous_workout.workout_details
+      @last_workout = @previous_workout&.workout_details
       @exercise_groups = Exercise.group_by_circuit(@workout)
       @exercise_group = Exercise.get_exercise(@user, @exercise_groups, params[:workout_date], true)
     end

@@ -17,8 +17,13 @@
 						<p><%= exercise.set_count %></p>
 					</div>
 					<div class="col-md-6 col-6 text-center" style="color:white;">
-						<p>Rep Count</p>
-						<p><%= exercise.rep_range %></p>
+						<% if exercise.timed_exercise %>
+							<p>Set Time</p>
+							<p><%= exercise.time_by_seconds / 60 %> Minutes <%= exercise.time_by_seconds % 60 %> Seconds</p>
+						<% else %>
+							<p>Rep Count</p>
+							<p><%= exercise.rep_range %></p>
+						<% end %>
 					</div>
 				</div>
 			</div>

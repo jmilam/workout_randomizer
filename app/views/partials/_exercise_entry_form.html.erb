@@ -36,13 +36,17 @@
         <%= f.label :warm_up, "Warm Up?", class: 'col-md-12' %>
         <%= f.check_box :warm_up, class: 'col-md-12 form-control' %>
       </div>
-      <div class="col-md-9 col-sm-9 col-9 form-group">
+      <div class="col-md-7 col-sm-7 col-6 form-group">
         <%= f.label :warm_up_details, class: 'col-md-12' %>
         <%= f.text_area :warm_up_details, class: 'col-md-12 form-control' %>
       </div>
-      <div class="col-md-1 col-sm-1 col-1 form-group text-center">
+      <div class="col-md-1 col-sm-1 col-2 form-group text-center">
         <%= f.label :band, "Band?", class: 'col-md-12' %>
         <%= f.check_box :band %>
+      </div>
+      <div class="col-md-1 col-sm-1 col-1 form-group text-center">
+        <%= f.label :timed_exercise, "Timed?", class: 'col-md-12' %>
+        <%= f.check_box :timed_exercise %>
       </div>
     </div>
 
@@ -60,8 +64,8 @@
         <%= f.text_field :rep_range, placeholder: "10-12", class: 'col-md-12 form-control' %>
       </div>
        <div class="col-md-3 col-sm-6 col-6 form-group">
-        <%= f.label :time_by_minutes, "Exercise Time:", class: 'col-md-12' %>
-        <%= f.text_field :time_by_minutes, class: 'col-md-12 form-control' %>
+        <%= f.label :time_by_seconds, "Exercise Time:", class: 'col-md-12' %>
+        <%= f.text_field :time_by_seconds, class: 'col-md-12 form-control' %>
       </div>
     </div>
 

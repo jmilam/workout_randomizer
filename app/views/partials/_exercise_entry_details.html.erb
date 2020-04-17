@@ -1,4 +1,24 @@
 <div class="container">
+	<% if exercise.timed_exercise %>
+		<div class="jumbotron jumbotron-fluid">
+	    <div class="container">
+	    	<h4 class="display-4 text-center">Timer</h4>
+	    	<hr />
+				<div class="row">
+					<div class="col-12 time">
+						<h5 class="text-center time-text"><%= exercise.time_by_seconds / 60 %>:<%= (exercise.time_by_seconds % 60).to_s.rjust(2, '0') %></h5>
+					</div>
+					<div class="col-6 start">
+						<button class="btn btn-block btn-start btn-success" type="button">Start</button>
+					</div>
+					<div class="col-6 stop">
+						<button class="btn btn-block btn-stop btn-danger" type="button">Stop</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+
 	<%= f.fields_for 'workout_detail[]', exercise.workout_details.new do |workout_detail| %>
 		<%= workout_detail.hidden_field :exercise_id, value: "#{exercise.id}" %>
 		<%= workout_detail.hidden_field :edit, value: @edit_mode %>
@@ -38,3 +58,36 @@
 		</div>
 	<% end %>
 </div>
+
+<script>
+	var timer;
+
+	$('.btn-start').unbind('click').click(function(e){
+		const btn = $(this)
+		$(this).attr('disabled', true);
+
+		timer = setInterval(function() {
+			let [minutes, seconds] = btn.parent().siblings('.time').text().split(':')
+			let newTime = '';
+			minutes = parseInt(minutes * 60)
+			seconds = parseInt(seconds)
+
+			if (minutes <= 60 && minutes > 0){
+		 		newTime = `0:${minutes - 1}`;
+			} else if (seconds == 0) {
+		 		newTime = `00:00`;
+		 		btn.parent().siblings('.time').children('.time-text').addClass('text-danger');
+		 		btn.attr('disabled', false);
+				clearInterval(timer);
+			} else {
+		 		newTime = `0:${seconds - 1}`;
+			}
+			btn.parent().siblings('.time').children('.time-text').text(newTime);
+		}, 1000);
+	});
+
+	$('.btn-stop').unbind('click').click(function(){
+		$(this).parent().siblings('.start').children('.btn-start').attr('disabled', false);
+		clearInterval(timer);
+	});
+</script>

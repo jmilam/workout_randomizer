@@ -2,6 +2,8 @@ $(".selected_exercise_ids_field").val("<%= @selected_exercises.map {|ex| ex[:id]
 $(".selected_exercise_set_counts_field").val("<%= @selected_exercises.map {|ex| ex[:set_count] }.join(',') %>");
 $(".selected_exercise_rep_counts_field").val("<%= @selected_exercises.map {|ex| ex[:rep_count] }.join(',') %>");
 $(".selected_equipment_ids_field").val("<%= @selected_equipment.map { |equip| equip[:id] }.join(',') %>");
+$(".selected_exercise_times").val("<%= @selected_exercises.map {|ex| ex[:time_by_seconds] }.join(',') %>")
+$(".selected_exercise_timed").val("<%= @selected_exercises.map {|ex| ex[:timed_exercise] }.join(',') %>")
 
 
 $("#exercise_table").html("<%= j render(partial: 'exercise_table') %>");

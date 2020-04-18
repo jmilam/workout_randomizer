@@ -5,7 +5,8 @@
 			<th>Exercise Name</th>
 			<th>Equipment Name</th>
 			<th>Set Count</th>
-			<th>Rep Count</th>
+			<th>Rep Count/Time</th>
+			<th>Timed Exercise</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -15,7 +16,14 @@
 			  <td><%= config[0][:name] %></td>
 			  <td><%= config[1][:name] %></td>
 			  <td><%= config[0][:set_count] %></td>
-			  <td><%= config[0][:rep_count] %></td>
+			  <td>
+			  	<% if config[0][:timed_exercise] %>
+			  		<%= config[0][:time_by_seconds] %> secs.
+			  	<% else %>
+			  		<%= config[0][:rep_count] %> reps
+			  	<% end %>
+			  </td>
+			  <td><%= config[0][:timed_exercise] || false %></td>
 			</tr>
 		<% end %>
 	</tbody>

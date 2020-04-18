@@ -14,6 +14,8 @@
               <%= hidden_field_tag :selected_exercises_set_counts, [], class: 'selected_exercise_set_counts_field' %>
               <%= hidden_field_tag :selected_exercises_rep_counts, [], class: 'selected_exercise_rep_counts_field' %>
               <%= hidden_field_tag :selected_equipment_ids, [], class: 'selected_equipment_ids_field' %>
+              <%= hidden_field_tag :selected_exercise_times, [], class: 'selected_exercise_times' %>
+              <%= hidden_field_tag :selected_exercise_timed, [], class: 'selected_exercise_timed' %>
               <div class="row">
                 <div class="col-md-12 col-sm-12 form-group">
                   <%= label_tag :exercise_id, "Exercise", class: 'col-md-12' %>
@@ -27,9 +29,21 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col-1">
+                  <%= check_box_tag :timed_exercise, true %>
+                </div>
+                <div class="col-10">
+                  <%= label_tag :timed_exercise, "Timed Exercise" %>
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-md-6 col-sm-6 form-group">
                   <%= label_tag :set_count, "Sets Count", class: 'col-md-12' %>
                   <%= select_tag :set_count, options_for_select(1..10, 3), prompt: "--- How Many Sets? ---", class: 'col-md-12 form-control' %>
+                </div>
+                <div class="col-md-6 col-sm-6 form-group" style="display:none;">
+                  <%= label_tag :time_by_seconds, "Time (secs)", class: 'col-md-12' %>
+                  <%= text_field_tag :time_by_seconds, '60', placeholder: "60", class: 'col-md-12 form-control' %>
                 </div>
                 <div class="col-md-6 col-sm-6 form-group">
                   <%= label_tag :rep_count, "Rep Count", class: 'col-md-12' %>
@@ -60,7 +74,8 @@
                 <%= hidden_field_tag :selected_exercises_set_counts, [], class: 'selected_exercise_set_counts_field' %>
                 <%= hidden_field_tag :selected_exercises_rep_counts, [], class: 'selected_exercise_rep_counts_field' %>
                 <%= hidden_field_tag :selected_equipment_ids, [], class: 'selected_equipment_ids_field' %>
-
+                <%= hidden_field_tag :selected_exercise_times, [], class: 'selected_exercise_times' %>
+                <%= hidden_field_tag :selected_exercise_timed, [], class: 'selected_exercise_timed' %>
                <div class="row">
                 <div class="col-md-12 col-sm-12 form-group">
                   <%= f.label :name, class: 'col-md-12' %>
@@ -94,3 +109,15 @@
       </div>
   </div>
 </div>
+
+<script>
+  $('#timed_exercise').click(function() {
+    if ($(this).prop('checked')) {
+      $('#rep_count').parent().css('display', 'none');
+      $('#time_by_seconds').parent().css('display', 'block');
+    } else {
+      $('#rep_count').parent().css('display', 'block');
+      $('#time_by_seconds').parent().css('display', 'none');
+    }
+  });
+</script>

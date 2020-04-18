@@ -17,13 +17,16 @@ class WorkoutController < ApplicationController
     begin
       params[:selected_exercise_ids].split(',').zip(params[:selected_exercises_set_counts].split(','),
                                                     params[:selected_equipment_ids].split(','),
-                                                    params[:selected_exercises_rep_counts].split(',')).each do |exercise_details|
+                                                    params[:selected_exercises_rep_counts].split(','),
+                                                    params[:selected_exercise_times].split(','),
+                                                    params[:selected_exercise_timed].split(',')).each do |exercise_details|
         exercise = CommonEquipment.find(exercise_details[2].to_i)
         @workout.exercises.new(rep_range: exercise_details[3], set_count: exercise_details[1],
                                common_exercise_id: exercise_details[0].to_i, common_equipment_id: exercise_details[2],
-                               band: exercise.name.downcase.squish == "band")
-      end
+                               band: exercise.name.downcase.squish == "band", time_by_seconds: exercise_details[4],
+                               timed_exercise: exercise_details[5])
 
+      end
 
       @workout.save!
 
@@ -130,14 +133,19 @@ class WorkoutController < ApplicationController
     selected_exercises_set_counts = params[:selected_exercises_set_counts]&.split(',') || []
     selected_exercises_rep_counts = params[:selected_exercises_rep_counts]&.split(',') || []
     selected_equipment_ids = params[:selected_equipment_ids]&.split(',') || []
+    selected_exercise_times = params[:selected_exercise_times]&.split(',') || []
+    selected_exercise_timed = params[:selected_exercise_timed]&.split(',') || []
 
     @selected_exercises = [{id: params[:exercise_id], name: CommonExercise.find(params[:exercise_id]).name,
-                            set_count: params[:set_count], rep_count: params[:rep_count]}]
+                            set_count: params[:set_count], rep_count: params[:rep_count],
+                            time_by_seconds: params[:time_by_seconds], timed_exercise: params[:timed_exercise] || false}]
+
     @selected_equipment = [{id: params[:equipment_id], name: CommonEquipment.find(params[:equipment_id]).name}]
 
     selected_exercises_ids.each_with_index do |ex_id, idx|
       @selected_exercises << {id: ex_id, name: CommonExercise.find(ex_id).name, set_count: selected_exercises_set_counts[idx],
-                              rep_count: selected_exercises_rep_counts[idx]}
+                              rep_count: selected_exercises_rep_counts[idx], time_by_seconds: selected_exercise_times[idx],
+                              timed_exercise: selected_exercise_timed[idx]}
     end
 
     selected_equipment_ids.each do |equip_id|

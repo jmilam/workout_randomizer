@@ -8,6 +8,6 @@ class WorkoutDetail < ApplicationRecord
 
   def avg_rep_weight
     reps = [rep_1_weight, rep_2_weight, rep_3_weight, rep_4_weight, rep_5_weight].delete_if(&:nil?)
-    repst_count.zero? ? 0 : (reps.inject { |sum, el| sum + el }.to_f / reps.count).round(2)
+    reps_count.zero? ? 0 : (reps.inject { |sum, el| sum + el }.to_f / reps.count).round(2)
   end
 end

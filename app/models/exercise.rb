@@ -12,8 +12,19 @@ class Exercise < ApplicationRecord
   end
 
   def self.group_by_circuit(workout)
-    workout.exercises.sort_by { |exercise| exercise.priority.nil? ? 9999 : exercise.priority }
-                    .group_by(&:exercise_circuit_id)
+    exercise_groups = workout.exercises
+      .sort_by { |exercise| exercise.priority.nil? ? 9999 : exercise.priority }
+      .group_by(&:exercise_circuit_id)
+
+    unless exercise_groups[nil].nil?
+      exercise_groups[nil].each do |nil_group|
+        exercise_groups["#{nil_group.id}a"] = [nil_group]
+      end
+    end
+
+    exercise_groups.delete(nil)
+
+    exercise_groups
   end
 
   def self.get_exercise(user, exercise_groups, workout_date=Date.today.strftime('%Y-%m-%d'), manual=false)

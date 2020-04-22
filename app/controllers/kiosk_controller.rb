@@ -87,12 +87,11 @@ class KioskController < ApplicationController
             message_group.messages.create!(detail: "Saw you got your workout in today, any problem areas I can help with?",
                                        user_id: trainer.id)
           end
-        if params[:exercises][:workout_detail].first[:workout_id].blank?
-          redirect_to kiosk_exercise_path
-        elsif params[:exercises][:manual_entry] == "true"
+
+        if params[:exercises][:manual_entry] == "true"
           redirect_to manual_workout_path
         else
-          redirect_to kiosk_exercise_path workout_id: workout_id
+          redirect_to kiosk_exercise_path
         end
       rescue StandardError => error
         flash[:alert] = "There was an error when saving Workout Details #{error}"

@@ -11,7 +11,7 @@ class WorkoutGroupController < ApplicationController
   def edit
     @workout_group = WorkoutGroup.find(params[:id])
     @workout_users = User.where(current_workout_group: @workout_group.id)
-    @workouts = current_user.gym.workout_group_pairings.map { |pairing| [pairing.workout, WorkoutGroup.day_of_the_weeks[pairing.workout_day]] }
+    @workouts = @workout_group.workout_group_pairings.map { |pairing| [pairing.workout, WorkoutGroup.day_of_the_weeks[pairing.workout_day]] }
   end
 
   def create

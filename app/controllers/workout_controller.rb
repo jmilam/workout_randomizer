@@ -120,8 +120,8 @@ class WorkoutController < ApplicationController
   def manual_workout
     @selected_workout = Workout.find_by(id: params[:workout_id])
     @working_date = params[:workout_date] || Date.today
-    @workouts = current_user.gym.workouts.includes(:exercises)
-    @users = current_user.gym.users
+    @workouts = current_user.gym.workouts.includes(:exercises).order(name: :asc)
+    @users = current_user.gym.users.order(last_name: :asc)
     @user = current_user
     @workout_groups = []
     @edit_mode = params[:edit_mode] || false

@@ -2,7 +2,11 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="<%= exercise.common_exercise.name.downcase.gsub(/[^0-9A-Za-z]/, '').prepend('_') %>ModelLabel"><%= exercise.common_exercise.name %></h5>
+        <h5 class="modal-title" id="<%= exercise.common_exercise.name.downcase.gsub(/[^0-9A-Za-z]/, '').prepend('_') %>ModelLabel"><%= exercise.common_exercise.name %> - <% if exercise.timed_exercise %>
+              <span style="font-size:0.8em;">Set Time: <%= exercise.time_by_seconds / 60 %> Minutes <%= exercise.time_by_seconds % 60 %> Seconds</span>
+            <% else %>
+              <span style="font-size:0.8em;">Rep Count: <%= exercise.rep_range %></span>
+            <% end %></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-<%=exercise.common_exercise.name.downcase.gsub(/[^0-9A-Za-z]/, '') %>">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -38,6 +42,7 @@
             </div>
           </div>
         <% end %>
+
         <%= render 'partials/exercise_entry_details', exercise: exercise, previous_exercise: previous_workout&.workout_details&.where(exercise_id: exercise.id)&.last || [] , workout_date: workout_date, f: f %>
 
         <% unless exercise.video.nil? %>

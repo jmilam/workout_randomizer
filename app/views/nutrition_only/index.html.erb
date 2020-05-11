@@ -1,65 +1,62 @@
-<div class="jumbotron">
-  <h3 class="text-center" style="font-family:serif;">Nutrition - Food Tracking</h3>
-  <hr class="my-r">
-  <p class="lead text-center">All information is require to get started.</p>
-</div>
-
-<%= render "partials/alert" %>
-
-<%= form_for :user, url: create_nutrition_only_path do |f| %>
-	<div>
-    <div class="row">
-      <div class="col-6 form-group">
-        <%= f.label :first_name, "First Name", class: 'col-md-12' %>
-        <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
+<div class="container">
+  <%= form_for :user, url: create_nutrition_only_path do |f| %>
+    <div class="card border-success" style="border:1px solid;">
+      <div class="card-header text-center border-success boomslang-green" style="min-height: 4em;padding-top: 0px;
+    padding-bottom: 15px;">
+          <%= image_tag "logo", class: "rounded-image" %>
       </div>
-      <div class="col-6 form-group">
-        <%= f.label :last_name, "Last Name", class: 'col-md-12' %>
-        <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-sm-12 col-12 form-group">
-        <%= f.label :email, "Email *", class: 'col-md-12' %>
-        <%= f.text_field :email, class: 'col-md-12 form-control' %>
-      </div>
-      <div class="col-md-6 col-sm-12 form-group">
-        <%= f.label :password, "Password *", class: 'col-md-12' %>
-        <%= f.password_field :password, class: 'col-md-12 form-control' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6 form-group">
-        <%= f.label :weight, "Weight (lb.)", class: 'col-md-12' %>
-        <%= f.text_field :weight, class: 'col-md-12 form-control' %>
-      </div>
-      <div class="col-6 form-group">
-        <%= f.label :height, "Height (in.)", class: 'col-md-12' %>
-        <%= f.text_field :height, class: 'col-md-12 form-control' %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6 form-group">
-        <%= f.label :tdee, "Daily Calories", class: 'col-md-12' %>
-        <%= f.text_field :tdee, class: 'col-md-12 form-control' %>
-        <div class="text-muted text-center">
-          Not sure what yours is? <%= link_to "Click Here", "http://boomslangfitness.com/home/assessment", target: :_blank  %>
+      <div class="card-body bg-white" style="margin-bottom:0;">
+        <%= render "partials/alert" %>
+        <div class="row">
+          <div class="col-6 form-group">
+            <%= f.label :first_name, "First Name", class: 'col-md-12' %>
+            <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
+          </div>
+          <div class="col-6 form-group">
+            <%= f.label :last_name, "Last Name", class: 'col-md-12' %>
+            <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-12 form-group">
+            <%= f.label :email, "Email *", class: 'col-md-12' %>
+            <%= f.text_field :email, class: 'col-md-12 form-control' %>
+          </div>
+          <div class="col-md-6 col-sm-12 form-group">
+            <%= f.label :password, "Password *", class: 'col-md-12' %>
+            <%= f.password_field :password, class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 form-group">
+            <%= f.label :weight, "Weight (lb.)", class: 'col-md-12' %>
+            <%= f.text_field :weight, class: 'col-md-12 form-control' %>
+          </div>
+          <div class="col-6 form-group">
+            <%= f.label :height, "Height (in.)", class: 'col-md-12' %>
+            <%= f.text_field :height, class: 'col-md-12 form-control' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 form-group">
+            <%= f.label :tdee, "Daily Calories", class: 'col-md-12' %>
+            <%= f.text_field :tdee, class: 'col-md-12 form-control' %>
+            <div class="text-muted text-center">
+              Not sure what yours is? <%= link_to "Click Here", "http://boomslangfitness.com/home/assessment", target: :_blank  %>
+            </div>
+          </div>
+          <div class="col-6 form-group">
+            <%= f.label :gym_id, "Gym *", class: 'col-md-12' %>
+            <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Gym" }, class: 'col-md-12 form-control' %>
+          </div>
         </div>
       </div>
-      <div class="col-6 form-group">
-        <%= f.label :gym_id, "Gym *", class: 'col-md-12' %>
-        <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
-        <%= f.label 'Select Boomslang Fitness if your gym isn\'t on here', class: 'text-muted text-center' %>
+      <div class="card-footer boomslang-green">
+        <div class="text-right">
+          <%= f.submit "Sign up", class: "btn btn-standard btn-block " %>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-2 col-sm-2 col-6 form-group text-center">
-        <%= f.label :not_a_robot, "Not a robot", class: 'col-md-12 col-sm-12 col-12 text-center' %>
-        <%= f.check_box :not_a_robot, {}, true, false %>
-      </div>
-      <div class="col-md-10 col-sm-10 col-6 form-group">
-        <%= f.submit "Sign up", class: "btn btn-lg btn-block boomslang-green" %>
-      </div>
-    </div>
-  </div>
-<% end %>
+      
+  <% end %>
+</div>

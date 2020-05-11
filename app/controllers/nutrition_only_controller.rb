@@ -31,6 +31,6 @@ class NutritionOnlyController < ApplicationController
   protected
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :height, :weight, :password, :email, :tdee, :gym_id, :not_a_robot)
+    params.require(:user).permit(:first_name, :last_name, :height, :weight, :password, :email, :tdee, :gym_id)
   end
 end

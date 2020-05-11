@@ -8,11 +8,11 @@
 		<div class="jumbotron">
 			<h4 class="text-center">Total Calories Available: <span id="totalCaloriesAvail"><%= current_user.tdee - @daily_log.total_calories %></span>g</h4>
 			<h4 class="text-center">Total Calories Selected: <span id="totalCalories">0</span>g</h4>
-			<%= f.submit "Log It", class: 'btn btn-block workout-btn'%>
+			<%= f.submit "Log It", class: 'btn btn-block workout-btn', data: {confirm: "Have you selected all the food you want to add? You can verify this under the Selected Food tab." }%>
 		</div>
 
 		<ul class="nav nav-tabs nav-fill" id="foodCategoryTabs" role=tablist>
-			<% @food_categories.keys.each_with_index do |cat, idx| %>
+			<% @food_categories.values.each_with_index do |cat, idx| %>
 				<li class="nav-item">
 					<%= link_to cat.capitalize, '#', class: "nav-link #{idx == 0 ? 'active': ''}", id: "#{cat}-tab",
 						data: {toggle: 'tab'}, href: "##{cat}", role: "tab", aria: {controls: "#{cat}", selected: "true"} %>
@@ -22,7 +22,7 @@
 		</ul>
 
 		<div class="tab-content" id="foodCategoryTabContent">
-			<% @food_categories.keys.each_with_index do |cat, idx| %>
+			<% @food_categories.values.each_with_index do |cat, idx| %>
 		  	<div class="tab-pane fade <%= idx == 0 ? 'show active' : '' %>" id="<%= cat %>" role="tabpanel" aria-labelledby="<%= cat %>-tab">
 		  		<table class="table">
 		  			<thead>

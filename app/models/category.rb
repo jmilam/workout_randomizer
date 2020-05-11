@@ -18,7 +18,7 @@ class Category < ApplicationRecord
   enum food_categories: { beans: 'beans',
                           # fat: 'fat',
                           protein: "protien",
-                          veg: 'vegtable' }
+                          veg: 'vegtables' }
 
   scope :enabled, -> { where(disabled: false) }
 end

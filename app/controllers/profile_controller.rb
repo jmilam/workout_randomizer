@@ -1,4 +1,14 @@
 class ProfileController < ApplicationController
+  layout :choose_layout
+
+  def choose_layout
+    if current_user.nutrition_only
+      "nutrition"
+    else
+      "application"
+    end
+  end
+
   def index
     @user = current_user
     @gym = @user.gym
@@ -13,7 +23,7 @@ class ProfileController < ApplicationController
     @bmi = @user.calculate_bmi
     @bmi_status = @user.bmi_status(@bmi)
 
-    @daily_log = DailyLog.find_by(calendar_date: Date.today.in_time_zone)
+    @daily_log = current_user.daily_logs.find_by(calendar_date: Date.today.in_time_zone)
 
     @remaining_tdee = @user.tdee - (@daily_log&.total_calories || 0)
     @wod = Wod.where(gym_id: @user.gym.id, workout_date: Date.today).last

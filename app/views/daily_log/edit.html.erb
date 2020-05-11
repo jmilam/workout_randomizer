@@ -22,8 +22,8 @@
 		</ul>
 
 		<div class="tab-content" id="foodCategoryTabContent">
-			<% @food_categories.values.each_with_index do |cat, idx| %>
-		  	<div class="tab-pane fade <%= idx == 0 ? 'show active' : '' %>" id="<%= cat %>" role="tabpanel" aria-labelledby="<%= cat %>-tab">
+			<% @food_categories.each_with_index do |cat, idx| %>
+		  	<div class="tab-pane fade <%= idx == 0 ? 'show active' : '' %>" id="<%= cat[1] %>" role="tabpanel" aria-labelledby="<%= cat[1] %>-tab">
 		  		<table class="table">
 		  			<thead>
 		  				<tr>
@@ -34,9 +34,9 @@
 		  				</tr>
 		  			</thead>
 		  			<tbody>
-				  		<% @foods[cat]&.each do |food| %>
+				  		<% @foods[cat[0]]&.each do |food| %>
 			  				<tr>
-			  					<td><%= button_tag 'Add', class: 'btn btn-primary add_food' %></td>
+			  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#003259;color:white;' %></td>
 			  					<td class="foodName"><%= food.name %></td>
 			  					<td class="foodCalories"><%= food.calories %></td>
 		  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Sise: <%= food.serving_size %>"></i></td>

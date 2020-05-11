@@ -1,7 +1,17 @@
 class DailyLogController < ApplicationController
+  layout :choose_layout
+
+  def choose_layout
+    if current_user.nutrition_only
+      "nutrition"
+    else
+      "application"
+    end
+  end
+
   def index
     @daily_logs = current_user.daily_logs.order(created_at: :desc)
-    @today_log = DailyLog.find_by(calendar_date: Date.today.in_time_zone)
+    @today_log = current_user.daily_logs.find_by(calendar_date: Date.today.in_time_zone)
   end
 
   def edit
@@ -16,14 +26,14 @@ class DailyLogController < ApplicationController
   end
 
   def new
-    @daily_log = DailyLog.find_or_initialize_by(calendar_date: Date.today.in_time_zone, user: current_user)
+    @daily_log = current_user.daily_logs.find_or_initialize_by(calendar_date: Date.today.in_time_zone)
     @foods = Food.where(created_by_user_id: current_user.id).group_by(&:category)
     @food_categories = Category.food_categories
   end
 
   def create
     begin
-      @daily_log = DailyLog.new(calendar_date: Date.today.in_time_zone, user: current_user)
+      @daily_log = current_user.daily_logs.new(calendar_date: Date.today.in_time_zone)
       params[:selected_food_ids].split(',').delete_if(&:empty?).each do |food_id|
         @daily_log.daily_log_foods.new(food_id: food_id, qty: 1)
       end

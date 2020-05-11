@@ -1,3 +1,4 @@
+require 'csv'
 class User < ApplicationRecord
   belongs_to :gym
   # belongs_to :trainer
@@ -43,6 +44,15 @@ class User < ApplicationRecord
 
   scope :new_users, -> (date_range=Date.today.beginning_of_week..Date.today.end_of_week) { where(created_at: date_range)}
   scope :trainers, -> { where(trainer: true) }
+
+  after_create :assign_foods
+
+  def assign_foods
+    CSV.foreach('lib/initial_user_foods.csv', headers: true) do |row|
+      Food.create!(name: row['Item'], category: row['Category'], calories: row['Calories'],
+        protein: row['Protein'], carbs: row['Carbs'], serving_size: row['Serving'], created_by_user_id: id)
+    end
+  end
 
   def self.calculate_caloric_expenditure(gender, activity_level, height, weight, age)
     case gender.downcase

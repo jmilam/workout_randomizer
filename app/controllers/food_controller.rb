@@ -1,6 +1,17 @@
 class FoodController < ApplicationController
+  layout :choose_layout
+
+  def choose_layout
+    if current_user.nutrition_only
+      "nutrition"
+    else
+      "application"
+    end
+  end
+
   def index
-    @foods = Food.where(created_by_user_id: current_user.id)
+    @foods = Food.where(created_by_user_id: current_user.id).group_by(&:category)
+    @food_categories = Category.food_categories
   end
 
   def new

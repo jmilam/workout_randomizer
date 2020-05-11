@@ -53,6 +53,8 @@ Rails.application.routes.draw do
 
   delete 'daily_log/destroy_daily_log_food/:id', to: 'daily_log#destroy_daily_log_food', as: 'destroy_daily_log_food'
   get 'food/find_food_by_category', to: 'food#find_food_by_category', as: 'find_food_by_category'
+  get 'nutrition_only/index', to: 'nutrition_only#index', as: 'nutrition_only_index'
+  post 'nutrition_only/create', to: 'nutrition_only#create', as: 'create_nutrition_only'
 
   resources :profile
   resources :workout
@@ -71,7 +73,6 @@ Rails.application.routes.draw do
 
   put 'user/disable_user/:id', to: 'user#disable_user', as: 'disable_user'
   put 'user/enable_user/:id', to: 'user#enable_user', as: 'enable_user'
-
   
   post 'user/more_info', to: 'user#more_info', as: 'more_info'
 

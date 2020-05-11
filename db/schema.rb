@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_145522) do
+ActiveRecord::Schema.define(version: 2020_05_11_163302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,10 +126,10 @@ ActiveRecord::Schema.define(version: 2020_05_08_145522) do
   create_table "foods", force: :cascade do |t|
     t.string "name"
     t.string "category"
-    t.integer "calories"
-    t.float "protein"
-    t.float "carbs"
-    t.float "fat"
+    t.integer "calories", default: 0
+    t.float "protein", default: 0.0
+    t.float "carbs", default: 0.0
+    t.float "fat", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "created_by_user_id"
@@ -313,6 +313,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_145522) do
     t.boolean "not_a_robot", default: false
     t.boolean "employee", default: false
     t.integer "tdee", default: 0
+    t.boolean "nutrition_only", default: false
     t.index ["current_workout"], name: "index_users_on_current_workout"
     t.index ["current_workout_group"], name: "index_users_on_current_workout_group"
     t.index ["email"], name: "index_users_on_email", unique: true

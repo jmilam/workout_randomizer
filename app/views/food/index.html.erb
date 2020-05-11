@@ -1,18 +1,26 @@
 <table class="table table-striped">
 	<thead>
-		<tr>
-			<th>Food</th>
-			<th>Calories</th>
-			<th><%= link_to "Add Food", new_food_path, class: "btn btn-sm btn-primary" %></th>
+		<tr style="background-color:#003259;">
+			<th colspan="3"><%= link_to "Add Food", new_food_path, class: "btn btn-block", style: 'background-color:#003259;color:white;' %></th>
 		</tr>
 	</thead>
 	<tbody>
-		<% @foods.each do |food| %>
+		<% @foods.each do |cat, food| %>
 			<tr>
-				<td><%= food.name %></td>
-				<td><%= food.calories %></td>
-				<td><%= link_to "Edit", edit_food_path(food.id)%>
+				<td colspan="3" class="text-center boomslang-green" style="color:white;"><%= @food_categories[cat].capitalize %></td>
 			</tr>
+			<tr>
+				<th>Food</th>
+				<th>Calories</th>
+				<th></th>
+			</tr>
+			<% food.each do |f| %>
+				<tr>
+					<td><%= f.name %></td>
+					<td><%= f.calories %></td>
+					<td><%= link_to "Edit", edit_food_path(f.id)%>
+				</tr>
+			<% end %>
 		<% end %>
 	</tbody>
 </table>

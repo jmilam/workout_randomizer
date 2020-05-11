@@ -20,7 +20,7 @@
 							<td style="vertical-align: middle;text-align:center;"><%= daily_log.total_calories %></td>
 							<td>
 								<div class="btn-group-vertical">
-									<%= link_to "View Log", daily_log_path(daily_log.id), class: 'btn btn-sm btn-primary' %><br/>
+									<%= link_to "View Log", daily_log_path(daily_log.id), class: 'btn btn-sm', style: 'background-color:#003259;color:white;' %><br/>
 									<%#= link_to "Add Food", edit_daily_log_path(daily_log.id), class: 'btn btn-sm btn-warning' if daily_log.calendar_date.in_time_zone == Date.today.in_time_zone %></td>
 								</div>
 						</tr>

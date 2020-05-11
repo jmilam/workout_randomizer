@@ -8,7 +8,7 @@
 			<th class="text-center" colspan="3">Total Calories Today: <%= @daily_log.total_calories %></th>
 		</tr>
 		<tr>
-			<th class="text-center bg-primary" colspan="3"><%= link_to "Add Food", edit_daily_log_path(@daily_log.id), class: 'btn btn-primary btn-block', style: 'background-color: transparent;border:0;' if @daily_log.calendar_date.in_time_zone == Date.today.in_time_zone %></th>
+			<th class="text-center" colspan="3" style="background-color:#003259;"><%= link_to "Add Food", edit_daily_log_path(@daily_log.id), class: 'btn btn-primary btn-block', style: 'background-color: transparent;border:0;' if @daily_log.calendar_date.in_time_zone == Date.today.in_time_zone %></th>
 		</tr>
 	</thead>
 	<tbody>

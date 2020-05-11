@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title || "Boomslang Fitness" %></title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'favicon.ico' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="navbar-header">
+        <%= link_to profile_index_path, class: 'navbar-brand' do %>
+          <%= image_tag @gym.nil? ? 'logo-snake.png' : @gym.logo.url, size: '55x55', id: 'nav-image' %>
+        <% end %>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav">
+          <li><%= link_to "Profile", profile_index_path, class: 'nav-link', id: 'profile-nav-link' %></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="nutritionDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Nutrition
+            </a>
+            <div class="dropdown-menu" aria-labelledby="nutritionDropdown">
+              <%= link_to "My Food Logs", daily_log_index_path, class: 'dropdown-item', id: 'nutrition-nav-link' %>
+              <%= link_to "My Foods", food_index_path, class: 'dropdown-item', id: 'food-nav-link' %>
+            </div>
+          </li>
+          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link', id: 'sign-out-nav-link' %></li>
+        </ul>
+      </div>
+    </nav>
+
+    <%= yield %>
+  </body>
+</html>

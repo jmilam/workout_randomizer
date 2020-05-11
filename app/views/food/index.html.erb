@@ -1,0 +1,18 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Food</th>
+			<th>Calories</th>
+			<th><%= link_to "Add Food", new_food_path, class: "btn btn-sm btn-primary" %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @foods.each do |food| %>
+			<tr>
+				<td><%= food.name %></td>
+				<td><%= food.calories %></td>
+				<td><%= link_to "Edit", edit_food_path(food.id)%>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

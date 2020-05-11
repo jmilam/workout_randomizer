@@ -93,6 +93,18 @@
                         <%= f.label :email %>
                         <%= f.text_field :email, class: 'col-md-12 form-control' %>
                       </div>
+                      <div class="col-md-6">
+                        <%= f.label :tdee %>
+                        <%= f.number_field :tdee, class: 'col-md-12 form-control' %>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <%= f.label :avatar, "Upload Profile Picture:" %>
+                        <div class="col-md-4">
+                          <%= f.file_field :avatar %>
+                        </div>
+                      </div>
                       <div class="col-md-2">
                         <%= f.label :employee %>
                         <div class="col-md-2">
@@ -109,14 +121,6 @@
                         <%= label_tag "Gym Admin?" %>
                         <div class="col-md-2">
                           <%= check_box_tag :gym_admin, true, @gym_admin %>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                       <div class="col-md-4">
-                        <%= f.label :avatar, "Upload Profile Picture:" %>
-                        <div class="col-md-4">
-                          <%= f.file_field :avatar %>
                         </div>
                       </div>
                     </div>

@@ -1,0 +1,23 @@
+<%= render "partials/alert" %>
+<table class="table">
+	<thead>
+		<tr>
+			<th class="text-center" colspan="3">Total Calories Available: <%= current_user.tdee - @daily_log.total_calories %></th>
+		</tr>
+		<tr>
+			<th class="text-center" colspan="3">Total Calories Today: <%= @daily_log.total_calories %></th>
+		</tr>
+		<tr>
+			<th class="text-center bg-primary" colspan="3"><%= link_to "Add Food", edit_daily_log_path(@daily_log.id), class: 'btn btn-primary btn-block', style: 'background-color: transparent;border:0;' if @daily_log.calendar_date.in_time_zone == Date.today.in_time_zone %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @daily_log_foods.values.each do |daily_log_foods| %>
+			<tr>
+				<td><%= daily_log_foods.count %> x <%= daily_log_foods.first.food.name %></td>
+				<td class="text-center"><%= daily_log_foods.first.food.calories * daily_log_foods.count %> cal</td>
+				<!-- <td class="text-center"><%#= link_to "Remove", destroy_daily_log_food_path(daily_log_foods.first.id), method: :delete,  data: { confirm: 'Are you sure you want to remove this from your food log?' } %> -->
+			</tr>
+		<% end %>
+	</tbody>
+</table>

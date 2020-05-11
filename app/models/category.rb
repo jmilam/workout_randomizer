@@ -14,5 +14,11 @@ class Category < ApplicationRecord
                             'thead-color' => 'bg-warning', 'style' => 'color:#D5FFFB;' },
                      5 => { 'background-color' => 'bg-primary', 'border' => 'border-primary', 'text-color' => 'text-primary',
                             'thead-color' => 'bg-primary', 'style' => 'color: #D5FFFB;' } }
+
+  enum food_categories: { beans: 'beans',
+                          # fat: 'fat',
+                          protein: "protien",
+                          veg: 'vegtable' }
+
   scope :enabled, -> { where(disabled: false) }
 end

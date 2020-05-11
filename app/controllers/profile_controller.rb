@@ -13,6 +13,9 @@ class ProfileController < ApplicationController
     @bmi = @user.calculate_bmi
     @bmi_status = @user.bmi_status(@bmi)
 
+    @daily_log = DailyLog.find_by(calendar_date: Date.today.in_time_zone)
+
+    @remaining_tdee = @user.tdee - (@daily_log&.total_calories || 0)
     @wod = Wod.where(gym_id: @user.gym.id, workout_date: Date.today).last
   end
 
@@ -46,7 +49,7 @@ class ProfileController < ApplicationController
   protected
 
   def workout_params
-    params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :trainer_id, :trainer,
+    params.require(:user).permit(:first_name, :last_name, :height, :weight, :regularity_id, :goal_id, :trainer_id, :trainer, :tdee,
                                  :gym_id, :current_workout, :avatar, :medical_concerns, :current_workout_group, :email, :employee,
         measurements_attributes: [:upper_arm, :chest, :waist, :hip, :thigh, :calf, :wrist, :forearm, :left_tricep, :right_tricep,
       :subscapular, :abdominal, :mid_thigh, :inside_calf, :pec, :left_bicep, :right_bicep, :suprailiac])

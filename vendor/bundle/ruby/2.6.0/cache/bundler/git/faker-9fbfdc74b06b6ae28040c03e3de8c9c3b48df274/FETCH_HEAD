@@ -1,6 +1,6 @@
 4a3c41ae890c29aef53395cdd33534ae0531b4eb		branch 'circleci' of https://github.com/faker-ruby/faker
 fa2aeb37bebf0ab74afe480d8b675da8ce5fce70		branch 'jruby' of https://github.com/faker-ruby/faker
-7c3956fc3e6441d3b043f4b4a06fb4f6ebcbfc5f		branch 'master' of https://github.com/faker-ruby/faker
+d9b9ad96c45397435cf211f6380435e6aecd4141		branch 'master' of https://github.com/faker-ruby/faker
 b913e7cba609b42c74f7968840270c74a1cbbd0b	not-for-merge	tag '1.9.4' of https://github.com/faker-ruby/faker
 401948a0c89acf81c748ea2d2988162e9fd94cb2	not-for-merge	tag '1.9.6' of https://github.com/faker-ruby/faker
 ed1ef707e272772ef70a1e838cb2f6863b22b48b	not-for-merge	tag '2.0' of https://github.com/faker-ruby/faker

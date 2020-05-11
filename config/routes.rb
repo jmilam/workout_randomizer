@@ -51,6 +51,8 @@ Rails.application.routes.draw do
   get 'common_exercise/edit/:id', to: 'common_exercise#edit', as: 'edit_common_exercise'
   patch 'common_exercise/update', to: 'common_exercise#update', as: 'updated_common_exercise'
 
+  delete 'daily_log/destroy_daily_log_food/:id', to: 'daily_log#destroy_daily_log_food', as: 'destroy_daily_log_food'
+  get 'food/find_food_by_category', to: 'food#find_food_by_category', as: 'find_food_by_category'
 
   resources :profile
   resources :workout
@@ -64,6 +66,8 @@ Rails.application.routes.draw do
   resources :user
   resources :task
   resources :time_card
+  resources :food
+  resources :daily_log
 
   put 'user/disable_user/:id', to: 'user#disable_user', as: 'disable_user'
   put 'user/enable_user/:id', to: 'user#enable_user', as: 'enable_user'

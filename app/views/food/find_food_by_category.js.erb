@@ -1,0 +1,16 @@
+$("#food_select").html("<%= j render(partial: 'partials/food_select') %>");
+
+function displayFoodDetails(foodDetails, displayArea) {
+	displayArea.html(
+		"Calories: " + foodDetails['calories'] + ", " +
+		"Serving Size: " + foodDetails['servingSize'] +
+		"<br/>" +
+		"Protein: " + foodDetails['protein'] + "(g), " +
+		"Carbs: " + foodDetails['carb'] + "(g), " +
+		"Fat: " + foodDetails['fat'] + "(g)"
+	);
+}
+	
+$('#food_id').on('change' ,function(e){
+	displayFoodDetails($(e.target.options[e.target.selectedIndex]).data(), $('#food-details'))
+});

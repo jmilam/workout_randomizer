@@ -1,0 +1,3 @@
+<%= label_tag :food_id, "Please Select Food:", class: 'col-md-12' %>
+<%= select_tag :food_id, options_for_select((@foods).map { |food| [food.name, food.id, {data: {carb:food.carbs, calories: food.calories, protein: food.protein, fat: food.fat, serving_size: food.serving_size}}]}), prompt: "", class: 'col-md-12 form-control' %>
+

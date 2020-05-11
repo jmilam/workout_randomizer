@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_193831) do
+ActiveRecord::Schema.define(version: 2020_05_08_145522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,22 @@ ActiveRecord::Schema.define(version: 2020_04_16_193831) do
     t.index ["gym_id"], name: "index_common_exercises_on_gym_id"
   end
 
+  create_table "daily_log_foods", force: :cascade do |t|
+    t.integer "food_id"
+    t.integer "daily_log_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "qty", default: 1, null: false
+  end
+
+  create_table "daily_logs", force: :cascade do |t|
+    t.date "calendar_date"
+    t.integer "daily_log_food_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "exercise_circuits", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -105,6 +121,19 @@ ActiveRecord::Schema.define(version: 2020_04_16_193831) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["gym_id"], name: "index_fitness_classes_on_gym_id"
+  end
+
+  create_table "foods", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.integer "calories"
+    t.float "protein"
+    t.float "carbs"
+    t.float "fat"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "created_by_user_id"
+    t.string "serving_size", default: "", null: false
   end
 
   create_table "goals", force: :cascade do |t|
@@ -283,6 +312,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_193831) do
     t.boolean "account_disabled", default: false
     t.boolean "not_a_robot", default: false
     t.boolean "employee", default: false
+    t.integer "tdee", default: 0
     t.index ["current_workout"], name: "index_users_on_current_workout"
     t.index ["current_workout_group"], name: "index_users_on_current_workout_group"
     t.index ["email"], name: "index_users_on_email", unique: true

@@ -28,7 +28,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         Inbox.create(user_id: @user.id)
         sign_in @user
 
-        UserMailer.with(user: @user).welcome_email.deliver_now
+        if @user.gym.name == "Boomslang Fitness"
+          UserMailer.with(user: @user).welcome_email.deliver_now
+        end
         flash[:notice] = "Please fill out remainder of information and get started working out. Click on image placeholder to complete all user information or click Start Workout to get started now."
         redirect_to profile_index_path
       else

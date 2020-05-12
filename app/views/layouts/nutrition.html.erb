@@ -31,6 +31,9 @@
               <%= link_to "My Foods", food_index_path, class: 'dropdown-item', id: 'food-nav-link' %>
             </div>
           </li>
+          <% if current_user.gym.current_user_gym_admin(current_user) %>
+            <li><%= link_to "Gym", gym_path(current_user.gym.id), class: 'nav-link', id: 'gym-nav-link' %></li>
+          <% end %>
           <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link', id: 'sign-out-nav-link' %></li>
         </ul>
       </div>

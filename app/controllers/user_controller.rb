@@ -1,6 +1,15 @@
 class UserController < ApplicationController
   skip_before_action :authenticate_user!, only: [:more_info]
-  layout 'nav'
+  layout :choose_layout
+
+  def choose_layout
+    if current_user.nutrition_only
+      "nutrition"
+    else
+      layout 'nav'
+    end
+  end
+
 	def new
     @user = User.new
     @measurements = @user.measurements.build

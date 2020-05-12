@@ -5,6 +5,7 @@
     </div>
     <div class="card-body bg-white" style="margin-bottom:0;">
       <%= render "partials/alert" %>
+      <%= hidden_field_tag :gym_id, @gym.id %>
       <div class="col-md-12 col-sm-12 form-group">
         <%= f.label :email %>
         <%= f.text_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
@@ -20,7 +21,7 @@
       <div class="text-right">
         <%= f.submit "Log In", class: "btn btn-standard" %>
         <br/>
-        <% if params[:action] == 'new' %>
+        <% if params[:action] == 'new' && @gym&.subdomain != 'project49' %>
           <%= render "devise/shared/links" %>
         <% end %>
       </div>

@@ -16,12 +16,13 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
+    @gym = Gym.find_by(subdomain: params[:gym])
     resource = warden.authenticate!(:scope => :user)
     if resource.account_disabled
       sign_out(resource)
 
       flash[:alert] = "Please contact your gym. Your account has been disabled."
-      redirect_to new_user_session_path
+      redirect_to new_user_session_path(gym: @gym&.subdomain)
     else
       sign_in(:user, resource)
       redirect_to profile_index_path

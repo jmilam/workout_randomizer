@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
     # flash[:alert] = nil
     # flash[:notice] = nil
     uri = URI.parse(request.original_url)
-    @gym = Gym.where("lower(name) = ?", uri.host.split('.').first.to_s.gsub("_", " ")).last
+    @gym = Gym.find_by(subdomain: params[:gym])
     @title = "Sign In"
     super
   end

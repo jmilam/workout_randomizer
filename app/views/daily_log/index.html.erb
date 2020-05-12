@@ -1,6 +1,6 @@
-<div class="container" style="margin-top:20px;">
+<div class="container app-font" style="margin-top:20px;">
 	<div class="jumbotron boomslang-green">
-		<h4 class="text-center">Daily Food Logs</h4>
+		<h4 class="text-center app-font">Daily Food Logs</h4>
 		<p class="text-center"><%= link_to "Create Food", new_food_path %></p>
 	</div>
 	<div class="card">
@@ -27,7 +27,7 @@
 					<% end %>
 				</tbody>
 			</table>
-			<%= link_to "New Log", new_daily_log_path, class: 'btn btn-primary' if @today_log.nil? %>
+			<%= link_to "New Log", new_daily_log_path, class: 'btn pull-right', style:"background-color:#003259;color:white;" if @today_log.nil? %>
 	  </div>
 	</div>
 </div>

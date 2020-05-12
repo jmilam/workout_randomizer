@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container app-font">
 	<%= render "partials/alert" %>
 
 	<%= form_for @daily_log, url: daily_log_index_path, remote: true do |f| %>
@@ -6,8 +6,8 @@
     <%#= hidden_field_tag 'selected_food_qtys', '', id: 'selected_food_qtys' %>
 
 		<div class="jumbotron">
-			<h4 class="text-center">Total Calories Available: <span id="totalCaloriesAvail"><%= current_user.tdee - @daily_log.total_calories %></span>g</h4>
-			<h4 class="text-center">Total Calories Selected: <span id="totalCalories">0</span>g</h4>
+			<h4 class="text-center app-font">Total Calories Available: <span id="totalCaloriesAvail"><%= current_user.tdee - @daily_log.total_calories %></span>g</h4>
+			<h4 class="text-center app-font">Total Calories Selected: <span id="totalCalories">0</span>g</h4>
 			<%= f.submit "Log It", class: 'btn btn-block workout-btn', data: {confirm: "Have you selected all the food you want to add? You can verify this under the Selected Food tab."} %>
 		</div>
 

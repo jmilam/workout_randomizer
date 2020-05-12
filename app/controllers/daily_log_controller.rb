@@ -10,22 +10,26 @@ class DailyLogController < ApplicationController
   end
 
   def index
+    @gym = current_user.gym
     @daily_logs = current_user.daily_logs.order(created_at: :desc)
     @today_log = current_user.daily_logs.find_by(calendar_date: Date.today.in_time_zone)
   end
 
   def edit
+    @gym = current_user.gym
     @daily_log = DailyLog.find(params[:id])
     @foods = Food.where(created_by_user_id: current_user.id).group_by(&:category)
     @food_categories = Category.food_categories
   end
 
   def show
+    @gym = current_user.gym
     @daily_log = DailyLog.find(params[:id])
     @daily_log_foods = @daily_log.daily_log_foods.includes(:food).group_by(&:food_id)
   end
 
   def new
+    @gym = current_user.gym
     @daily_log = current_user.daily_logs.find_or_initialize_by(calendar_date: Date.today.in_time_zone)
     @foods = Food.where(created_by_user_id: current_user.id).group_by(&:category)
     @food_categories = Category.food_categories

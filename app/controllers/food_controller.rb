@@ -10,17 +10,20 @@ class FoodController < ApplicationController
   end
 
   def index
+    @gym = current_user.gym
     @foods = Food.where(created_by_user_id: current_user.id).group_by(&:category)
     @food_categories = Category.food_categories
   end
 
   def new
+    @gym = current_user.gym
     @food = Food.new
   end
 
   def edit
     flash[:notice] = nil
     flash[:alert] = nil
+    @gym = current_user.gym
     @food = Food.find(params[:id])
   end
 

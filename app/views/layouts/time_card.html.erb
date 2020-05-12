@@ -9,8 +9,21 @@
     <%= favicon_link_tag 'favicon.ico' %>
   </head>
 
-  <body style="background-image: url(/assets/abstract-background.jpg);">
-    <%= yield %>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="navbar-header">
+          <%= link_to root_path, class: 'navbar-brand' do %>
+            <%= image_tag @gym&.logo.nil? ? "logo" : @gym.logo.url, size: '55x55', id: 'nav-image'%>
+          <% end %>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav">
+        </ul>
+      </div>
+    </nav>
+    <div style="margin-top:-40px;">
+      <%= yield %>
+    </div>
   </body>
 
   <script>

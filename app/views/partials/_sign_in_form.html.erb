@@ -1,12 +1,9 @@
 <%= form_for(:user, url: new_user_session_path) do |f| %>
-  <div class="card border-success">
-
-    <div class="card-header text-success border-success boomslang-green" style="min-height: 4em;">
-      <% if params[:action] == 'new' %>
-        <%= image_tag @gym&.logo.nil? ? "logo" : @gym.logo.url, class: "rounded-image" %>
-      <% end %>
+  <div class="card border-success" style="border:1px solid;">
+    <div class="card-header border-success boomslang-green">
+      <h4 class="text-center app-font">Sign In</h4>
     </div>
-    <div class="card-body text-success bg-white" style="margin-bottom:0;">
+    <div class="card-body bg-white" style="margin-bottom:0;">
       <%= render "partials/alert" %>
       <div class="col-md-12 col-sm-12 form-group">
         <%= f.label :email %>

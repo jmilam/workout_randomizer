@@ -1,8 +1,9 @@
 class NutritionOnlyController < ApplicationController
   skip_before_action :authenticate_user!
-	layout 'sign_up'
+	layout 'nutrition_only'
   def index
     @gyms = Gym.all.includes(:users)
+    @gym = Gym.find_by(subdomain: params[:gym])
   end
 
   def create

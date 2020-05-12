@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign Up!</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag 'favicon.ico' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="navbar-header">
+          <%= link_to root_path, class: 'navbar-brand' do %>
+            <%= image_tag 'project49.png', size: '55x55', id: 'nav-image' %>
+          <% end %>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav">
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid" style="margin-top:1em;">
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

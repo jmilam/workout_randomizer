@@ -3,7 +3,7 @@
     <div class="card border-success" style="border:1px solid;">
       <div class="card-header text-center border-success boomslang-green" style="min-height: 4em;padding-top: 0px;
     padding-bottom: 15px;">
-          <%= image_tag "logo", class: "rounded-image" %>
+          <%= image_tag "project49", class: "rounded-image" %>
       </div>
       <div class="card-body bg-white" style="margin-bottom:0;">
         <%= render "partials/alert" %>
@@ -47,7 +47,7 @@
           </div>
           <div class="col-6 form-group">
             <%= f.label :gym_id, "Gym *", class: 'col-md-12' %>
-            <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Gym" }, class: 'col-md-12 form-control' %>
+            <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, {selected: @gym&.id, prompt: "Select Gym" }, disabled: !@gym.nil?, class: 'col-md-12 form-control' %>
           </div>
         </div>
       </div>

@@ -45,9 +45,9 @@
               Not sure what yours is? <%= link_to "Click Here", "http://boomslangfitness.com/home/assessment", target: :_blank  %>
             </div>
           </div>
-          <div class="col-6 form-group">
+          <div class="col-6 form-group" style="display:none;">
             <%= f.label :gym_id, "Gym *", class: 'col-md-12' %>
-            <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, {selected: @gym&.id, prompt: "Select Gym" }, disabled: !@gym.nil?, class: 'col-md-12 form-control' %>
+            <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, {selected: @gym&.id, prompt: "Select Gym" }, class: 'col-md-12 form-control' %>
           </div>
         </div>
       </div>

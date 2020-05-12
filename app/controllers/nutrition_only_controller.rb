@@ -10,7 +10,6 @@ class NutritionOnlyController < ApplicationController
     @user = User.new(user_params)
     @user.not_a_robot = true
     @user.nutrition_only = true
-
     #store values in case error
     @gyms = Gym.all.includes(:users)
     
@@ -25,7 +24,7 @@ class NutritionOnlyController < ApplicationController
         error_string << "#{key}: " + messages.join(',') + "\n"
       end
       flash[:alert] = error_string
-      render nutrition_only_index_path
+      redirect_to nutrition_only_index_path(gym: "project49")
     end
   end
 

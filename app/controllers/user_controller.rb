@@ -6,7 +6,7 @@ class UserController < ApplicationController
     if current_user.nutrition_only
       "nutrition"
     else
-      layout 'nav'
+      'nav'
     end
   end
 
@@ -19,6 +19,7 @@ class UserController < ApplicationController
     @trainers = current_user.gym.users.trainers
     @workouts = Workout.all
     @current_gym = current_user.gym
+    @gym = @current_gym
 	end
 
   def create

@@ -82,7 +82,7 @@
 
 	function updateTable(data) {
 		let qty = $('#qty').val();
-		$('#item-table tbody').append('<tr><td>' + data.parent().siblings('.foodName').text() + '</td><td>' + data.parent().siblings('.foodName').text() + '</td></tr>');
+		$('#item-table tbody').append('<tr><td>' + data.parent().siblings('.foodName').text() + '</td><td>' + data.parent().siblings('.foodCalories').text() + '</td></tr>');
 		$('#selected_food_ids').val($('#selected_food_ids').val() + ',' + data.parent().siblings('.foodId').text());
 		$('#selected-food').text(parseInt($('#selected-food').text()) + 1);
 		// $('#selected_food_qtys').val($('#selected_food_qtys').val() + ',' + qty);

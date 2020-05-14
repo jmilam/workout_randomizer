@@ -19,6 +19,7 @@
 			<tr class="app-font">
 				<td><%= daily_log_foods.count %> x <%= daily_log_foods.first.food.name %></td>
 				<td class="text-center"><%= daily_log_foods.first.food.calories * daily_log_foods.count %> cal</td>
+				<td><%= link_to "Edit", edit_daily_log_foods_path(daily_log_foods.first.food_id, daily_log_id: @daily_log.id) %></td>
 				<!-- <td class="text-center"><%#= link_to "Remove", destroy_daily_log_food_path(daily_log_foods.first.id), method: :delete,  data: { confirm: 'Are you sure you want to remove this from your food log?' } %> -->
 			</tr>
 		<% end %>

@@ -1,0 +1,30 @@
+<div class="jumbotron">
+	<h4 class="text-center">Food Log Date:</h4>
+	<h5 class="text-center text-muted"><%= @daily_log.calendar_date.strftime("%m/%d/%Y") %></h5>
+	<p class="text-center" style="margin-left:20px;"><%= link_to "<< Back to food log", daily_log_path(@daily_log.id) %></p>
+</div>
+
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Serving Qty</td>
+			<td />
+		</tr>
+	</thead>
+	<tbody>
+		<% @daily_log_foods.each do |daily_log_food| %>
+			<tr>
+				<td><%= daily_log_food.food.name %></td>
+				<td><%= daily_log_food.qty %></td>
+				<td class="text-center"><%= link_to "Delete", destroy_daily_log_food_path(daily_log_food.id), data: {confirm: "Are you sure you want to remove #{daily_log_food.food.name}  from your food log?"}, method: :delete %></td>
+			</tr>
+		<% end %>
+	</tbody>
+	<tfooter>
+		<tr>
+			<td class="text-center" colspan="3"><%= link_to "Delete All #{@daily_log_foods.count} items", destroy_daily_log_food_path(@daily_log_foods.first.id, all: true), data: {confirm: "Are you sure you want to remove all items listed from your food log?"}, method: :delete %></td>
+		</tr>
+	</tfooter>
+</table>

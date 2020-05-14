@@ -68,10 +68,22 @@ class DailyLogController < ApplicationController
 
   def destroy_daily_log_food
     @daily_log_food = DailyLogFood.find(params[:id])
-
-    @daily_log_food.destroy!
+    
+    if params[:all]
+      @daily_log_foods = DailyLogFood.where(daily_log_id: @daily_log_food.daily_log_id, food_id: @daily_log_food.food_id)
+      @daily_log_foods.destroy_all
+    else
+      @daily_log_food.destroy!
+    end
 
     flash[:notice] = "Food removed from today's log"
     redirect_to daily_log_path(@daily_log_food.daily_log_id)
   end
+
+  def edit_daily_log_foods
+    @daily_log = DailyLog.find(params[:daily_log_id])
+    @daily_log_foods = @daily_log.daily_log_foods.includes(:food).where(food_id: params[:id])
+  end
+
+
  end

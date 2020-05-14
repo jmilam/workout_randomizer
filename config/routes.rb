@@ -56,6 +56,8 @@ Rails.application.routes.draw do
   get 'nutrition_only/:gym', to: 'nutrition_only#index', as: 'nutrition_only_index'
   post 'nutrition_only/create', to: 'nutrition_only#create', as: 'create_nutrition_only'
 
+  get 'daily_log/edit_daily_log_foods/:id', to: 'daily_log#edit_daily_log_foods', as: 'edit_daily_log_foods'
+
   resources :profile
   resources :workout
   resources :exercise

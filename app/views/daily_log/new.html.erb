@@ -39,7 +39,7 @@
 			  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#003259;color:white;' %></td>
 			  					<td class="foodName"><%= food.name %></td>
 			  					<td class="foodCalories"><%= food.calories %></td>
-		  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Sise: <%= food.serving_size %>"></i></td>
+		  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Size: <%= food.serving_size %>"></i></td>
 			  					<td class="foodId" style="display:none;"><%= food.id %></td>
 			  				</tr>
 			  			<% end %>

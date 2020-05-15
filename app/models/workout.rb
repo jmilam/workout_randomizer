@@ -52,7 +52,7 @@ class Workout < ApplicationRecord
   def created_by
     unless created_by_user_id.nil?
       user = User.find_by(id: created_by_user_id)
-      "Created By: #{user.first_name} #{user.last_name}"
+      "Created By: #{user&.first_name} #{user&.last_name}"
     end
   end
 

@@ -108,7 +108,6 @@
 
       let headerCounter = counter;
         let data = google.visualization.arrayToDataTable(values);
-        console.log(data)
         if (reloadId && $('#' + reloadId + '-tab').text() === key) {
           element = document.getElementById(reloadId);
           chart = new google.visualization.LineChart(element);

@@ -26,6 +26,19 @@ class DailyLogController < ApplicationController
     @gym = current_user.gym
     @daily_log = DailyLog.find(params[:id])
     @daily_log_foods = @daily_log.daily_log_foods.includes(:food).group_by(&:food_id)
+    macros_total = {protein: 0, carbs: 0, fats: 0}
+    @daily_log_foods.values.flatten.each do |dlf|
+      macros_total[:protein] += dlf.food.protein
+      macros_total[:carbs] += dlf.food.carbs
+      macros_total[:fats] += dlf.food.fat
+    end
+
+    @macros = [
+      ['Macro Nutrient', 'Percentage'],
+      ['Carbs',     macros_total[:carbs]],
+      ['Fat',      macros_total[:fats]],
+      ['Protein',  macros_total[:protein]]
+    ]
   end
 
   def new

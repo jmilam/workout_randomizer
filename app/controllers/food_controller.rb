@@ -25,6 +25,13 @@ class FoodController < ApplicationController
     flash[:alert] = nil
     @gym = current_user.gym
     @food = Food.find(params[:id])
+
+    @macros = [
+      ['Macro Nutrient', 'Percentage'],
+      ['Carbs',     @food.carbs],
+      ['Fat',      @food.fat],
+      ['Protein',  @food.protein]
+    ]
   end
 
   def create

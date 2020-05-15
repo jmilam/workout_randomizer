@@ -1,6 +1,6 @@
 <div class="container">
 	<%= render "partials/alert" %>
-
+	<div id="donutchart" ></div>
 	<%= form_for @food, url: food_path do |f| %>
 		<%= f.hidden_field :created_by_user_id, value: current_user.id %>
 		<div class="form-group">
@@ -21,18 +21,35 @@
 		<div class="row">
 			<div class="col-sm-4 form-group">
 				<%= f.label :protein, "Protein (g)" %>
-				<%= f.number_field :protein, value: @food.protein, step: :any %>
+				<%= f.number_field :protein, value: @food.protein, step: :any, class: 'form-control' %>
 			</div>
 			<div class="col-sm-4 form-group">
 				<%= f.label :carbs, "Carbohydrate (g)" %>
-				<%= f.number_field :carbs, value: @food.carbs, step: :any %>
+				<%= f.number_field :carbs, value: @food.carbs, step: :any, class: 'form-control' %>
 			</div>
 			<div class="col-sm-4 form-group">
 				<%= f.label :fat, "Fat (g)" %>
-				<%= f.number_field :fat, value: @food.fat, step: :any %>
+				<%= f.number_field :fat, value: @food.fat, step: :any, class: 'form-control' %>
 			</div>
 		</div>
 
 		<%= f.submit "Edit Food", class: 'btn pull-right', style: 'background-color:#003259;color:white;' %>
 	<% end %>
 </div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(<%= raw @macros %>);
+
+        var options = {
+          pieHole: 0.4,
+          legend: {position: 'bottom'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+</script>

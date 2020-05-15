@@ -1,0 +1,100 @@
+<div class="full-screen">
+  <div class="row" style="height:100%;width:100%;">
+    <div class="col-md-2 col-12" id="mySidebar">
+      <div class="row">
+        <button class="sidebar-collapse-button btn btn pull-left" type="button" data-target="#workoutTab" aria-controls="workoutTab" aria-expanded="false" aria-label="Toggle navigation" style="margin-bottom:10px;margin-left:5px;margin-right:5px;background-color:white;" onclick="openCloseNav()">
+          <i class="fa fa-chevron-right fa-sm" id="expand" style=""></i>
+        </button>
+      </div>
+      <ul class="nav nav-pills navbar-collapse" id="workoutTab" role="tablist">
+        <li class='nav-item nav-li'><a class='nav-link active' id='user_info-tab' data-toggle='tab' href='#user_info' role='tab' aria-controls='user_info' aira-selected='true'>User Info.</a></li>
+      </ul>
+    </div>
+    <div class="col-md-10 col-10" id="right-col">
+      <div id="main">
+        <%= render "partials/alert" %>
+        <div class="container-fluid">
+            <div class="tab-content" id="workoutTabContent">
+              <div class="tab-pane fade show active" id='user_info' role='tabpanel' aria-labelledby='user_info'>
+                <%= form_for @user, url: profile_path(@user.id), method: :patch do |f| %>
+                  <div class="container">
+                    <div class="row">
+                      <%= image_tag @user.avatar.url, class: "rounded-image" %>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :first_name, class: 'col-md-12' %>
+                        <%= f.text_field :first_name, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :last_name, class: 'col-md-12' %>
+                        <%= f.text_field :last_name, class: 'col-md-12 form-control' %>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :height, class: 'col-md-12' %>
+                        <%= f.text_field :height, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :weight, class: 'col-md-12' %>
+                        <%= f.text_field :weight, class: 'col-md-12 form-control' %>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 col-sm-6 form-group">
+                        <%= f.label :gym_id, class: 'col-md-12' %>
+                        <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-6">
+                        <%= f.label :email %>
+                        <%= f.text_field :email, class: 'col-md-12 form-control' %>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12">
+                        <%= f.label :medical_concerns, "Medical Concerns" %>
+                        <%= f.text_area :medical_concerns, class: 'form-control' %>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-4">
+                        <%= f.label :protein_total %>
+                        <%= f.number_field :protein_total, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-4">
+                        <%= f.label :carb_total %>
+                        <%= f.number_field :carb_total, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-4">
+                        <%= f.label :fat_total %>
+                        <%= f.number_field :fat_total, class: 'col-md-12 form-control' %>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <%= f.label :tdee %>
+                        <%= f.number_field :tdee, class: 'col-md-12 form-control' %>
+                      </div>
+                      <div class="col-md-4">
+                        <%= f.label :avatar, "Upload Profile Picture:" %>
+                        <div class="col-md-4">
+                          <%= f.file_field :avatar %>
+                        </div>
+                      </div>
+                    </div>
+                    <%= f.submit "Edit User Profile", class: 'btn btn-lg btn-block profile-submit-btn container' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 <%= render "partials/alert" %>
+<div id="donutchart" ></div>
 <table class="table">
 	<thead>
 		<tr class="app-font">
@@ -25,3 +26,21 @@
 		<% end %>
 	</tbody>
 </table>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(<%= raw @macros %>);
+
+        var options = {
+          pieHole: 0.4,
+          legend: {position: 'bottom'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+</script>
+

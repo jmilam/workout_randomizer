@@ -75,7 +75,8 @@ class UserController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :height, :weight, :pin, :regularity_id, :goal_id, :trainer_id,
-                                 :email, :phone_number, :avatar, :medical_concerns,
+                                 :email, :phone_number, :avatar, :medical_concerns, :protein_total, :carb_total,
+                                 :fat_total,
       measurements: [:upper_arm, :chest, :waist, :hip, :thigh, :calf, :wrist, :forearm, :left_tricep, :right_tricep,
                      :subscapular, :abdominal, :mid_thigh, :inside_calf, :pec, :left_bicep, :right_bicep, :suprailiac])
   end

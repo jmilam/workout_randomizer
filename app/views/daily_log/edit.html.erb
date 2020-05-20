@@ -52,6 +52,7 @@
 							<tr>
 								<th>Food</th>
 								<th>Total Calories</th>
+								<th/>
 							</tr>
 						</thead>
 						<tbody>
@@ -83,8 +84,18 @@
 	function updateTable(data) {
 		let qty = $('#qty').val();
 		$('#item-table tbody').append('<tr><td>' + data.parent().siblings('.foodName').text() + '</td><td>' + data.parent().siblings('.foodCalories').text() + '</td></tr>');
+		// $('#item-table tbody').append('<tr><td>' + data.parent().siblings('.foodName').text() + '</td><td>' + data.parent().siblings('.foodCalories').text() + '</td><td><%#= button_tag 'Remove', class: 'btn btn-danger remove_food' %></td></tr>');
 		$('#selected_food_ids').val($('#selected_food_ids').val() + ',' + data.parent().siblings('.foodId').text());
 		$('#selected-food').text(parseInt($('#selected-food').text()) + 1);
-		// $('#selected_food_qtys').val($('#selected_food_qtys').val() + ',' + qty);
+
+		// $('.remove_food').on('click', function(e){
+		// 	e.preventDefault();
+		// 	let calorieCount = $(this).parent().siblings().last().text();
+		// 	console.log($(this))
+		// 	$('#totalCalories').text(parseFloat($('#totalCalories').text()) - parseFloat(calorieCount));
+		// 	$('#totalCaloriesAvail').text(parseFloat($('#totalCaloriesAvail').text()) + parseFloat(calorieCount));
+		// 	$('span.badge').text(parseInt($('span.badge').text()) - 1);
+		// 	// $(this).parents('tr').remove();
+		// })
 	}
 </script>

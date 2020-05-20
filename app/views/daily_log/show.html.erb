@@ -2,13 +2,13 @@
 <div id="donutchart" ></div>
 <table class="table">
 	<thead>
-		<tr class="app-font">
+		<tr>
 			<th class="text-center" colspan="3">Total Calories Available: <%= current_user.tdee - @daily_log.total_calories %></th>
 		</tr>
-		<tr class="app-font" style="font-size:0.9em">
+		<tr style="font-size:0.9em">
 			<th class="text-center" colspan="3">Total Calories Today: <%= @daily_log.total_calories %></th>
 		</tr>
-		<tr class="app-font" style="font-size:0.9em">
+		<tr style="font-size:0.9em">
 			<th class="text-center" colspan="3">Protein: <%= @daily_log.total_protein %> g, Carbs: <%= @daily_log.total_carbs %> g, Fats: <%= @daily_log.total_fats%> g</th>
 		</tr>
 		<tr>

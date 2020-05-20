@@ -9,12 +9,6 @@
       <% end %>
 
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-12 detail-font-size">
-        <i style="color:#82B937;opacity:0.8;font-size:1.8em;font-family:serif;text-decoration: underline;"><%= @remaining_tdee %> Calories Remaining Today</i>
-      </div>
-    </div>
-
-    <div class="row">
       <div class="col-md-4 col-sm-4 col-4 detail-font-size">
         <b style="color:#fafafa;">Weight:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @user.weight %> lbs.</div>
       </div>
@@ -25,64 +19,100 @@
         <div style="color:#fafafa">BMI: </div><div style="color:<%= @bmi_status %>;text-align:center;"><%= @bmi %></div>
       </div>
     </div>
-
-    <div class="row">
-      <% unless @workout_group.nil? %>
-        <div class="container">
-          <div class="card">
-            <div class="card-body" style="margin-bottom:0px;">
-              <div class="row">
-                <div class="col-md-12 text-center" style="color:white;"><%=  @workout&.name %></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
   </div>
 </div>
 
+<% if @user.nutrition_only %>
+  <div class="container-fluid">
+    <div id="donutchart"></div>
+    <% if @daily_log.nil? %>
+      <%= link_to "Log Food", new_daily_log_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
+    <% else %>
+      <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'border-bottom:0px;' %>
+    <% end %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class='text-center'>Daily Total</th>
+          <th class='text-center'>Remaining</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class='text-center'>Calories: <%= @user.tdee %></td>
+          <td class='text-center'>Calories: <%= @remaining_tdee %></td>
+        </tr>
+        <tr>
+          <td class='text-center'>Protein: <%= @user.protein_total %></td>
+          <td class='text-center'>Protein: <%= @remaining_protein %></td>
+        </tr>
+        <tr>
+          <td class='text-center'>Carbs: <%= @user.carb_total %></td>
+          <td class='text-center'>Carbs: <%= @remaining_carbs %></td>
+        </tr>
+        <tr>
+          <td class='text-center'>Fats: <%= @user.fat_total %></td>
+          <td class='text-center'>Fats: <%= @remaining_fats %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<% else %>
   <% if @daily_log.nil? %>
     <%= link_to "Log Food", new_daily_log_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
   <% else %>
     <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
   <% end %>
   
-  <% unless current_user.nutrition_only %>
-    <%= link_to "Workout History", workout_history_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
+  <%= link_to "Workout History", workout_history_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
 
-    <%= link_to "Manually Enter Workout", manual_workout_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
+  <%= link_to "Manually Enter Workout", manual_workout_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
 
-    <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
+  <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
 
-    <%= link_to "Workout of the Day", kiosk_exercise_path(workout_id: @wod.workout_id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @wod.nil? %>
-  <% end %>
+  <%= link_to "Workout of the Day", kiosk_exercise_path(workout_id: @wod.workout_id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" unless @wod.nil? %>
 
-<div class="container-fluid">
-  <div class="row" style="margin-top:10px;">
-    <div class="col-md-10 col-10 offset-1">
-      <div class="row">
-        <div class="col-md-6 col-sm-6 col-6 text-center">
-          <b>Workout Regularity:</b> <div style="color:#003259;"><%= User.regularities["#{@user.regularity_id}week"] %></div>
-        </div>
-        <% unless current_user.nutrition_only %>
+  <div class="container-fluid">
+    <div class="row" style="margin-top:10px;">
+      <div class="col-md-10 col-10 offset-1">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-6 text-center">
+            <b>Workout Regularity:</b> <div style="color:#003259;"><%= User.regularities["#{@user.regularity_id}week"] %></div>
+          </div>
           <div class="col-md-6 col-sm-6 col-6 text-center">
             <b>Current Workout:</b> <% unless @user.current_workout.nil? %><div style="color:#003259;"><%= @workout.name %></div> <%= link_to "Change Workout", stop_workout_path, method: :patch, class: "btn btn btn-danger btn-sm" %><% end %>
           </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-10 col-10 offset-1">
-      <div class="row">
-        <div class="col-md-6 col-sm-6 col-6 text-center">
-          <b>Current Gym:</b> <div style="color:#003259;"><%= @user.gym.name %></div>
-        </div>
-        <div class="col-md-6 col-sm-6 col-6 text-center">
-          <b>Workout Goal:</b> <div style="color:#003259;"><%= User.goals["#{@user.goal_id}"] %></div>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-10 col-10 offset-1">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-6 text-center">
+            <b>Current Gym:</b> <div style="color:#003259;"><%= @user.gym.name %></div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-6 text-center">
+            <b>Workout Goal:</b> <div style="color:#003259;"><%= User.goals["#{@user.goal_id}"] %></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(<%= raw @macros %>);
+
+        var options = {
+          pieHole: 0.4,
+          legend: {position: 'bottom'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+</script>

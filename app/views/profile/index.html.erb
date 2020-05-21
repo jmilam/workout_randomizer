@@ -23,13 +23,13 @@
 </div>
 
 <% if @user.nutrition_only %>
+  <% if @daily_log.nil? %>
+    <%= link_to "Log Food", new_daily_log_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
+  <% else %>
+    <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'border-bottom:0px;' %>
+  <% end %>
   <div class="container-fluid">
     <div id="donutchart"></div>
-    <% if @daily_log.nil? %>
-      <%= link_to "Log Food", new_daily_log_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
-    <% else %>
-      <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'border-bottom:0px;' %>
-    <% end %>
     <table class="table table-striped">
       <thead>
         <tr>

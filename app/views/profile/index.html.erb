@@ -26,10 +26,10 @@
   <% if @daily_log.nil? %>
     <%= link_to "Log Food", new_daily_log_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
   <% else %>
-    <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'border-bottom:0px;' %>
+    <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
   <% end %>
+  <%= link_to "My Foods", food_index_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
   <div class="container-fluid">
-    <div id="donutchart"></div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -99,20 +99,3 @@
     </div>
   </div>
 <% end %>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(<%= raw @macros %>);
-
-        var options = {
-          pieHole: 0.4,
-          legend: {position: 'bottom'}
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
-</script>

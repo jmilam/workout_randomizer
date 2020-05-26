@@ -36,6 +36,7 @@ class FoodController < ApplicationController
 
   def create
     @food = Food.new(food_params)
+    @food.category = "other" if @food.category.blank? # Make sure there is a category
 
     begin
       @food.save!

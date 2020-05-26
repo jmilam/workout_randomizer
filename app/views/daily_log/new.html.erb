@@ -52,6 +52,7 @@
 							<tr>
 								<th>Food</th>
 								<th>Total Calories</th>
+								<th/>
 							</tr>
 						</thead>
 						<tbody>
@@ -77,13 +78,46 @@
 		$('#totalCaloriesAvail').text(parseFloat($('#totalCaloriesAvail').text()) - parseFloat(data.parent().siblings('.foodCalories').text()))
 		if (parseFloat($('#totalCaloriesAvail').text()) < 0.0) {
 			$('#totalCaloriesAvail').css('color', 'red');
+		} else {
+		 	$('#totalCaloriesAvail').css('color', 'black');
 		}
 	};
 
 	function updateTable(data) {
-		$('#item-table tbody').append('<tr><td>' + data.parent().siblings('.foodName').text() + '</td><td>' + data.parent().siblings('.foodCalories').text() + '</td></tr>');
-		$('#selected_food_ids').val($('#selected_food_ids').val() + ',' + data.parent().siblings('.foodId').text());
+		let id = data.parent().siblings('.foodId').text();
+		$('#item-table tbody').append('<tr><td style="display:none;">' + id + '</td><td>' + data.parent().siblings('.foodName').text() + '</td><td class="selectedCalories">' + data.parent().siblings('.foodCalories').text() + '</td><td><%= button_tag 'Remove', class: 'btn btn-danger remove_food', onClick: 'removeData(this)' %></td></tr>');
+		$('#selected_food_ids').val($('#selected_food_ids').val() + ',' + id);
 		$('#selected-food').text(parseInt($('#selected-food').text()) + 1);
-		// $('#selected_food_qtys').val($('#selected_food_qtys').val() + ',' + qty);
+	}
+
+	function removeData() {
+		event.preventDefault();
+		let removeFoodId = $(event.target).parents('tr').children().first().text();
+
+		let calorieCount = $(event.target).parent().siblings().last().text();
+		$('#totalCalories').text(parseFloat($('#totalCalories').text()) - parseFloat(calorieCount));
+		$('#totalCaloriesAvail').text(parseFloat($('#totalCaloriesAvail').text()) + parseFloat(calorieCount));
+
+		let counter = 0;
+		let ids = $('#selected_food_ids').val().split(',')
+		ids.forEach(function(num, idx){
+		  if (num === removeFoodId) {
+			  if (counter === 0) {
+		  	  ids.splice(idx, 1)
+			  }
+			  counter++
+		  }
+		})
+		$('#selected_food_ids').val(ids);
+
+		$('span.badge').text(parseInt($('span.badge').text()) - 1);
+		$(event.target).parents('tr').remove()
+
+		if (parseFloat($('#totalCaloriesAvail').text()) < 0.0) {
+			$('#totalCaloriesAvail').css('color', 'red');
+		} else {
+			console.log("NOT NEG")
+			$('#totalCaloriesAvail').css('color', 'black');
+		}
 	}
 </script>

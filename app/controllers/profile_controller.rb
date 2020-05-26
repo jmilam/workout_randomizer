@@ -26,9 +26,9 @@ class ProfileController < ApplicationController
     @daily_log = current_user.daily_logs.find_by(calendar_date: Date.today.in_time_zone)
 
     @remaining_tdee = @user.tdee - (@daily_log&.total_calories || 0)
-    @remaining_protein = @user.protein_total - (@daily_log&.total_protein || 0)
-    @remaining_carbs = @user.carb_total - (@daily_log&.total_carbs || 0)
-    @remaining_fats = @user.fat_total - (@daily_log&.total_fats || 0)
+    @remaining_protein = (@user.protein_total - (@daily_log&.total_protein || 0)).round(2)
+    @remaining_carbs = (@user.carb_total - (@daily_log&.total_carbs || 0)).round(2)
+    @remaining_fats = (@user.fat_total - (@daily_log&.total_fats || 0)).round(2)
     @wod = Wod.where(gym_id: @user.gym.id, workout_date: Date.today).last
 
     @macros = [

@@ -63,6 +63,18 @@ class FoodController < ApplicationController
     end
   end
 
+  def destroy
+    @food = Food.find(params[:id])
+
+    if @food.delete
+      flash[:notice] = "Food successfully updated!"
+    else
+      flash[:alert] = @food.errors.messages
+    end
+
+    redirect_to food_index_path
+  end
+
   def find_food_by_category
     @foods = Food.where(category: params[:category])
 

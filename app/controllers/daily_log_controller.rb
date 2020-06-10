@@ -20,7 +20,7 @@ class DailyLogController < ApplicationController
     @daily_log = DailyLog.find(params[:id])
     @foods = Food.where(created_by_user_id: [current_user.id, nil]).group_by(&:category)
     @food_categories = Category.food_categories
-    @icons = ["fa fa-drumstick-bite", "fa fa-carrot", "", "fa fa-cheese"]
+    @icons = ["fa fa-egg", "fa fa-carrot", "", "fa fa-cheese"]
   end
 
   def show

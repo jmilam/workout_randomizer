@@ -26,7 +26,7 @@
   <div class="row" style="margin-bottom:0;">
     <div class="col-12">
       <div class="progress" style="height: 60px;">
-        <div class="progress-bar progress-bar-striped bg-primary" style="width: <%= (((@user.tdee - @remaining_tdee)/@user.tdee.to_f) * 100.0).round %>%;color:black;" role="progressbar" aria-valuenow="<%= @user.tdee - @remaining_tdee %>" aria-valuemin="0" aria-valuemax="<%= @user.tdee %>"><%= @user.tdee - @remaining_tdee %> calories consumed</div>
+        <div class="progress-bar progress-bar-striped bg-primary" style="width: <%= (((@user.tdee - @remaining_tdee)/@user.tdee.to_f) * 100.0).round %>%;color:black;text-align:center;" role="progressbar" aria-valuenow="<%= @user.tdee - @remaining_tdee %>" aria-valuemin="0" aria-valuemax="<%= @user.tdee %>"><%= @user.tdee - @remaining_tdee %> calories consumed</div>
       </div>
     </div>
   </div>

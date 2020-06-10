@@ -1,6 +1,8 @@
 4a3c41ae890c29aef53395cdd33534ae0531b4eb		branch 'circleci' of https://github.com/faker-ruby/faker
+c1a761ef91011b2b2e7ebb21fe053f98d4f9c55e		branch 'dependabot/bundler/simplecov-eq-0.18.5' of https://github.com/faker-ruby/faker
+380496d8a3c9024b04120d0dceeadf930ee0ac5f		branch 'drop-ruby-head' of https://github.com/faker-ruby/faker
 fa2aeb37bebf0ab74afe480d8b675da8ce5fce70		branch 'jruby' of https://github.com/faker-ruby/faker
-d9b9ad96c45397435cf211f6380435e6aecd4141		branch 'master' of https://github.com/faker-ruby/faker
+20af4e30bf00ff29c9e8528c2919443af3e6e64d		branch 'master' of https://github.com/faker-ruby/faker
 b913e7cba609b42c74f7968840270c74a1cbbd0b	not-for-merge	tag '1.9.4' of https://github.com/faker-ruby/faker
 401948a0c89acf81c748ea2d2988162e9fd94cb2	not-for-merge	tag '1.9.6' of https://github.com/faker-ruby/faker
 ed1ef707e272772ef70a1e838cb2f6863b22b48b	not-for-merge	tag '2.0' of https://github.com/faker-ruby/faker
@@ -50,8 +52,10 @@ c86a591ef8b1206e7ebfa121a86e197f38ee4b74	not-for-merge	tag 'v1.9.3' of https://g
 cde67dd1cfd17e968cfdba1a5624c011faeaf257	not-for-merge	tag 'v2.1.1' of https://github.com/faker-ruby/faker
 7d37acf5ae1bbfa5a25ccea785ebcdfb0be0f377	not-for-merge	tag 'v2.1.2' of https://github.com/faker-ruby/faker
 f43547a09c927b6442ffb3484de322fc46fefa7b	not-for-merge	tag 'v2.10.0' of https://github.com/faker-ruby/faker
+e4219e9a94c69406913053ecc152c3f2d7fb297d	not-for-merge	tag 'v2.10.1' of https://github.com/faker-ruby/faker
 7cd23767884628f36283208a4ad1da2fe689444f	not-for-merge	tag 'v2.10.2' of https://github.com/faker-ruby/faker
 4638d25a029b73b30fc25b85e2f586431d85d8d8	not-for-merge	tag 'v2.11.0' of https://github.com/faker-ruby/faker
+fa40e0da9741105b032d456c6219239c3d6dff8c	not-for-merge	tag 'v2.12.0' of https://github.com/faker-ruby/faker
 dc9e62f8919f2513b33a94815cb2a4c52285d0b3	not-for-merge	tag 'v2.2.0' of https://github.com/faker-ruby/faker
 9365f60abdcdfa4b8990ff14b6c4518c2610e68b	not-for-merge	tag 'v2.2.1' of https://github.com/faker-ruby/faker
 515fdbfe1091c30c272ab1214081414353e4180d	not-for-merge	tag 'v2.2.2' of https://github.com/faker-ruby/faker

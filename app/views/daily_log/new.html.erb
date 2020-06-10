@@ -5,10 +5,10 @@
    	<%= hidden_field_tag 'selected_food_ids', '', id: 'selected_food_ids' %>
     <%#= hidden_field_tag 'selected_food_qtys', '', id: 'selected_food_qtys' %>
 
-		<div class="jumbotron">
+		<div class="jumbotron boomslang-green">
 			<h4 class="text-center app-font">Total Calories Available: <span id="totalCaloriesAvail"><%= current_user.tdee - @daily_log.total_calories %></span>g</h4>
 			<h4 class="text-center app-font">Total Calories Selected: <span id="totalCalories">0</span>g</h4>
-			<%= f.submit "Log It", class: 'btn btn-block workout-btn', data: {confirm: "Have you selected all the food you want to add? You can verify this under the Selected Food tab."} %>
+			<%= f.submit "Log It", class: 'btn btn-block workout-btn', style: "background-color:#F29F05;color:white;", data: {confirm: "Have you selected all the food you want to add? You can verify this under the Selected Food tab."} %>
 		</div>
 
 		<ul class="nav nav-tabs nav-fill" id="foodCategoryTabs" role=tablist>

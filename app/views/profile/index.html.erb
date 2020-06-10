@@ -2,13 +2,13 @@
 
 <div id="profile-background">
   <div class="col-md-10 col-10 offset-1">
-      <%= link_to edit_profile_path(@user.id), id: "edit_profile" do %>
-        <div class="row">
-          <%= image_tag @user.avatar.url, class: "rounded-image" %>
-        </div>
-      <% end %>
+    <%= link_to edit_profile_path(@user.id), id: "edit_profile" do %>
+      <div class="row">
+        <%= image_tag @user.avatar.url, class: "rounded-image" %>
+      </div>
+    <% end %>
 
-    <div class="row">
+    <div class="row" style="margin-bottom:40px;">
       <div class="col-md-4 col-sm-4 col-4 detail-font-size">
         <b style="color:#fafafa;">Weight:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @user.weight %> lbs.</div>
       </div>
@@ -19,7 +19,6 @@
         <div style="color:#fafafa">BMI: </div><div style="color:<%= @bmi_status %>;text-align:center;"><%= @bmi %></div>
       </div>
     </div>
-  </div>
 </div>
 
 <% if @user.nutrition_only %>
@@ -30,6 +29,10 @@
   <% end %>
   <%= link_to "My Foods", food_index_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
   <div class="container-fluid">
+    <div class="progress" style="margin-top:20px;height: 40px;margin-bottom:20px;">
+      <div class="progress-bar bg-warning" style="width: <%= (((@user.tdee - @remaining_tdee)/@user.tdee.to_f) * 100.0).round %>%;color:black;" role="progressbar" aria-valuenow="<%= @user.tdee - @remaining_tdee %>" aria-valuemin="0" aria-valuemax="<%= @user.tdee %>"><%= @user.tdee - @remaining_tdee %> calories consumed</div>
+      </div>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>

@@ -45,12 +45,10 @@ class User < ApplicationRecord
   scope :new_users, -> (date_range=Date.today.beginning_of_week..Date.today.end_of_week) { where(created_at: date_range)}
   scope :trainers, -> { where(trainer: true) }
 
-  after_create :assign_foods
-
   def assign_foods
     CSV.foreach('lib/initial_user_foods.csv', headers: true) do |row|
       Food.create!(name: row['Item'], category: row['Category'], calories: row['Calories'],
-        protein: row['Protein'], carbs: row['Carbs'], serving_size: row['Serving'], created_by_user_id: id)
+        protein: row['Protein'], carbs: row['Carbs'], serving_size: row['Serving'])
     end
   end
 

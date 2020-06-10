@@ -18,7 +18,7 @@ class DailyLogController < ApplicationController
   def edit
     @gym = current_user.gym
     @daily_log = DailyLog.find(params[:id])
-    @foods = Food.where(created_by_user_id: current_user.id).group_by(&:category)
+    @foods = Food.where(created_by_user_id: [current_user.id, nil]).group_by(&:category)
     @food_categories = Category.food_categories
     @icons = ["fa fa-drumstick-bite", "fa fa-carrot", "", "fa fa-cheese"]
   end
@@ -45,7 +45,7 @@ class DailyLogController < ApplicationController
   def new
     @gym = current_user.gym
     @daily_log = current_user.daily_logs.find_or_initialize_by(calendar_date: Date.today.in_time_zone)
-    @foods = Food.where(created_by_user_id: current_user.id).group_by(&:category)
+    @foods = Food.where(created_by_user_id: [current_user.id, nil]).group_by(&:category)
     @food_categories = Category.food_categories
   end
 

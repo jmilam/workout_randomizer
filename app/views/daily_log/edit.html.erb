@@ -20,8 +20,10 @@
 		<ul class="nav nav-tabs nav-fill" id="foodCategoryTabs" role=tablist>
 			<% @food_categories.values.each_with_index do |cat, idx| %>
 				<li class="nav-item">
-					<%= link_to cat.capitalize, '#', class: "nav-link #{idx == 0 ? 'active': ''}", id: "#{cat}-tab",
-						data: {toggle: 'tab'}, href: "##{cat}", role: "tab", aria: {controls: "#{cat}", selected: "true"} %>
+					<%= link_to '#', class: "nav-link #{idx == 0 ? 'active': ''}", id: "#{cat}-tab",
+						data: {toggle: 'tab'}, href: "##{cat}", role: "tab", aria: {controls: "#{cat}", selected: "true"}  do %>
+						<%= cat.capitalize %> <i class="<%= @icons[idx] %>"></i>
+					<% end %>
 			  </li>
 			<% end %>
 			<li class='nav-item'><a class='nav-link' id='selected-list-tab' data-toggle='tab' href='#selected-list' role='tab' aria-controls='selected-list' aria-selected='true'>Selected Food <span class="badge boomslang-green" id="selected-food" style="color:black">0</span></a></li>
@@ -42,7 +44,7 @@
 		  			<tbody>
 				  		<% @foods[cat[0]]&.each do |food| %>
 			  				<tr>
-			  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#003259;color:white;' %></td>
+			  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#F29F05;color:white;' %></td>
 			  					<td class="foodName"><%= food.name %></td>
 			  					<td class="foodCalories"><%= food.calories %></td>
 		  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Size: <%= food.serving_size %>"></i></td>
@@ -72,6 +74,9 @@
 
 <script>
 	$('.fa-info-circle').popover();
+	$('.fa-info-circle').on('click', function (e) {
+    $('.fa-info-circle').not(this).popover('hide');
+});
 
 	$('.add_food').on('click', function(e){
 		e.preventDefault();

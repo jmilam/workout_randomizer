@@ -10,52 +10,70 @@
 
     <div class="row" style="margin-bottom:40px;">
       <div class="col-md-4 col-sm-4 col-4 detail-font-size">
-        <b style="color:#fafafa;">Weight:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @user.weight %> lbs.</div>
+        <b style="color:#fafafa;">Weight:</b> <div><%= @user.weight %> lbs.</div>
       </div>
       <div class="col-md-4 col-sm-4 col-4 detail-font-size" style="">
-        <b style="color:#fafafa;">Height:</b> <div style="color:rgba(255, 255, 255, 0.5);"><%= @height[0] %>' <%= @height[1] %>"</div>
+        <b style="color:#fafafa;">Height:</b> <div><%= @height[0] %>' <%= @height[1] %>"</div>
       </div>
       <div class="col-md-4 col-sm-4 col-4 detail-font-size">
         <div style="color:#fafafa">BMI: </div><div style="color:<%= @bmi_status %>;text-align:center;"><%= @bmi %></div>
       </div>
     </div>
+  </div>
 </div>
 
 <% if @user.nutrition_only %>
-  <% if @daily_log.nil? %>
-    <%= link_to "Log Food", new_daily_log_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
-  <% else %>
-    <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
-  <% end %>
-  <%= link_to "My Foods", food_index_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
-  <div class="container-fluid">
-    <div class="progress" style="margin-top:20px;height: 40px;margin-bottom:20px;">
-      <div class="progress-bar bg-warning" style="width: <%= (((@user.tdee - @remaining_tdee)/@user.tdee.to_f) * 100.0).round %>%;color:black;" role="progressbar" aria-valuenow="<%= @user.tdee - @remaining_tdee %>" aria-valuemin="0" aria-valuemax="<%= @user.tdee %>"><%= @user.tdee - @remaining_tdee %> calories consumed</div>
+  <div class="row" style="margin-bottom:0;">
+    <div class="col-12">
+      <div class="progress" style="height: 60px;">
+        <div class="progress-bar progress-bar-striped bg-warning" style="width: <%= (((@user.tdee - @remaining_tdee)/@user.tdee.to_f) * 100.0).round %>%;color:black;" role="progressbar" aria-valuenow="<%= @user.tdee - @remaining_tdee %>" aria-valuemin="0" aria-valuemax="<%= @user.tdee %>"><%= @user.tdee - @remaining_tdee %> calories consumed</div>
       </div>
     </div>
+  </div>
+  <div class="row" style="margin-bottom:0;">
+    <div class="col-md-12 btn-group" role="group" aria-label="Basic example">
+      <% if @daily_log.nil? %>
+        <%= link_to "Log Food", new_daily_log_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
+      <% else %>
+        <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center" %>
+      <% end %>
+      <%= link_to "My Foods", food_index_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'border-left: 1px solid #003259;'%>
+    </div>
+  </div>
+  <div class="container-fluid">
     <table class="table table-striped">
       <thead>
         <tr>
-          <th class='text-center'>Daily Total</th>
+          <th class="text-right"></th>
+          <th class='text-center'>Total</th>
           <th class='text-center'>Remaining</th>
+          <th>Consumed</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class='text-center'>Calories: <%= @user.tdee %></td>
-          <td class='text-center'>Calories: <%= @remaining_tdee %></td>
+          <td><b><i>Calories</i></b></td>
+          <td class='text-center'><%= @user.tdee %></td>
+          <td class='text-center'><%= @remaining_tdee %></td>
+          <td class='text-center'><%= @user.tdee - @remaining_tdee %></td>
         </tr>
         <tr>
-          <td class='text-center'>Protein: <%= @user.protein_total %></td>
-          <td class='text-center'>Protein: <%= @remaining_protein %></td>
+          <td><b><i>Protein</i></b></td>
+          <td class='text-center'><%= @user.protein_total %></td>
+          <td class='text-center'><%= @remaining_protein %></td>
+          <td class='text-center'><%= @user.protein_total - @remaining_protein %></td>
         </tr>
         <tr>
-          <td class='text-center'>Carbs: <%= @user.carb_total %></td>
-          <td class='text-center'>Carbs: <%= @remaining_carbs %></td>
+          <td><b><i>Carbs</i></b></td>
+          <td class='text-center'><%= @user.carb_total %></td>
+          <td class='text-center'><%= @remaining_carbs %></td>
+          <td class='text-center'><%= @user.carb_total - @remaining_carbs %></td>
         </tr>
         <tr>
-          <td class='text-center'>Fats: <%= @user.fat_total %></td>
-          <td class='text-center'>Fats: <%= @remaining_fats %></td>
+          <td><b><i>Fats</i></b></td>
+          <td class='text-center'><%= @user.fat_total %></td>
+          <td class='text-center'><%= @remaining_fats %></td>
+          <td class='text-center'><%= @user.fat_total - @remaining_fats %></td>
         </tr>
       </tbody>
     </table>

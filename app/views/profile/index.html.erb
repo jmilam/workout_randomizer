@@ -61,19 +61,19 @@
           <td><b><i>Protein</i></b></td>
           <td class='text-center'><%= @user.protein_total %></td>
           <td class='text-center'><%= @remaining_protein %></td>
-          <td class='text-center'><%= @user.protein_total - @remaining_protein %></td>
+          <td class='text-center'><%= (@user.protein_total - @remaining_protein).round(2) %></td>
         </tr>
         <tr>
           <td><b><i>Carbs</i></b></td>
           <td class='text-center'><%= @user.carb_total %></td>
           <td class='text-center'><%= @remaining_carbs %></td>
-          <td class='text-center'><%= @user.carb_total - @remaining_carbs %></td>
+          <td class='text-center'><%= (@user.carb_total - @remaining_carbs).round(2) %></td>
         </tr>
         <tr>
           <td><b><i>Fats</i></b></td>
           <td class='text-center'><%= @user.fat_total %></td>
           <td class='text-center'><%= @remaining_fats %></td>
-          <td class='text-center'><%= @user.fat_total - @remaining_fats %></td>
+          <td class='text-center'><%= (@user.fat_total - @remaining_fats).round(2) %></td>
         </tr>
       </tbody>
     </table>

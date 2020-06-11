@@ -22,7 +22,7 @@ module WorkoutRandomizer
 		    :port           => 587,
 		    :authentication => :plain,
 		    :user_name      => ENV['EMAIL'],
-		    :password       => '$p0tmeBro!',
+		    :password       => ENV['PASSWORD'],
 		    :enable_starttls_auto => true,
 		    :domain 				=> "gmail.com"
 		}

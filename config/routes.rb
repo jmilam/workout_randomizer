@@ -17,12 +17,12 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     # sessions
-    get    'login/:gym',  to: 'users/sessions#new',     as: :new_user_session
-    post   'login/:gym',  to: 'users/sessions#create',  as: :user_session
+    get    'login/:gym',  to: 'users/sessions#new',     as: :new_user_session, :defaults => { :gym => "boomslangfitness" }
+    post   'login/:gym',  to: 'users/sessions#create',  as: :user_session, :defaults => { :gym => "boomslangfitness" }
     delete 'logout', to: 'users/sessions#destroy', as: :destroy_user_session
     # registrations
-    post   '/signup/:gym',  to: 'users/registrations#create'
-    get    '/signup/:gym', to: 'users/registrations#new',    as: :new_user_registration
+    post   '/signup/:gym',  to: 'users/registrations#create', :defaults => { :gym => "boomslangfitness" }
+    get    '/signup/:gym', to: 'users/registrations#new',    as: :new_user_registration, :defaults => { :gym => "boomslangfitness" }
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

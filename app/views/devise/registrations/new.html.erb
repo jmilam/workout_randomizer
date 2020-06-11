@@ -1,7 +1,7 @@
 <%= render "partials/alert" %>
 <div class="row">
   <div class="col-md-10 col-10 offset-1">
-    <%= form_for @user, url: user_registration_path do |f| %>
+    <%= form_for @user, url: new_user_registration_path do |f| %>
         <div>
           <div id="step1" title="Step 1 of 3">
             <div class="row">
@@ -44,7 +44,7 @@
               </div>
               <div class="col-md-6 col-sm-10 col-10 form-group">
                 <%= f.label :gym_id, "Gym *", class: 'col-md-12' %>
-                <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym" }, class: 'col-md-12 form-control' %>
+                <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, { prompt: "Select Your Gym", selected: @gym&.id}, class: 'col-md-12 form-control' %>
                 <%= f.label 'Select Boomslang Fitness if your gym isn\'t on here', class: 'text-muted text-center' %>
               </div>
               <div class="col-md-2 col-sm-2 col-2 form-group text-center">

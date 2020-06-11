@@ -31,10 +31,11 @@ class Users::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
+    user = current_user
     sign_out current_user
 
     flash[:notice] = "User Successfully Signed Out"
-    redirect_to user_session_path
+    redirect_to new_user_session_path(gym: user.gym.subdomain)
   end
 
   # protected

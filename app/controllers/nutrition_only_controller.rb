@@ -24,7 +24,7 @@ class NutritionOnlyController < ApplicationController
         error_string << "#{key}: " + messages.join(',') + "\n"
       end
       flash[:alert] = error_string
-      redirect_to nutrition_only_index_path(gym: "project49")
+      redirect_to nutrition_only_index_path(gym: @user.gym.subdomain)
     end
   end
 

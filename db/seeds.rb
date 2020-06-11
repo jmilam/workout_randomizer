@@ -1,6 +1,6 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-gym = Gym.create!(name: "Boomslang Fitness", phone_number: "336-707-7939")
+gym = Gym.create!(name: "Boomslang Fitness", phone_number: "336-707-7939", subdomain: "project49")
 gym.categories.create!(name: "Lean Muscle Gain", goal_id: User.goals.keys[1])
 lose_weight = gym.categories.create!(name: "Lose Weight", goal_id: User.goals.keys[0])
 
@@ -14,7 +14,7 @@ full_body = ["Turkish Get Up", "Half Turkish Get Up", "Squat Press"]
 abs = ["Spiderman & Reverse Through Crunch", "Mountain Climbers", "Side Plank", "Plank"]
 mb = ["Lunge/Twist"]
 chest_exercises.concat(back_exercises, bicep_exercises, shoulder_exercises, tricep_exercises, leg_exercises, full_body, abs, mb).each do |exercise|
-  CommonExercise.create!(name: exercise)
+  CommonExercise.create!(name: exercise, gym: gym)
 end
 
 equipment = ["Cable", "Barbell", "Dumbbell", "Kettlebell", "Band", "Rope", "Sled", "Pull Up Bar", "Dip Bar",
@@ -29,5 +29,5 @@ tasks = [{ name: "Large Group Classes", duration: 45, select_client: false },
          { name: "Small Group", duration: 45, select_client: false }]
 
 tasks.each do |task_hash|
-  tym.tasks.create(name: task_hash[:name], duration: task_hash[:duration], select_client: task_hash[:select_client])
+  gym.tasks.create(name: task_hash[:name], duration: task_hash[:duration], select_client: task_hash[:select_client])
 end

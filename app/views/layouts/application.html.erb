@@ -34,8 +34,8 @@
               <%= link_to "My Foods", food_index_path, class: 'dropdown-item', id: 'food-nav-link' %>
             </div>
           </li>
-          <% if current_user.gym.current_user_gym_admin(current_user) %>
-            <li><%= link_to "Gym", gym_path(current_user.gym.id), class: 'nav-link', id: 'gym-nav-link' %></li>
+          <% if current_user&.gym&.current_user_gym_admin(current_user) %>
+            <li><%= link_to "Gym", gym_path(current_user&.gym&.id), class: 'nav-link', id: 'gym-nav-link' %></li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="reports-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reporting</a>
               <div class="dropdown-menu">

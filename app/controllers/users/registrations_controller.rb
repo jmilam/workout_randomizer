@@ -10,6 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @regularity = User.regularities
     @goals = User.goals
     @gyms = Gym.all
+    @gym = Gym.find_by(subdomain: params[:gym])
 
     respond_to do |format|
       format.html
@@ -18,9 +19,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-
     begin
       @user = User.new(user_sign_up_params)
+      @user.nutrition_only = true if @user.gym.subdomain == "project49"
       default_workout = @user.gym&.workouts&.find_by(user_default: true)
       @user.current_workout = default_workout&.id
 

@@ -6,14 +6,25 @@ Rails.application.routes.draw do
   get 'admin_portal/report_data', to: 'admin_portal#report_data' 
   get 'admin_portal/update_users', to: 'admin_portal#update_users' 
 
-  get 'home/index', to: 'home#index'
+  get 'home/index/:gym', to: 'home#index'
   get 'kiosk/index', to: 'kiosk#index', as: 'kiosk'
   get 'kiosk/configure_exercise', to: 'kiosk#configure_exercise', as: 'kiosk_exercise'
   post 'kiosk/login', to: 'kiosk#login', as: 'kiosk_login'
   post 'kiosk/create', to: 'kiosk#create', as: 'create_kiosk'
   post 'kiosk/log_exercise', to: 'kiosk#log_exercise', as: 'log_exercise'
 
-  devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
+  devise_for :users, skip: [:sessions, :registrations]
+
+  devise_scope :user do
+    # sessions
+    get    'login/:gym',  to: 'users/sessions#new',     as: :new_user_session
+    post   'login/:gym',  to: 'users/sessions#create',  as: :user_session
+    delete 'logout', to: 'users/sessions#destroy', as: :destroy_user_session
+    # registrations
+    post   '/signup/:gym',  to: 'users/registrations#create'
+    get    '/signup/:gym', to: 'users/registrations#new',    as: :new_user_registration
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'workout/list', to: 'workout#list', as: 'list_workouts'
   get 'workout/manual_workout', to: 'workout#manual_workout', as: 'manual_workout'
@@ -79,7 +90,7 @@ Rails.application.routes.draw do
   post 'user/more_info', to: 'user#more_info', as: 'more_info'
 
   get 'home/ad', to: 'home#ad', as: 'home_ad'
-
+  get '/:gym', to: 'home#index'
   post 'user_note/create', to: 'user_note#create', as: 'create_user_note'
   # root to: 'profile#index'
   root to: 'home#index'

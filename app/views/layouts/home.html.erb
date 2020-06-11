@@ -24,14 +24,14 @@
       <div class="container">
         <div class="navbar-header">
           <%= link_to root_path, class: 'navbar-brand' do %>
-            <%= image_tag 'logo-snake.png', size: '55x55' %>
+             <%= image_tag @gym.nil? ? 'logo-snake.png' : @gym.logo.url, size: '55x55', id: 'nav-image' %>
           <% end %>
         </div>
         <div class="btn-group" role="group" aria-label="Basic example">
           <% if current_user %>
             <%= link_to "View Profile", profile_index_path , class: 'btn btn-primary' %>
           <% else %>
-            <%= button_tag "Sign In", class: 'btn btn-primary', data: {container: 'body', toggle: "popover", placement: "bottom", content: "#{render 'partials/sign_in_form'}"} %> <%= link_to 'Sign Up', new_user_registration_path, style: "margin-left: 0.5em;margin-top: 1.5em;" %>
+            <%= button_tag "Sign In", class: 'btn btn-primary', data: {container: 'body', toggle: "popover", placement: "bottom", content: "#{render 'partials/sign_in_form'}"} %> <%= link_to 'Sign Up', new_user_registration_path(gym: @gym&.subdomain || 'boomslangfitness'), style: "margin-left: 0.5em;margin-top: 1.5em;" %>
           <% end %>
         </div>
       </div>

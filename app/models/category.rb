@@ -16,8 +16,9 @@ class Category < ApplicationRecord
                             'thead-color' => 'bg-primary', 'style' => 'color: #D5FFFB;' } }
 
   enum food_categories: { protein: "protein",
-                          veg: 'vegtables',
+                          veg: 'fruit/vegtables',
                           beans: 'beans',
+                          carbs: 'carbs',
                           other: 'other', }
 
   scope :enabled, -> { where(disabled: false) }

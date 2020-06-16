@@ -18,11 +18,12 @@
 			</div>
 		</div>
 
-		<ul class="nav nav-tabs nav-fill" id="foodCategoryTabs" role=tablist>
+		<ul class="nav nav-tabs nav-fill" id="foodCategoryTabs" role=tablist style="overflow-x: auto;overflow-y:hidden;flex-wrap: nowrap;">
+			<li class="nav-item"><a class="nav-link active" id='favorites-list-tab' data-toggle='tab' href='#favorites-list' role='tab' aria-controls='favorites-list' aria-selected='true'>Favorites</a></li></li>
 			<% @food_categories.values.each_with_index do |cat, idx| %>
 				<li class="nav-item">
-					<%= link_to '#', class: "nav-link #{idx == 0 ? 'active': ''}", id: "#{cat}-tab",
-						data: {toggle: 'tab'}, href: "##{cat}", role: "tab", aria: {controls: "#{cat}", selected: "true"}  do %>
+					<%= link_to '#', class: "nav-link", id: "#{cat.gsub('/', '-')}-tab",
+						data: {toggle: 'tab'}, href: "##{cat.gsub('/', '-')}", role: "tab", aria: {controls: "#{cat.gsub('/', '-')}", selected: "true"}  do %>
 						<%= cat.capitalize %> <i class="<%= @icons[idx] %>"></i>
 					<% end %>
 			  </li>
@@ -31,8 +32,31 @@
 		</ul>
 
 		<div class="tab-content" id="foodCategoryTabContent">
+			<div class="tab-pane fade show active" id="favorites-list" role="tabpanel" aria-labelledby="favorites-list-tab">
+				<table class="table">
+	  			<thead>
+	  				<tr>
+	  					<th></th>
+	  					<th>Name</th>
+	  					<th>Calories</th>
+	  					<th />
+	  				</tr>
+	  			</thead>
+	  			<tbody>
+	  				<% @favorite_foods.each do |food| %>
+	  					<tr>
+		  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#F29F05;color:white;' %></td>
+		  					<td class="foodName"><%= food.name %></td>
+		  					<td class="foodCalories"><%= food.calories %></td>
+	  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Size: <%= food.serving_size %>"></i></td>
+		  					<td class="foodId" style="display:none;"><%= food.id %></td>
+		  				</tr>
+	  				<% end %>
+	  			</tbody>
+		  	</table>
+			</div>
 			<% @food_categories.each_with_index do |cat, idx| %>
-		  	<div class="tab-pane fade <%= idx == 0 ? 'show active' : '' %>" id="<%= cat[1] %>" role="tabpanel" aria-labelledby="<%= cat[1] %>-tab" style="height: 280px;overflow-y: scroll;">
+		  	<div class="tab-pane fade" id="<%= cat[1].gsub('/', '-') %>" role="tabpanel" aria-labelledby="<%= cat[1].gsub('/', '-') %>-tab" style="height: 280px;overflow-y: scroll;">
 		  		<table class="table">
 		  			<thead>
 		  				<tr>

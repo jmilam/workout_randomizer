@@ -13,9 +13,15 @@
 			<%= f.select(:category, Category.food_categories.collect { |key, value| [value.capitalize, key] }, { prompt: 'Select Food Category' }, class: 'form-control') %>
 		</div>
 
-		<div class="form-group">
-			<%= f.label :calories, "Total Calories:" %>
-			<%= f.text_field :calories, class: 'form-control' %>
+		<div class="row">
+			<div class="col-6 form-group">
+				<%= f.label :serving_size, "Serving Size:" %>
+				<%= f.text_field :serving_size, class: 'form-control' %>
+			</div>
+			<div class="col-6 form-group">
+				<%= f.label :calories, "Total Calories:" %>
+				<%= f.text_field :calories, class: 'form-control' %>
+			</div>
 		</div>
 
 		<div class="row">

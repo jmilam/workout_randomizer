@@ -11,8 +11,7 @@ class FoodController < ApplicationController
 
   def index
     @gym = current_user.gym
-    # @foods = Food.where(created_by_user_id: current_user.id).group_by(&:category)
-    @foods = Food.all.group_by(&:category)
+    @foods = Food.where(created_by_user_id: current_user.id).group_by(&:category)
     @food_categories = Category.food_categories
   end
 

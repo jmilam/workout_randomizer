@@ -57,27 +57,42 @@
 			</div>
 			<% @food_categories.each_with_index do |cat, idx| %>
 		  	<div class="tab-pane fade" id="<%= cat[1].gsub('/', '-') %>" role="tabpanel" aria-labelledby="<%= cat[1].gsub('/', '-') %>-tab" style="height: 280px;overflow-y: scroll;">
-		  		<table class="table">
-		  			<thead>
-		  				<tr>
-		  					<th></th>
-		  					<th>Name</th>
-		  					<th>Calories</th>
-		  					<th />
-		  				</tr>
-		  			</thead>
-		  			<tbody>
-				  		<% @foods[cat[0]]&.each do |food| %>
+		  		<div class="row" style="margin-top:10px;">
+						<div class="input-group">
+							<%= text_field_tag :search, nil, class: 'form-control col-8 offset-1 search', id: "#{cat[1].gsub('/', '-')}_search" %>
+				  		<div class="input-group-append">
+				      	<%= button_tag '', class: 'btn btn-success clear-submit btn-outline-success' do %>
+				      		<i class="fa fa-remove" aria-hidden="true"></i>
+				      	<% end %>
+				      	<%= button_tag '', class: 'btn btn-success search-submit btn-outline-success' do %>
+				      		<i class="fa fa-search" aria-hidden="true"></i>
+				      	<% end %>
+				      </div>
+				    </div>
+				  </div>
+				  <div style="height: 280px;overflow-y: scroll;">
+			  		<table class="table">
+			  			<thead>
 			  				<tr>
-			  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#F29F05;color:white;' %></td>
-			  					<td class="foodName"><%= food.name %></td>
-			  					<td class="foodCalories"><%= food.calories %></td>
-		  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Size: <%= food.serving_size %>"></i></td>
-			  					<td class="foodId" style="display:none;"><%= food.id %></td>
+			  					<th></th>
+			  					<th>Name</th>
+			  					<th>Calories</th>
+			  					<th />
 			  				</tr>
-			  			<% end %>
-		  			</tbody>
-		  		</table>
+			  			</thead>
+			  			<tbody>
+					  		<% @foods[cat[0]]&.each do |food| %>
+				  				<tr>
+				  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#F29F05;color:white;' %></td>
+				  					<td class="foodName"><%= food.name %></td>
+				  					<td class="foodCalories"><%= food.calories %></td>
+			  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Size: <%= food.serving_size %>"></i></td>
+				  					<td class="foodId" style="display:none;"><%= food.id %></td>
+				  				</tr>
+				  			<% end %>
+			  			</tbody>
+			  		</table>
+			  	</div>
 		  	</div>
 		  	<div class="tab-pane fade" id="selected-list" role="tabpanel" aria-labelledby="selected-list-tab" style="height: 280px;overflow-y: scroll;">
 		  		<table id="item-table" class="table">
@@ -107,6 +122,36 @@
 		e.preventDefault();
 		updateTable($(this));
 		updateTotal($(this));
+	});
+
+	$('.search-submit, .clear-submit').on('click', function(e) {
+		e.preventDefault();
+		let searchString = $(this).attr('class').includes('clear-submit') ? '' : $(this).parent().siblings('input').val()
+		let searchCategory = $(this).parent().siblings('input').attr('id')
+
+		$.ajax({
+		  url: "/food/search",
+		  method: "GET",
+		  data: { search_string : searchString, search_category: searchCategory },
+		  dataType: "json"
+		}).done(function(return_data){
+			let tableBody = $(e.target).parents('.active').children().last().children().children('tbody');
+			tableBody.children().remove();
+			$.each(return_data['foods'], function( index, food ) {
+				tableBody.append(
+					"<tr><td><button class='btn add_food', style='background-color:#F29F05;color:white;'>Add</button></td><td class='foodName'>" + `${food.name}` + "</td><td class='foodCalories'>" + `${food.calories}` + "</td><td><i class='fa fa-info-circle fa-lg' data-container='body' data-toggle='popover' data-placement='top' data-content='Protein (g): " +  `${food.protein}` + ", Carbs(g): " + `${food.carbs}` + ", Fats (g): " +  `${food.fat}` + ", Serving Size: " + `${food.serving_size}` + "'></i></td><td class='foodId' style='display:none;'>" + `${food.id}` + "</td></tr>"
+				)
+			});
+			$('.fa-info-circle').popover();
+			$('.fa-info-circle').on('click', function (e) {
+		    $('.fa-info-circle').not(this).popover('hide');
+			});
+			$('.add_food').on('click', function(e){
+				e.preventDefault();
+				updateTable($(this));
+				updateTotal($(this));
+			});
+		});
 	});
 
 	function updateTotal(data){

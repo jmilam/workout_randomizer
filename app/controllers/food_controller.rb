@@ -83,6 +83,12 @@ class FoodController < ApplicationController
     end
   end
 
+  def search
+    category = Category.food_categories.select{|key, value| value == params[:search_category]&.gsub("-", "/")&.scan(/[^_]+/)[0] }&.keys&.first
+    foods = Food.where("name ILIKE ? AND category = ?", "%#{params[:search_string]}%", category)
+    render json: { foods: foods }
+  end
+
   protected
 
   def food_params

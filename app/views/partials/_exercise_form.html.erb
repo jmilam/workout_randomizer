@@ -38,7 +38,7 @@
 					<h4 class="col-10 offset-1"><b>Workout Details:</b></h4>
 					<p class="lead col-10 offset-1">
 						<%= @workout.details %>
-						<% unless @workout.video.url.include?("missing") %>
+						<% if !@workout.intro_url.nil? || !@workout.video.url.include?("missing") %>
 							<span>
 								<button type="button" class="btn sidebar-collapse-button" data-toggle="modal" data-target="#<%= @workout.name.downcase.gsub(/[^0-9A-Za-z]/, '').prepend('_') %>Modal" aria-expanded="false" style="background:transparent;" title="See workout intro. Including form to enter weight">
 								  <i class="fa fa-external-link fa-lg fa-pull-right"></i>
@@ -55,7 +55,11 @@
 								      </div>
 								      <div class="modal-body boomslang-blue">
 								          <div style="background-color:black;">
+								          	<% if @workout.intro_url.nil? %>
 								      				<%= video_tag url_for(@workout.video.url), controls: '', autoplay: true, loop: true, style: 'height:400px;width:100%' %>
+								  					<% else %>
+								  						<iframe width="100%" height="300px" src="<%= @workout.intro_url %>" allow="accelerometer; autoplay; encrypted-media; gyroscope; " allowfullscreen></iframe>
+								  					<% end %>
 								  				</div>
 								      </div>
 								      <div class="modal-footer">

@@ -45,9 +45,13 @@
 
         <%= render 'partials/exercise_entry_details', exercise: exercise, previous_exercise: previous_workout&.workout_details&.where(exercise_id: exercise.id)&.last || [] , workout_date: workout_date, f: f %>
 
-        <% unless exercise.video.nil? %>
+        <% unless exercise.video.nil? || exercise.exercise_video_url.nil? %>
           <div style="background-color:black;">
-      				<%= video_tag url_for(exercise.common_exercise.video.url || exercise.video.url), controls: '', style: 'height:400px;width:100%' %>
+            <% if @workout.intro_url.nil? %>
+              <%= video_tag url_for(exercise.common_exercise.video.url || exercise.video.url), controls: '', style: 'height:400px;width:100%' %>
+            <% else %>
+              <iframe width="100%" height="300px" src="<%= exercise.exercise_video_url %>" allow="accelerometer; autoplay; encrypted-media; gyroscope; " allowfullscreen></iframe>
+            <% end %>
   				</div>
         <% end %>
       </div>

@@ -77,11 +77,17 @@
     </div>
 
     <div class="row">
-      <div class="col-md-3">
-        <%= f.label :video, "Upload Instructional Video ** Only .mp4 allowed **:" %>
+      <div class="col-md-6">
+        <%= f.label :exercise_video_url, "Exercise Video URL", class: 'col-md-12' %>
+        <%= f.text_field :exercise_video_url, class: 'col-md-12 form-control' %>
       </div>
-      <div class="col-md-1">
-        <%= f.file_field :video %>
+      <div class="col-md-6">
+        <div class="col-md-10">
+          <%= f.label :video, "Upload Instructional Video ** Only .mp4 allowed **:" %>
+        </div>
+        <div class="col-md-2">
+          <%= f.file_field :video %>
+        </div>
       </div>
     </div>
 

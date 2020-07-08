@@ -55,43 +55,42 @@
   <%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'background-color:#F29F05;' %>
 
   <%= link_to "Workout of the Day", kiosk_exercise_path(workout_id: @wod.workout_id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'background-color:#F29F05;' unless @wod.nil? %>
-
-  <div class="container-fluid">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="text-right"></th>
-          <th class='text-center'>Total</th>
-          <th class='text-center'>Remaining</th>
-          <th>Consumed</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><b><i>Calories</i></b></td>
-          <td class='text-center'><%= @user.tdee %></td>
-          <td class='text-center'><%= @remaining_tdee %></td>
-          <td class='text-center'><%= @user.tdee - @remaining_tdee %></td>
-        </tr>
-        <tr>
-          <td><b><i>Protein</i></b></td>
-          <td class='text-center'><%= @user.protein_total %></td>
-          <td class='text-center'><%= @remaining_protein %></td>
-          <td class='text-center'><%= (@user.protein_total - @remaining_protein).round(2) %></td>
-        </tr>
-        <tr>
-          <td><b><i>Carbs</i></b></td>
-          <td class='text-center'><%= @user.carb_total %></td>
-          <td class='text-center'><%= @remaining_carbs %></td>
-          <td class='text-center'><%= (@user.carb_total - @remaining_carbs).round(2) %></td>
-        </tr>
-        <tr>
-          <td><b><i>Fats</i></b></td>
-          <td class='text-center'><%= @user.fat_total %></td>
-          <td class='text-center'><%= @remaining_fats %></td>
-          <td class='text-center'><%= (@user.fat_total - @remaining_fats).round(2) %></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 <% end %>
+<div class="container-fluid">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="text-right"></th>
+        <th class='text-center'>Total</th>
+        <th class='text-center'>Remaining</th>
+        <th>Consumed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b><i>Calories</i></b></td>
+        <td class='text-center'><%= @user.tdee %></td>
+        <td class='text-center'><%= @remaining_tdee %></td>
+        <td class='text-center'><%= @user.tdee - @remaining_tdee %></td>
+      </tr>
+      <tr>
+        <td><b><i>Protein</i></b></td>
+        <td class='text-center'><%= @user.protein_total %></td>
+        <td class='text-center'><%= @remaining_protein %></td>
+        <td class='text-center'><%= (@user.protein_total - @remaining_protein).round(2) %></td>
+      </tr>
+      <tr>
+        <td><b><i>Carbs</i></b></td>
+        <td class='text-center'><%= @user.carb_total %></td>
+        <td class='text-center'><%= @remaining_carbs %></td>
+        <td class='text-center'><%= (@user.carb_total - @remaining_carbs).round(2) %></td>
+      </tr>
+      <tr>
+        <td><b><i>Fats</i></b></td>
+        <td class='text-center'><%= @user.fat_total %></td>
+        <td class='text-center'><%= @remaining_fats %></td>
+        <td class='text-center'><%= (@user.fat_total - @remaining_fats).round(2) %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

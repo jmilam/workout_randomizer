@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   delete 'daily_log/destroy_daily_log_food/:id', to: 'daily_log#destroy_daily_log_food', as: 'destroy_daily_log_food'
   get 'food/find_food_by_category', to: 'food#find_food_by_category', as: 'find_food_by_category'
   get 'nutrition_only/:gym', to: 'nutrition_only#index', as: 'nutrition_only_index'
+  get 'nutrition_only/overview/:gym', to: 'nutrition_only#overview', as: 'nutrition_only_overview'
   post 'nutrition_only/create', to: 'nutrition_only#create', as: 'create_nutrition_only'
 
   get 'daily_log/edit_daily_log_foods/:id', to: 'daily_log#edit_daily_log_foods', as: 'edit_daily_log_foods'

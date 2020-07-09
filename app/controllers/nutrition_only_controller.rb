@@ -28,6 +28,10 @@ class NutritionOnlyController < ApplicationController
     end
   end
 
+  def overview
+    @title = "Boomslang Nutrition"
+  end
+
   protected
 
   def user_params

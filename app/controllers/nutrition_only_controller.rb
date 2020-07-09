@@ -30,11 +30,13 @@ class NutritionOnlyController < ApplicationController
 
   def overview
     @title = "Boomslang Nutrition"
+    @gym = Gym.find_by(subdomain: params[:gym]) || Gym.find_by(subdomain: "boomslangfitness")
   end
 
   protected
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :height, :weight, :password, :email, :tdee, :gym_id)
+    params.require(:user).permit(:first_name, :last_name, :height, :weight, :password, :email, :tdee,
+      :gym_id, :protein_total, :carb_total, :fat_total)
   end
 end

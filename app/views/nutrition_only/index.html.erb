@@ -37,14 +37,36 @@
             <%= f.text_field :height, class: 'col-md-12 form-control' %>
           </div>
         </div>
-        <div class="row">
-          <div class="col-6 form-group">
-            <%= f.label :tdee, "Daily Calories", class: 'col-md-12' %>
-            <%= f.text_field :tdee, class: 'col-md-12 form-control' %>
-            <div class="text-muted text-center">
-              Not sure what yours is? <%= link_to "Click Here", "http://boomslangfitness.com/home/assessment", target: :_blank  %>
+        <div class="card">
+          <div class="card-header bg-dark text-white text-center">
+            Daily Nutrition Values
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3 col-6 form-group">
+                <%= f.label :tdee, "Calorie Total", class: 'col-md-12' %>
+                <%= f.text_field :tdee, class: 'col-md-12 form-control' %>
+              </div>
+              <div class="col-md-3 col-6 form-group">
+                <%= f.label :protein_total, "Protein Total", class: 'col-md-12' %>
+                <%= f.text_field :protein_total, class: 'col-md-12 form-control' %>
+              </div>
+              <div class="col-md-3 col-6 form-group">
+                <%= f.label :carb_total, "Carb Total", class: 'col-md-12' %>
+                <%= f.text_field :carb_total, class: 'col-md-12 form-control' %>
+              </div>
+              <div class="col-md-3 col-6 form-group">
+                <%= f.label :fat_total, "Fat Total", class: 'col-md-12' %>
+                <%= f.text_field :fat_total, class: 'col-md-12 form-control' %>
+              </div>
             </div>
           </div>
+          <div class="card-footer tex-center bg-dark text-white">
+            <p class="card-text">Not sure what yours is? <%= link_to "Click Here", "http://boomslangfitness.com/home/assessment", target: :_blank  %>
+            </p>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-6 form-group" style="display:none;">
             <%= f.label :gym_id, "Gym *", class: 'col-md-12' %>
             <%= f.select :gym_id, @gyms.collect { |gym| [gym.name, gym.id] }, {selected: @gym&.id, prompt: "Select Gym" }, class: 'col-md-12 form-control' %>

@@ -6,6 +6,12 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, bcc: ENV['EMAIL'], subject: 'Welcome to Boomslang Fitness!')
   end
 
+  def nutrition_email
+    @user = params[:user]
+
+    mail(to: "boomslangfitenss@gmail.com", subject: 'Nutrition Only Sign Up for Boomslang Fitness!')
+  end
+
   def more_info_email
     @user = params[:user]
 

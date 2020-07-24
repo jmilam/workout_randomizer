@@ -20,17 +20,16 @@
       </div>
     </div>
   </div>
+  <% unless @user.nutrition_only %>
+    <div class="col-md-12 col-12 text-center" style="margin-top:10px;margin-bottom:10px;">
+      <b>Current Workout:</b> <% unless @user.current_workout.nil? %><div style="color:#003259;"><%= @workout.name %></div> <%#= link_to "Change Workout", stop_workout_path, method: :patch, class: "btn btn btn-danger btn-sm text-center" %><% end %>
+    </div>
+  <% end %>
 </div>
 
-<% unless @user.nutrition_only %>
-  <div class="col-md-12 col-12 text-center" style="margin-top:10px;margin-bottom:10px;">
-    <b>Current Workout:</b> <% unless @user.current_workout.nil? %><div style="color:#003259;"><%= @workout.name %></div> <%= link_to "Change Workout", stop_workout_path, method: :patch, class: "btn btn btn-danger btn-block btn-sm text-center" %><% end %>
-  </div>
-<% end %>
-
-<div class="progress" style="height: 60px;margin-bottom:0;">
-  <div class="progress-bar progress-bar-striped bg-primary" style="width: <%= (((@user.tdee - @remaining_tdee)/@user.tdee.to_f) * 100.0).round %>%;color:black;text-align:center;padding-left:5px;" role="progressbar" aria-valuenow="<%= @user.tdee - @remaining_tdee %>" aria-valuemin="0" aria-valuemax="<%= @user.tdee %>"><%= @user.tdee - @remaining_tdee %> calories consumed</div>
-</div>
+<!-- <div class="progress" style="height: 60px;margin-bottom:0;">
+  <div class="progress-bar progress-bar-striped bg-primary" style="width: <%#= (((@user.tdee - @remaining_tdee)/@user.tdee.to_f) * 100.0).round %>%;color:black;text-align:center;padding-left:5px;" role="progressbar" aria-valuenow="<%#= @user.tdee - @remaining_tdee %>" aria-valuemin="0" aria-valuemax="<%#= @user.tdee %>"><%#= @user.tdee - @remaining_tdee %> calories consumed</div>
+</div> -->
 
 <% if @user.nutrition_only %>
     <div class="btn-group" role="group" aria-label="Basic example" style="margin-bottom:0;width:100%;">

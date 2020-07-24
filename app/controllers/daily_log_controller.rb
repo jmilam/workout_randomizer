@@ -26,7 +26,11 @@ class DailyLogController < ApplicationController
 
   def show
     @gym = current_user.gym
+
     @daily_log = DailyLog.find(params[:id])
+    @user = current_user
+    @remaining_tdee = @user.tdee - (@daily_log&.total_calories || 0)
+
     @daily_log_foods = @daily_log.daily_log_foods.includes(:food).group_by(&:food_id)
     macros_total = {protein: 0, carbs: 0, fats: 0}
     @daily_log_foods.values.flatten.each do |dlf|

@@ -11,6 +11,10 @@
 		<tr style="font-size:0.9em">
 			<th class="text-center" colspan="3">Protein: <%= @daily_log.total_protein %> g, Carbs: <%= @daily_log.total_carbs %> g, Fats: <%= @daily_log.total_fats%> g</th>
 		</tr>
+		<tr class="progress" style="height: 40px;margin-bottom:0;">
+		  <td class="progress-bar progress-bar-striped bg-primary" style="width: <%= (((@user.tdee - @remaining_tdee)/@user.tdee.to_f) * 100.0).round %>%;color:black;text-align:center;padding-left:5px;" role="progressbar" aria-valuenow="<%= @user.tdee - @remaining_tdee %>" aria-valuemin="0" aria-valuemax="<%= @user.tdee %>"><%= @user.tdee - @remaining_tdee %> calories consumed</td>
+		</tr>
+
 		<tr>
 			<th class="text-center" colspan="3" style="background-color:#F29F05;"><%= link_to "Add Food", edit_daily_log_path(@daily_log.id), class: 'btn btn-primary btn-block', style: 'background-color: transparent;border:0;' if @daily_log.calendar_date.in_time_zone == Date.today.in_time_zone %></th>
 		</tr>

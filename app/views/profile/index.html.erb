@@ -34,9 +34,9 @@
 <% if @user.nutrition_only %>
     <div class="btn-group" role="group" aria-label="Basic example" style="margin-bottom:0;width:100%;">
       <% if @daily_log.nil? %>
-        <%= link_to "Log Food", new_daily_log_path, class: "btn btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'background-color:#F29F05;' %>
+        <%= link_to "Log Food", new_daily_log_path, class: "btn btn profile-link col-md-6 col-sm-12 col-12 text-center", style: 'background-color:#F29F05;' %>
       <% else %>
-        <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'background-color:#F29F05;' %>
+        <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn profile-link col-md-6 col-sm-12 col-12 text-center", style: 'background-color:#F29F05;' %>
       <% end %>
       <%= link_to "My Foods", food_index_path, class: "btn btn profile-link col-md-12 col-sm-12 col-12 text-center", style: 'border-left: 1px solid #003259;background-color:#F29F05;'%>
     </div>

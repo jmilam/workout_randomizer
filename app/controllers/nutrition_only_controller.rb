@@ -4,6 +4,7 @@ class NutritionOnlyController < ApplicationController
   def index
     @gyms = Gym.all.includes(:users)
     @gym = Gym.find_by(subdomain: params[:gym])
+    @user = User.new
   end
 
   def create
@@ -12,7 +13,7 @@ class NutritionOnlyController < ApplicationController
     @user.nutrition_only = true
     #store values in case error
     @gyms = Gym.all.includes(:users)
-    
+
     if @user.save
       UserMailer.with(user: @user).nutrition_email.deliver_now
 
@@ -26,7 +27,7 @@ class NutritionOnlyController < ApplicationController
         error_string << "#{key}: " + messages.join(',') + "\n"
       end
       flash[:alert] = error_string
-      redirect_to nutrition_only_index_path(gym: @user.gym.subdomain)
+      redirect_to nutrition_only_index_path(gym: @user&.gym&.subdomain || 'boomslangfitness')
     end
   end
 

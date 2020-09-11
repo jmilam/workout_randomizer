@@ -45,7 +45,7 @@ class FoodGroupController < ApplicationController
       @food_group.save!
 
       flash[:notice] = "Food Group #{@food_group.name} was successfully created."
-      redirect_to gym_path(curren_user.gym.id)
+      redirect_to gym_path(current_user.gym.id)
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when creating your food group: #{error}"
       render :new

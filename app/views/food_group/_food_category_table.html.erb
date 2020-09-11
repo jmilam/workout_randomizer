@@ -1,0 +1,30 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th />
+			<th>Food</th>
+			<th>Calories (kcal)</th>
+			<th>Protein (g)</th>
+			<th>Carbs (g)</th>
+			<th>Fat (g)</th>
+			<th>Serving Size</th>
+			<th>Serving Qty</th>
+		</tr>
+	</thead>
+  <tbody>
+		<%= f.fields_for :food_group_pairings do |pairing_fields| %>
+			<% foods.each do |food| %>
+				<tr>
+					<td><%= pairing_fields.check_box :food_id, {multiple: true, class: 'food-checkbox', checked: @food_ids&.include?(food.id)}, food.id, nil %></td>
+					<td><%= food.name %></td>
+					<td><%= food.calories %></td>
+					<td><%= food.protein %></td>
+					<td><%= food.carbs %></td>
+					<td><%= food.fat %></td>
+					<td><%= food.serving_size %></td>
+					<td><%= pairing_fields.select :serving_qty, [1,2,3,4,5,6,7,8,9,10].collect {|p| [ p, p ] }, { selected: food_group_pairings.find { |pairing| pairing.food_id == food.id }&.serving_qty || 1}, {name: "food_group_food_group_pairings_serving_qty[#{food.id}]", id: "food_group_food_group_pairings_serving_qty_#{food.id}", class: 'qty-select' } %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>

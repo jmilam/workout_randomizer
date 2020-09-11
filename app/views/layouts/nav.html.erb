@@ -67,6 +67,69 @@
     <% end %>
   </body>
   <script>
+    $(document).ready(function() {
+      $('.food-checkbox').click(function() {
+        let food_values = $(this).parent('td').siblings()
+
+        if (this.checked) {
+          let totalCals = parseInt($(food_values[6]).children('select').val()) * parseFloat($(food_values[1]).text())
+          $('#selected-food-table tbody').append(`<tr food=${$(food_values[0]).text().replace(/\s/g, '')}><td></td><td>${$(food_values[0]).text()}</td><td class="calories">${totalCals}</td><td class="protein">${$(food_values[2]).text()}</td><td class="carbs">${$(food_values[3]).text()}</td><td class="fats">${$(food_values[4]).text()}</td><td>${$(food_values[5]).text()}</td><td>${$(food_values[6]).children('select').val()}</td></tr>`)
+          populateTotals()
+          
+        } else {        
+          $(`tr[food=${$(food_values[0]).text().replace(/\s/g, '')}]`).remove()
+          populateTotals()
+        }
+      });
+
+      $('.qty-select').change(function(){
+        var foodName = $(this).parent().siblings('td').eq(1).text().replace(/\s/g, '')
+        var updatedCals = $(this).val() * parseFloat($(this).parent().siblings('td').eq(2).text())
+        var updatedProtein = $(this).val() * parseFloat($(this).parent().siblings('td').eq(3).text())
+        var updatedCarbs = $(this).val() * parseFloat($(this).parent().siblings('td').eq(4).text())
+        var updatedFat = $(this).val() * parseFloat($(this).parent().siblings('td').eq(5).text())
+        var servingSize = $(this).parent().siblings('td').eq(6).text()
+        var updatedServing = (parseFloat(servingSize) * $(this).val()) + servingSize.match(/[^0-9]\S[a-z]+/g).join()
+
+        $(`tr[food=${foodName}]`).children().eq(2).text(updatedCals);
+        $(`tr[food=${foodName}]`).children().eq(3).text(updatedProtein);
+        $(`tr[food=${foodName}]`).children().eq(4).text(updatedCarbs);
+        $(`tr[food=${foodName}]`).children().eq(5).text(updatedFat);
+        $(`tr[food=${foodName}]`).children().eq(6).text(updatedServing);
+        $(`tr[food=${foodName}]`).children().last().text($(this).val());
+
+        populateTotals();
+      })
+    });
+
+    function populateTotals() {
+      caloriesSum = 0
+      proteinSum = 0
+      carbsSum = 0
+      fatSum = 0
+
+      $.each($('.calories'), function( idx, value) {
+          caloriesSum += parseFloat($(value).text()) 
+      })
+
+      $.each($('.protein'), function( idx, value) {
+          proteinSum += parseFloat($(value).text()) 
+      })
+
+      $.each($('.carbs'), function( idx, value) {
+          carbsSum += parseFloat($(value).text()) 
+      })
+
+      $.each($('.fats'), function( idx, value) {
+          fatSum += parseFloat($(value).text()) 
+      })
+
+        $('#totalCalories').text(caloriesSum)
+        $('#totalProtein').text(proteinSum)
+        $('#totalCarbs').text(carbsSum)
+        $('#totalFat').text(fatSum)
+    }
+
     $('.rep_input').on('focusout', function(e){
       let rep_total = $(this).parents('.row').children().length
       let tally_count = 0

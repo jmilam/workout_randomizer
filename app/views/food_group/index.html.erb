@@ -1,0 +1,12 @@
+<%= render "partials/alert" %>
+
+<table class="table table-stripped">
+	<tbody>
+		<% @food_groups.each do |food_group| %>
+			<tr>
+				<td><%= food_group.name %></td>
+				<td><%= link_to "Edit", edit_food_group_path(food_group.id) %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

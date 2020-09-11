@@ -1,0 +1,43 @@
+<div class="col-12 offset-md-3 col-md-9">
+	<table class="table" id="selected-food-table">
+		<thead class="boomslang-green">
+			<tr>
+				<th />
+				<th>Food</th>
+				<th>Calories (kcal)</th>
+				<th>Protein (g)</th>
+				<th>Carbs (g)</th>
+				<th>Fat (g)</th>
+				<th>Serving Size</th>
+				<th>Serving Qty</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @food_group.food_group_pairings.each do |pairing| %>
+				<% food = pairing.food %>
+				<tr food="<%= food.name.gsub(/\s/, '') %>">
+					<td />
+					<td><%= food.name %></td>
+					<td class="calories"><%= food.calories * pairing.serving_qty %></td>
+					<td class="protein"><%= food.protein * pairing.serving_qty %></td>
+					<td class="carbs"><%= food.carbs * pairing.serving_qty %></td>
+					<td class="fats"><%= food.fat * pairing.serving_qty %></td>
+					<td><%= food.serving_size %></td>
+					<td><%= pairing.serving_qty %></td>
+				</tr>
+			<% end %>
+		</tbody>
+		<tfoot>
+			<tr id="totalRow" class="boomslang-green">
+				<td>Food Group Totals:</td>
+				<td />
+				<td id="totalCalories"><%= @food_totals.sum { |food_total| food_total[:total_calories] } %></td>
+				<td id="totalProtein"><%= @food_totals.sum { |food_total| food_total[:total_protein] } %></td>
+				<td id="totalCarbs"><%= @food_totals.sum { |food_total| food_total[:total_carbs] } %></td>
+				<td id="totalFat"><%= @food_totals.sum { |food_total| food_total[:total_fat] } %></td>
+				<td />
+				<td />
+			</tr>
+		</tfoot>
+	</table>
+</div>

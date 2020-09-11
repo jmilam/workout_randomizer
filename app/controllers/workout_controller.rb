@@ -80,6 +80,8 @@ class WorkoutController < ApplicationController
     @workouts = Workout.sort_by_likes(current_user).in_groups_of(2)
     @workouts = Workout.remove_nils(@workouts)
     @top_workouts = Workout.top_workouts_by_category(@workouts).first
+    @common_equipment = CommonEquipment.select([:id, :name])
+    @user_goals = User.goals
   end
 
   def accept_workout

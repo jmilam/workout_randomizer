@@ -85,6 +85,7 @@ Rails.application.routes.draw do
   resources :time_card
   resources :food
   resources :daily_log
+  resources :food_group
 
   put 'user/disable_user/:id', to: 'user#disable_user', as: 'disable_user'
   put 'user/enable_user/:id', to: 'user#enable_user', as: 'enable_user'

@@ -33,6 +33,7 @@ class GymController < ApplicationController
     @employees = @gym.users.where(employee: true).order(last_name: :asc)
     @clients = @gym.users.where(employee: false).order(last_name: :asc)
     @common_exercises = CommonExercise.order(name: :asc)
+    @food_groups = current_user.gym.food_groups
     # TODO: When we onboard more gyms, display only gyms configured common exercises
     # @common_exercises = @gym.common_exercises
   end

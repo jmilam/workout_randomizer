@@ -1,0 +1,28 @@
+<div class="container">
+	<div class="row">
+	  <div class="col-12 col-md-3">
+	    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+	      <a class="nav-link active" id="v-pills-protein-tab" data-toggle="pill" href="#v-pills-protein" role="tab" aria-controls="v-pills-protein" aria-selected="true">Protein</a>
+	      <a class="nav-link" id="v-pills-veg-tab" data-toggle="pill" href="#v-pills-veg" role="tab" aria-controls="v-pills-veg" aria-selected="false">Fruits/Vegtables</a>
+	      <a class="nav-link" id="v-pills-beans-tab" data-toggle="pill" href="#v-pills-beans" role="tab" aria-controls="v-pills-beans" aria-selected="false">Beans</a>
+	      <a class="nav-link" id="v-pills-carbs-tab" data-toggle="pill" href="#v-pills-carbs" role="tab" aria-controls="v-pills-carbs" aria-selected="false">Carbs</a>
+	      <a class="nav-link" id="v-pills-other-tab" data-toggle="pill" href="#v-pills-other" role="tab" aria-controls="v-pills-other" aria-selected="false">Other</a>
+	    </div>
+	  </div>
+	  <div class="col-12 col-md-9">
+			<div class="col-md-12 col-sm-12 col-12 form-group" style="padding-bottom: 2em;padding-top: 1em;">
+				<%= f.label :name, "Food Pairing Name" %>
+				<%= f.text_field :name, class: "form-control" %>
+			</div>
+	    <div class="tab-content" id="v-pills-tabContent">
+	    	<% Category.food_categories.each_with_index do |category, idx| %>
+		      <div class="tab-pane fade show <%= idx.zero? ? 'active' : '' %>" id="v-pills-<%= category[0]%>" role="tabpanel" aria-labelledby="v-pills-<%=category[0]%>-tab">
+		      	<%= render 'food_category_table', foods: @grouped_foods[category[0].to_s] || [], f: f, food_ids: @food_ids || [], food_group_pairings: @food_group.food_group_pairings || [] %>
+		      </div>
+	   		<% end %>
+	    </div>
+	  </div>
+	</div>
+	<table class="table">
+	</table>
+</div>

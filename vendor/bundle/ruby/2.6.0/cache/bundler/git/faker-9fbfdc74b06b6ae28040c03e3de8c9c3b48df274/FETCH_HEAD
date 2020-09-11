@@ -1,8 +1,8 @@
+d707f76b89ccf554ccdf77534ec1a76f83ff856b		branch 'bump-version-to-2-13-0' of https://github.com/faker-ruby/faker
 4a3c41ae890c29aef53395cdd33534ae0531b4eb		branch 'circleci' of https://github.com/faker-ruby/faker
-c1a761ef91011b2b2e7ebb21fe053f98d4f9c55e		branch 'dependabot/bundler/simplecov-eq-0.18.5' of https://github.com/faker-ruby/faker
-380496d8a3c9024b04120d0dceeadf930ee0ac5f		branch 'drop-ruby-head' of https://github.com/faker-ruby/faker
+337e03cdb007ac5fc94a6826f362c9642f2fc9cf		branch 'dependabot/bundler/simplecov-eq-0.19.0' of https://github.com/faker-ruby/faker
 fa2aeb37bebf0ab74afe480d8b675da8ce5fce70		branch 'jruby' of https://github.com/faker-ruby/faker
-20af4e30bf00ff29c9e8528c2919443af3e6e64d		branch 'master' of https://github.com/faker-ruby/faker
+35ec5ed4e8a7f7477a6583a8de9a70256d4192a2		branch 'master' of https://github.com/faker-ruby/faker
 b913e7cba609b42c74f7968840270c74a1cbbd0b	not-for-merge	tag '1.9.4' of https://github.com/faker-ruby/faker
 401948a0c89acf81c748ea2d2988162e9fd94cb2	not-for-merge	tag '1.9.6' of https://github.com/faker-ruby/faker
 ed1ef707e272772ef70a1e838cb2f6863b22b48b	not-for-merge	tag '2.0' of https://github.com/faker-ruby/faker
@@ -56,6 +56,7 @@ e4219e9a94c69406913053ecc152c3f2d7fb297d	not-for-merge	tag 'v2.10.1' of https://
 7cd23767884628f36283208a4ad1da2fe689444f	not-for-merge	tag 'v2.10.2' of https://github.com/faker-ruby/faker
 4638d25a029b73b30fc25b85e2f586431d85d8d8	not-for-merge	tag 'v2.11.0' of https://github.com/faker-ruby/faker
 fa40e0da9741105b032d456c6219239c3d6dff8c	not-for-merge	tag 'v2.12.0' of https://github.com/faker-ruby/faker
+605b405ff9804df525ced6186991b5313f40e0a9	not-for-merge	tag 'v2.13.0' of https://github.com/faker-ruby/faker
 dc9e62f8919f2513b33a94815cb2a4c52285d0b3	not-for-merge	tag 'v2.2.0' of https://github.com/faker-ruby/faker
 9365f60abdcdfa4b8990ff14b6c4518c2610e68b	not-for-merge	tag 'v2.2.1' of https://github.com/faker-ruby/faker
 515fdbfe1091c30c272ab1214081414353e4180d	not-for-merge	tag 'v2.2.2' of https://github.com/faker-ruby/faker

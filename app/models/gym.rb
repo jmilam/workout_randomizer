@@ -10,6 +10,7 @@ class Gym < ApplicationRecord
   has_many :tasks
   has_many :gym_admins
   has_many :common_exercises
+  has_many :food_groups
 
   validates :name, :phone_number, presence: true
   has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" },

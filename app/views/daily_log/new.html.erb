@@ -44,7 +44,7 @@
 		  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#F29F05;color:white;' %></td>
 		  					<td class="foodName"><%= food.name %></td>
 		  					<td class="foodCalories"><%= food.calories %></td>
-	  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Size: <%= food.serving_size %>"></i></td>
+	  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-html='true' data-placement="left" data-content="<h5 class='text-center'><%= food.name %></h5><hr />* Protein (g): <%= food.protein%><br />* Carbs(g): <%= food.carbs %><br />* Fats (g): <%= food.fat %><br />* Serving Size: <%= food.serving_size %>"></i></td>
 		  					<td class="foodId" style="display:none;"><%= food.id %></td>
 		  				</tr>
 	  				<% end %>
@@ -69,7 +69,7 @@
 			  					<td><%= button_tag 'Add', class: 'btn add_meal', style: 'background-color:#F29F05;color:white;' %></td>
 			  					<td class="foodName"><%= meal.name %></td>
 			  					<td class="foodCalories"><%= food_group_pairings.sum { |pair| pair.food.calories } %></td>
-									<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food_group_pairings.sum { |pair| pair.food.protein } %>, Carbs(g): <%= food_group_pairings.sum { |pair| pair.food.carbs } %>, Fats (g): <%= food_group_pairings.sum { |pair| pair.food.fat } %>"></i></td>
+									<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-html="true" data-placement="left" data-content="<h5 class='text-center'><%= meal.name %></h5><hr />* Protein (g): <%= food_group_pairings.sum { |pair| pair.food.protein } %><br/>* Carbs(g): <%= food_group_pairings.sum { |pair| pair.food.carbs } %><br />* Fats (g): <%= food_group_pairings.sum { |pair| pair.food.fat } %> <hr /><p>Foods included in meal:<hr/><% food_group_pairings.each do |pairing| %>* <%= pairing.food.name %> - <%= pairing.serving_qty %> x <%= pairing.food.serving_size %> <br /><% end %><p>"></i></td>
 			  					<td class="mealId" style="display:none;"><%= meal.id %></td>
 			  				</tr>
 							<% end %>
@@ -108,7 +108,7 @@
 				  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#F29F05;color:white;' %></td>
 				  					<td class="foodName"><%= food.name %></td>
 				  					<td class="foodCalories"><%= food.calories %></td>
-			  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Size: <%= food.serving_size %>"></i></td>
+			  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-html="true" data-placement="left" data-content="<h5 class='text-center'><%= food.name %></h5><hr/>* Protein (g): <%= food.protein%><br />* Carbs(g): <%= food.carbs %><br />* Fats (g): <%= food.fat %><br />* Serving Size: <%= food.serving_size %>"></i></td>
 				  					<td class="foodId" style="display:none;"><%= food.id %></td>
 				  				</tr>
 				  			<% end %>
@@ -190,7 +190,7 @@
 			tableBody.children().remove();
 			$.each(return_data['foods'], function( index, food ) {
 				tableBody.append(
-					"<tr><td><button class='btn add_food', style='background-color:#F29F05;color:white;'>Add</button></td><td class='foodName'>" + `${food.name}` + "</td><td class='foodCalories'>" + `${food.calories}` + "</td><td><i class='fa fa-info-circle fa-lg' data-container='body' data-toggle='popover' data-placement='top' data-content='Protein (g): " +  `${food.protein}` + ", Carbs(g): " + `${food.carbs}` + ", Fats (g): " +  `${food.fat}` + ", Serving Size: " + `${food.serving_size}` + "'></i></td><td class='foodId' style='display:none;'>" + `${food.id}` + "</td></tr>"
+					"<tr><td><button class='btn add_food', style='background-color:#F29F05;color:white;'>Add</button></td><td class='foodName'>" + `${food.name}` + "</td><td class='foodCalories'>" + `${food.calories}` + "</td><td><i class='fa fa-info-circle fa-lg' data-container='body' data-toggle='popover' data-html='true' data-placement='left' data-content='<h5 class=`text-center`>" + `${food.name}` + "</h5>* Protein (g): " +  `${food.protein}` + "<br/>* Carbs(g): " + `${food.carbs}` + "<br />* Fats (g): " +  `${food.fat}` + "<br />* Serving Size: " + `${food.serving_size}` + "'></i></td><td class='foodId' style='display:none;'>" + `${food.id}` + "</td></tr>"
 				)
 			});
 			$('.fa-info-circle').popover();

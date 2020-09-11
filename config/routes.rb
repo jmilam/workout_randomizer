@@ -70,6 +70,7 @@ Rails.application.routes.draw do
 
   get 'daily_log/edit_daily_log_foods/:id', to: 'daily_log#edit_daily_log_foods', as: 'edit_daily_log_foods'
   get 'food/search', to: 'food#search'
+  get 'food_group/add_meal', to: 'food_group#add_meal'
 
   resources :profile
   resources :workout

@@ -115,6 +115,12 @@ class FoodGroupController < ApplicationController
     end
   end
 
+  def add_meal
+    food_group = FoodGroup.includes(:food_group_pairings).find(params[:id])
+
+    render json: { food_pairings: food_group.food_group_pairings.as_json(include: :food) }
+  end
+
   protected
 
   def food_group_params

@@ -22,6 +22,7 @@ class DailyLogController < ApplicationController
     @food_categories = Category.food_categories
     @icons = ["fa fa-egg", "fa fa-carrot", "", "fa fa-cheese"]
     @favorite_foods = DailyLog.where(calendar_date: Date.today.beginning_of_week..(Date.today.beginning_of_week + 7)).map(&:foods).flatten.uniq[0..14]
+    @meals = @gym.food_groups.includes(:food_group_pairings)
   end
 
   def show
@@ -54,6 +55,7 @@ class DailyLogController < ApplicationController
     @food_categories = Category.food_categories
     @icons = ["fa fa-egg", "fa fa-carrot", "", "fa fa-cheese"]
     @favorite_foods = DailyLog.where(calendar_date: Date.today.beginning_of_week..(Date.today.beginning_of_week + 7)).map(&:foods).flatten.uniq[0..14]
+    @meals = @gym.food_groups.includes(:food_group_pairings)
   end
 
   def create

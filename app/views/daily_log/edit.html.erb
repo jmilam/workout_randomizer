@@ -20,6 +20,7 @@
 
 		<ul class="nav nav-tabs nav-fill" id="foodCategoryTabs" role=tablist style="overflow-x: auto;overflow-y:hidden;flex-wrap: nowrap;margin-top:-25px;">
 			<li class="nav-item"><a class="nav-link active" id='favorites-list-tab' data-toggle='tab' href='#favorites-list' role='tab' aria-controls='favorites-list' aria-selected='true'>Recent Foods</a></li></li>
+			<li class="nav-item"><a class="nav-link" id='meal-groups-list-tab' data-toggle='tab' href='#meal-groups-list' role='tab' aria-controls='meal-groups-list' aria-selected='true'>Meals</a></li></li>
 			<% @food_categories.values.each_with_index do |cat, idx| %>
 				<li class="nav-item">
 					<%= link_to '#', class: "nav-link", id: "#{cat.gsub('/', '-')}-tab",
@@ -48,12 +49,38 @@
 		  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#F29F05;color:white;' %></td>
 		  					<td class="foodName"><%= food.name %></td>
 		  					<td class="foodCalories"><%= food.calories %></td>
-	  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Size: <%= food.serving_size %>"></i></td>
+	  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-html="true" data-placement="left" data-content="<h5 class='text-center'><%= food.name %></h5><hr/>* Protein (g): <%= food.protein%><br />* Carbs(g): <%= food.carbs %><br />* Fats (g): <%= food.fat %><br />* Serving Size: <%= food.serving_size %>"></i></td>
 		  					<td class="foodId" style="display:none;"><%= food.id %></td>
 		  				</tr>
 	  				<% end %>
 	  			</tbody>
 		  	</table>
+			</div>
+			<div class="tab-pane fade show" id="meal-groups-list" role="tabpanel" aria-labelledby="meal-groups-list-tab" style="height: 280px;overflow-y: scroll;">
+				<div style="height: 280px;overflow-y: scroll;">
+		  		<table class="table">
+		  			<thead>
+		  				<tr>
+		  					<th></th>
+		  					<th>Name</th>
+		  					<th>Calories</th>
+		  					<th />
+		  				</tr>
+		  			</thead>
+		  			<tbody>
+							<% @meals.each_with_index do |meal, idx| %>
+								<% food_group_pairings = meal.food_group_pairings %>
+								<tr>
+			  					<td><%= button_tag 'Add', class: 'btn add_meal', style: 'background-color:#F29F05;color:white;' %></td>
+			  					<td class="foodName"><%= meal.name %></td>
+			  					<td class="foodCalories"><%= food_group_pairings.sum { |pair| pair.food.calories } %></td>
+									<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-html="true" data-placement="left" data-content="<h5 class='text-center'><%= meal.name %></h5><hr />* Protein (g): <%= food_group_pairings.sum { |pair| pair.food.protein } %><br/>* Carbs(g): <%= food_group_pairings.sum { |pair| pair.food.carbs } %><br />* Fats (g): <%= food_group_pairings.sum { |pair| pair.food.fat } %> <hr /><p>Foods included in meal:<hr/><% food_group_pairings.each do |pairing| %>* <%= pairing.food.name %> - <%= pairing.serving_qty %> x <%= pairing.food.serving_size %> <br /><% end %><p>"></i></td>
+			  					<td class="mealId" style="display:none;"><%= meal.id %></td>
+			  				</tr>
+							<% end %>
+						</tbody>
+						</table>
+				</div>
 			</div>
 			<% @food_categories.each_with_index do |cat, idx| %>
 		  	<div class="tab-pane fade" id="<%= cat[1].gsub('/', '-') %>" role="tabpanel" aria-labelledby="<%= cat[1].gsub('/', '-') %>-tab" style="height: 280px;">
@@ -86,7 +113,7 @@
 				  					<td><%= button_tag 'Add', class: 'btn add_food', style: 'background-color:#F29F05;color:white;' %></td>
 				  					<td class="foodName"><%= food.name %></td>
 				  					<td class="foodCalories"><%= food.calories %></td>
-			  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-placement="top" data-content="Protein (g): <%= food.protein%>, Carbs(g): <%= food.carbs %>, Fats (g): <%= food.fat %>, Serving Size: <%= food.serving_size %>"></i></td>
+			  						<td><i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-html="true" data-placement="left" data-content="<h5 class='text-center'><%= food.name %></h5><hr/>* Protein (g): <%= food.protein%><br />* Carbs(g): <%= food.carbs %><br />* Fats (g): <%= food.fat %><br />* Serving Size: <%= food.serving_size %>"></i></td>
 				  					<td class="foodId" style="display:none;"><%= food.id %></td>
 				  				</tr>
 				  			<% end %>
@@ -124,6 +151,35 @@
 		updateTotal($(this));
 	});
 
+	$('.add_meal').on('click', function(e){
+		e.preventDefault();
+
+		let meal_id = $(this).parents('tr').children('td.mealId').text();
+
+		$.ajax({
+		  url: "/food_group/add_meal",
+		  method: "GET",
+		  data: { id : meal_id },
+		  dataType: "json"
+		}).done(function(return_data){
+			$.each(return_data['food_pairings'], function(index, food_pairing){
+				for (i = 0; i < food_pairing.serving_qty; i++) {
+					$('#item-table tbody').append('<tr><td style="display:none;">' + food_pairing.food_id + '</td><td>' + food_pairing.food.name + '</td><td class="selectedCalories">' + food_pairing.food.calories + '</td><td><%= button_tag 'Remove', class: 'btn btn-danger remove_food', onClick: 'removeData(this)' %></td></tr>');
+					$('#selected_food_ids').val($('#selected_food_ids').val() + ',' + food_pairing.food_id);
+					$('#selected-food').text(parseInt($('#selected-food').text()) + 1);
+
+					$('#totalCalories').text(parseFloat($('#totalCalories').text()) + food_pairing.food.calories)
+					$('#totalCaloriesAvail').text(parseFloat($('#totalCaloriesAvail').text()) - food_pairing.food.calories)
+					if (parseFloat($('#totalCaloriesAvail').text()) < 0.0) {
+						$('#totalCaloriesAvail').css('color', 'red');
+					} else {
+					 	$('#totalCaloriesAvail').css('color', 'black');
+					}
+				}
+			})
+		});
+	})
+
 	$('.search-submit, .clear-submit').on('click', function(e) {
 		e.preventDefault();
 		let searchString = $(this).attr('class').includes('clear-submit') ? '' : $(this).parent().siblings('input').val()
@@ -139,7 +195,7 @@
 			tableBody.children().remove();
 			$.each(return_data['foods'], function( index, food ) {
 				tableBody.append(
-					"<tr><td><button class='btn add_food', style='background-color:#F29F05;color:white;'>Add</button></td><td class='foodName'>" + `${food.name}` + "</td><td class='foodCalories'>" + `${food.calories}` + "</td><td><i class='fa fa-info-circle fa-lg' data-container='body' data-toggle='popover' data-placement='top' data-content='Protein (g): " +  `${food.protein}` + ", Carbs(g): " + `${food.carbs}` + ", Fats (g): " +  `${food.fat}` + ", Serving Size: " + `${food.serving_size}` + "'></i></td><td class='foodId' style='display:none;'>" + `${food.id}` + "</td></tr>"
+					"<tr><td><button class='btn add_food', style='background-color:#F29F05;color:white;'>Add</button></td><td class='foodName'>" + `${food.name}` + "</td><td class='foodCalories'>" + `${food.calories}` + "</td><td><i class='fa fa-info-circle fa-lg' data-container='body' data-toggle='popover' data-html='true' data-placement='left' data-content='<h5 class=`text-center`>" + `${food.name}` + "</h5>* Protein (g): " +  `${food.protein}` + "<br/>* Carbs(g): " + `${food.carbs}` + "<br />* Fats (g): " +  `${food.fat}` + "<br />* Serving Size: " + `${food.serving_size}` + "'></i></td><td class='foodId' style='display:none;'>" + `${food.id}` + "</td></tr>"
 				)
 			});
 			$('.fa-info-circle').popover();
@@ -160,7 +216,7 @@
 		if (parseFloat($('#totalCaloriesAvail').text()) < 0.0) {
 			$('#totalCaloriesAvail').css('color', 'red');
 		} else {
-			$('#totalCaloriesAvail').css('color', 'black');
+		 	$('#totalCaloriesAvail').css('color', 'black');
 		}
 	};
 
@@ -197,6 +253,7 @@
 		if (parseFloat($('#totalCaloriesAvail').text()) < 0.0) {
 			$('#totalCaloriesAvail').css('color', 'red');
 		} else {
+			console.log("NOT NEG")
 			$('#totalCaloriesAvail').css('color', 'black');
 		}
 	}

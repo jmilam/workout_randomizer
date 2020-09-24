@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_09_184036) do
+ActiveRecord::Schema.define(version: 2020_09_24_110630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,8 @@ ActiveRecord::Schema.define(version: 2020_09_09_184036) do
     t.bigint "logo_file_size"
     t.datetime "logo_updated_at"
     t.string "subdomain"
+    t.integer "protein_threshold", default: 30
+    t.integer "carb_limit", default: 50
   end
 
   create_table "inboxes", force: :cascade do |t|

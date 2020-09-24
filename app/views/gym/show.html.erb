@@ -61,11 +61,16 @@
 								  </div>
 
 									<div class="row">
-									  <div class="col-12">
-											<%= f.label :logo, "Upload Gym Logo: " %>
+										<div class="col-md-4 col-12">
+											<%= f.label :protein_threshold %> <i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-html='true' data-placement="top" data-content="<h5 class='text-center'>Protein Threshold</h5><hr />* By setting the protein threshold, you are setting a recommended minimum conssumption of protein per meal. This is defaulted to 30g per meal, because of recommendations for optimum proetin synthesis."></i>
+											<%= f.text_field :protein_threshold, class: 'form-control' %>
 										</div>
-
-										<div class="col-12">
+										<div class="col-md-4 col-12">
+											<%= f.label :carb_limit %> <i class="fa fa-info-circle fa-lg" data-container="body" data-toggle="popover" data-html='true' data-placement="top" data-content="<h5 class='text-center'>Carb Limit</h5><hr />* By setting this carb limit, you are setting a recommended limit of carbohydrate consumption for the day. This is defaulted to 50g daily, because of nutrition recommendations for weight loss."></i>
+											<%= f.text_field :carb_limit, class: 'form-control' %>
+										</div>
+									  <div class="col-md-4 col-12">
+											<%= f.label :logo, "Upload Gym Logo: " %>
 											<%= f.file_field :logo %>
 										</div>
 									</div>
@@ -367,6 +372,11 @@
 <!-- </div> -->
 
 <script>
+	$('.fa-info-circle').popover();
+	$('.fa-info-circle').on('click', function (e) {
+    $('.fa-info-circle').not(this).popover('hide');
+	});
+
 	$('#gym-update').on('click', function(e) {
 		e.preventDefault();
 		$('.edit_gym').submit();

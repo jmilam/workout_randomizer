@@ -39,7 +39,7 @@ class GymController < ApplicationController
   end
 
   def create
-    @gym = Gym.new(params.require(:gym).permit(:name, :phone_number, :address, :city, :state, :zipcode, :time_zone, :logo))
+    @gym = Gym.new(params.require(:gym).permit(:name, :phone_number, :address, :city, :state, :zipcode, :time_zone, :logo, :carb_limit, :protein_threshold))
     
     @gym.save
 
@@ -61,6 +61,6 @@ class GymController < ApplicationController
   protected
 
   def gym_params
-    params.require(:gym).permit(:name, :phone_number, :address, :city, :state, :zipcode, :logo)
+    params.require(:gym).permit(:name, :phone_number, :address, :city, :state, :zipcode, :logo, :carb_limit, :protein_threshold)
   end
 end

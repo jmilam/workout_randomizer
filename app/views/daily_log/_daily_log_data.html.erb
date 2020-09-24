@@ -215,8 +215,8 @@
 	function updateTotal(data){
 		$('#totalCalories').text(parseFloat($('#totalCalories').text()) + parseFloat(data.parent().siblings('.foodCalories').text()))
 		$('#totalCaloriesAvail').text(parseFloat($('#totalCaloriesAvail').text()) - parseFloat(data.parent().siblings('.foodCalories').text()))
-		$('#totalProtein').text(parseFloat($('#totalProtein').text()) - parseFloat(data.parent().siblings('td.protein').text()))
-		$('#totalCarbs').text(parseFloat($('#totalCarbs').text()) - parseFloat(data.parent().siblings('.carbs').text()))
+		$('#totalProtein').text((parseFloat($('#totalProtein').text()) - parseFloat(data.parent().siblings('td.protein').text())).toFixed(2))
+		$('#totalCarbs').text((parseFloat($('#totalCarbs').text()) - parseFloat(data.parent().siblings('.carbs').text())).toFixed(2))
 
 		if (parseFloat($('#totalCaloriesAvail').text()) < 0.0) {
 			$('#totalCaloriesAvail').css('color', 'red');
@@ -243,8 +243,8 @@
 
 		$('#totalCalories').text(parseFloat($('#totalCalories').text()) - parseFloat(calorieCount));
 		$('#totalCaloriesAvail').text(parseFloat($('#totalCaloriesAvail').text()) + parseFloat(calorieCount));
-		$('#totalProtein').text(parseFloat($('#totalProtein').text()) + parseFloat(proteinCount));
-		$('#totalCarbs').text(parseFloat($('#totalCarbs').text()) + parseFloat(carbCount));
+		$('#totalProtein').text((parseFloat($('#totalProtein').text()) + parseFloat(proteinCount)).toFixed(2));
+		$('#totalCarbs').text((parseFloat($('#totalCarbs').text()) + parseFloat(carbCount)).toFixed(2));
 
 		let counter = 0;
 		let ids = $('#selected_food_ids').val().split(',')

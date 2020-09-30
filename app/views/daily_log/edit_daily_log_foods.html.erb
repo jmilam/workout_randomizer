@@ -1,7 +1,7 @@
-<div class="jumbotron">
-	<h4 class="text-center">Food Log Date:</h4>
-	<h5 class="text-center text-muted"><%= @daily_log.calendar_date.strftime("%m/%d/%Y") %></h5>
-	<p class="text-center" style="margin-left:20px;"><%= link_to "<< Back to food log", daily_log_path(@daily_log.id) %></p>
+<div class="jumbotron" style="background-color: #F25116;">
+	<h4 class="text-center" style="color:white;">Food Log Date:</h4>
+	<h5 class="text-center text-muted" style="color:white;"><%= @daily_log.calendar_date.strftime("%m/%d/%Y") %></h5>
+	<p class="text-center" style="margin-left:20px;"><%= link_to "<< Back to food log", daily_log_path(@daily_log.id), style: "color: #048ABF;" %></p>
 </div>
 
 

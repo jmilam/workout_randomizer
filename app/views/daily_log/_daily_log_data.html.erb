@@ -2,17 +2,17 @@
     <%#= hidden_field_tag 'selected_food_qtys', '', id: 'selected_food_qtys' %>
 
     <div class="row">
-			<div class="jumbotron boomslang-green" style="width:100%;">
+			<div class="jumbotron" style="width:100%;background-color: #025951;color:white;">
 				<h4 class="text-center app-font">Total Calories Available: <span id="totalCaloriesAvail"><%= current_user.tdee - @daily_log.total_calories %></span>g</h4>
 				<h4 class="text-center app-font">Total Calories Selected: <span id="totalCalories">0</span>g</h4>
 				<h4 class="text-center app-font">Total Carbs Available: <span id="totalCarbs"><%= @gym.carb_limit - @daily_log.total_carbs %></span>g</h4>
 				<h4 class="text-center app-font">Protein Goal Per Meal: <span id="totalProtein"><%= @gym.protein_threshold %></span>g</h4>
-				<%= f.submit "Log It", class: 'btn btn-block workout-btn', id: 'submit-btn', style: "background-color:#F29F05;color:white;", data: {confirm: "Have you selected all the food you want to add? You can verify this under the Selected Food tab."} %>
+				<%= f.submit "Log It", class: 'btn btn-block', id: 'submit-btn', style: "background-color:#F29F05;color:white;", data: {confirm: "Have you selected all the food you want to add? You can verify this under the Selected Food tab."} %>
 			</div>
 		</div>
 
 		<ul class="nav nav-tabs nav-fill" id="foodCategoryTabs" role=tablist style="overflow-x: auto;overflow-y:hidden;flex-wrap: nowrap;margin-top:-25px;">
-			<li class='nav-item'><a class='nav-link' id='selected-list-tab' data-toggle='tab' href='#selected-list' role='tab' aria-controls='selected-list' aria-selected='true'>Selected Food <span class="badge boomslang-green" id="selected-food" style="color:black">0</span></a></li>
+			<li class='nav-item'><a class='nav-link' id='selected-list-tab' data-toggle='tab' href='#selected-list' role='tab' aria-controls='selected-list' aria-selected='true'>Selected Food <span class="badge" id="selected-food" style="color:black;background-color: #025951;color:white;">0</span></a></li>
 			<!-- <li class="nav-item"><a class="nav-link active" id='favorites-list-tab' data-toggle='tab' href='#favorites-list' role='tab' aria-controls='favorites-list' aria-selected='true'>Recent Foods</a></li></li> -->
 			<!-- <li class="nav-item"><a class="nav-link" id='meal-groups-list-tab' data-toggle='tab' href='#meal-groups-list' role='tab' aria-controls='meal-groups-list' aria-selected='true'>Meals</a></li></li> -->
 			<% @food_categories.values.each_with_index do |cat, idx| %>
@@ -175,7 +175,7 @@
 					if (parseFloat($('#totalCaloriesAvail').text()) < 0.0) {
 						$('#totalCaloriesAvail').css('color', 'red');
 					} else {
-					 	$('#totalCaloriesAvail').css('color', 'black');
+					 	$('#totalCaloriesAvail').css('color', 'white');
 					}
 				}
 			})
@@ -215,13 +215,13 @@
 	function updateTotal(data){
 		$('#totalCalories').text(parseFloat($('#totalCalories').text()) + parseFloat(data.parent().siblings('.foodCalories').text()))
 		$('#totalCaloriesAvail').text(parseFloat($('#totalCaloriesAvail').text()) - parseFloat(data.parent().siblings('.foodCalories').text()))
-		$('#totalProtein').text((parseFloat($('#totalProtein').text()) - parseFloat(data.parent().siblings('td.protein').text())).toFixed(2))
-		$('#totalCarbs').text((parseFloat($('#totalCarbs').text()) - parseFloat(data.parent().siblings('.carbs').text())).toFixed(2))
+		$('#totalProtein').text((parseFloat($('#totalProtein').text()) - parseFloat(data.parent().siblings('td.protein').text())).toFixed(0))
+		$('#totalCarbs').text((parseFloat($('#totalCarbs').text()) - parseFloat(data.parent().siblings('.carbs').text())).toFixed(0))
 
 		if (parseFloat($('#totalCaloriesAvail').text()) < 0.0) {
 			$('#totalCaloriesAvail').css('color', 'red');
 		} else {
-		 	$('#totalCaloriesAvail').css('color', 'black');
+		 	$('#totalCaloriesAvail').css('color', 'white');
 		}
 	};
 
@@ -243,8 +243,8 @@
 
 		$('#totalCalories').text(parseFloat($('#totalCalories').text()) - parseFloat(calorieCount));
 		$('#totalCaloriesAvail').text(parseFloat($('#totalCaloriesAvail').text()) + parseFloat(calorieCount));
-		$('#totalProtein').text((parseFloat($('#totalProtein').text()) + parseFloat(proteinCount)).toFixed(2));
-		$('#totalCarbs').text((parseFloat($('#totalCarbs').text()) + parseFloat(carbCount)).toFixed(2));
+		$('#totalProtein').text((parseFloat($('#totalProtein').text()) + parseFloat(proteinCount)).toFixed(0));
+		$('#totalCarbs').text((parseFloat($('#totalCarbs').text()) + parseFloat(carbCount)).toFixed(0));
 
 		let counter = 0;
 		let ids = $('#selected_food_ids').val().split(',')
@@ -265,7 +265,7 @@
 			$('#totalCaloriesAvail').css('color', 'red');
 		} else {
 			console.log("NOT NEG")
-			$('#totalCaloriesAvail').css('color', 'black');
+			$('#totalCaloriesAvail').css('color', 'white');
 		}
 	}
 </script>

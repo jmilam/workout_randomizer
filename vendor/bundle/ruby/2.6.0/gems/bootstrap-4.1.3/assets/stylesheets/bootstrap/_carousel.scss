@@ -161,6 +161,11 @@
   background-image: $carousel-control-next-icon-bg;
 }
 
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
+}
+
 
 // Optional indicator pips
 //
@@ -190,7 +195,7 @@
     margin-left: $carousel-indicator-spacer;
     text-indent: -999px;
     cursor: pointer;
-    background-color: rgba($carousel-indicator-active-bg, .5);
+    background-color: black;
 
     // Use pseudo classes to increase the hit area by 10px on top and bottom.
     &::before {
@@ -214,7 +219,7 @@
   }
 
   .active {
-    background-color: $carousel-indicator-active-bg;
+    background-color: #A7C8F2;
   }
 }
 

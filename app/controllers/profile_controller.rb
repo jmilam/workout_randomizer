@@ -13,8 +13,6 @@ class ProfileController < ApplicationController
     @user = current_user
     @gym = @user.gym
     @title = "#{@user.first_name} Profile"
-    @workout_group = WorkoutGroup.find_by(id: @user.current_workout_group)
-
     
     @workout = Workout.find(@user.current_workout) unless @user.current_workout.nil?
 
@@ -30,13 +28,6 @@ class ProfileController < ApplicationController
     @remaining_carbs = (@user.carb_total - (@daily_log&.total_carbs || 0)).round(2)
     @remaining_fats = (@user.fat_total - (@daily_log&.total_fats || 0)).round(2)
     @wod = Wod.where(gym_id: @user.gym.id, workout_date: Date.today).last
-
-    @macros = [
-      ['Macro Nutrient', 'Percentage'],
-      ['Carbs',     @daily_log&.total_carbs || 0],
-      ['Fat',      @daily_log&.total_fats || 0],
-      ['Protein', @daily_log&.total_protein || 0]
-    ]
   end
 
   def edit

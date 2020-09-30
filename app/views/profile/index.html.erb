@@ -6,7 +6,7 @@
     <li data-target="#carouselExampleSlidesOnly" data-slide-to="1" style=""></li>
   </ol>
   <div class="carousel-inner">
-    <div class="carousel-item active">
+    <div class="carousel-item <%= @user.nutrition_only ? '' : 'active' %>">
       <div id="profile-background">
         <div class="col-md-10 col-10 offset-1">
           <%= link_to edit_profile_path(@user.id), id: "edit_profile" do %>
@@ -34,7 +34,7 @@
         <% end %>
       </div>
     </div>
-    <div class="carousel-item">
+    <div class="carousel-item <%= @user.nutrition_only ? 'active' : '' %>">
       <div class="container-fluid" style="height:300px;">
         <table class="table table-striped">
           <thead>

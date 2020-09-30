@@ -1,13 +1,13 @@
 <table class="table table-striped app-font">
 	<thead>
-		<tr style="background-color:#F25116;">
+		<tr style="background-color:#F25116;opacity:0.8;">
 			<th colspan="3"><%= link_to "Add Food", new_food_path, class: "btn btn-block", style: 'background-color:#F25116;color:white;' %></th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @foods.each do |cat, food| %>
 			<tr>
-				<td colspan="3" class="text-center" style="color:white;background:#027368;"><%= @food_categories[cat].capitalize %></td>
+				<td colspan="3" class="text-center" style="color:white;background:#027368;opacity:0.8;"><%= @food_categories[cat].capitalize %></td>
 			</tr>
 			<tr>
 				<th>Food</th>

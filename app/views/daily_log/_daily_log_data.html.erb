@@ -2,12 +2,12 @@
     <%#= hidden_field_tag 'selected_food_qtys', '', id: 'selected_food_qtys' %>
 
     <div class="row">
-			<div class="jumbotron" style="width:100%;background-color: #025951;color:white;">
+			<div class="jumbotron" style="width:100%;background-color: #025951;color:white;opacity:0.8;">
 				<h4 class="text-center app-font">Total Calories Available: <span id="totalCaloriesAvail"><%= current_user.tdee - @daily_log.total_calories %></span>g</h4>
 				<h4 class="text-center app-font">Total Calories Selected: <span id="totalCalories">0</span>g</h4>
 				<h4 class="text-center app-font">Total Carbs Available: <span id="totalCarbs"><%= @gym.carb_limit - @daily_log.total_carbs %></span>g</h4>
 				<h4 class="text-center app-font">Protein Goal Per Meal: <span id="totalProtein"><%= @gym.protein_threshold %></span>g</h4>
-				<%= f.submit "Log It", class: 'btn btn-block', id: 'submit-btn', style: "background-color:#F29F05;color:white;", data: {confirm: "Have you selected all the food you want to add? You can verify this under the Selected Food tab."} %>
+				<%= f.submit "Log It", class: 'btn btn-block', id: 'submit-btn', style: "background-color:#F25116;color:white;opacity:0.8;", data: {confirm: "Have you selected all the food you want to add? You can verify this under the Selected Food tab."} %>
 			</div>
 		</div>
 

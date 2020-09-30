@@ -22,7 +22,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav">
-          <li><%= link_to "Profile", profile_index_path, class: 'nav-link', id: 'profile-nav-link' %></li>
+          <li><%= link_to "Profile", edit_profile_path(current_user.id), class: 'nav-link', id: 'profile-nav-link' %></li>
           <li><%= link_to "Workouts", list_workouts_path, class: 'nav-link', id: 'workouts-nav-link' %></li>
           <li><%= link_to "Messages", inbox_index_path, class: 'nav-link', id: 'messages-nav-link' %></li>
           <li class="nav-item dropdown">

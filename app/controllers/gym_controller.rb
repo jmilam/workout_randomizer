@@ -1,11 +1,11 @@
 class GymController < ApplicationController
-  layout :choose_layout, except: ['show']
+  layout :choose_layout
 
   def choose_layout
     if current_user.nutrition_only
       "nutrition"
     else
-      'nav'
+      'application'
     end
   end
 

@@ -75,12 +75,12 @@
 										</div>
 									</div>
 
-									<%= f.submit "Update Gym Info", class: "btn btn-lg btn-block workout-btn", style: 'margin-bottom: 15px;', id: 'gym-update' %>
+									<%= f.submit "Update Gym Info", class: "btn btn-lg btn-block profile-index-btn", style: 'margin-bottom: 15px;opacity:0.8;', id: 'gym-update' %>
 								</div>
 							<% end %>
 						</div>
 						<div class="tab-pane fade show" id='gym-users' role='tabpanel' aria-labelledby='gym-users'>
-							<%= link_to "New User", new_user_path, class: "pull-right workout-btn btn", style: 'margin-bottom: 10px;' %>
+							<%= link_to "New User", new_user_path, class: "pull-right profile-index-btn btn", style: 'margin-bottom: 10px;opacity:0.8;' %>
 							<div class="table-responsive">
 							<table class="table">
 								<thead>
@@ -132,7 +132,7 @@
 									<% end %>
 								</tbody>
 							</table>
-							<%= button_to "Setup a Pop Up Workout", new_wod_path, method: :get, class: "btn btn-lg workout-btn" %>
+							<%= button_to "Setup a Pop Up Workout", new_wod_path, method: :get, class: "btn btn-lg workout-btn profile-index-btn", style: 'opacity:0.8;' %>
 						</div>
 						<div class="tab-pane fade show" id='categories' role='tabpanel' aria-labelledby='categories'>
 							<nav style="background:transparent;">
@@ -215,7 +215,7 @@
 							<%= render "partials/common_exercise", common_exercises: @common_exercises %>
 						</div>
 						<div class="tab-pane fade show" id='workouts' role='tabpanel' aria-labelledby='workouts'>
-							<%= link_to "New Workout", new_workout_path, class: "pull-right workout-btn btn", style: "margin-bottom:10px;" %>
+							<%= link_to "New Workout", new_workout_path, class: "pull-right profile-index-btn btn", style: "margin-bottom:10px;opacity:0.8;" %>
 							<table class="table">
 								<thead>
 									<tr>
@@ -234,7 +234,7 @@
 							</table>
 						</div>
 						<div class="tab-pane fade show" id='workout-groups' role='tabpanel' aria-labelledby='workout-groups'>
-							<%= link_to "New Workout Group", new_workout_group_path, class: "pull-right workout-btn btn", style: "margin-bottom:10px;" %>
+							<%= link_to "New Workout Group", new_workout_group_path, class: "pull-right profile-index-btn btn", style: "margin-bottom:10px;opacity:0.8;" %>
 							<table class="table">
 								<thead>
 									<tr>
@@ -266,7 +266,7 @@
 								</tbody>
 							</table>
 
-							<%= link_to "Create Food Pairings", new_food_group_path %>
+							<%= link_to "Create Food Pairings", new_food_group_path, class: 'profile-index-btn btn', style: 'opacity:0.8;' %>
 						</div>
 						<div class="tab-pane fade show" id='gym-tasks' role='tabpanel' aria-labelledby='gym-tasks'>
 							<nav style="background:transparent;">
@@ -357,7 +357,7 @@
 										      </div>
 										    </div>
 											  <div>
-													<%= f.submit "Log time", class: 'btn btn-lg btn-block workout-btn card-footer' %>
+													<%= f.submit "Log time", class: 'btn btn-lg btn-block profile-index-btn card-footer', style: 'opacity:0.8;' %>
 											  </div>
 										</div>
 									<% end %>

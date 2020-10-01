@@ -1,3 +1,7 @@
+<style>
+
+body {background:#025951;opacity:1;}
+</style>
 <%= render "partials/alert" %>
 
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -34,7 +38,7 @@
         <% end %>
       </div>
     </div>
-    <div class="carousel-item <%= @user.nutrition_only ? 'active' : '' %>" style="background:#025951;opacity:0.8;">
+    <div class="carousel-item <%= @user.nutrition_only ? 'active' : '' %>" style="background:#025951;">
       <div class="container-fluid" style="height:300px;padding-top: 10px;">
         <table class="table table-striped" style="background:white;">
           <thead>
@@ -90,6 +94,9 @@
 <% else %>
   <%= render 'full_app_buttons' %>
 <% end %>
+
+<div>
+</div>
 
 <script>
   $('.carousel').carousel({

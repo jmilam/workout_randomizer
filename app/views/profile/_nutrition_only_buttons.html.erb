@@ -1,6 +1,8 @@
+<div style="position:fixed;bottom:0;width:100%;">
 <% if @daily_log.nil? %>
-  <%= link_to "Log Food", new_daily_log_path, class: "btn btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: 'opacity:0.8;' %>
+  <%= link_to "Log Food", new_daily_log_path, class: "btn btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
 <% else %>
-  <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: 'opacity:0.8;' %>
+  <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
 <% end %>
-<%= link_to "My Foods", food_index_path, class: "btn btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: 'opacity:0.8;'%>
+<%= link_to "My Foods", food_index_path, class: "btn btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: ''%>
+</div>

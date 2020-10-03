@@ -15,7 +15,7 @@ class NutritionOnlyController < ApplicationController
     @gyms = Gym.all.includes(:users)
 
     if @user.save
-      UserMailer.with(user: @user).nutrition_email.deliver_now
+      # UserMailer.with(user: @user).nutrition_email.deliver_now
 
       Inbox.create(user_id: @user.id)
       sign_in @user

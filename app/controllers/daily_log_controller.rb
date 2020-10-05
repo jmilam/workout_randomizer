@@ -18,7 +18,7 @@ class DailyLogController < ApplicationController
   def edit
     @gym = current_user.gym
     @daily_log = DailyLog.find(params[:id])
-    @foods = Food.where(created_by_user_id: [current_user.id, nil]).group_by(&:category)
+    @foods = Food.all.order(:name).group_by(&:category)
     @food_categories = Category.food_categories
     @icons = ["fa fa-egg", "fa fa-carrot", "", "fa fa-cheese"]
     @favorite_foods = DailyLog.where(calendar_date: Date.today.beginning_of_week..(Date.today.beginning_of_week + 7)).map(&:foods).flatten.uniq[0..14]
@@ -51,7 +51,7 @@ class DailyLogController < ApplicationController
   def new
     @gym = current_user.gym
     @daily_log = current_user.daily_logs.find_or_initialize_by(calendar_date: Date.today.in_time_zone)
-    @foods = Food.where(created_by_user_id: [current_user.id, nil]).group_by(&:category)
+    @foods = Food.all.order(:name).group_by(&:category)
     @food_categories = Category.food_categories
     @icons = ["fa fa-egg", "fa fa-carrot", "", "fa fa-cheese"]
     @favorite_foods = DailyLog.where(calendar_date: Date.today.beginning_of_week..(Date.today.beginning_of_week + 7)).map(&:foods).flatten.uniq[0..14]

@@ -33,7 +33,7 @@ body {background:#025951;opacity:1;}
         </div>
         <% unless @user.nutrition_only %>
           <div class="col-md-12 col-12 text-center" style="margin-top:10px;margin-bottom:10px;color:white;">
-            <b>Current Workout:</b><div style="color:#A7C8F2;"><%= @workout.name %></div>
+            <b>Current Workout:</b><div style="color:#A7C8F2;"><%= @workout&.name %></div>
           </div>
         <% end %>
       </div>

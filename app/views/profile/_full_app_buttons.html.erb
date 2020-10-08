@@ -1,13 +1,15 @@
-<% if @daily_log.nil? %>
-  <%= link_to "Log Food", new_daily_log_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
-<% else %>
-  <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
-<% end %>
+<div style="position:fixed;bottom:0;width:100%;">
+	<% if @daily_log.nil? %>
+	  <%= link_to "Log Food", new_daily_log_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
+	<% else %>
+	  <%= link_to "Log Food", daily_log_path(@daily_log.id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
+	<% end %>
 
-<%= link_to "Workout History", workout_history_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
+	<%= link_to "Workout History", workout_history_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
 
-<%= link_to "Manually Enter Workout", manual_workout_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
+	<%= link_to "Manually Enter Workout", manual_workout_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
 
-<%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
+	<%= link_to "Start Workout", kiosk_exercise_path, class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' %>
 
-<%= link_to "Workout of the Day", kiosk_exercise_path(workout_id: @wod.workout_id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' unless @wod.nil? %>
+	<%= link_to "Workout of the Day", kiosk_exercise_path(workout_id: @wod.workout_id), class: "btn btn workout-btn profile-link col-md-12 col-sm-12 col-12 text-center profile-index-btn", style: '' unless @wod.nil? %>
+</div>

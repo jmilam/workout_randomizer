@@ -49,6 +49,16 @@ class Workout < ApplicationRecord
     end
   end
 
+  def self.tomorrows_workouts_email
+    tomorrow_day = Date.today.cwday
+    workout_group_pairings = WorkoutGroupPairing.select(:id, :workout_id).where(workout_day: tomorrow_day)
+    users = User.where(current_workout_group: workout_group_pairings.map(&:id))
+
+    users.each do |user|
+      WorkoutMailer.with(user: user, workout: Workout.find_by(id: user.current_workout)).tomorrows_workout.deliver_now
+    end
+  end
+
   def created_by
     unless created_by_user_id.nil?
       user = User.find_by(id: created_by_user_id)

@@ -163,113 +163,134 @@ class Cloudinary::Migrator
   
   def update_row(row, values)    
     values.merge!("updated_at"=>Time.now.to_i)
-    query = ["update queue set #{values.keys.map{|key| "#{key}=?"}.join(",")} where id=?"] + values.values + [row["id"]]
-    @db.execute(*query)
-    values.each{|key, value| row[key.to_s] = value}
-    row    
-  end
-  
-  def insert_row(values)
-    values.merge!("updated_at"=>Time.now.to_i)
-    @db.execute("insert into queue (#{values.keys.join(",")}) values (#{values.keys.map{"?"}.join(",")})", *values.values)
-    values["id"] = @db.last_insert_row_id
-  end
-  
-  def refill_queue(last_id)
-    @db.execute("select * from queue where status in ('error', 'processing') and id > ? limit ?", last_id, 10000) do
-      |row|
-      last_id = row["id"] if row["id"] > last_id
-      wait_for_queue
-      add_to_work_queue(row)
-    end
-    last_id
-  end 
-
-  def process_results
-    while self.results.length > 0
-      row = self.results.pop
-      result = json_decode(row["result"])      
-      debug("Done ID=#{row['internal_id']}, result=#{result.inspect}")
-      complete.call(row["internal_id"], result) if complete 
-      if result["error"]        
-        status = case result["error"]["http_code"]
-        when 400, 404 then "fatal" # Problematic request. Not a server problem.
-        else "error"
-        end
-      else
-        status = "completed"
-      end       
-      updates = {:status=>status, :result=>row["result"]}
-      updates["public_id"] = result["public_id"] if result["public_id"] && !row["public_id"]
-      begin 
-        update_row(row, updates)
-      rescue SQLite3::ConstraintException
-        updates = {:status=>"error", :result=>{:error=>{:message=>"public_id already exists"}}.to_json}
-        update_row(row, updates)
-      end
+    query = ["update queue set #{values.keys.map{|key| "#{key}=?"}.joinlass.respond_to?(:update_all) && uploader.model.respond_to?(:_id)
+      model_class.where(:_id=>uploader.model._id).update_all(column=>name)
+      uploader.model.send :write_attribute, column, name
+    else
+      raise CloudinaryException, "Only ActiveRecord, Mongoid and Sequel are supported at the moment!"
     end
   end
+end
+or updating a column
+  * Add support for `named` parameter in list transformation API
+  * load environment when running sync_static task
+  * Fix the overwritten initializer for hash (#273)
+  * Force TravisCI to install bundler
+  * Fix CloudinaryFile::exists? method. Solves #193 #205
+  * Update Readme to point to HTTPS URLs of cloudinary.com
 
-  def try_try_again(tries=5)
-    retry_count = 0
-    begin
-      return yield
-    rescue
-      retry_count++
-      raise if retry_count > tries
-      sleep rand * 3
-      retry
-    end  
-  end
+1.8.1 / 2017-05-16
+==================
+
+  * Fix `image_path`. Fixes #257
+  * Add Auto Gravity modes tests.
+  * Use correct values in Search tests
+
+1.8.0 / 2017-05-01
+==================
+
+New functionality and features
+------------------------------
+
+  * Add Search API
+  * Sync static for non image assets (#241) fixes #27
+
+Other Changes
+-------------
+
+  * Fix Carrierwave signed URL.
+
+1.7.0 / 2017-04-09
+==================
+
+New functionality and features
+------------------------------
+
+  * Added resource publishing API
+    * `Api.publish_by_prefix`
+    * `Api.publish_by_tag`
+    * `Api.publish_by_ids`
+  * Support remote URLs in `Uploader.upload_large` API
+  * Add missing parameters to generate-archive
+    * `skip_transformation_name`
+    * `allow_missing`
+  * Added context API methods
+    * `Api.add_context`
+    * `Api.remove_all_context`
+  * Added `Uploader.remove_all_tags` method
+  * Support URL SEO suffix for authenticated images
+  * Add support of "format" parameter to responsive-breakpoints hash
+  * Add notification_url to update API
   
-  def start
-    return if @started
-    @started = true
-    @terminate = false
-    
-    self.work.clear
-    
-    main = self
-    Thread.abort_on_exception = true
-    1.upto(@threads) do
-      |i|
-      Thread.start do
-        while !main.terminate
-          file = nil
-          row = main.work.pop
-          next if row.nil?
-          begin
-            debug "Thread #{i} - processing row #{row.inspect}. #{main.work.length} work waiting. #{main.results.length} results waiting."
-            url = row["url"]
-            cw = false
-            result = nil
-            if url.nil? && !self.retrieve.nil?
-              data = self.retrieve.call(row["internal_id"])
-              if defined?(ActiveRecord::Base) && data.is_a?(ActiveRecord::Base)
-                cw = true
-                data.save!
-              elsif defined?(::CarrierWave) && defined?(Cloudinary::CarrierWave) && data.is_a?(Cloudinary::CarrierWave)
-                cw = true
-                begin
-                  data.model.save! 
-                rescue Cloudinary::CarrierWave::UploadError 
-                  # upload errors will be handled by the result values.
-                end
-                result = data.metadata
-              elsif data.respond_to?(:read) && data.respond_to?(:path)
-                # This is an IO style object, pass as is.
-                file = data
-              elsif data.nil?
-                # Skip
-              elsif data.match(/^https?:/)
-                url = data
-              else
-                file = main.temporary_file(data, row["public_id"] || "cloudinaryfile") 
-              end
-            end
-            
-            if url || file
-              options = main.extra_options.merge(:public_id=>row["public_id"])
+
+Other Changes
+-------------
+
+  * Remove tag from test
+  * Change test criteria from changing versions to bytes
+  * Use `TRAVIS_JOB_ID` if available or random. Move auth test constants to spec_helper.
+  * Add test for deleting public IDs which contain commas
+  * Move expression and replacement to constants
+  * Don't normalize negative numbers
+  * Added generic aliasing to methods named with image
+  * Added Private annotation to certain utility methods
+  * Add `encode_context` method to `Utils`
+  * Escape = and | characters in context values + test
+  * Add more complex eager test cases
+  * Switch alias_method_chain to alias_method to support Rails version >5.1
+
+1.6.0 / 2017-03-08
+==================
+
+New functionality and features
+------------------------------
+
+  * Support user defined variables
+  * Add `to_type` parameter to the rename method (#236)
+  * Add `async` parameter to the upload method (#235)
+
+Other Changes
+-------------
+
+  * Switch ow & oh to iw & ih on respective test case
+  * test auto gravity transformation in URL build
+
+1.5.2 / 2017-02-22
+==================
+
+  * Support URL Authorization token. 
+  * Rename auth_token. 
+  * Support nested keys in CLOUDINARY_URL
+  * Support "authenticated" url without a signature.
+  * Add OpenStruct from ruby 2.0.
+  * Add specific rubyzip version for ruby 1.9
+
+1.5.1 / 2017-02-13
+==================
+  * Fix Carrierwave 1.0.0 integration: broken `remote_image_url`
+
+1.5.0 / 2017-02-07
+==================
+
+New functionality and features
+------------------------------
+
+  * Access mode API
+
+Other Changes
+-------------
+
+  * Fix transformation related tests.
+  * Fix archive test to use `include` instead of `match_array`.
+  * Fix "missing folder" test
+  * Add specific dependency on nokogiri
+  * Update rspec version
+
+1.4.0 / 2017-01-30
+==================
+
+  * Add Akamai token generator
+tra_options.merge(:public_id=>row["public_id"])
               json_decode(row["metadata"]).each do
                 |key, value|
                 options[key.to_sym] = value

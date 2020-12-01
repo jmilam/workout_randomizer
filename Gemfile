@@ -39,6 +39,8 @@ gem 'simplecov'
 gem "font-awesome-rails"
 gem "aws-sdk-s3"
 gem 'pry', '~> 0.12.2'
+gem 'resque'
+gem 'whenever', require: false
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

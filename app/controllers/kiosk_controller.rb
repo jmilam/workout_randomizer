@@ -61,7 +61,7 @@ class KioskController < ApplicationController
 
         prev_workout = user.user_previous_workouts.find_or_create_by!(
           workout_id: workout.id,
-          workout_date: params[:exercises][:workout_date].blank? ? Date.today.in_time_zone : params[:exercises][:workout_date]
+          workout_date: params[:exercises][:workout_date].blank? ? Time.current.to_date : params[:exercises][:workout_date]
         )
 
          params[:exercises][:workout_detail].each do |details|

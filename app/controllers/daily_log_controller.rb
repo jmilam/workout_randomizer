@@ -12,7 +12,7 @@ class DailyLogController < ApplicationController
   def index
     @gym = current_user.gym
     @daily_logs = current_user.daily_logs.order(created_at: :desc)
-    @today_log = current_user.daily_logs.find_by(calendar_date: Date.today.in_time_zone)
+    @today_log = current_user.daily_logs.find_by(calendar_date: Time.current.to_date)
   end
 
   def edit
@@ -50,7 +50,7 @@ class DailyLogController < ApplicationController
 
   def new
     @gym = current_user.gym
-    @daily_log = current_user.daily_logs.find_or_initialize_by(calendar_date: Date.today.in_time_zone)
+    @daily_log = current_user.daily_logs.find_or_initialize_by(calendar_date: Time.current.to_date)
     @foods = Food.all.order(:name).group_by(&:category)
     @food_categories = Category.food_categories
     @icons = ["fa fa-egg", "fa fa-carrot", "", "fa fa-cheese"]
@@ -60,7 +60,7 @@ class DailyLogController < ApplicationController
 
   def create
     begin
-      @daily_log = current_user.daily_logs.new(calendar_date: Date.today.in_time_zone)
+      @daily_log = current_user.daily_logs.new(calendar_date: Time.current.to_date)
       params[:selected_food_ids].split(',').delete_if(&:empty?).each do |food_id|
         @daily_log.daily_log_foods.new(food_id: food_id, qty: 1)
       end

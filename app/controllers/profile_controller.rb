@@ -21,7 +21,7 @@ class ProfileController < ApplicationController
     @bmi = @user.calculate_bmi
     @bmi_status = @user.bmi_status(@bmi)
 
-    @daily_log = current_user.daily_logs.find_by(calendar_date: Date.today.in_time_zone)
+    @daily_log = current_user.daily_logs.find_by(calendar_date: Time.current.to_date)
 
     @remaining_tdee = @user.tdee - (@daily_log&.total_calories || 0)
     @remaining_protein = (@user.protein_total - (@daily_log&.total_protein || 0)).round(2)

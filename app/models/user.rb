@@ -103,7 +103,7 @@ class User < ApplicationRecord
   end
 
   def this_weeks_workouts
-    user_previous_workouts.where(workout_date: (Date.today.in_time_zone.beginning_of_week..Date.today.in_time_zone.end_of_week))
+    user_previous_workouts.where(workout_date: (Time.current.to_date.beginning_of_week..Time.current.to_date.end_of_week))
                           .pluck(:workout_id)
   end
 

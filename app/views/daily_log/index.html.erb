@@ -21,7 +21,7 @@
 							<td>
 								<div class="btn-group-vertical">
 									<%= link_to "View Log", daily_log_path(daily_log.id), class: 'btn btn-sm', style: 'background-color:#F29F05;color:white;' %><br/>
-									<%#= link_to "Add Food", edit_daily_log_path(daily_log.id), class: 'btn btn-sm btn-warning' if daily_log.calendar_date.in_time_zone == Date.today.in_time_zone %></td>
+									<%#= link_to "Add Food", edit_daily_log_path(daily_log.id), class: 'btn btn-sm btn-warning' if daily_log.calendar_date.in_time_zone == Time.current.to_date %></td>
 								</div>
 						</tr>
 					<% end %>

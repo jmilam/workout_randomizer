@@ -50,12 +50,14 @@ class Workout < ApplicationRecord
   end
 
   def self.tomorrows_workouts_email
-    tomorrow_day = Date.today.cwday
+    tomorrow_day = Date.tomorrow.cwday
     workout_group_pairings = WorkoutGroupPairing.select(:id, :workout_id).where(workout_day: tomorrow_day)
     users = User.where(current_workout_group: workout_group_pairings.map(&:id))
 
     users.each do |user|
-      WorkoutMailer.with(user: user, workout: Workout.find_by(id: user.current_workout)).tomorrows_workout.deliver_now
+      WorkoutMailer.with(user: user,
+                         workout: Workout.includes(:exercises).find_by(id: user.current_workout))
+        .tomorrows_workout.deliver_now
     end
   end
 

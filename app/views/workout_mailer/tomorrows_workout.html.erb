@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  	<table style="width:100%;">
+			<thead style="background-color:grey;">
+				<tr>
+					<th colspan=4><%= @workout.name %></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @workout.exercises.each do |exercise| %>
+					<tr>
+						<td><%= exercise.common_exercise.name %></td>
+						<td><%= exercise.common_equipment.name %></td>
+						<td><%= exercise.set_count %></td>
+						<td><%= exercise.rep_range %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</body>
+</html>

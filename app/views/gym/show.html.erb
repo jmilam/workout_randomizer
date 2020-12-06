@@ -15,7 +15,7 @@
 				  <li class='nav-item nav-li'><a class='nav-link' id='common-exercises-tab' data-toggle='tab' href='#common-exercises' role='tab' aria-controls='common-exercises' aria-selected='false' style="color:white;">Common Exercises</span></a></li>
 				  <li class='nav-item nav-li'><a class='nav-link' id='workouts-tab' data-toggle='tab' href='#workouts' role='tab' aria-controls='workouts' aria-selected='false' style="color:white;">Workouts</span></a></li>
 				  <li class='nav-item nav-li'><a class='nav-link' id='workout-groups-tab' data-toggle='tab' href='#workout-groups' role='tab' aria-controls='workout-groups' aria-selected='false' style="color:white;">Workout Groups</span></a></li>
-				  <li class='nav-item nav-li'><a class='nav-link' id='gym-nutrition-tab' data-toggle='tab' href='#gym-nutrition' role='tab' aria-controls='gym-nutrition' aria-selected='false' style="color:white;">Nutrition Pairings</a></li>
+				  <!-- <li class='nav-item nav-li'><a class='nav-link' id='gym-nutrition-tab' data-toggle='tab' href='#gym-nutrition' role='tab' aria-controls='gym-nutrition' aria-selected='false' style="color:white;">Nutrition Pairings</a></li> -->
 				  <li class='nav-item nav-li'><a class='nav-link' id='gym-tasks-tab' data-toggle='tab' href='#gym-tasks' role='tab' aria-controls='gym-tasks' aria-selected='false' style="color:white;">Task <span class="badge badge-pill badge-secondary"><%= @tasks.count %></span></a></li>
 				<% end %>
 			</ul>
@@ -254,7 +254,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="tab-pane fade show" id='gym-nutrition' role='tabpanel' aria-labelledby='gym-nutrtion'>
+<!-- 						<div class="tab-pane fade show" id='gym-nutrition' role='tabpanel' aria-labelledby='gym-nutrtion'>
 							<table class="table table-stripped">
 								<tbody>
 									<% @food_groups.each do |food_group| %>
@@ -267,7 +267,7 @@
 							</table>
 
 							<%= link_to "Create Food Pairings", new_food_group_path, class: 'profile-index-btn btn', style: 'opacity:0.8;' %>
-						</div>
+						</div> -->
 						<div class="tab-pane fade show" id='gym-tasks' role='tabpanel' aria-labelledby='gym-tasks'>
 							<nav style="background:transparent;">
 							  <div class="nav nav-tabs" id="nav-tab" role="tablist">

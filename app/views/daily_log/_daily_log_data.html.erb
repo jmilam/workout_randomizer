@@ -14,7 +14,7 @@
 		<ul class="nav nav-tabs nav-fill" id="foodCategoryTabs" role=tablist style="overflow-x: auto;overflow-y:hidden;flex-wrap: nowrap;margin-top:-25px;">
 			<li class='nav-item'><a class='nav-link' id='selected-list-tab' data-toggle='tab' href='#selected-list' role='tab' aria-controls='selected-list' aria-selected='true'>Selected Food <span class="badge" id="selected-food" style="color:black;background-color: #025951;color:white;">0</span></a></li>
 			<!-- <li class="nav-item"><a class="nav-link active" id='favorites-list-tab' data-toggle='tab' href='#favorites-list' role='tab' aria-controls='favorites-list' aria-selected='true'>Recent Foods</a></li></li> -->
-			<!-- <li class="nav-item"><a class="nav-link" id='meal-groups-list-tab' data-toggle='tab' href='#meal-groups-list' role='tab' aria-controls='meal-groups-list' aria-selected='true'>Meals</a></li></li> -->
+			<li class="nav-item"><a class="nav-link" id='meal-groups-list-tab' data-toggle='tab' href='#meal-groups-list' role='tab' aria-controls='meal-groups-list' aria-selected='true'>Meals</a></li></li>
 			<% @food_categories.values.each_with_index do |cat, idx| %>
 				<li class="nav-item">
 					<%= link_to '#', class: "nav-link #{'active' if idx.zero?}", id: "#{cat.gsub('/', '-')}-tab",
@@ -61,7 +61,7 @@
 	  				<% end %>
 	  			</tbody>
 		  	</table>
-			</div>
+			</div> -->
 			<div class="tab-pane fade show" id="meal-groups-list" role="tabpanel" aria-labelledby="meal-groups-list-tab" style="height: 280px;overflow-y: scroll;">
 				<div style="height: 280px;overflow-y: scroll;">
 		  		<table class="table">
@@ -87,7 +87,7 @@
 						</tbody>
 						</table>
 				</div>
-			</div> -->
+			</div>
 			<% @food_categories.each_with_index do |cat, idx| %>
 		  	<div class="tab-pane fade <%= 'show active' if idx.zero? %>" id="<%= cat[1].gsub('/', '-') %>" role="tabpanel" aria-labelledby="<%= cat[1].gsub('/', '-') %>-tab" style="height: 280px;">
 		  		<div class="row" style="margin-top:10px;">

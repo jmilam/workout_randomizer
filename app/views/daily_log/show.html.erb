@@ -16,7 +16,7 @@
 		</tr>
 
 		<tr>
-			<th class="text-center" colspan="3" style="background-color:#F25116;opacity:0.8;"><%= link_to "Add Food", edit_daily_log_path(@daily_log.id), class: 'btn btn-primary btn-block .profile-index-btn', style: 'background-color: transparent;border:0;' if @daily_log.calendar_date.in_time_zone == Time.current.to_date %></th>
+			<th class="text-center" colspan="3" style="background-color:#F25116;opacity:0.8;"><%= link_to "Add Food", edit_daily_log_path(@daily_log.id), class: 'btn btn-primary btn-block .profile-index-btn', style: 'background-color: transparent;border:0;' if @daily_log.calendar_date.in_time_zone == Time.current.to_date.in_time_zone %></th>
 		</tr>
 	</thead>
 	<tbody>

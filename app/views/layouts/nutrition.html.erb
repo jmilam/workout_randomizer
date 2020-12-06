@@ -29,6 +29,8 @@
             <div class="dropdown-menu" aria-labelledby="nutritionDropdown">
               <%= link_to "My Food Logs", daily_log_index_path, class: 'dropdown-item', id: 'nutrition-nav-link' %>
               <%= link_to "My Foods", food_index_path, class: 'dropdown-item', id: 'food-nav-link' %>
+              <%= link_to "Meals", meal_path, class: 'dropdown-item', id: 'meal-nav-link' %>
+              <!-- <li class='nav-item nav-li'><a class='nav-link' id='gym-nutrition-tab' data-toggle='tab' href='#gym-nutrition' role='tab' aria-controls='gym-nutrition' aria-selected='false' style="color:white;">Nutrition Pairings</a></li> -->
             </div>
           </li>
           <% if current_user.gym.current_user_gym_admin(current_user) %>

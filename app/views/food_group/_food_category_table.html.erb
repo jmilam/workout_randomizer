@@ -15,7 +15,7 @@
 		<%= f.fields_for :food_group_pairings do |pairing_fields| %>
 			<% foods.each do |food| %>
 				<tr>
-					<td><%= pairing_fields.check_box :food_id, {multiple: true, class: 'food-checkbox', checked: @food_ids&.include?(food.id)}, food.id, nil %></td>
+					<td><%= pairing_fields.check_box :food_id, {multiple: true, class: 'food-checkbox', checked: @food_ids&.include?(food.id), disabled: disabled}, food.id, nil %></td>
 					<td><%= food.name %></td>
 					<td><%= food.calories %></td>
 					<td><%= food.protein %></td>

@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :user_notes
   has_many :time_cards
   has_many :daily_logs
+  has_many :food_groups
 
   accepts_nested_attributes_for :measurements
   # Include default devise modules. Others available are:

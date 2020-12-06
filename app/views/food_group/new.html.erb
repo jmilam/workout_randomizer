@@ -1,6 +1,6 @@
 <%= render "partials/alert" %>
 <%= form_for @food_group, url: food_group_index_path, method: :post do |f| %>
-	<%= render 'food_group_form', grouped_foods: @grouped_foods, f: f, food_group_pairings: [] %>
+	<%= render 'food_group_form', grouped_foods: @grouped_foods, f: f, food_group_pairings: [], disabled: @disabled %>
 	<%= render 'selected_food_table' %>
 
 	<%= f.submit "Create Food Pairings", class: 'btn boomslang-orange-background' %>

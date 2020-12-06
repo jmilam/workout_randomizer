@@ -72,6 +72,8 @@ Rails.application.routes.draw do
   get 'food/search', to: 'food#search'
   get 'food_group/add_meal', to: 'food_group#add_meal'
 
+  get 'meal/index', to: 'meal#index', as: 'meal'
+
   resources :profile
   resources :workout
   resources :exercise

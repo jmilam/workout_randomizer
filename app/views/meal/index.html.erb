@@ -1,0 +1,26 @@
+<div class="container">
+	<table class="table table-stripped">
+		<thead>
+			<tr>
+				<th>Meal Name</th>
+				<th />
+			</tr>
+		</thead>
+		<tbody>
+			<% @food_groups.each do |food_group| %>
+				<tr>
+					<td><%= food_group.name %></td>
+					<td>
+						<% if food_group.user_id == @user.id %>
+							<%= link_to "Edit", edit_food_group_path(food_group.id) %>
+						<% else %>
+							<%= link_to "View", '#' %>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+	<%= link_to "Create Food Pairings", new_food_group_path, class: 'profile-index-btn btn', style: 'opacity:0.8;' %>
+</div>

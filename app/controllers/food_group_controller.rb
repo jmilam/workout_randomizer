@@ -1,5 +1,14 @@
 class FoodGroupController < ApplicationController
-  layout 'nav'
+  layout :choose_layout
+
+  def choose_layout
+    if current_user.nutrition_only
+      "nutrition"
+    else
+      "application"
+    end
+  end
+
   def index
     @food_groups = current_user.gym.food_groups
   end
@@ -14,12 +23,14 @@ class FoodGroupController < ApplicationController
         total_fat: 0
       }
     end
+    @disabled = false
   end
 
   def edit
     @food_group = FoodGroup.includes(:food_group_pairings).find(params[:id])
     @food_ids = @food_group.food_group_pairings.pluck(:food_id)
     @grouped_foods = Food.where(created_by_user_id: nil).group_by(&:category)
+    @disabled = current_user.id != @food_group.user_id 
 
     @food_totals = @food_group.food_group_pairings.map do |pair|
       { total_calories: pair.serving_qty * pair.food.calories,
@@ -34,6 +45,7 @@ class FoodGroupController < ApplicationController
     begin
       @grouped_foods = Food.where(created_by_user_id: nil).group_by(&:category)
       @food_group = current_user.gym.food_groups.new(food_group_params)
+      @food_group.user = current_user
 
       raise "ERROR" if params[:food_group][:food_group_pairings].nil?
 
@@ -45,7 +57,7 @@ class FoodGroupController < ApplicationController
       @food_group.save!
 
       flash[:notice] = "Food Group #{@food_group.name} was successfully created."
-      redirect_to gym_path(current_user.gym.id)
+      redirect_to meal_path(current_user.gym.id)
     rescue ActiveRecord::RecordInvalid => error
       flash[:alert] = "There was an error when creating your food group: #{error}"
       render :new
